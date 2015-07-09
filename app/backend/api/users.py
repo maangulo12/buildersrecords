@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+
 """
-    app.api.users
+    app.backend.api.users
     ~~~~~~~~~~~~~
 
     Users endpoints
@@ -9,7 +10,7 @@
 from flask import Blueprint, jsonify
 
 
-users = Blueprint('users', __name__, url_prefix = '/api/users')
+users = Blueprint('users', __name__, url_prefix = '/users')
 
 
 @users.route('/', methods = ['GET'])

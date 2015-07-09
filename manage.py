@@ -8,7 +8,7 @@
     Manage module
 """
 
-from app.core import manager, db
+from app.backend.core import manager, db
 
 
 @manager.command

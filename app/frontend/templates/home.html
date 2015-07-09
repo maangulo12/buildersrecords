@@ -41,5 +41,11 @@
                 <h1> Flask-AngularJS </h1>
                 <p> Template for a Flask / AngularJS web application </p>
             </div>
+        </div>
+        <!-- Input -->
+        <div class="container">
+            <input type="text" ng-model="yourName" placeholder="Enter a name here">
+            <hr>
+            <h1> Hello {{ yourName }}! </h1>
         </div>{{ super() }}
     </body>{% endblock %}

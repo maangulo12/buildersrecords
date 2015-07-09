@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.models
-    ~~~~~~~~~~~~~~~~
+    app.backend.models
+    ~~~~~~~~~~~~~~~~~~
 
     Application models
 """
 
-from app.core import db
+from app.backend.core import db
 
 
 class User(db.Model):

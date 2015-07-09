@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.api
+    app.backend.api
     ~~~~~~~~~~~~~~~
 
     Application API package

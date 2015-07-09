@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.views
-    ~~~~~~~~~~~
+    app.backed.views
+    ~~~~~~~~~~~~~~~~
 
     Views module
 """
 
 from flask import *
 
-from app.core import app
+from app.backend.core import app
 
 
 @app.route('/')

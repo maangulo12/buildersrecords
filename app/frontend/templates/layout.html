@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app>
     <head>
       {% block head %}
         <!-- Bootstrap Meta -->
@@ -15,13 +15,13 @@
         <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
         <!-- CSS Styles -->
         <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-      {% endblock %}
-    </head>
-      {% block body %}
         <!-- JS Scripts -->
         <script src="{{ url_for('static', filename='js/ext/jquery-1.11.3.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/ext/bootstrap.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/ext/angular.min.js') }}"></script>
+      {% endblock %}
+    </head>
+      {% block body %}
         {% block scripts %}{% endblock %}
       {% endblock %}
 </html>
