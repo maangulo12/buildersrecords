@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.backend.settings
+    app.settings
     ~~~~~~~~~~~~~~~~~~~~
 
     Settings module

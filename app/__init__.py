@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.backend
-    ~~~~~~~~~~~~~~~
+    app
+    ~~~~~~~~~~~
 
-    Application backend package
+    Application package
 
     :copyright: (c) 2015 by Miguel Angulo
 """

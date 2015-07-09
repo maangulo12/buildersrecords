@@ -1,8 +1,26 @@
-{% extends "layout.html" %}
-{% block title %} Flask-AngularJS {% endblock %}
-{% block scripts %}{% endblock %}
-{% block body %}
-    <body class="body" style="padding-top: 50px;">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Bootstrap Meta -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Description | Author -->
+        <meta name="description" content="Flask-AngularJS">
+        <meta name="author" content="Miguel Angulo">
+        <!-- Title -->
+        <title> Flask-AngularJS </title>
+        <!-- Favicon -->
+        <link href="img/favicon.png" rel="icon">
+        <!-- CSS Styles -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- JS Scripts -->
+        <script src="js/ext/jquery-1.11.3.min.js"></script>
+        <script src="js/ext/bootstrap.min.js"></script>
+        <script src="js/ext/angular.min.js"></script>
+        <script src="js/app.js"></script>
+    </head>
+    <body class="body" style="padding-top: 50px;" ng-app="app" ng-controller="AppCtrl as app">
         <!-- Navigation Bar -->
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
@@ -42,10 +60,9 @@
                 <p> Template for a Flask / AngularJS web application </p>
             </div>
         </div>
-        <!-- Input -->
+        <!-- Message -->
         <div class="container">
-            <input type="text" ng-model="yourName" placeholder="Enter a name here">
-            <hr>
-            <h1> Hello {{ yourName }}! </h1>
-        </div>{{ super() }}
-    </body>{% endblock %}
+            <h3> {{ app.message }} </h3>
+        </div>
+    </body>
+</html>

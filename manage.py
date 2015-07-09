@@ -8,20 +8,22 @@
     Manage module
 """
 
-from app.backend.core import manager, db
+from flask.ext.migrate import MigrateCommand
 
+from app.core import manager, db
+
+
+manager.add_command('db', MigrateCommand)
 
 @manager.command
 def create():
     print('Creating all of the tables in the database...')
     db.create_all()
 
-
 @manager.command
 def drop():
     print('Dropping all of the tables from the database...')
     db.drop_all()
-
 
 if __name__ == "__main__":
     manager.run()
