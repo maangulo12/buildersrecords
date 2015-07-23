@@ -27,4 +27,9 @@ DB_PORT      = '5432'
 DB_NAME      = 'app_db'
 
 # Production DB URL
-DATABASE_URL =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' + DB_USERNAME + ':' + DB_PASSWORD + '@' + DB_SERVER + ':' + DB_PORT + '/' + DB_NAME)
+DATABASE_URL =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
+                                               DB_USERNAME + ':' +
+                                               DB_PASSWORD + '@' +
+                                               DB_SERVER + ':' +
+                                               DB_PORT + '/' +
+                                               DB_NAME)
