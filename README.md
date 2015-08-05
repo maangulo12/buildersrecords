@@ -26,7 +26,7 @@ It is recommended to run vagrant to use the Python interpreter and the PostgreSQ
 
     $ vagrant ssh
 
-#### 4. cd into synced folder:
+#### 4. cd into vagrant folder:
 
     $ cd /vagrant/
 
@@ -43,7 +43,8 @@ It is recommended to run vagrant to use the Python interpreter and the PostgreSQ
     Host: 127.0.0.1
     Port: 2222
     Username: vagrant
-    Authentication: Using primary key (located flask-angularjs/.vagrant/machines/default/virtualbox/primary_key)
+    Authentication: Using primary key
+      (located flask-angularjs/.vagrant/machines/default/virtualbox/primary_key)
     Python Interpreter Path: /usr/bin/python3
 
 #### PostgreSQL Database Server on VM

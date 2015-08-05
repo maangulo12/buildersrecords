@@ -8,11 +8,14 @@
     Manage module
 """
 
-from flask.ext.migrate import MigrateCommand
+from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.script import Manager
 
-from app.core import manager, db
+from app import app, db
 
 
+migrate = Migrate(app, db)
+manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 @manager.command

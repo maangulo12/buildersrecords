@@ -1,7 +1,5 @@
-var app = angular.module("app", []);
+var app = angular.module('app', []);
 
-app.controller("AppCtrl", function() {
-    var app = this;
-
-    app.message = "I'm running Flask and AngularJS!";
+app.controller('AppController', function ($scope) {
+    $scope.message = "I'm running Flask and AngularJS!";
 });

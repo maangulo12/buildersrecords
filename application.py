@@ -9,7 +9,7 @@
     :copyright: (c) 2015 by Miguel Angulo
 """
 
-from app.core import app
+from app import app
 from app.settings import SERVER_HOST, SERVER_PORT, DEBUG_FLAG
 
 

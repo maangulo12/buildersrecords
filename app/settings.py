@@ -4,12 +4,14 @@
     app.settings
     ~~~~~~~~~~~~~~~~~~~~
 
-    Settings module
+    Application settings module
 """
 
 import os
 
+from app import app
 
+######################## CONFIG VARS #########################
 # App Key
 SECRET_KEY   =  os.environ.get('SECRET_KEY', 'secret_key')
 
@@ -33,3 +35,10 @@ DATABASE_URL =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
                                                DB_SERVER + ':' +
                                                DB_PORT + '/' +
                                                DB_NAME)
+
+############################ END #############################
+
+app.config.update(
+    SECRET_KEY              = SECRET_KEY,
+    SQLALCHEMY_DATABASE_URI = DATABASE_URL,
+)
