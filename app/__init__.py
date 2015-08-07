@@ -15,19 +15,19 @@ from flask.ext.bcrypt import Bcrypt
 from flask.ext.restless import APIManager
 
 
-# App
+# Flask Application
 app = Flask(__name__, static_url_path = '')
 from app import settings
 from app import views
 
-# SQLAlchemy
+# Flask-SQLAlchemy
 db = SQLAlchemy(app)
 from app import models
 db.create_all()
 
-# Bcrypt
+# Flask-Bcrypt
 bcrypt = Bcrypt(app)
 
-# API Manager
+# Flask-Restless
 api_manager = APIManager(app, flask_sqlalchemy_db = db)
 from app import api

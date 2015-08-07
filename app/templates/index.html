@@ -15,9 +15,10 @@
         <!-- CSS Styles -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- JS Scripts -->
-        <script src="lib/jquery-1.11.3.min.js"></script>
-        <script src="lib/bootstrap.min.js"></script>
-        <script src="lib/angular.min.js"></script>
+        <script src="lib/jquery/jquery-1.11.3.min.js"></script>
+        <script src="lib/bootstrap/bootstrap.min.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/angular/angular-route.min.js"></script>
         <script src="js/app.js"></script>
     </head>
     <body class="body" style="padding-top: 50px;" ng-app="app">
@@ -34,7 +35,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <!-- Navigation Bar Brand -->
-                    <a class="navbar-brand" href="/"> Flask-AngularJS </a>
+                    <a class="navbar-brand" href="/#/"> Flask-AngularJS </a>
                 </div>
                 <!-- Navigation Bar List Items -->
                 <div class="collapse navbar-collapse">
@@ -64,8 +65,6 @@
             </div>
         </div>
         <!-- Placeholder for views -->
-        <div class="container" ng-controller="AppController">
-            {{ message }}
-        </div>
+        <div ng-view></div>
     </body>
 </html>
