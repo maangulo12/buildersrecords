@@ -5,5 +5,5 @@ controllers.controller('HomeController', function ($scope) {
 });
 
 controllers.controller('SignupController', function ($scope) {
-    
+
 });

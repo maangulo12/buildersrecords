@@ -1,14 +1,14 @@
-var app = angular.module('app', ['ngRoute', 'controllers']);
+var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'controllers']);
 
 app.config(function ($routeProvider) {
     $routeProvider
-	    .when('/', {
+        .when('/', {
             templateUrl: '../partials/home.html',
-		    controller: 'HomeController'
-	    })
+            controller: 'HomeController'
+        })
         .when('/signup', {
-		    templateUrl: '../partials/signup.html',
-		    controller: 'SignupController'
-	    })
+            templateUrl: '../partials/signup.html',
+            controller: 'SignupController'
+        })
         .otherwise({ redirectTo: '/' });
 });
