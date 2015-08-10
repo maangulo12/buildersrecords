@@ -6,7 +6,7 @@
 
     Application package
 
-    :copyright: (c) 2015 by Miguel Angulo
+    :copyright: (c) 2015
 """
 
 from flask import Flask
