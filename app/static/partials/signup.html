@@ -46,6 +46,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="well">
+
                 <!-- Form -->
                 <form name="signup_form" novalidate ng-submit="submitForm()">
                     <!-- First Name -->
@@ -99,132 +100,6 @@
                                 This field cannot be longer than 30 characters.
                             </h5>
                         </div>
-                    </div>
-                    <!-- Email -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.email.$dirty && signup_form.email.$invalid,
-                                                        'has-feedback': signup_form.email.$dirty && signup_form.email.$invalid }">
-                        <label class="control-label" for="email"> Email </label>
-                        <input type="email"
-                               class="form-control"
-                               name="email"
-                               placeholder="Email"
-                               ng-model="signup.email"
-                               required
-                               ng-maxlength=50>
-
-                        <span class="glyphicon glyphicon-remove form-control-feedback"
-                              ng-show="signup_form.email.$dirty && signup_form.email.$invalid"></span>
-
-                        <div ng-show="signup_form.email.$dirty && signup_form.email.$invalid">
-                            <h5 class="help-block"
-                                ng-show="signup_form.email.$error.required">
-                                This field is required.
-                            </h5>
-                            <h5 class="help-block"
-                                ng-show="signup_form.email.$error.maxlength">
-                                This field cannot be longer than 50 characters.
-                            </h5>
-                        </div>
-                    </div>
-                    <!-- Username -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.username.$dirty && signup_form.username.$invalid,
-                                                        'has-feedback': signup_form.username.$dirty && signup_form.username.$invalid }">
-                        <label class="control-label" for="username"> Username </label>
-                        <input type="text"
-                               class="form-control"
-                               name="username"
-                               placeholder="Username"
-                               ng-model="signup.username"
-                               required
-                               ng-maxlength=25>
-
-                        <span class="glyphicon glyphicon-remove form-control-feedback"
-                              ng-show="signup_form.username.$dirty && signup_form.username.$invalid"></span>
-
-                        <div ng-show="signup_form.username.$dirty && signup_form.username.$invalid">
-                            <h5 class="help-block"
-                                ng-show="signup_form.username.$error.required">
-                                This field is required.
-                            </h5>
-                            <h5 class="help-block"
-                                ng-show="signup_form.username.$error.maxlength">
-                                This field cannot be longer than 25 characters.
-                            </h5>
-                        </div>
-                    </div>
-                    <!-- Password Fields -->
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <!-- Password -->
-                            <div class="form-group" ng-class="{ 'has-error': signup_form.password.$dirty && signup_form.password.$invalid,
-                                                                'has-feedback': signup_form.password.$dirty && signup_form.password.$invalid }">
-                                <label class="control-label" for="password"> Password </label>
-                                <input type="password"
-                                       class="form-control"
-                                       name="password"
-                                       placeholder="Password"
-                                       ng-model="signup.password"
-                                       required
-                                       ng-maxlength=40>
-
-                                <span class="glyphicon glyphicon-remove form-control-feedback"
-                                      ng-show="signup_form.password.$dirty && signup_form.password.$invalid"></span>
-
-                                <div ng-show="signup_form.password.$dirty && signup_form.password.$invalid">
-                                    <h5 class="help-block"
-                                        ng-show="signup_form.password.$error.required">
-                                        This field is required.
-                                    </h5>
-                                    <h5 class="help-block"
-                                        ng-show="signup_form.password.$error.maxlength">
-                                        This field cannot be longer than 40 characters.
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <!-- Confirm Password -->
-                            <div class="form-group" ng-class="{ 'has-error': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid,
-                                                                'has-feedback': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid }">
-                                <label class="control-label" for="confirm_password"> Confirm Password </label>
-                                <input type="password"
-                                       class="form-control"
-                                       name="confirm_password"
-                                       placeholder="Confirm Password"
-                                       ng-model="signup.confirm_password"
-                                       required
-                                       ng-maxlength=40>
-
-                                <span class="glyphicon glyphicon-remove form-control-feedback"
-                                      ng-show="signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid"></span>
-
-                                <div ng-show="signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid">
-                                    <h5 class="help-block"
-                                        ng-show="signup_form.confirm_password.$error.required">
-                                        This field is required.
-                                    </h5>
-                                    <h5 class="help-block"
-                                        ng-show="signup_form.confirm_password.$error.maxlength">
-                                        This field cannot be longer than 40 characters.
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Disclaimer -->
-                    <div class="form-group text-center">
-                        <h5> By clicking on 'Create Account' below, you are agreeing to the
-                            <a data-toggle="modal" data-target="#terms_of_service_modal" tabindex="-1">
-                                <label> Terms of Service </label>
-                            </a> and the
-                            <a data-toggle="modal" data-target="#privacy_policy_modal" tabindex="-1">
-                                <label> Privacy Policy </label>
-                            </a>.
-                        </h5>
-                    </div>
-                    <!-- Submit -->
-                    <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary"> <b> Create Account </b> </button>
                     </div>
                 </form>
             </div>
