@@ -10,5 +10,9 @@ app.config(function ($routeProvider) {
             templateUrl: '../partials/signup.html',
             controller: 'SignupController'
         })
+        .when('/eimadForm', {
+            templateUrl: '../partials/eimadForm.html',
+            controller: 'EimadFormController'
+        })
         .otherwise({ redirectTo: '/' });
 });
