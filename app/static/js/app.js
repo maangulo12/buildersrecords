@@ -1,6 +1,6 @@
 var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'controllers']);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function ($routeProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '../partials/home.html',
@@ -15,6 +15,4 @@ app.config(function ($routeProvider, $locationProvider) {
             controller: 'EimadFormController'
         })
         .otherwise({ redirectTo: '/' });
-
-    $locationProvider.html5Mode(true);
 });
