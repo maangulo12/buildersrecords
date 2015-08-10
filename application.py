@@ -6,10 +6,7 @@
 
     Run this to deploy this application
 
-    :copyright: (c) 2015 by Miguel Angulo
-    hiiiii
-    TESTING
-    my turn
+    :copyright: (c) 2015
 """
 
 from app import app
