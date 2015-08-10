@@ -50,7 +50,8 @@
                 <!-- Form -->
                 <form name="signup_form" novalidate ng-submit="submitForm()">
                     <!-- First Name -->
-                    <div class="form-group">
+                    <div class="form-group" ng-class="{ 'has-error': signup_form.first_name.$dirty && signup_form.first_name.$invalid,
+                                                        'has-feedback': signup_form.first_name.$dirty && signup_form.first_name.$invalid }">
                         <label class="control-label" for="first_name"> First Name </label>
                         <input type="text"
                                class="form-control"
@@ -60,8 +61,10 @@
                                required
                                ng-maxlength=30>
 
-                        <div class="has-error"
-                             ng-show="signup_form.first_name.$dirty && signup_form.first_name.$invalid">
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-show="signup_form.first_name.$dirty && signup_form.first_name.$invalid"></span>
+
+                        <div ng-show="signup_form.first_name.$dirty && signup_form.first_name.$invalid">
                             <h5 class="help-block"
                                 ng-show="signup_form.first_name.$error.required">
                                 This field is required.
@@ -73,7 +76,8 @@
                         </div>
                     </div>
                     <!-- Last Name -->
-                    <div class="form-group has-error has-feedback">
+                    <div class="form-group" ng-class="{ 'has-error': signup_form.last_name.$dirty && signup_form.last_name.$invalid,
+                                                        'has-feedback': signup_form.last_name.$dirty && signup_form.last_name.$invalid }">
                         <label class="control-label" for="last_name"> Last Name </label>
                         <input type="text"
                                class="form-control"
@@ -83,7 +87,8 @@
                                required
                                ng-maxlength=30>
 
-                        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-show="signup_form.last_name.$dirty && signup_form.last_name.$invalid"></span>
 
                         <div ng-show="signup_form.last_name.$dirty && signup_form.last_name.$invalid">
                             <h5 class="help-block"
