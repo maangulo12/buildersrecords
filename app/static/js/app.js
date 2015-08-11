@@ -1,6 +1,6 @@
-var app = angular.module('app', ['ui.bootstrap', 'ngRoute', 'controllers']);
+var app = angular.module('app', ['ngRoute', 'controllers']);
 
-app.config(function ($routeProvider, $locationProvider) {
+app.config(function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: '../partials/home.html',
