@@ -13,6 +13,6 @@ from app import app
 
 # NEED TO FIX THIS: Catch all url routes in Flask (not catching all routes at the moment)
 @app.route('/', defaults = { 'path': '' })
-@app.route('/<path:path>')
+@app.route('/<path>')
 def index(path):
     return make_response(open('app/templates/index.html').read())
