@@ -14,14 +14,13 @@ controllers.controller('SignupController', function($scope, $http) {
         }
     );
 
-    // Post request: It Works!!!
     $scope.addUser = function() {
         $http.post('/api/users', {
-            username: 'mangulo',
-            pw_hash: 'password',
-            first_name: 'Miguel',
-            last_name: 'Angulo',
-            email: 'my_email@gmail.com'
+            username: $scope.signup.username,
+            pw_hash: $scope.signup.password,
+            first_name: $scope.signup.first_name,
+            last_name: $scope.signup.last_name,
+            email: $scope.signup.email
 
         }).then(function(response) {
             $scope.status_sent = response.status;
