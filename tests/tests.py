@@ -11,7 +11,7 @@ import unittest
 import json
 from flask import current_app
 
-from app import app, db, bcrypt
+from app import app, db
 
 
 class AppTestCase(unittest.TestCase):
@@ -46,7 +46,7 @@ class AppTestCase(unittest.TestCase):
         # POST /api/users (new user)
         response = self.client.post('/api/users', data = json.dumps({
             'username': 'mangulo',
-            'pw_hash': bcrypt.generate_password_hash('password'),
+            'pw_hash': 'password',
             'first_name': 'Miguel',
             'last_name': 'Angulo',
             'email': 'my_email@gmail.com'
@@ -60,7 +60,7 @@ class AppTestCase(unittest.TestCase):
         # PUT /api/users/<int: id> (id = 1)
         response = self.client.put('/api/users/1', data = json.dumps({
             'username': 'username',
-            'pw_hash': bcrypt.generate_password_hash('password'),
+            'pw_hash': 'password',
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'my_email@gmail.com'
