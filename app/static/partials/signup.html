@@ -200,9 +200,13 @@
                     </div>
                     <!-- Submit -->
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary" ng-click="addUser()"> <b> Create Account </b> </button>
+                        <button type="submit" class="btn btn-primary" ng-click="createAccount()"> <b> Create Account </b> </button>
                     </div>
                     Form = {{ signup | json }}
+                    <br><br><br>
+                    {{ msg }}
+                    <br><br><br>
+                    {{ status_sent }}
                 </form>
             </div>
         </div>
