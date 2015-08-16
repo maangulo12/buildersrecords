@@ -97,13 +97,20 @@
                                ng-model="signup.email"
                                required
                                ng-maxlength=50
-                               ng-model-options="{ debounce: 500 }">
+                               ng-model-options="{ debounce: 500 }"
+                               email-availability>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
                               ng-if="signup_form.email.$dirty && signup_form.email.$invalid"></span>
                         <div ng-messages="signup_form.email.$error"
                              ng-if="signup_form.email.$dirty && signup_form.email.$invalid">
                             <div ng-message="required" class="help-block"> This field is required. </div>
                             <div ng-message="maxlength" class="help-block"> This field cannot be longer than 50 characters. </div>
+                            <div ng-message="emailAvailability" class="help-block"> This email is already registered. </div>
+                        </div>
+                        <div ng-if="signup_form.email.$pending">
+                            <span class="help-block">
+                                Checking Email...
+                            </span>
                         </div>
                     </div>
                     <!-- Username Field -->
