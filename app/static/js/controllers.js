@@ -1,36 +1,35 @@
-var controllers = angular.module('controllers', []);
+angular.module('app.controllers', ['app.services'])
 
-controllers.controller('HomeController', function($scope) {
+.controller('HomeController', function($scope) {
     $scope.message = "I'm running Flask and AngularJS!";
-});
+})
 
-controllers.controller('SignupController', function($scope, $http) {
-    $http.get('/api/users')
-        .then(function(response) {
-            $scope.msg = response.data;
+.controller('SignupController', function(usersService, $scope) {
+    var promise = usersService.getAllUsers();
+    var success = function(response) {
+        $scope.msg = response.data;
+    };
+    var failure = function(response) {
+        $scope.msg = response.status;
+    };
+    promise.then(success, failure);
 
-        }, function(response) {
-            $scope.msg = response.status;
-        }
-    );
-
-    $scope.addUser = function() {
-        $http.post('/api/users', {
-            username: $scope.signup.username,
-            pw_hash: $scope.signup.password,
-            first_name: $scope.signup.first_name,
-            last_name: $scope.signup.last_name,
-            email: $scope.signup.email
-
-        }).then(function(response) {
+    $scope.createAccount = function() {
+        var promise = usersService.addUser($scope.signup.username,
+                                           $scope.signup.password,
+                                           $scope.signup.first_name,
+                                           $scope.signup.last_name,
+                                           $scope.signup.email);
+        var success = function(response) {
             $scope.status_sent = response.status;
-
-        }, function(response) {
+        };
+        var failure = function(response) {
             $scope.status_sent = response.status;
-        });
-    }
-});
+        };
+        promise.then(success, failure);
+    };
+})
 
-controllers.controller('EimadFormController', function($scope) {
+.controller('EimadFormController', function($scope) {
 
 });
