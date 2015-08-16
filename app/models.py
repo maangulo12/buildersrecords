@@ -7,7 +7,7 @@
     Application models
 """
 
-from app import db
+from app import db, bcrypt
 
 
 class User(db.Model):
@@ -18,7 +18,15 @@ class User(db.Model):
     first_name = db.Column(db.String(30), nullable = False)
     last_name  = db.Column(db.String(30), nullable = False)
     email      = db.Column(db.String(50), nullable = False, unique = True)
+
     projects = db.relationship('Project', backref = 'users')
+
+    def __init__(self, username, pw_hash, first_name, last_name, email):
+        self.username   = username
+        self.pw_hash    = bcrypt.generate_password_hash(pw_hash)
+        self.first_name = first_name
+        self.last_name  = last_name
+        self.email      = email
 
 
 class Project(db.Model):
@@ -27,6 +35,7 @@ class Project(db.Model):
     project_name = db.Column(db.String(50), nullable = False)
     project_type = db.Column(db.String(30), nullable = False)
     user_id      = db.Column(db.Integer, db.ForeignKey('users.id'))
+
     categories = db.relationship('Category', backref = 'projects')
 
 
@@ -35,6 +44,7 @@ class Category(db.Model):
     id            = db.Column(db.Integer,    primary_key = True)
     category_name = db.Column(db.String(50), nullable = False)
     project_id    = db.Column(db.Integer, db.ForeignKey('projects.id'))
+
     items = db.relationship('Item', backref = 'categories')
 
 
@@ -46,4 +56,5 @@ class Item(db.Model):
     budget      = db.Column(db.Numeric(11,2), nullable = False)
     actual      = db.Column(db.Numeric(11,2), nullable = False)
     notes       = db.Column(db.String(80),    nullable = False)
+
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
