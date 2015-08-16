@@ -27,7 +27,6 @@ app.directive('usernameAvailability', function($http, $q) {
 
                 var promise = $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
 
-                // Success function
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('usernameAvailability', true);
@@ -37,9 +36,36 @@ app.directive('usernameAvailability', function($http, $q) {
                         return $q.reject(response);
                     }
                 }
-                // Failure function
                 var failure = function(response) {
                     ctrl.$setValidity('usernameAvailability', false);
+                    return $q.reject(response);
+                }
+
+                return promise.then(success, failure);
+            };
+        }
+    }
+});
+
+app.directive('emailAvailability', function($http, $q) {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attrs, ctrl) {
+            ctrl.$asyncValidators.emailAvailability = function(email) {
+
+                var promise = $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
+
+                var success = function(response) {
+                    if (response.data.num_results == 0) {
+                        ctrl.$setValidity('emailAvailability', true);
+                    }
+                    else {
+                        ctrl.$setValidity('emailAvailability', false);
+                        return $q.reject(response);
+                    }
+                }
+                var failure = function(response) {
+                    ctrl.$setValidity('emailAvailability', false);
                     return $q.reject(response);
                 }
 
