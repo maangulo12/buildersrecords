@@ -176,13 +176,16 @@
                                        placeholder="Confirm Password"
                                        ng-model="signup.confirm_password"
                                        required
-                                       ng-maxlength=40>
+                                       ng-maxlength=40
+                                       ui-validate="'$value==signup.password'"
+                                       ui-validate-watch="'signup.password'">
                                 <span class="glyphicon glyphicon-remove form-control-feedback"
                                       ng-if="signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid"></span>
                                 <div ng-messages="signup_form.confirm_password.$error"
                                      ng-if="signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid">
                                     <div ng-message="required" class="help-block"> This field is required. </div>
                                     <div ng-message="maxlength" class="help-block"> This field cannot be longer than 40 characters. </div>
+                                    <div ng-message="validator" class="help-block"> Passwords do not match. </div>
                                 </div>
                             </div>
                         </div>
