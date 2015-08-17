@@ -7,7 +7,7 @@
 
     Manage module for this application
 
-    -Instructions:
+    -How to:
         python3 manage.py (command)
         ex: python3 manage.py runserver
 
