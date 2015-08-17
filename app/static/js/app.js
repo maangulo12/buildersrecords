@@ -1,5 +1,6 @@
 angular.module('app', ['ngRoute',
                        'ngMessages',
+                       'ui.validate',
                        'app.controllers',
                        'app.directives'])
 
