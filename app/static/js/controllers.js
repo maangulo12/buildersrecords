@@ -5,15 +5,6 @@ angular.module('app.controllers', ['app.services'])
 })
 
 .controller('SignupController', function(usersService, $scope) {
-    var promise = usersService.getAllUsers();
-    var success = function(response) {
-        $scope.msg = response.data;
-    };
-    var failure = function(response) {
-        $scope.msg = response.status;
-    };
-    promise.then(success, failure);
-
     $scope.createAccount = function() {
         var promise = usersService.addUser($scope.signup.username,
                                            $scope.signup.password,
@@ -22,9 +13,13 @@ angular.module('app.controllers', ['app.services'])
                                            $scope.signup.email);
         var success = function(response) {
             $scope.status_sent = response.status;
+
+            // Need to redirect here to user home page
         };
         var failure = function(response) {
             $scope.status_sent = response.status;
+
+            // Display alert here using ui.bootstrap extension
         };
         promise.then(success, failure);
     };
