@@ -227,13 +227,8 @@
                     </div>
                     <!-- Submit -->
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary"> <b> Create Account </b> </button>
+                        <button type="submit" class="btn btn-primary" ng-click="signup_form.$valid && createAccount()"> <b> Create Account </b> </button>
                     </div>
-                    Form = {{ signup | json }}
-                    <br><br><br>
-                    Data = {{ msg }}
-                    <br><br><br>
-                    Status = {{ status_sent }}
                 </form>
             </div>
         </div>
