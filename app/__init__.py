@@ -17,7 +17,7 @@ from flask.ext.restless import APIManager
 
 # Flask Application
 app = Flask(__name__, static_url_path = '')
-from app import settings
+app.config.from_pyfile('settings.py')
 from app import views
 
 # Flask-Bcrypt
