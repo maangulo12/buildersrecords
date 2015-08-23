@@ -9,10 +9,7 @@
 
 import os
 
-from app import app
-
-######################## CONFIG VARS #########################
-# App Key
+# Application Settings
 SECRET_KEY   =  os.environ.get('SECRET_KEY', 'secret_key')
 
 # WSGI Server
@@ -29,16 +26,9 @@ DB_PORT      = '5432'
 DB_NAME      = 'app_db'
 
 # Production DB URL
-DATABASE_URL =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
-                                               DB_USERNAME + ':' +
-                                               DB_PASSWORD + '@' +
-                                               DB_SERVER + ':' +
-                                               DB_PORT + '/' +
-                                               DB_NAME)
-
-############################ END #############################
-
-app.config.update(
-    SECRET_KEY              = SECRET_KEY,
-    SQLALCHEMY_DATABASE_URI = DATABASE_URL,
-)
+SQLALCHEMY_DATABASE_URI =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
+                                                          DB_USERNAME + ':' +
+                                                          DB_PASSWORD + '@' +
+                                                          DB_SERVER + ':' +
+                                                          DB_PORT + '/' +
+                                                          DB_NAME)
