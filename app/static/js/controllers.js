@@ -1,10 +1,24 @@
 angular.module('app.controllers', ['app.services'])
 
-.controller('HomeController', function($scope) {
-    $scope.message = "I'm running Flask and AngularJS!";
+.controller('HomeController', function($scope, $location) {
+    $scope.redirectToSignup = function() {
+        $location.path('/signup');
+    };
+
+    $scope.redirectToLogin = function() {
+        $location.path('/login');
+    };
 })
 
-.controller('SignupController', function(usersService, $scope) {
+.controller('SignupController', function(usersService, $scope, $location) {
+    $scope.redirectToSignup = function() {
+        $location.path('/signup');
+    };
+
+    $scope.redirectToLogin = function() {
+        $location.path('/login');
+    };
+
     $scope.createAccount = function() {
         var promise = usersService.addUser($scope.signup.username,
                                            $scope.signup.password,
@@ -13,13 +27,10 @@ angular.module('app.controllers', ['app.services'])
                                            $scope.signup.email);
         var success = function(response) {
             $scope.status_sent = response.status;
-
-            // Need to redirect here to user home page
+            $location.path('/userhome');
         };
         var failure = function(response) {
             $scope.status_sent = response.status;
-
-            // Display alert here using ui.bootstrap extension
         };
         promise.then(success, failure);
     };
