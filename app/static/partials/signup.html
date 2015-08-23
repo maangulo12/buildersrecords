@@ -1,5 +1,5 @@
 <!-- Navigation Bar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
     <div class="container">
         <!-- Navigation Bar Header -->
         <div class="navbar-header">
@@ -18,13 +18,13 @@
             <ul class="nav navbar-nav navbar-right">
                 <li style="padding-left: 0.75em;">
                     <button id="signup_button" type="button" class="btn btn-success navbar-btn active"
-                            style="width: 6em">
+                            style="width: 6em" ng-click="redirectToSignup()">
                         <b> Sign Up </b>
                     </button>
                 </li>
                 <li style="padding-left: 0.75em;">
                     <button id="login_button" type="button" class="btn btn-info navbar-btn"
-                            style="width: 6em">
+                            style="width: 6em" ng-click="redirectToLogin()">
                         <b> Log In </b>
                     </button>
                 </li>
@@ -46,6 +46,16 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="well">
+                <!-- Alert -->
+                <div id="alert" class="alert alert-danger alert-dismissible text-center" role="alert"
+                     ng-if="signup_form.$invalid && signup_form.$submitted">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button> <b> There were problems creating your account. </b>
+                </div>
+
                 <!-- Form -->
                 <form name="signup_form" novalidate>
                     <!-- First Name Field -->
