@@ -80,4 +80,13 @@
       text-align: right;
       margin-right : 20px; }
 
+.top_padding {
+  padding-top: 60px; }
+
+.padding {
+  padding-left: 0.75em; }
+
+li button {
+  width: 6em; }
+
 /*# sourceMappingURL=theme.css.map */
