@@ -12,7 +12,8 @@
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.restless import APIManager
+from flask_restful import Api
+from flask_httpauth import HTTPBasicAuth
 
 
 # Flask Application
@@ -28,6 +29,9 @@ db = SQLAlchemy(app)
 from app import models
 db.create_all()
 
-# Flask-Restless
-api_manager = APIManager(app, flask_sqlalchemy_db = db)
+# Flask-RESTful
+api_manager = Api(app)
 from app import api
+
+# Flask-HTTPAuth
+auth = HTTPBasicAuth()
