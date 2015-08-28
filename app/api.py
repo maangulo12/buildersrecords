@@ -6,11 +6,14 @@
     API module
 """
 
+from flask_restful import Resource
+
 from app import api_manager
 from app.models import User, Project, Category, Item
 
 
-api_manager.create_api(User, methods = ['GET', 'POST', 'DELETE', 'PUT'])
-api_manager.create_api(Project, methods = ['GET', 'POST', 'DELETE', 'PUT'])
-api_manager.create_api(Category, methods = ['GET', 'POST', 'DELETE', 'PUT'])
-api_manager.create_api(Item, methods = ['GET', 'POST', 'DELETE', 'PUT'])
+class HelloWorld(Resource):
+    def get(self):
+        return {'hello': 'world'}
+
+api_manager.add_resource(HelloWorld, '/api/helloworld')
