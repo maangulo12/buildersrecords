@@ -28,6 +28,9 @@ class User(db.Model):
         self.last_name  = last_name
         self.email      = email
 
+    def password_match(self, password):
+        return bcrypt.check_password_hash(self.pw_hash, password)
+
 
 class Project(db.Model):
     __tablename__ = 'projects'
