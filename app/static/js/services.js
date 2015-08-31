@@ -16,7 +16,7 @@ angular.module('app.services', [])
     this.addUser = function(username, password, first_name, last_name, email) {
         return $http.post('/api/users', {
             username: username,
-            pw_hash: password,
+            password: password,
             first_name: first_name,
             last_name: last_name,
             email: email

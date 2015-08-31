@@ -14,21 +14,24 @@ class User(db.Model):
     __tablename__ = 'users'
     id         = db.Column(db.Integer,    primary_key = True)
     username   = db.Column(db.String(25), nullable = False, unique = True)
-    pw_hash    = db.Column(db.String(60), nullable = False)
+    password   = db.Column(db.String(60), nullable = False)
     first_name = db.Column(db.String(30), nullable = False)
     last_name  = db.Column(db.String(30), nullable = False)
     email      = db.Column(db.String(50), nullable = False, unique = True)
 
     projects = db.relationship('Project', backref = 'users')
 
-    def __init__(self, username, pw_hash, first_name, last_name, email):
+    def __init__(self, username, password, first_name, last_name, email):
         self.username   = username
-        self.pw_hash    = bcrypt.generate_password_hash(pw_hash)
+        self.password   = bcrypt.generate_password_hash(password)
         self.first_name = first_name
         self.last_name  = last_name
         self.email      = email
 
-    def password_match(self, password):
+    # def as_dict(self):
+        # return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def check_password(self, password):
         return bcrypt.check_password_hash(self.pw_hash, password)
 
 
