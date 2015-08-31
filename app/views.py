@@ -16,3 +16,5 @@ from app import app
 @app.route('/<path>')
 def index(path):
     return make_response(open('app/templates/index.html').read())
+
+# NEED TO ADD ERROR VIEWS
