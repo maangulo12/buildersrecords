@@ -7,34 +7,22 @@
     API module
 """
 
-from flask_restful import Resource, fields, marshal_with
+from flask import request, jsonify
 
-from app import api_manager
+from app import app
 from app.models import User
 
 
-resource_fields = {
-    'username':   fields.String,
-    'password':   fields.String,
-    'first_name': fields.String,
-    'last_name':  fields.String,
-    'email':      fields.String
-}
+@app.route('/api/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
+def users():
+    if request.method == 'GET':
+        return jsonify({'hello': 'helloworld'})
 
+    if request.method == 'POST':
+        return jsonify({'hello': 'helloworld'})
 
-class Users(Resource):
-    @marshal_with(resource_fields)
-    def get(self, **kwargs):
-        list_obj = []
-        data = {
-            'num_results': len(list_obj),
-            'objects': list_obj
-        }
-        for user in User.query.all():
-            data = {
-                'num_results': len(list_obj),
-                'objects': list_obj.append(user.as_dict())
-            }
-        return data
+    if request.method == 'PUT':
+        return jsonify({'hello': 'helloworld'})
 
-api_manager.add_resource(Users, '/api/users')
+    if request.method == 'DELETE':
+        return jsonify({'hello': 'helloworld'})
