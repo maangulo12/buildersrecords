@@ -31,7 +31,7 @@ class AppTestCase(unittest.TestCase):
         self.assertFalse(current_app is None)
 
     def test_404(self):
-        response = self.client.get('/wrong_url')
+        response = self.client.get('/wrong_url/bad')
         self.assertFalse(response.status_code is 404)
 
     def test_home_page(self):
@@ -46,7 +46,7 @@ class AppTestCase(unittest.TestCase):
         # POST /api/users (new user)
         response = self.client.post('/api/users', data = json.dumps({
             'username': 'mangulo',
-            'pw_hash': 'password',
+            'password': 'password',
             'first_name': 'Miguel',
             'last_name': 'Angulo',
             'email': 'my_email@gmail.com'
@@ -60,7 +60,7 @@ class AppTestCase(unittest.TestCase):
         # PUT /api/users/<int: id> (id = 1)
         response = self.client.put('/api/users/1', data = json.dumps({
             'username': 'username',
-            'pw_hash': 'password',
+            'password': 'password',
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'my_email@gmail.com'
