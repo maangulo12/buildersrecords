@@ -17,12 +17,12 @@
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <button type="button" class="btn btn-success navbar-btn active"ng-click="redirectToSignup()">
+                    <button type="button" class="btn btn-success navbar-btn active" ng-click="redirectToSignup()">
                         <b> Sign Up </b>
                     </button>
                 </li>
-                <li style="padding">
-                    <button type="button" class="btn btn-info navbar-btn"ng-click="redirectToLogin()">
+                <li class="padding">
+                    <button type="button" class="btn btn-info navbar-btn" ng-click="redirectToLogin()">
                         <b> Log In </b>
                     </button>
                 </li>
@@ -57,10 +57,11 @@
                 <!-- Form -->
                 <form name="signup_form" novalidate>
                     <!-- First Name Field -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.first_name.$dirty && signup_form.first_name.$invalid ||
-                                                                     signup_form.$submitted && signup_form.first_name.$invalid,
-                                                        'has-feedback': signup_form.first_name.$dirty && signup_form.first_name.$invalid ||
-                                                                        signup_form.$submitted && signup_form.first_name.$invalid }">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': signup_form.first_name.$dirty && signup_form.first_name.$invalid ||
+                                                  signup_form.$submitted && signup_form.first_name.$invalid,
+                                     'has-feedback': signup_form.first_name.$dirty && signup_form.first_name.$invalid ||
+                                                     signup_form.$submitted && signup_form.first_name.$invalid }">
                         <label class="control-label" for="first_name"> First Name </label>
                         <input class="form-control"
                                name="first_name"
@@ -80,10 +81,11 @@
                         </div>
                     </div>
                     <!-- Last Name Field -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.last_name.$dirty && signup_form.last_name.$invalid ||
-                                                                     signup_form.$submitted && signup_form.last_name.$invalid,
-                                                        'has-feedback': signup_form.last_name.$dirty && signup_form.last_name.$invalid ||
-                                                                        signup_form.$submitted && signup_form.last_name.$invalid }">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': signup_form.last_name.$dirty && signup_form.last_name.$invalid ||
+                                                  signup_form.$submitted && signup_form.last_name.$invalid,
+                                     'has-feedback': signup_form.last_name.$dirty && signup_form.last_name.$invalid ||
+                                                     signup_form.$submitted && signup_form.last_name.$invalid }">
                         <label class="control-label" for="last_name"> Last Name </label>
                         <input class="form-control"
                                name="last_name"
@@ -103,10 +105,11 @@
                         </div>
                     </div>
                     <!-- Email Field -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.email.$dirty && signup_form.email.$invalid ||
-                                                                     signup_form.$submitted && signup_form.email.$invalid,
-                                                        'has-feedback': signup_form.email.$dirty && signup_form.email.$invalid ||
-                                                                        signup_form.$submitted && signup_form.email.$invalid }">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': signup_form.email.$dirty && signup_form.email.$invalid ||
+                                                  signup_form.$submitted && signup_form.email.$invalid,
+                                     'has-feedback': signup_form.email.$dirty && signup_form.email.$invalid ||
+                                                     signup_form.$submitted && signup_form.email.$invalid }">
                         <label class="control-label" for="email"> Email </label>
                         <input class="form-control"
                                name="email"
@@ -134,10 +137,11 @@
                         </div>
                     </div>
                     <!-- Username Field -->
-                    <div class="form-group" ng-class="{ 'has-error': signup_form.username.$dirty && signup_form.username.$invalid ||
-                                                                     signup_form.$submitted && signup_form.username.$invalid,
-                                                        'has-feedback': signup_form.username.$dirty && signup_form.username.$invalid ||
-                                                                        signup_form.$submitted && signup_form.username.$invalid }">
+                    <div class="form-group"
+                         ng-class="{ 'has-error': signup_form.username.$dirty && signup_form.username.$invalid ||
+                                                  signup_form.$submitted && signup_form.username.$invalid,
+                                     'has-feedback': signup_form.username.$dirty && signup_form.username.$invalid ||
+                                                     signup_form.$submitted && signup_form.username.$invalid }">
                         <label class="control-label" for="username"> Username </label>
                         <input class="form-control"
                                name="username"
@@ -170,10 +174,11 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <!-- Password Field -->
-                            <div class="form-group" ng-class="{ 'has-error': signup_form.password.$dirty && signup_form.password.$invalid ||
-                                                                             signup_form.$submitted && signup_form.password.$invalid,
-                                                                'has-feedback': signup_form.password.$dirty && signup_form.password.$invalid ||
-                                                                                signup_form.$submitted && signup_form.password.$invalid }">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': signup_form.password.$dirty && signup_form.password.$invalid ||
+                                                          signup_form.$submitted && signup_form.password.$invalid,
+                                             'has-feedback': signup_form.password.$dirty && signup_form.password.$invalid ||
+                                                             signup_form.$submitted && signup_form.password.$invalid }">
                                 <label class="control-label" for="password"> Password </label>
                                 <input class="form-control"
                                        name="password"
@@ -195,10 +200,11 @@
                         </div>
                         <div class="col-sm-6">
                             <!-- Confirm Password Field -->
-                            <div class="form-group" ng-class="{ 'has-error': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid ||
-                                                                             signup_form.$submitted && signup_form.confirm_password.$invalid,
-                                                                'has-feedback': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid ||
-                                                                                signup_form.$submitted && signup_form.confirm_password.$invalid }">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid ||
+                                                          signup_form.$submitted && signup_form.confirm_password.$invalid,
+                                             'has-feedback': signup_form.confirm_password.$dirty && signup_form.confirm_password.$invalid ||
+                                                             signup_form.$submitted && signup_form.confirm_password.$invalid }">
                                 <label class="control-label" for="confirm_password"> Confirm Password </label>
                                 <input class="form-control"
                                        name="confirm_password"
