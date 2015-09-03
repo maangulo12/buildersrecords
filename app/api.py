@@ -15,6 +15,7 @@ from app.models import User
 
 
 @app.route('/api/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
+@auth.login_required
 def users():
     if request.method == 'GET':
         list_obj = []
