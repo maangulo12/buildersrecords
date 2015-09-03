@@ -12,6 +12,8 @@
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask_jwt import JWT
+from flask.ext.restless import APIManager
 
 
 # Flask Application
@@ -24,8 +26,14 @@ bcrypt = Bcrypt(app)
 # Flask-SQLAlchemy
 db = SQLAlchemy(app)
 
+# Flask-JWT
+jwt = JWT(app)
+
+# Flask-Restless
+api_manager = APIManager(app, flask_sqlalchemy_db = db)
+
 # App Modules
 from app import models
-from app import auth
+from app import jwt
 from app import api
 from app import views
