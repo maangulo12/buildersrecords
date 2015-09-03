@@ -14,7 +14,7 @@ Vagrant.configure(2) do |config|
     config.vm.network :forwarded_port, guest: 5555, host: 5555
 end
 
-$environ = "flask-angularjs-env"
+$environ = "buildersrecords"
 $shell = <<-CONTENTS
 sudo -s
 export DEBIAN_FRONTEND=noninteractive

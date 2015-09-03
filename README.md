@@ -1,6 +1,6 @@
-# Flask-AngularJS
+# BuildersRecords
 
-Template for a Flask / AngularJS web application
+Web app for budgeting home construction projects.
 
 ## Recommended to run with Vagrant
 
@@ -15,8 +15,8 @@ It is recommended to run vagrant to use the Python interpreter and the PostgreSQ
 
 #### 1. Clone the project:
 
-    $ git clone git@github.com:maangulo12/flask-angularjs.git
-    $ cd flask-angularjs
+    $ git clone git@github.com:maangulo12/buildersrecords.git
+    $ cd buildersrecords
 
 #### 2. Run vagrant:
 
@@ -44,7 +44,7 @@ It is recommended to run vagrant to use the Python interpreter and the PostgreSQ
     Port: 2222
     Username: vagrant
     Authentication: Using primary key
-      (located flask-angularjs/.vagrant/machines/default/virtualbox/primary_key)
+      (located buildersrecords/.vagrant/machines/default/virtualbox/primary_key)
     Python Interpreter Path: /usr/bin/python3
 
 #### PostgreSQL Database Server on VM
