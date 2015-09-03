@@ -16,10 +16,27 @@ from app.models import User
 @app.route('/api/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
 def users():
     if request.method == 'GET':
-        return jsonify({'hello': 'helloworld'})
+        list_obj = []
+        data = {
+            'num_results': len(list_obj),
+            'objects': list_obj
+        }
+        for user in User.query.all():
+            data = {
+                'num_results': len(user),
+                'objects': list_obj.append(user.as_dict())
+            }
+        return jsonify(data)
 
     if request.method == 'POST':
-        return jsonify({'hello': 'helloworld'})
+        user = User(request.args.get('username'),
+                    request.args.get('password'),
+                    request.args.get('first_name'),
+                    request.args.get('last_name'),
+                    request.args.get('email'))
+        db.session.add(me)
+        db.session.commit()
+        return jsonify({'msg': 'ADDED'})
 
     if request.method == 'PUT':
         return jsonify({'hello': 'helloworld'})
