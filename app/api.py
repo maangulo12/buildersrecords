@@ -7,9 +7,10 @@
     API module
 """
 
-from flask import request, jsonify
+from flask import request, jsonify, g
 
-from app import app, auth
+from app import app
+from app.auth import auth
 from app.models import User
 
 
@@ -47,4 +48,4 @@ def users():
 @app.route('/api/resource')
 @auth.login_required
 def get_resource():
-    return jsonify({ 'data': 'Hello, %s!' % g.user.username })
+    return jsonify({ 'data': 'Hello, %s!' % g.admin.username })

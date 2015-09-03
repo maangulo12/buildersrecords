@@ -12,7 +12,6 @@
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
-from flask_httpauth import HTTPBasicAuth
 
 
 # Flask Application
@@ -24,9 +23,6 @@ bcrypt = Bcrypt(app)
 
 # Flask-SQLAlchemy
 db = SQLAlchemy(app)
-
-# Flask-HTTPAuth
-auth = HTTPBasicAuth()
 
 # App Modules
 from app import models

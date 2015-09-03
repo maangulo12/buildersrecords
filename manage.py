@@ -12,6 +12,7 @@
         ex: python3 manage.py runserver
 
     -Commands:
+        add_admin : Adds default admin to the database.
         create_db : Creates all of the tables in the database.
         drop_db   : Drops all of the tables from the database.
         runserver : Runs this Flask application.
@@ -25,12 +26,22 @@ from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
 from app import app, db
-from app.settings import SERVER_HOST, SERVER_PORT, DEBUG_FLAG
+from app.models import Admin
+from app.settings import SERVER_HOST, SERVER_PORT, DEBUG_FLAG, ADMIN_USER, ADMIN_PASSWORD
 
 
 migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
+
+
+@manager.command
+def add_admin():
+    "Adds default admin to the database."
+    print('Adding default admin to the database...')
+    admin = Admin(ADMIN_USER, ADMIN_PASSWORD)
+    db.session.add(admin)
+    db.session.commit()
 
 @manager.command
 def create_db():

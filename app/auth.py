@@ -8,15 +8,16 @@
 """
 
 from flask import g
+from flask_httpauth import HTTPBasicAuth
 
-from app import auth
-from app.models import User
+from app.models import Admin
 
+# Flask-HTTPAuth
+auth = HTTPBasicAuth()
 
 @auth.verify_password
 def verify_password(username, password):
-    user = User.query.filter_by(username = username).first()
-    if not user or not user.check_password(password):
+    g.admin = Admin.query.filter_by(username = username).first()
+    if g.admin is None:
         return False
-    g.user = user
-    return True
+    return g.admin.check_password(password)
