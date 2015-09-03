@@ -9,7 +9,7 @@
 
 from flask import request, jsonify
 
-from app import app
+from app import app, auth
 from app.models import User
 
 
@@ -43,3 +43,8 @@ def users():
 
     if request.method == 'DELETE':
         return jsonify({'hello': 'helloworld'})
+
+@app.route('/api/resource')
+@auth.login_required
+def get_resource():
+    return jsonify({ 'data': 'Hello, %s!' % g.user.username })

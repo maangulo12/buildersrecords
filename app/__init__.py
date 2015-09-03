@@ -30,5 +30,6 @@ auth = HTTPBasicAuth()
 
 # App Modules
 from app import models
+from app import auth
 from app import api
 from app import views
