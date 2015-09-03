@@ -7,46 +7,31 @@
     API module
 """
 
-from flask import request, jsonify, g
-
-from app import app
-from app.auth import auth
-from app.models import User
+from app import api_manager
+from app.jwt import auth_func
+from app.models import User, Project, Category, Item
 
 
-@app.route('/api/users', methods=['GET', 'POST', 'PUT', 'DELETE'])
-@auth.login_required
-def users():
-    if request.method == 'GET':
-        list_obj = []
-        data = {
-            'num_results': len(list_obj),
-            'objects': list_obj
-        }
-        for user in User.query.all():
-            data = {
-                'num_results': len(user),
-                'objects': list_obj.append(user.as_dict())
-            }
-        return jsonify(data)
+api_manager.create_api(User,
+    methods         = ['GET', 'POST', 'DELETE', 'PUT'],
+    url_prefix      = '/api',
+    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    collection_name = 'users')
 
-    if request.method == 'POST':
-        user = User(request.args.get('username'),
-                    request.args.get('password'),
-                    request.args.get('first_name'),
-                    request.args.get('last_name'),
-                    request.args.get('email'))
-        db.session.add(me)
-        db.session.commit()
-        return jsonify({'msg': 'ADDED'})
+api_manager.create_api(Project,
+    methods         = ['GET', 'POST', 'DELETE', 'PUT'],
+    url_prefix      = '/api',
+    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    collection_name = 'projects')
 
-    if request.method == 'PUT':
-        return jsonify({'hello': 'helloworld'})
+api_manager.create_api(Category,
+    methods         = ['GET', 'POST', 'DELETE', 'PUT'],
+    url_prefix      = '/api',
+    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    collection_name = 'categories')
 
-    if request.method == 'DELETE':
-        return jsonify({'hello': 'helloworld'})
-
-@app.route('/api/resource')
-@auth.login_required
-def get_resource():
-    return jsonify({ 'data': 'Hello, %s!' % g.admin.username })
+api_manager.create_api(Item,
+    methods         = ['GET', 'POST', 'DELETE', 'PUT'],
+    url_prefix      = '/api',
+    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    collection_name = 'items')
