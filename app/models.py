@@ -28,6 +28,9 @@ class User(db.Model):
         self.last_name  = last_name
         self.email      = email
 
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
     def check_password(self, password):
         return bcrypt.check_password_hash(self.pw_hash, password)
 
