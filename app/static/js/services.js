@@ -1,5 +1,15 @@
 angular.module('app.services', [])
 
+.service('authService', function($http) {
+    this.authenticate = function() {
+        console.log('POSTING TO AUTH');
+        return $http.post('/auth', {
+            username: 'angular',
+            password: 'pass'
+        });
+    }
+})
+
 .service('usersService', function($http) {
     this.isUsernameUnique = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
