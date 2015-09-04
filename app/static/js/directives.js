@@ -13,7 +13,7 @@ angular.module('app.directives', ['app.services'])
                     }
                     else {
                         ctrl.$setValidity('usernameAvailability', false);
-                        return $q.reject(response);
+                        return response;
                     }
                 };
                 var failure = function(response) {
@@ -39,7 +39,7 @@ angular.module('app.directives', ['app.services'])
                     }
                     else {
                         ctrl.$setValidity('emailAvailability', false);
-                        return $q.reject(response);
+                        return response;
                     }
                 };
                 var failure = function(response) {
