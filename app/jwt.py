@@ -19,13 +19,13 @@ class User(object):
 
 @jwt.authentication_handler
 def authenticate(username, password):
-    if username == 'joe' and password == 'pass':
-        return User(id=1, username='joe')
+    if username == 'angular' and password == 'pass':
+        return User(id = 1, username = 'angular')
 
 @jwt.user_handler
 def load_user(payload):
     if payload['user_id'] == 1:
-        return User(id=1, username='joe')
+        return User(id = 1, username = 'angular')
 
 @jwt_required()
 def auth_func(**kw):
