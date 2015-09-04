@@ -1,6 +1,6 @@
 angular.module('app.controllers', ['app.services'])
 
-.controller('HomeController', function($scope, $location) {
+.controller('HomeController', function(authService, $scope, $location) {
     $scope.redirectToSignup = function() {
         $location.path('/signup');
     };
@@ -8,6 +8,18 @@ angular.module('app.controllers', ['app.services'])
     $scope.redirectToLogin = function() {
         $location.path('/login');
     };
+
+    console.log('RUNNING HOME CONTROLLER');
+
+    var promise = authService.authenticate();
+    var success = function(response) {
+        console.log(response.data.token);
+        // add token
+    };
+    var failure = function(response) {
+        // delete token
+    };
+    promise.then(success, failure);
 })
 
 .controller('SignupController', function(usersService, $scope, $location) {
