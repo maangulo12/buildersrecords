@@ -15,7 +15,11 @@ from app.models import User, Project, Category, Item
 api_manager.create_api(User,
     methods         = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix      = '/api',
-    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    preprocessors   = dict(POST          = [auth_func],
+                           PUT_SINGLE    = [auth_func],
+                           PUT_MANY      = [auth_func],
+                           DELETE_SINGLE = [auth_func],
+                           DELETE_MANY   = [auth_func]),
     collection_name = 'users')
 
 api_manager.create_api(Project,
