@@ -17,18 +17,38 @@ angular.module('app.controllers', [
             $scope.signup.last_name,
             $scope.signup.email);
         var success = function(response) {
-            $scope.status_sent = response.status;
-            $location.path('/userhome');
+            if (response.status == 201) {
+                $location.path('/login');
+            } else {
+                $scope.signup_form.$invalid = true;
+            }
         };
-        var failure = function(response) {
-            $scope.status_sent = response.status;
+        var failure = function(error) {
+            $scope.signup_form.$invalid = true;
         };
         promise.then(success, failure);
     };
 })
 
-.controller('LoginController', function($scope, $location) {
+.controller('LoginController', function(authService, store, $scope, $location) {
     redirects($scope, $location);
+
+    $scope.logIn = function() {
+        var promise = authService.authenticate($scope.login, $scope.password);
+        var success = function(response) {
+            if (response.status == 200) {
+                store.set('jwt', response.data.token);
+                $location.path('/projects');
+            } else {
+                $scope.login_form.$invalid = true;
+            }
+        };
+        var failure = function(error) {
+            $scope.login_form.$invalid = true;
+            store.remove('jwt');
+        };
+        promise.then(success, failure);
+    };
 })
 
 .controller('ProjectsController', function($scope) {

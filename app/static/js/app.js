@@ -5,8 +5,7 @@ angular.module('app', [
     'angular-jwt',
     'angular-storage',
     'app.controllers',
-    'app.directives',
-    'app.services'
+    'app.directives'
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
@@ -40,15 +39,4 @@ angular.module('app', [
         return store.get('jwt');
     }
     $httpProvider.interceptors.push('jwtInterceptor');
-})
-
-.run(function(authService, store) {
-    var promise = authService.authenticate();
-    var success = function(response) {
-        store.set('jwt', response.data.token);
-    };
-    var failure = function(response) {
-        store.remove('jwt');
-    };
-    promise.then(success, failure);
 });

@@ -7,26 +7,31 @@
     JSON Web Token module
 """
 
+from flask import g
 from flask_jwt import jwt_required
 
 from app import jwt
-from app.settings import JWT_USERNAME, JWT_PASSWORD
+from app.models import User
 
 
-class User(object):
+class JWT_User(object):
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
             setattr(self, k, v)
 
 @jwt.authentication_handler
 def authenticate(username, password):
-    if username == JWT_USERNAME and password == JWT_PASSWORD:
-        return User(id = 1, username = JWT_USERNAME)
+    g.user = User.query.filter_by(username = username).first()
+    if g.user is None:
+        g.user = User.query.filter_by(email = username).first()
+
+    if g.user is not None and g.user.check_password(password):
+        return JWT_User(id = 1, username = g.user.username)
 
 @jwt.user_handler
 def load_user(payload):
     if payload['user_id'] == 1:
-        return User(id = 1, username = JWT_USERNAME)
+        return JWT_User(id = 1, username = g.user.username)
 
 @jwt_required()
 def auth_func(**kw):

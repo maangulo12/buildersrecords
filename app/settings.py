@@ -32,6 +32,3 @@ SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
                                                          DB_SERVER + ':' +
                                                          DB_PORT + '/' +
                                                          DB_NAME)
-# JWT
-JWT_USERNAME = os.environ.get('JWT_USERNAME', 'angular')
-JWT_PASSWORD = os.environ.get('JWT_PASSWORD', 'password')
