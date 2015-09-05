@@ -9,10 +9,23 @@
 
 from app import api_manager
 from app.jwt import auth_func
-from app.models import User, Project, Category, Item
+from app.models import User, UsersList, Project, Category, Item
 
 
 api_manager.create_api(User,
+    methods         = ['GET', 'POST', 'DELETE', 'PUT'],
+    url_prefix      = '/api',
+    preprocessors   = dict(POST          = [auth_func],
+                           GET_SINGLE    = [auth_func],
+                           GET_MANY      = [auth_func],
+                           PUT_SINGLE    = [auth_func],
+                           PUT_MANY      = [auth_func],
+                           DELETE_SINGLE = [auth_func],
+                           DELETE_MANY   = [auth_func]),
+    collection_name = 'users')
+
+# GET request for this api is open to public
+api_manager.create_api(UsersList,
     methods         = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix      = '/api',
     preprocessors   = dict(POST          = [auth_func],
@@ -20,22 +33,40 @@ api_manager.create_api(User,
                            PUT_MANY      = [auth_func],
                            DELETE_SINGLE = [auth_func],
                            DELETE_MANY   = [auth_func]),
-    collection_name = 'users')
+    collection_name = 'userslist')
 
 api_manager.create_api(Project,
     methods         = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix      = '/api',
-    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    preprocessors   = dict(POST          = [auth_func],
+                           GET_SINGLE    = [auth_func],
+                           GET_MANY      = [auth_func],
+                           PUT_SINGLE    = [auth_func],
+                           PUT_MANY      = [auth_func],
+                           DELETE_SINGLE = [auth_func],
+                           DELETE_MANY   = [auth_func]),
     collection_name = 'projects')
 
 api_manager.create_api(Category,
     methods         = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix      = '/api',
-    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    preprocessors   = dict(POST          = [auth_func],
+                           GET_SINGLE    = [auth_func],
+                           GET_MANY      = [auth_func],
+                           PUT_SINGLE    = [auth_func],
+                           PUT_MANY      = [auth_func],
+                           DELETE_SINGLE = [auth_func],
+                           DELETE_MANY   = [auth_func]),
     collection_name = 'categories')
 
 api_manager.create_api(Item,
     methods         = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix      = '/api',
-    preprocessors   = dict(GET_SINGLE = [auth_func], GET_MANY = [auth_func]),
+    preprocessors   = dict(POST          = [auth_func],
+                           GET_SINGLE    = [auth_func],
+                           GET_MANY      = [auth_func],
+                           PUT_SINGLE    = [auth_func],
+                           PUT_MANY      = [auth_func],
+                           DELETE_SINGLE = [auth_func],
+                           DELETE_MANY   = [auth_func]),
     collection_name = 'items')
