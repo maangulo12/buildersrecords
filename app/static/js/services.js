@@ -18,10 +18,6 @@ angular.module('app.services', [])
         return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
     };
 
-    this.getAllUsers = function() {
-        return $http.get('/api/users');
-    };
-
     this.addUser = function(username, password, first_name, last_name, email) {
         return $http.post('/api/users', {
             username: username,
