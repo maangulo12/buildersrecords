@@ -10,7 +10,6 @@ angular.module('app', [
 ])
 
 .config(function($routeProvider, $locationProvider, $httpProvider, jwtInterceptorProvider) {
-    // Routes
     $routeProvider
         .when('/', {
             templateUrl: '../partials/home.html',
@@ -33,7 +32,6 @@ angular.module('app', [
         });
     $locationProvider.html5Mode(true);
 
-    // Angular-jwt
     jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('jwt');
     }
@@ -41,7 +39,6 @@ angular.module('app', [
 })
 
 .run(function(authService, store) {
-    // authService - get Token
     var promise = authService.authenticate();
     var success = function(response) {
         store.set('jwt', response.data.token);
