@@ -8,13 +8,13 @@ angular.module('app.directives', [
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
 
-                var promise = usersService.isUsernameUnique(username);
+                var promise = usersService.usernameExists(username);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('usernameAvailability', true);
                     } else {
                         ctrl.$setValidity('usernameAvailability', false);
-                        return response;
+                        return $q.reject(response);
                     }
                 };
                 var failure = function(response) {
@@ -33,13 +33,13 @@ angular.module('app.directives', [
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
 
-                var promise = usersService.isEmailUnique(email);
+                var promise = usersService.emailExists(email);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('emailAvailability', true);
                     } else {
                         ctrl.$setValidity('emailAvailability', false);
-                        return response;
+                        return $q.reject(response);
                     }
                 };
                 var failure = function(response) {
