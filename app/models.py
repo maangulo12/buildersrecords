@@ -28,21 +28,8 @@ class User(db.Model):
         self.last_name  = last_name
         self.email      = email
 
-    def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
-
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
-
-
-class UsersList(db.Model):
-    __tablename__ = 'userslist'
-    id       = db.Column(db.Integer,    primary_key = True)
-    username = db.Column(db.String(25), nullable = False, unique = True)
-    email    = db.Column(db.String(50), nullable = False, unique = True)
-
-    def __init__(self, username):
-        self.username = username
 
 
 class Project(db.Model):
