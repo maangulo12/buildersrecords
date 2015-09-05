@@ -1,20 +1,20 @@
 angular.module('app.services', [])
 
 .service('authService', function($http) {
-    this.authenticate = function() {
+    this.authenticate = function(login, password) {
         return $http.post('/auth', {
-            username: 'angular',
-            password: 'password'
+            username: login,
+            password: password
         });
     };
 })
 
 .service('usersService', function($http) {
-    this.isUsernameUnique = function(username) {
+    this.usernameExists = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
     };
 
-    this.isEmailUnique = function(email) {
+    this.emailExists = function(email) {
         return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
     };
 
