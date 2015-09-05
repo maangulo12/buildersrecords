@@ -10,15 +10,17 @@ angular.module('app.services', [])
     }
 })
 
-.service('usersService', function($http) {
+.service('usersListService', function($http) {
     this.isUsernameUnique = function(username) {
-        return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
+        return $http.get('/api/userslist?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
     }
 
     this.isEmailUnique = function(email) {
-        return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
+        return $http.get('/api/userslist?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
     }
+})
 
+.service('usersService', function($http) {
     this.getAllUsers = function() {
         return $http.get('/api/users');
     }
