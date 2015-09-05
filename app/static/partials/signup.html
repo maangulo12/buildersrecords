@@ -47,7 +47,7 @@
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="well">
                 <!-- Alert -->
-                <div id="alert" class="alert alert-danger alert-dismissible text-center" role="alert"
+                <div class="alert alert-danger alert-dismissible text-center" role="alert"
                      ng-if="signup_form.$invalid && signup_form.$submitted">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Error:</span>
@@ -55,7 +55,6 @@
                         <span aria-hidden="true"> &times; </span>
                     </button> <b> There were problems creating your account. </b>
                 </div>
-
                 <!-- Form -->
                 <form name="signup_form" novalidate>
                     <!-- First Name Field -->
@@ -80,7 +79,8 @@
                               ng-if="signup_form.first_name.$dirty &&
                                      signup_form.first_name.$invalid ||
                                      signup_form.$submitted &&
-                                     signup_form.first_name.$invalid"></span>
+                                     signup_form.first_name.$invalid">
+                        </span>
                         <div ng-messages="signup_form.first_name.$error"
                              ng-if="signup_form.first_name.$dirty &&
                                     signup_form.first_name.$invalid ||
@@ -114,7 +114,8 @@
                               ng-if="signup_form.last_name.$dirty &&
                                      signup_form.last_name.$invalid ||
                                      signup_form.$submitted &&
-                                     signup_form.last_name.$invalid"></span>
+                                     signup_form.last_name.$invalid">
+                        </span>
                         <div ng-messages="signup_form.last_name.$error"
                              ng-if="signup_form.last_name.$dirty &&
                                     signup_form.last_name.$invalid ||
@@ -150,7 +151,8 @@
                               ng-if="signup_form.email.$dirty &&
                                      signup_form.email.$invalid ||
                                      signup_form.$submitted &&
-                                     signup_form.email.$invalid"></span>
+                                     signup_form.email.$invalid">
+                        </span>
                         <div ng-messages="signup_form.email.$error"
                              ng-if="signup_form.email.$dirty &&
                                     signup_form.email.$invalid ||
@@ -194,7 +196,8 @@
                               ng-if="signup_form.username.$dirty &&
                                      signup_form.username.$invalid ||
                                      signup_form.$submitted &&
-                                     signup_form.username.$invalid"></span>
+                                     signup_form.username.$invalid">
+                        </span>
                         <div ng-messages="signup_form.username.$error"
                              ng-if="signup_form.username.$dirty &&
                                     signup_form.username.$invalid ||
@@ -240,7 +243,8 @@
                                       ng-if="signup_form.password.$dirty &&
                                              signup_form.password.$invalid ||
                                              signup_form.$submitted &&
-                                             signup_form.password.$invalid"></span>
+                                             signup_form.password.$invalid">
+                                </span>
                                 <div ng-messages="signup_form.password.$error"
                                      ng-if="signup_form.password.$dirty &&
                                             signup_form.password.$invalid ||
@@ -278,7 +282,8 @@
                                       ng-if="signup_form.confirm_password.$dirty &&
                                              signup_form.confirm_password.$invalid ||
                                              signup_form.$submitted &&
-                                             signup_form.confirm_password.$invalid"></span>
+                                             signup_form.confirm_password.$invalid">
+                                </span>
                                 <div ng-messages="signup_form.confirm_password.$error"
                                      ng-if="signup_form.confirm_password.$dirty &&
                                             signup_form.confirm_password.$invalid ||
