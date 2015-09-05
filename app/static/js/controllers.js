@@ -3,26 +3,14 @@ angular.module('app.controllers', [
 ])
 
 .controller('HomeController', function($scope, $location) {
-    $scope.redirectToSignup = function() {
-        $location.path('/signup');
-    };
-
-    $scope.redirectToLogin = function() {
-        $location.path('/login');
-    };
+    redirects($scope, $location);
 })
 
-.controller('SignupController', function(usersListService, $scope, $location) {
-    $scope.redirectToSignup = function() {
-        $location.path('/signup');
-    };
-
-    $scope.redirectToLogin = function() {
-        $location.path('/login');
-    };
+.controller('SignupController', function(usersService, $scope, $location) {
+    redirects($scope, $location);
 
     $scope.createAccount = function() {
-        var promise = usersListService.addUser(
+        var promise = usersService.addUser(
             $scope.signup.username,
             $scope.signup.password,
             $scope.signup.first_name,
@@ -30,7 +18,6 @@ angular.module('app.controllers', [
             $scope.signup.email);
         var success = function(response) {
             $scope.status_sent = response.status;
-            // Add to userslist
             $location.path('/userhome');
         };
         var failure = function(response) {
@@ -40,7 +27,15 @@ angular.module('app.controllers', [
     };
 })
 
-.controller('LoginController', function(usersService, $scope, $location) {
+.controller('LoginController', function($scope, $location) {
+    redirects($scope, $location);
+})
+
+.controller('EimadFormController', function($scope) {
+
+});
+
+var redirects = function($scope, $location) {
     $scope.redirectToSignup = function() {
         $location.path('/signup');
     };
@@ -48,8 +43,4 @@ angular.module('app.controllers', [
     $scope.redirectToLogin = function() {
         $location.path('/login');
     };
-})
-
-.controller('EimadFormController', function($scope) {
-
-});
+};

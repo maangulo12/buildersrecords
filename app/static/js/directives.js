@@ -2,13 +2,13 @@ angular.module('app.directives', [
     'app.services'
 ])
 
-.directive('usernameAvailability', function(usersListService, $q) {
+.directive('usernameAvailability', function(usersService, $q) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
 
-                var promise = usersListService.isUsernameUnique(username);
+                var promise = usersService.isUsernameUnique(username);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('usernameAvailability', true);
@@ -27,13 +27,13 @@ angular.module('app.directives', [
     };
 })
 
-.directive('emailAvailability', function(usersListService, $q) {
+.directive('emailAvailability', function(usersService, $q) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
 
-                var promise = usersListService.isEmailUnique(email);
+                var promise = usersService.isEmailUnique(email);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('emailAvailability', true);
