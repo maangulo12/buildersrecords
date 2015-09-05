@@ -1,17 +1,18 @@
-angular.module('app.directives', ['app.services'])
+angular.module('app.directives', [
+    'app.services'
+])
 
-.directive('usernameAvailability', function(usersService, $q) {
+.directive('usernameAvailability', function(usersListService, $q) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
 
-                var promise = usersService.isUsernameUnique(username);
+                var promise = usersListService.isUsernameUnique(username);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('usernameAvailability', true);
-                    }
-                    else {
+                    } else {
                         ctrl.$setValidity('usernameAvailability', false);
                         return response;
                     }
@@ -26,18 +27,17 @@ angular.module('app.directives', ['app.services'])
     };
 })
 
-.directive('emailAvailability', function(usersService, $q) {
+.directive('emailAvailability', function(usersListService, $q) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
 
-                var promise = usersService.isEmailUnique(email);
+                var promise = usersListService.isEmailUnique(email);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('emailAvailability', true);
-                    }
-                    else {
+                    } else {
                         ctrl.$setValidity('emailAvailability', false);
                         return response;
                     }
