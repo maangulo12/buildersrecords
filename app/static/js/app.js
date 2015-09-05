@@ -23,6 +23,10 @@ angular.module('app', [
             templateUrl: '../partials/login.html',
             controller: 'LoginController'
         })
+        .when('/projects', {
+            templateUrl: '../partials/projects.html',
+            controller: 'ProjectsController'
+        })
         .when('/eimadForm', {
             templateUrl: '../partials/eimadForm.html',
             controller: 'EimadFormController'
