@@ -4,11 +4,9 @@
 Vagrant.configure(2) do |config|
     config.vm.box = "ubuntu/trusty64"
     config.vm.hostname = $environ
-
     config.vm.provider :virtualbox do |v|
         v.name = $environ
     end
-
     config.vm.provision :shell, inline: $shell
     config.vm.network :forwarded_port, guest: 5432, host: 5432
     config.vm.network :forwarded_port, guest: 5555, host: 5555
