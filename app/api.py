@@ -9,7 +9,7 @@
 
 from app import api_manager
 from app.jwt import auth_func
-from app.models import User, UsersList, Project, Category, Item
+from app.models import User, Project, Category, Item
 
 
 api_manager.create_api(User,
