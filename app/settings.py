@@ -32,7 +32,3 @@ SQLALCHEMY_DATABASE_URI =  os.environ.get('DATABASE_URL', DB_ENGINE + '://' +
                                                           DB_SERVER + ':' +
                                                           DB_PORT + '/' +
                                                           DB_NAME)
-
-# Admin
-ADMIN_USER     = os.environ.get('ADMIN_USER', 'admin')
-ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'password')
