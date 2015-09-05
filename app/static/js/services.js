@@ -4,23 +4,23 @@ angular.module('app.services', [])
     this.authenticate = function() {
         return $http.post('/auth', {
             username: 'angular',
-            password: 'pass'
+            password: 'password'
         });
-    }
+    };
 })
 
 .service('usersService', function($http) {
     this.isUsernameUnique = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
-    }
+    };
 
     this.isEmailUnique = function(email) {
         return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
-    }
+    };
 
     this.getAllUsers = function() {
         return $http.get('/api/users');
-    }
+    };
 
     this.addUser = function(username, password, first_name, last_name, email) {
         return $http.post('/api/users', {
@@ -30,5 +30,5 @@ angular.module('app.services', [])
             last_name: last_name,
             email: email
         });
-    }
+    };
 });

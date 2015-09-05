@@ -10,6 +10,7 @@
 from flask_jwt import jwt_required
 
 from app import jwt
+from app.settings import JWT_USERNAME, JWT_PASSWORD
 
 
 class User(object):
@@ -19,13 +20,13 @@ class User(object):
 
 @jwt.authentication_handler
 def authenticate(username, password):
-    if username == 'angular' and password == 'pass':
-        return User(id = 1, username = 'angular')
+    if username == JWT_USERNAME and password == JWT_PASSWORD:
+        return User(id = 1, username = JWT_USERNAME)
 
 @jwt.user_handler
 def load_user(payload):
     if payload['user_id'] == 1:
-        return User(id = 1, username = 'angular')
+        return User(id = 1, username = JWT_USERNAME)
 
 @jwt_required()
 def auth_func(**kw):
