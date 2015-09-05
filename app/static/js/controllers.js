@@ -31,6 +31,10 @@ angular.module('app.controllers', [
     redirects($scope, $location);
 })
 
+.controller('ProjectsController', function($scope) {
+
+})
+
 .controller('EimadFormController', function($scope) {
 
 });
