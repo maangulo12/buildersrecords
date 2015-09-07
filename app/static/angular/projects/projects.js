@@ -7,7 +7,10 @@ angular.module('app.projects', [
     $stateProvider.state('projects', {
         url: '/projects',
         templateUrl: 'angular/projects/projects.html',
-        controller: 'ProjectsController'
+        controller: 'ProjectsController',
+        data: {
+            requiresLogin: true
+        }
     })
 })
 .controller('ProjectsController', function($scope, store, $state) {
