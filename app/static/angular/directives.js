@@ -1,5 +1,5 @@
 angular.module('app.directives', [
-    'app.services'
+
 ])
 .directive('usernameAvailability', function(usersService, $q) {
     return {

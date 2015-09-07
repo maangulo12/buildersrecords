@@ -1,7 +1,5 @@
 angular.module('app.projects', [
-    'ui.router',
-    'angular-storage',
-    'app.services'
+    
 ])
 .config(function($stateProvider) {
     $stateProvider.state('projects', {
