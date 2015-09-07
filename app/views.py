@@ -17,4 +17,6 @@ from app import app
 def index(path):
     return make_response(open('app/templates/index.html').read())
 
-# NEED TO ADD ERROR VIEWS
+@app.errorhandler(404)
+def page_not_found(e):
+    return make_response(open('app/templates/error/404_error.html').read())
