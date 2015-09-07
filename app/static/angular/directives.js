@@ -15,15 +15,15 @@ angular.module('app.directives', [
                         ctrl.$setValidity('usernameAvailability', false);
                         return $q.reject(response);
                     }
-                };
+                }
                 var failure = function(response) {
                     ctrl.$setValidity('usernameAvailability', false);
                     return $q.reject(response);
-                };
+                }
                 return promise.then(success, failure);
-            };
+            }
         }
-    };
+    }
 })
 .directive('emailAvailability', function(usersService, $q) {
     return {

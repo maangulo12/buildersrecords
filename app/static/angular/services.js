@@ -7,16 +7,16 @@ angular.module('app.services', [
             username: login,
             password: password
         });
-    };
+    }
 })
 .service('usersService', function($http) {
     this.usernameExists = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
-    };
+    }
 
     this.emailExists = function(email) {
         return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
-    };
+    }
 
     this.addUser = function(username, password, first_name, last_name, email) {
         return $http.post('/api/users', {
@@ -26,5 +26,5 @@ angular.module('app.services', [
             last_name: last_name,
             email: email
         });
-    };
+    }
 });
