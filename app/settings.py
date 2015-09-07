@@ -9,6 +9,7 @@
 
 import os
 
+
 # Application Settings
 SECRET_KEY  = os.environ.get('SECRET_KEY', 'secret_key')
 
