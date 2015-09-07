@@ -1,0 +1,59 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Navigation Bar Header -->
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Navigation Bar Brand -->
+            <a class="navbar-brand" href="/projects"> BuildersRecords </a>
+        </div>
+        <!-- Navigation Bar List Items -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/account">
+                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                      <b ng-model="signed_user"> {{ signed_user }} </b>
+                    </a>
+                </li>
+                <li class="padding">
+                    <button id="logout_button" type="button" class="btn btn-danger navbar-btn"
+                            ng-click="logOut()">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
+                        <b> Log Out </b>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Alert -->
+<div class="container">
+    <div class="alert alert-info alert-dismissible text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true"> &times; </span>
+        </button> <b> Welcome! </b>
+    </div>
+</div>
+<!-- Page Header -->
+<div class="container">
+    <div class="page-header">
+        <h1> My Projects
+            <small> | Start a new project </small>
+        </h1>
+        <hr>
+    </div>
+</div>
+<!-- Buttons -->
+<div class="container">
+    <button type="button" class="btn btn-success">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <b> New Project </b>
+    </button>
+</div>

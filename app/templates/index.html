@@ -14,24 +14,27 @@
         <!-- CSS Styles -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/theme.css" rel="stylesheet">
-        <!-- JS Scripts -->
-        <script src="lib/jquery/jquery-1.11.3.min.js"></script>
-        <script src="lib/bootstrap/bootstrap.min.js"></script>
-        <script src="lib/angular-1.4.5/angular.min.js"></script>
-        <script src="lib/angular-1.4.5/angular-route.min.js"></script>
-        <script src="lib/angular-1.4.5/angular-messages.min.js"></script>
-        <script src="lib/angular-ui/ui-bootstrap-tpls-0.13.2.min.js"></script>
-        <script src="lib/angular-ui/validate.min.js"></script>
-        <script src="lib/angular-jwt/angular-jwt.min.js"></script>
-        <script src="lib/angular-storage/angular-storage.min.js"></script>
-        <script src="js/app.js"></script>
-        <script src="js/controllers.js"></script>
-        <script src="js/directives.js"></script>
-        <script src="js/services.js"></script>
+        <!-- Vendor JS Scripts -->
+        <script src="vendor/jquery/jquery-1.11.3.min.js"></script>
+        <script src="vendor/bootstrap/bootstrap.min.js"></script>
+        <script src="vendor/angular-1.4.5/angular.min.js"></script>
+        <script src="vendor/angular-1.4.5/angular-messages.min.js"></script>
+        <script src="vendor/angular-ui/validate.min.js"></script>
+        <script src="vendor/angular-ui/angular-ui-router.min.js"></script>
+        <script src="vendor/angular-jwt/angular-jwt.min.js"></script>
+        <script src="vendor/angular-storage/angular-storage.min.js"></script>
+        <!-- App JS Scripts -->
+        <script src="angular/app.js"></script>
+        <script src="angular/directives.js"></script>
+        <script src="angular/services.js"></script>
+        <script src="angular/home/home.js"></script>
+        <script src="angular/login/login.js"></script>
+        <script src="angular/signup/signup.js"></script>
+        <script src="angular/projects/projects.js"></script>
         <!-- Angular base url (html5Mode) -->
         <base href="/">
     </head>
     <body ng-app="app">
-        <div ng-view></div>
+        <div ui-view></div>
     </body>
 </html>

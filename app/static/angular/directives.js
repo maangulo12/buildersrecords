@@ -1,7 +1,6 @@
 angular.module('app.directives', [
     'app.services'
 ])
-
 .directive('usernameAvailability', function(usersService, $q) {
     return {
         require: 'ngModel',
@@ -26,7 +25,6 @@ angular.module('app.directives', [
         }
     };
 })
-
 .directive('emailAvailability', function(usersService, $q) {
     return {
         require: 'ngModel',

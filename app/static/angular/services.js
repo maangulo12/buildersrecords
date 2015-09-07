@@ -1,5 +1,6 @@
-angular.module('app.services', [])
+angular.module('app.services', [
 
+])
 .service('authService', function($http) {
     this.authenticate = function(login, password) {
         return $http.post('/auth', {
@@ -8,7 +9,6 @@ angular.module('app.services', [])
         });
     };
 })
-
 .service('usersService', function($http) {
     this.usernameExists = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
