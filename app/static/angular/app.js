@@ -4,6 +4,7 @@ angular.module('app', [
     'ui.router',
     'angular-jwt',
     'angular-storage',
+
     'app.directives',
     'app.services',
     'app.home',
