@@ -8,7 +8,7 @@ angular.module('app.signup', [
         controller: 'SignupController'
     })
 })
-.controller('SignupController', function(usersService, authService, $scope, store, $state) {
+.controller('SignupController', function(usersService, authService, mailService, $scope, store, $state) {
     store.remove('jwt');
 
     $scope.redirectToSignup = function() {
@@ -26,11 +26,33 @@ angular.module('app.signup', [
             $scope.signup.email);
         var success = function(response) {
             if (response.status == 201) {
-                var promise2 = authService.authenticate($scope.signup.username, $scope.signup.password);
+                // Authenticate user
+                var promise2 = authService.authenticate(
+                    $scope.signup.username,
+                    $scope.signup.password);
                 var success2 = function(response) {
                     if (response.status == 200) {
                         store.set('jwt', response.data.token);
                         store.set('signed_user', $scope.signup.username);
+
+                        // Send Registration Email
+                        var promise3 = mailService.sendRegistrationEmail(
+                            $scope.signup.email,
+                            $scope.signup.first_name,
+                            $scope.signup.last_name,
+                            $scope.signup.username);
+                        var success3 = function(response) {
+                            if (response.status == 201) {
+                                console.log('Registration email sent!');
+                            } else {
+                                console.log('Error: Registration email was not sent!');
+                            }
+                        }
+                        var failure3 = function(error) {
+                            console.log('Error: Registration email was not sent!');
+                        }
+                        promise3.then(success3, failure3);
+
                         $state.go('projects');
                     } else {
                         $scope.login_form.$invalid = true;

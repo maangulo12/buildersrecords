@@ -14,6 +14,7 @@ from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask_jwt import JWT
 from flask.ext.restless import APIManager
+from flask_mail import Mail
 
 
 # Flask Application
@@ -32,8 +33,12 @@ jwt = JWT(app)
 # Flask-Restless
 api_manager = APIManager(app, flask_sqlalchemy_db = db)
 
+# Flask-Mail
+mail_service = Mail(app)
+
 # App Modules
 from app import models
 from app import jwt
+from app import mail
 from app import api
 from app import views

@@ -9,6 +9,16 @@ angular.module('app.services', [
         });
     }
 })
+.service('mailService', function($http) {
+    this.sendRegistrationEmail = function(email, first_name, last_name, username) {
+        return $http.post('/send_registration_email', {
+            email: email,
+            first_name: first_name,
+            last_name: last_name,
+            username: username
+        });
+    }
+})
 .service('usersService', function($http) {
     this.usernameExists = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');

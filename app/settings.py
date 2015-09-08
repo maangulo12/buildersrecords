@@ -18,6 +18,15 @@ SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))
 DEBUG_FLAG  = True
 
+# Email Service
+MAIL_SERVER         = 'smtp.gmail.com'
+MAIL_PORT           =  465
+MAIL_USE_SSL        =  True
+MAIL_DEBUG          =  True
+MAIL_USERNAME       =  os.environ.get('MAIL_USERNAME', 'buildersrecords.app@gmail.com')
+MAIL_PASSWORD       =  os.environ.get('MAIL_PASSWORD' 'buildersrecords123')
+MAIL_DEFAULT_SENDER =  ('BuildersRecords', MAIL_USERNAME)
+
 # Local DB Settings
 DB_ENGINE   = 'postgresql'
 DB_USERNAME = 'postgres'
