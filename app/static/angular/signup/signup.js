@@ -11,8 +11,11 @@ angular.module('app.signup', [
 .controller('SignupController', function(usersService, authService, mailService, Restangular, $scope, store, $state) {
     store.remove('jwt');
 
-    //var baseUsers = Restangular.all('users');
-    //var user = baseUsers.get(1);
+    var user = Restangular.all('users').get(1);
+
+    console.log(user);
+
+    $scope.user = user;
 
     $scope.redirectToSignup = function() {
         $state.go('signup');
