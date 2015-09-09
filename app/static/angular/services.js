@@ -20,14 +20,12 @@ angular.module('app.services', [
     }
 })
 .service('usersService', function($http) {
-    this.usernameExists = function(username) {
+    this.getUsersInfoByUsername = function(username) {
         return $http.get('/api/users?q={"filters":[{"name":"username","op":"equals","val":"' + username + '"}]}');
     }
-
-    this.emailExists = function(email) {
+    this.getUsersInfoByEmail = function(email) {
         return $http.get('/api/users?q={"filters":[{"name":"email","op":"equals","val":"' + email + '"}]}');
     }
-
     this.addUser = function(username, password, first_name, last_name, email) {
         return $http.post('/api/users', {
             username: username,
@@ -36,5 +34,10 @@ angular.module('app.services', [
             last_name: last_name,
             email: email
         });
+    }
+})
+.service('projectsService', function($http) {
+    this.getAllProjects = function(user_id) {
+        return $http.get('/api/projects?q={"filters":[{"name":"user_id","op":"equals","val":"' + user_id + '"}]}');
     }
 });

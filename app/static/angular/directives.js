@@ -7,7 +7,7 @@ angular.module('app.directives', [
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
 
-                var promise = usersService.usernameExists(username);
+                var promise = usersService.getUsersInfoByUsername(username);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('usernameAvailability', true);
@@ -31,7 +31,7 @@ angular.module('app.directives', [
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
 
-                var promise = usersService.emailExists(email);
+                var promise = usersService.getUsersInfoByEmail(email);
                 var success = function(response) {
                     if (response.data.num_results == 0) {
                         ctrl.$setValidity('emailAvailability', true);

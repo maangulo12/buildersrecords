@@ -1,5 +1,5 @@
 angular.module('app.projects', [
-    
+
 ])
 .config(function($stateProvider) {
     $stateProvider.state('projects', {
