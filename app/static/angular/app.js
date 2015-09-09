@@ -4,6 +4,7 @@ angular.module('app', [
     'ui.router',
     'angular-jwt',
     'angular-storage',
+    'restangular',
 
     'app.directives',
     'app.services',
@@ -12,7 +13,7 @@ angular.module('app', [
     'app.signup',
     'app.projects'
 ])
-.config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
+.config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider, RestangularProvider) {
     $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 
@@ -20,6 +21,8 @@ angular.module('app', [
         return store.get('jwt');
     }
     $httpProvider.interceptors.push('jwtInterceptor');
+
+    RestangularProvider.setBaseUrl('/api');
 })
 .run(function($rootScope, $state, store, jwtHelper) {
     $rootScope.$on('$stateChangeStart', function(e, to) {
