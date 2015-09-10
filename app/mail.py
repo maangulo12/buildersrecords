@@ -13,8 +13,8 @@ from flask_mail import Message
 from app import app, mail_service
 
 
-@app.route('/send_registration_email', methods = ['POST'])
-def send_registration_email():
+@app.route('/email_registration', methods = ['POST'])
+def email_registration():
     # email      = request.data.email
     # first_name = request.data.first_name
     # last_name  = request.data.last_name
