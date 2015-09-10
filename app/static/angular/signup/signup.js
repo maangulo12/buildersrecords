@@ -48,6 +48,8 @@ angular.module('app.signup', [
             // store.set('signed_user_id', $scope.signup.username);
             console.log('User Authenticated.');
             $state.go('projects');
+        }, function(error) {
+            $state.go('login');
         });
     }
 });
