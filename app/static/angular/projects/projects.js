@@ -11,8 +11,14 @@ angular.module('app.projects', [
         }
     })
 })
-.controller('ProjectsController', function($scope, store, $state) {
+.controller('ProjectsController', function(Restangular, $scope, store, $state) {
     $scope.signed_user = store.get('signed_user');
+
+    Restangular.all('api/projects').get(1).then(function(project) {
+        console.log(project);
+        $scope.project = project;
+    });
+
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
