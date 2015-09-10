@@ -18,6 +18,7 @@ angular.module('app', [
     $locationProvider.html5Mode(true);
 
     jwtInterceptorProvider.tokenGetter = function(store) {
+        console.log(store.get('jwt'));
         return store.get('jwt');
     }
     $httpProvider.interceptors.push('jwtInterceptor');
