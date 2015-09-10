@@ -28,6 +28,9 @@ angular.module('app.login', [
             // store.set('signed_user_id', $scope.login);
             console.log('User Authenticated.');
             $state.go('projects');
+        }, function(error) {
+            $scope.login_form.$invalid = true;
+            $scope.password = '';
         });
     }
 });
