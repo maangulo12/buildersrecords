@@ -6,10 +6,8 @@ angular.module('app', [
     'ui.router',
     'angular-jwt',
     'angular-storage',
-    'restangular',
 
     'app.directives',
-    'app.services',
     'app.home',
     'app.login',
     'app.signup',

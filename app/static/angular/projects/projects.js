@@ -12,15 +12,8 @@ angular.module('app.projects', [
         }
     })
 })
-.controller('ProjectsController', function(Restangular, $scope, store, $state) {
+.controller('ProjectsController', function($http, $scope, store, $state) {
     $scope.signed_user = store.get('signed_user');
-
-    // Getting all projects using Restangular
-    // Currently not working properly. Working on it.
-    Restangular.all('api/projects').get(1).then(function(project) {
-        console.log(project);
-        $scope.project = project;
-    });
 
     $scope.logOut = function() {
         store.remove('jwt');

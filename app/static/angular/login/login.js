@@ -8,7 +8,7 @@ angular.module('app.login', [
         controller: 'LoginController'
     })
 })
-.controller('LoginController', function(Restangular, $scope, store, $state) {
+.controller('LoginController', function($http, $scope, store, $state) {
     // Remove jwt since we in login page
     store.remove('jwt');
 
@@ -20,12 +20,12 @@ angular.module('app.login', [
     }
     $scope.logIn = function() {
         // Authenticate user
-        Restangular.all('auth').post({
+        $http.post('/auth', {
             username: $scope.login,
             password: $scope.password
-        }).then(function(auth) {
+        }).then(function(response) {
             // Add token to jwt variable
-            store.set('jwt', auth.token);
+            store.set('jwt', response.data.token);
             store.set('signed_user', $scope.login);
             // store.set('signed_user_id', $scope.login);
             console.log('User Authenticated.');
