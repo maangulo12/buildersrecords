@@ -43,12 +43,14 @@ angular.module('app.signup', [
             username: $scope.signup.username,
             password: $scope.signup.password
         }).then(function(auth) {
+            // Add token to jwt variable
             store.set('jwt', auth.token);
             store.set('signed_user', $scope.signup.username);
             // store.set('signed_user_id', $scope.signup.username);
             console.log('User Authenticated.');
             $state.go('projects');
         }, function(error) {
+            // Error occurred, go to login
             $state.go('login');
         });
     }

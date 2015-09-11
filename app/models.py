@@ -4,12 +4,13 @@
     app.models
     ~~~~~~~~~~~~~~~~~~
 
-    Application models
+    This module implements all of the database models of this application.
 """
 
 from app import db, bcrypt
 
 
+# This is the users table in the database
 class User(db.Model):
     __tablename__ = 'users'
     id         = db.Column(db.Integer,    primary_key = True)
@@ -21,17 +22,21 @@ class User(db.Model):
 
     projects = db.relationship('Project', backref = 'users')
 
+    # This method is needed in order to hash the user's password
     def __init__(self, username, password, first_name, last_name, email):
         self.username   = username
+        # Hashing user's password
         self.password   = bcrypt.generate_password_hash(password)
         self.first_name = first_name
         self.last_name  = last_name
         self.email      = email
 
+    # This method checks if the entered password matches the password hash
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
 
 
+# This is the projects table in the database
 class Project(db.Model):
     __tablename__ = 'projects'
     id           = db.Column(db.Integer,    primary_key = True)
@@ -42,6 +47,7 @@ class Project(db.Model):
     categories = db.relationship('Category', backref = 'projects')
 
 
+# This is the categories table in the database
 class Category(db.Model):
     __tablename__ = 'categories'
     id            = db.Column(db.Integer,    primary_key = True)
@@ -51,6 +57,7 @@ class Category(db.Model):
     items = db.relationship('Item', backref = 'categories')
 
 
+# This is the items table in the database
 class Item(db.Model):
     __tablename__ = 'items'
     id          = db.Column(db.Integer,       primary_key = True)

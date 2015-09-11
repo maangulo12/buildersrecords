@@ -1,3 +1,5 @@
+// This module implements the functions that access the backend of the application.
+// This needs work since it is using http. Restangular needs to be used here.
 angular.module('app.services', [
 
 ])

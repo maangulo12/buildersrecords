@@ -4,7 +4,8 @@
     app.jwt
     ~~~~~~~~~~~
 
-    JSON Web Token module
+    This is the JSON Web Token module. It is used for authenticating users
+    to the API of this application.
 """
 
 from flask import g

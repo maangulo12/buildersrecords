@@ -9,9 +9,11 @@ angular.module('app.home', [
     })
 })
 .controller('HomeController', function($scope, $state) {
+    // This function redirects to signup page
     $scope.redirectToSignup = function() {
         $state.go('signup');
     }
+    // This function redirects to login page
     $scope.redirectToLogin = function() {
         $state.go('login');
     }

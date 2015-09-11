@@ -5,11 +5,8 @@
     manage.py
     ---------------
 
-    Manage module for this application
-
-    -How to:
-        python3 manage.py (command)
-        ex: python3 manage.py runserver
+    This module is used as a utility module for doing quick
+    commands in this application.
 
     -Commands:
         create_db : Creates all of the tables in the database.
@@ -19,6 +16,13 @@
         runtests  : Runs tests.py using nose.
         db        : Performs database migrations.
         shell     : Runs a Python shell using IPython.
+
+    -How to use this module (type the following in the command-line):
+        1.Type this to see the available commands:
+            python3 manage.py
+
+        2. Or type this to execute command:
+            python3 manage.py (insert command here)
 """
 
 import os

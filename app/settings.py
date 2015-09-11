@@ -4,21 +4,21 @@
     app.settings
     ~~~~~~~~~~~~~~~~~~~~
 
-    Application settings module
+    This module contains all of the config variables of this application.
 """
 
 import os
 
 
-# Application Settings
+# Flask application secret key
 SECRET_KEY  = os.environ.get('SECRET_KEY', 'secret_key')
 
-# WSGI Server
+# WSGI server
 SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))
 DEBUG_FLAG  = True
 
-# Email Service
+# Email provider settings
 MAIL_SERVER         = 'smtp.gmail.com'
 MAIL_PORT           =  465
 MAIL_USE_SSL        =  True
@@ -27,7 +27,7 @@ MAIL_USERNAME       =  os.environ.get('MAIL_USERNAME', 'buildersrecords.app@gmai
 MAIL_PASSWORD       =  os.environ.get('MAIL_PASSWORD' 'buildersrecords123')
 MAIL_DEFAULT_SENDER =  ('BuildersRecords', MAIL_USERNAME)
 
-# Local DB Settings
+# Local DB settings
 DB_ENGINE   = 'postgresql'
 DB_USERNAME = 'postgres'
 DB_PASSWORD = 'password'

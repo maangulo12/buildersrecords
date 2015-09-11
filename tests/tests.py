@@ -4,7 +4,10 @@
     tests.py
     ---------------
 
-    Module for testing web API
+    This module is used for testing the backend of the application.
+
+    -How to use it (type the following in the command-line):
+        python3 manage.py runtests
 """
 
 import unittest

@@ -1,7 +1,12 @@
+// This module contains all of the directives of this Angular app.
+// Directives are markers on a DOM element that tell Angular compiler
+// to attach a specified behavior to that DOM element.
 angular.module('app.directives', [
 
 ])
 .directive('usernameAvailability', function(usersService, $q) {
+    // This directive checks if an username is available.
+    // It basically goes to the backend and checks if that username already exists.
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
@@ -26,6 +31,8 @@ angular.module('app.directives', [
     }
 })
 .directive('emailAvailability', function(usersService, $q) {
+    // This directive checks if an email is available.
+    // It goes to the backend and checks if that email already exists.
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
