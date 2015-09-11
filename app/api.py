@@ -43,6 +43,13 @@ api_manager.create_api(Project,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
+    preprocessors    = dict(POST          = [auth_func],
+                            GET_SINGLE    = [auth_func],
+                            GET_MANY      = [auth_func],
+                            PUT_SINGLE    = [auth_func],
+                            PUT_MANY      = [auth_func],
+                            DELETE_SINGLE = [auth_func],
+                            DELETE_MANY   = [auth_func]),
     collection_name  = 'projects')
 
 # Categories: /api/categories
