@@ -4,7 +4,7 @@
     app.mail
     ~~~~~~~~~~~~~~
 
-    Application mail module
+    This is the module used for sending emails to users.
 """
 
 from flask import make_response, render_template, request, jsonify
@@ -13,6 +13,7 @@ from flask_mail import Message
 from app import app, mail_service
 
 
+# This needs work.
 @app.route('/email_registration', methods = ['POST'])
 def email_registration():
     # email      = request.data.email

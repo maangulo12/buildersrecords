@@ -2,11 +2,14 @@
 
 """
     BuildersRecords
-    ---------------
-
-    Run this to deploy this application
-
+    --------------------
     :copyright: (c) 2015
+
+
+    To deploy this application, run this module.
+
+    -How to run it (type the following in the command-line):
+        python3 application.py
 """
 
 from app import app
