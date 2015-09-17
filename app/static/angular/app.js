@@ -11,7 +11,8 @@ angular.module('app', [
     'app.home',
     'app.login',
     'app.signup',
-    'app.projects'
+    'app.projects',
+    'app.dashboard'
 ])
 .config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
     // These are the app configurations:
