@@ -54,5 +54,5 @@ angular.module('app.directives', [
                 return promise.then(success, failure);
             };
         }
-    };
+    }
 });
