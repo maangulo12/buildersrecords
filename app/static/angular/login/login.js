@@ -8,8 +8,7 @@ angular.module('app.login', [
         controller: 'LoginController'
     })
 })
-.controller('LoginController', function($http, $scope, store, $state) {
-    // Remove jwt since we in login page
+.controller('LoginController', function($http, $scope, store, $state, authService) {
     store.remove('jwt');
 
     $scope.redirectToSignup = function() {
@@ -24,11 +23,9 @@ angular.module('app.login', [
             username: $scope.login,
             password: $scope.password
         }).then(function(response) {
-            // Add token to jwt variable
-            store.set('jwt', response.data.token);
-            store.set('signed_user', $scope.login);
-            // store.set('signed_user_id', $scope.login);
-            console.log('User Authenticated.');
+            // Call authentication helper
+            authService.authHelper(response);
+            // Go to projects page
             $state.go('projects');
         }, function(error) {
             // Error occurred
