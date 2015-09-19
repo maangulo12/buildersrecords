@@ -92,15 +92,44 @@
                         <b> Create New Project </b>
                     </h4>
                 </div>
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p> </p>
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> <b> Close </b> </button>
-                    <button type="button" class="btn btn-success" data-dismiss="modal"> <b> Create Project </b> </button>
-                </div>
+                <!-- Form -->
+                <form name="new_project_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Project Name Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': new_project_form.project_name.$dirty &&
+                                                      new_project_form.project_name.$invalid ||
+                                                      new_project_form.$submitted &&
+                                                      new_project_form.project_name.$invalid,
+                                         'has-feedback': new_project_form.project_name.$dirty &&
+                                                         new_project_form.project_name.$invalid ||
+                                                         new_project_form.$submitted &&
+                                                         new_project_form.project_name.$invalid }">
+                            <label class="control-label" for="project_name"> Project Name </label>
+                            <input class="form-control"
+                                   name="project_name"
+                                   type="text"
+                                   placeholder="Project Name"
+                                   ng-model="project_name"
+                                   required>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="new_project_form.project_name.$dirty &&
+                                         new_project_form.project_name.$invalid ||
+                                         new_project_form.$submitted &&
+                                         new_project_form.project_name.$invalid">
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal"> <b> Close </b> </button>
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-success"
+                                ng-click="new_project_form.$valid && createProject()"> <b> Create Project </b> </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

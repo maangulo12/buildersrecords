@@ -19,4 +19,7 @@ angular.module('app.projects', [
         store.remove('jwt');
         $state.go('login');
     }
+    $scope.createProject = function() {
+        // http request
+    }
 });
