@@ -27,12 +27,19 @@ def authenticate(username, password):
         g.user = User.query.filter_by(email = username).first()
 
     if g.user is not None and g.user.check_password(password):
-        return JWT_User(id = 1, username = g.user.username)
+        return JWT_User(id = g.user.id, username = g.user.username)
 
 @jwt.user_handler
 def load_user(payload):
-    if payload['user_id'] == 1:
-        return JWT_User(id = 1, username = g.user.username)
+    if payload['user_id'] == g.user.id:
+        return JWT_User(id = g.user.id, username = g.user.username)
+
+@jwt.payload_handler
+def make_payload(user):
+    return {
+        'user_id': user.id,
+        'username': user.username
+    }
 
 @jwt_required()
 def auth_func(**kw):
