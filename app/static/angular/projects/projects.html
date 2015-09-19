@@ -34,7 +34,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                        <b> {{ signed_user }} </b>
+                        <b> {{ username }} </b>
                         <span class="caret"></span>
                     </a>
                     <!-- Dropdown Menu -->
@@ -57,7 +57,7 @@
     </div>
     <!-- Button -->
     <button type="button" class="btn btn-success" data-toggle="modal"
-            data-target="#new_project_modal" tabindex="-1">
+            data-target="#new_project_modal" tabindex="-1" ng-click="clearFields()">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         <b> New Project </b>
     </button>
