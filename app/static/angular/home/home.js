@@ -8,7 +8,9 @@ angular.module('app.home', [
         controller: 'HomeController'
     })
 })
-.controller('HomeController', function($scope, $state) {
+.controller('HomeController', function($scope, store, $state) {
+    store.remove('jwt');
+
     // This function redirects to signup page
     $scope.redirectToSignup = function() {
         $state.go('signup');
