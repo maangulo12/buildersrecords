@@ -61,21 +61,23 @@
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         <b> New Project </b>
     </button>
-    <!-- Line Breaks -->
-    <br><br>
+    <!-- Horizontal -->
+    <hr>
     <!-- List Groups -->
     <ul class="list-group">
-        <li class="list-group-item">
+        <li class="list-group-item" ng-repeat="project in projects">
             <!-- Project Name -->
             <a href="/dashboard">
-                <b> My Home Project </b>
+                <b> {{ project.project_name }} </b>
             </a>
             <!-- Project Type -->
             <p class="text-muted">
-                UBuildIt Project
+                Testing
             </p>
         </li>
     </ul>
+    <!-- No Projects msg -->
+    <h4 ng-show="projects.length == 0"> Get started by creating a new project. </h4>
 </div>
 <!-- Modal - New Project -->
 <div class="container">
@@ -96,6 +98,15 @@
                 <form name="new_project_form" novalidate>
                     <!-- Modal Body -->
                     <div class="modal-body">
+                        <!-- Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="new_project_form.$invalid && new_project_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems creating your project. </b>
+                        </div>
                         <!-- Project Name Field -->
                         <div class="form-group"
                              ng-class="{ 'has-error': new_project_form.project_name.$dirty &&
@@ -112,22 +123,46 @@
                                    type="text"
                                    placeholder="Project Name"
                                    ng-model="project_name"
-                                   required>
+                                   required
+                                   ng-maxlength=50
+                                   ng-model-options="{ debounce: 500 }"
+                                   project-name-exists>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="new_project_form.project_name.$dirty &&
                                          new_project_form.project_name.$invalid ||
                                          new_project_form.$submitted &&
                                          new_project_form.project_name.$invalid">
                             </span>
+                            <div ng-messages="new_project_form.project_name.$error"
+                                 ng-if="new_project_form.project_name.$dirty &&
+                                        new_project_form.project_name.$invalid ||
+                                        new_project_form.$submitted &&
+                                        new_project_form.project_name.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                                <div ng-message="projectNameExists"
+                                     class="help-block"> A project with this name already exists. </div>
+                            </div>
+                            <div ng-if="new_project_form.project_name.$pending">
+                                <span class="help-block">
+                                    Checking Project Name...
+                                </span>
+                            </div>
                         </div>
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <!-- Close -->
-                        <button type="button" class="btn btn-default" data-dismiss="modal"> <b> Close </b> </button>
+                        <button id="close_button" type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
                         <!-- Submit -->
                         <button type="submit" class="btn btn-success"
-                                ng-click="new_project_form.$valid && createProject()"> <b> Create Project </b> </button>
+                                ng-click="new_project_form.$valid && createProject()">
+                            <b> Create Project </b>
+                        </button>
                     </div>
                 </form>
             </div>
