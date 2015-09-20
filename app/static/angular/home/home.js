@@ -1,5 +1,5 @@
 angular.module('app.home', [
-
+    
 ])
 .config(function($stateProvider) {
     $stateProvider.state('home', {
