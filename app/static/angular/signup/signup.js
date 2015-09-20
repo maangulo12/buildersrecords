@@ -26,8 +26,6 @@ angular.module('app.signup', [
             last_name : $scope.signup.last_name,
             email     : $scope.signup.email
         }).then(function(response) {
-            console.log('User Added.');
-
             // Send email registration
             $http.post('/email_registration', {
                 email     : $scope.signup.email,
