@@ -8,6 +8,7 @@ angular.module('app', [
     'angular-storage',
 
     'app.directives',
+    'app.auth',
     'app.home',
     'app.login',
     'app.signup',
@@ -26,7 +27,6 @@ angular.module('app', [
     // This is the function that returns the JSON web token in every request
     // It adds the token to the header of every request
     jwtInterceptorProvider.tokenGetter = function(store) {
-        console.log(store.get('jwt'));
         return store.get('jwt');
     }
     // This is needed for the JSON web token to work

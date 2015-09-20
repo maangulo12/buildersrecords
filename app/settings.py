@@ -13,6 +13,9 @@ import os
 # Flask application secret key
 SECRET_KEY  = os.environ.get('SECRET_KEY', 'secret_key')
 
+# Flask-JWT expiration time off
+JWT_VERIFY_EXPIRATION = False
+
 # WSGI server
 SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))

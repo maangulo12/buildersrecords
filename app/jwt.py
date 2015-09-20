@@ -8,7 +8,6 @@
     to the API of this application.
 """
 
-from flask import g
 from flask_jwt import jwt_required
 
 from app import jwt
@@ -22,17 +21,25 @@ class JWT_User(object):
 
 @jwt.authentication_handler
 def authenticate(username, password):
-    g.user = User.query.filter_by(username = username).first()
-    if g.user is None:
-        g.user = User.query.filter_by(email = username).first()
+    user = User.query.filter_by(username = username).first()
+    if user is None:
+        user = User.query.filter_by(email = username).first()
 
-    if g.user is not None and g.user.check_password(password):
-        return JWT_User(id = 1, username = g.user.username)
+    if user is not None and user.check_password(password):
+        return JWT_User(id = user.id, username = user.username)
 
 @jwt.user_handler
 def load_user(payload):
-    if payload['user_id'] == 1:
-        return JWT_User(id = 1, username = g.user.username)
+    user = User.query.filter_by(id = payload['user_id'], username = payload['username']).first()
+    if user is not None:
+        return JWT_User(id = user.id, username = user.username)
+
+@jwt.payload_handler
+def make_payload(user):
+    return {
+        'user_id': user.id,
+        'username': user.username
+    }
 
 @jwt_required()
 def auth_func(**kw):

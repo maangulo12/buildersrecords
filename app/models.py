@@ -40,8 +40,8 @@ class User(db.Model):
 class Project(db.Model):
     __tablename__ = 'projects'
     id           = db.Column(db.Integer,    primary_key = True)
-    project_name = db.Column(db.String(50), nullable = False)
-    project_type = db.Column(db.String(30), nullable = False)
+    project_name = db.Column(db.String(50), nullable = False, unique = True)
+    # project_type = db.Column(db.String(30), nullable = False)
     user_id      = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     categories = db.relationship('Category', backref = 'projects')
