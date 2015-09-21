@@ -21,6 +21,7 @@
 .comm-how { display: inline-block; float: left; color: #979797; width: 55px; text-align: right; margin-right: 20px; }
 .top_padding { padding-top: 60px; }
 .padding { padding-left: 0.75em; }
+#newprojectbutton {position: relative; bottom: 0; left: 0; margin-top: 25%;}
 li button { width: 6em; }
 #logout_button { width: 6.8em; }
 
