@@ -8,24 +8,11 @@ angular.module('app.dashboard', [
         controller: 'DashboardController'
     })
 })
-.controller('DashboardController', function($scope, $state, store){
-    $scope.signed_user = store.get('signed_user');
+.controller('DashboardController', function($scope, store, $state) {
+    $scope.username = store.get('username');
 
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
     }
-    // This function redirects to the budgeting page
-    $scope.redirectBudgeting = function() {
-        $state.go('budgeting');
-    }
-    // This function redirects to the loan management page
-    $scope.redirectLoanManagement = function() {
-        $state.go('loan_management');
-    }
-    // This function redirects to the sub contractor page
-    $scope.redirectSubContractor = function() {
-        $state.go('sub_contractor');
-    }
-
 });
