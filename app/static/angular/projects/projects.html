@@ -50,17 +50,46 @@
 </nav>
 <!-- Container -->
 <div class="container">
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1> My Projects </h1>
-        <h4 class="text-muted"> Home Construction Projects </h4>
+    <div class="col-md-12">
+        <div class="row">
+            <!-- Page Header -->
+            <div class="col-md-9">
+                <div class="page-header">
+                    <h1> My Projects
+                        <small> | Start a new project </small>
+                    </h1>
+                    <hr>
+                </div>
+            </div>
+            <!-- Buttons -->
+            <div class="col-md-3">
+                <button id="newprojectbutton" type="button" class="btn btn-success" data-toggle="modal"
+                        data-target="#new_project_modal" tabindex="-1" ng-click="clearFields()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <b> New Project </b>
+                </button>
+            </div>
+        </div>
+        <!-- Table -->
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th> <span class="glyphicon glyphicon-tag" aria-hidden="true"></span> </th>
+                        <th> Project Name</th>
+                        <th> Project Type </th>
+                        <th> Action </th>
+                    <tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+
+                <tbody>
+                </tbody>
+
+            </table>
     </div>
-    <!-- Button -->
-    <button type="button" class="btn btn-success" data-toggle="modal"
-            data-target="#new_project_modal" tabindex="-1" ng-click="clearFields()">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <b> New Project </b>
-    </button>
+
     <!-- Horizontal -->
     <hr>
     <!-- List Groups -->
