@@ -17,18 +17,33 @@
         <!-- Navigation Bar List Items -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
+                <!-- Send Feedback -->
                 <li>
-                    <a href="/account">
-                      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                      <b ng-model="signed_user"> {{ signed_user }} </b>
+                    <a href="#">
+                        <!-- <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> -->
+                        <b> Send Feedback </b>
                     </a>
                 </li>
-                <li class="padding">
-                    <button id="logout_button" type="button" class="btn btn-danger navbar-btn"
-                            ng-click="logOut()">
-                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>
-                        <b> Log Out </b>
-                    </button>
+                <!-- Help & Support -->
+                <li>
+                    <a href="#">
+                        <b> Help & Support </b>
+                    </a>
+                </li>
+                <!-- Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <b> {{ username }} </b>
+                        <span class="caret"></span>
+                    </a>
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> My Account </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -39,9 +54,34 @@
     <div class="row">
         <div class="col-md-2">
             <ul class="nav nav-pills nav-stacked">
-                <li role="Budgeting">
+                <li role="projectDashboard">
                     <a href="#">
-                        <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Profile
+                        <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>Budgeting
+                    </a>
+                </li>
+                <li role="projectDashboard">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span>Invoice Tracking
+                    </a>
+                </li>
+                <li role="projectDashboard">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>Contractors
+                    </a>
+                </li>
+                <li role="projectDashboard">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span>Loan Management
+                    </a>
+                </li>
+                <li role="projectDashboard">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>Statistics
+                    </a>
+                </li>
+                <li role="projectDashboard">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>Gallery
                     </a>
                 </li>
             </ul>
@@ -50,39 +90,24 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-md-9">
-                    <div class="page-header">
-                        <h1> My Projects
-                            <small> | Start a new project </small>
-                        </h1>
-                        <hr>
-                    </div>
-                </div>
-                <!-- Buttons -->
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                        <b> New Project </b>
-                    </button>
+                  <div class="page-header">
+                      <h1> "Project Name" </h1>
+                      <h4 class="text-muted"> Home Construction Project </h4>
+                  </div>
                 </div>
             </div>
-            <!-- Table -->
-                <table class="table table-striped table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th> <span class="glyphicon glyphicon-tag" aria-hidden="true"></span> </th>
-                            <th> Project Name</th>
-                            <th> Project Type </th>
-                            <th> Action </th>
-                        <tr>
-                    </thead>
-
-                    <tbody>
-                    </tbody>
-
-                    <tbody>
-                    </tbody>
-
-                </table>
+            <!-- Statistics -->
+            <div class= "row">
+              <div class="col-md-3">
+                <h2> "Stat 1" </h2>
+              </div>
+              <div class="col-md-3">
+                <h2> "Stat 2" </h2>
+              </div>
+              <div class="col-md-3">
+                <h2> "Stat 3" </h2>
+              </div>
+            </div>
         </div>
     </div>
 </div>
