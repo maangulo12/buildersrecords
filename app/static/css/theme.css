@@ -24,6 +24,6 @@
 #newprojectbutton {position: relative; bottom: 0; left: 0; margin-top: 25%;}
 li button { width: 6em; }
 #logout_button { width: 6.8em; }
-.glyphicon {padding-right: 8px;}
+.glyphicon-padding { padding-right: 8px; }
 
 /*# sourceMappingURL=theme.css.map */
