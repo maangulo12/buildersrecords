@@ -18,7 +18,7 @@
         shell     : Runs a Python shell using IPython.
 
     -How to use this module (type the following in the command-line):
-        1.Type this to see the available commands:
+        1. Type this to see the available commands:
             python3 manage.py
 
         2. Or type this to execute command:
