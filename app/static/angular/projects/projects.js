@@ -13,6 +13,9 @@ angular.module('app.projects', [
     })
 })
 .controller('ProjectsController', function($http, $scope, store, $state) {
+    // Turn on tooltip for Bootstrap
+    $('[data-toggle="tooltip"]').tooltip();
+
     $scope.username = store.get('username');
     getProjects();
 
