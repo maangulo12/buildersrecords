@@ -10,6 +10,7 @@ angular.module('app.dashboard', [
 })
 .controller('DashboardController', function($scope, store, $state) {
     $scope.username = store.get('username');
+    $scope.project_name = store.get('project_name');
 
     $scope.logOut = function() {
         store.remove('jwt');
