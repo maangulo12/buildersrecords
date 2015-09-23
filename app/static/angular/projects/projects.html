@@ -58,8 +58,7 @@
 </div>
 <!-- Button -->
 <div class="container">
-    <button type="button" class="btn btn-success" data-toggle="modal"
-            data-target="#new_project_modal" ng-click="clearFields()">
+    <button type="button" class="btn btn-success" ng-click="showNewProjectModal()">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
         <b> New Project </b>
     </button>
@@ -68,27 +67,27 @@
 <br><br>
 <!-- Table -->
 <div class="container">
-    <table class="table table-striped table-hover table-bordered">
+    <table st-table="project_list" class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
                 <th> <span class="glyphicon glyphicon-tag" aria-hidden="true"></span> </th>
-                <th> Project Name</th>
-                <th> Project Type </th>
+                <th> Project Name </th>
                 <th> Action </th>
             <tr>
         </thead>
-
         <tbody>
-            <tr ng-repeat="project in projects">
-                <td> {{ projects.indexOf(project) + 1 }} </td>
-                <td> <a href="/dashboard"><b> {{ project.project_name }} </b></a> </td>
-                <td> Testing </td>
-                <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_project_modal"
-                            data-toggle="tooltip" data-placement="top" title="Delete">
+            <tr ng-repeat="project in project_list">
+                <td> {{ project_list.indexOf(project) + 1 }} </td>
+                <td> <a href ng-click="clickedProject(project) && redirectToDashboard()">
+                         <b> {{ project.project_name }} </b>
+                     </a>
+                </td>
+                <td><button type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="top"
+                            title="Delete" ng-click="clickedProject(project) && showDeleteProjectModal()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </button>
-                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit_project_modal"
-                            data-toggle="tooltip" data-placement="top" title="Edit">
+                    <button type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="top"
+                            title="Edit" ng-click="clickedProject(project) && showEditProjectModal()">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                     </button>
                 </td>
@@ -179,7 +178,7 @@
                     <!-- Modal Footer -->
                     <div class="modal-footer">
                         <!-- Close -->
-                        <button id="close_button" type="button" class="btn btn-default" data-dismiss="modal">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
@@ -215,8 +214,12 @@
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> <b> No </b> </button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"> <b> Yes, Delete </b> </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <b> No </b>
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteProject()">
+                        <b> Yes, Delete </b>
+                    </button>
                 </div>
             </div>
         </div>
@@ -236,14 +239,77 @@
                         <b> Edit Project </b>
                     </h4>
                 </div>
-                <!-- Modal Body -->
-                <div class="modal-body">
-                    <p></p>
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal"> <b> Cancel </b> </button>
-                </div>
+                <!-- Form -->
+                <form name="edit_project_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="edit_project_form.$invalid && edit_project_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems updating your project. </b>
+                        </div>
+                        <!-- Updated Project Name Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_project_form.updated_project_name.$dirty &&
+                                                      edit_project_form.updated_project_name.$invalid ||
+                                                      edit_project_form.$submitted &&
+                                                      edit_project_form.updated_project_name.$invalid,
+                                         'has-feedback': edit_project_form.updated_project_name.$dirty &&
+                                                         edit_project_form.updated_project_name.$invalid ||
+                                                         edit_project_form.$submitted &&
+                                                         edit_project_form.updated_project_name.$invalid }">
+                            <label class="control-label" for="updated_project_name"> Project Name </label>
+                            <input class="form-control"
+                                   name="updated_project_name"
+                                   type="text"
+                                   placeholder="Project Name"
+                                   ng-model="updated_project_name"
+                                   required
+                                   ng-maxlength=50
+                                   ng-model-options="{ debounce: 500 }"
+                                   project-name-exists>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_project_form.updated_project_name.$dirty &&
+                                         edit_project_form.updated_project_name.$invalid ||
+                                         edit_project_form.$submitted &&
+                                         edit_project_form.updated_project_name.$invalid">
+                            </span>
+                            <div ng-messages="edit_project_form.updated_project_name.$error"
+                                 ng-if="edit_project_form.updated_project_name.$dirty &&
+                                        edit_project_form.updated_project_name.$invalid ||
+                                        edit_project_form.$submitted &&
+                                        edit_project_form.updated_project_name.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                                 <div ng-message="projectNameExists"
+                                      class="help-block"> A project with this name already exists. </div>
+                             </div>
+                             <div ng-if="edit_project_form.updated_project_name.$pending">
+                                 <span class="help-block">
+                                     Checking Project Name...
+                                 </span>
+                             </div>
+                         </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary"
+                                ng-click="edit_project_form.$valid && updateProject()">
+                            <b> Update Project </b>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
