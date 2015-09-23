@@ -6,6 +6,7 @@ angular.module('app', [
     'ui.router',
     'angular-jwt',
     'angular-storage',
+    'smart-table',
 
     'app.directives',
     'app.auth',
@@ -13,7 +14,8 @@ angular.module('app', [
     'app.login',
     'app.signup',
     'app.projects',
-    'app.dashboard'
+    'app.dashboard',
+    'app.expenditures'
 ])
 .config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
     // These are the app configurations:
