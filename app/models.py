@@ -19,6 +19,7 @@ class User(db.Model):
     first_name = db.Column(db.String(30), nullable = False)
     last_name  = db.Column(db.String(30), nullable = False)
     email      = db.Column(db.String(50), nullable = False, unique = True)
+    # timestamp
 
     projects = db.relationship('Project', backref = 'users')
 
@@ -43,6 +44,7 @@ class Project(db.Model):
     project_name = db.Column(db.String(50), nullable = False, unique = True)
     # project_type = db.Column(db.String(30), nullable = False)
     user_id      = db.Column(db.Integer, db.ForeignKey('users.id'))
+    # timestamp
 
     categories = db.relationship('Category', backref = 'projects')
 
