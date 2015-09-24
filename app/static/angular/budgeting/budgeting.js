@@ -1,5 +1,6 @@
-angular.module('app.budgeting', ['smart-table'])
+angular.module('app.budgeting', [
 
+])
 .config(function($stateProvider) {
     $stateProvider.state('budgeting', {
         url: '/budgeting',
