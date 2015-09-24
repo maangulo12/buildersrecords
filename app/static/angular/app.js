@@ -15,7 +15,8 @@ angular.module('app', [
     'app.signup',
     'app.projects',
     'app.dashboard',
-    'app.expenditures'
+    'app.expenditures',
+    'app.budgeting'
 ])
 .config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
     // These are the app configurations:
