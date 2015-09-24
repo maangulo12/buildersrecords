@@ -9,11 +9,12 @@
     commands in this application.
 
     -Commands:
-        create_db : Creates all of the tables in the database.
-        drop_db   : Drops all of the tables from the database.
-        recreate  : Drops all of the tables and recreates them.
+        create    : Creates all of the tables in the database.
+        drop      : Drops all of the tables from the database.
+        populate  : Populates the database with sample data.
+        recreate  : Drops, recreates, and populates the tables in the database.
         runserver : Runs this Flask application.
-        runtests  : Runs tests.py using nose.
+        runtests  : Runs tests to this application using nose.
         db        : Performs database migrations.
         shell     : Runs a Python shell using IPython.
 
@@ -31,6 +32,7 @@ from flask.ext.script import Manager
 
 from app import app, db
 from app.settings import SERVER_HOST, SERVER_PORT, DEBUG_FLAG
+from tests.sample_data import populate_db
 
 
 migrate = Migrate(app, db)
@@ -38,22 +40,29 @@ manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
 @manager.command
-def create_db():
+def create():
     "Creates all of the tables in the database."
-    print('Creating all of the tables in the database...')
     db.create_all()
+    print('Created all of the tables in the database.')
 
 @manager.command
-def drop_db():
+def drop():
     "Drops all of the tables from the database."
-    print('Dropping all of the tables from the database...')
     db.drop_all()
+    print('Dropped all of the tables from the database.')
+
+@manager.command
+def populate():
+    "Populates the database with sample data."
+    populate_db(app)
+    print('Populated the database with sample data.')
 
 @manager.command
 def recreate():
-    "Drops all of the tables and recreates them."
-    drop_db()
-    create_db()
+    "Drops, recreates, and populates the tables in the database."
+    drop()
+    create()
+    populate()
 
 @manager.command
 def runserver():
@@ -62,8 +71,9 @@ def runserver():
 
 @manager.command
 def runtests():
-    "Runs tests.py using nose."
+    "Runs tests to this application using nose."
     os.system('nosetests tests/tests.py')
+    print('Finished running all tests.')
 
 if __name__ == "__main__":
     manager.run()
