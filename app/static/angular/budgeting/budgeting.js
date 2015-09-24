@@ -12,6 +12,7 @@ angular.module('app.budgeting', [
   // Bootstrap tooltip init
   $('[data-toggle="tooltip"]').tooltip();
 
+  console.log('BudgetingController');
   // Signed in user
   $scope.username = store.get('username');
   // Load user's projects
@@ -24,8 +25,10 @@ angular.module('app.budgeting', [
   }
   // GET PROJECTS function
   function getCategories() {
+      console.log('im in getcategories');
       $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
       .then(function(response) {
+          console.log(response.data);
           $scope.categories_list = response.data.objects;
       }, function(response) {
           // Could not load user's project
@@ -33,44 +36,3 @@ angular.module('app.budgeting', [
   }
 
 });
-
-// //Example code from smart table
-// .controller('mainCtrl', ['$scope', function ($scope) {
-//
-//     var
-//         nameList = ['Pierre', 'Pol', 'Jacques', 'Robert', 'Elisa'],
-//         familyName = ['Dupont', 'Germain', 'Delcourt', 'bjip', 'Menez'];
-//
-//     function createRandomItem() {
-//         var
-//             firstName = nameList[Math.floor(Math.random() * 4)],
-//             lastName = familyName[Math.floor(Math.random() * 4)],
-//             age = Math.floor(Math.random() * 100),
-//             email = firstName + lastName + '@whatever.com',
-//             balance = Math.random() * 3000;
-//
-//         return{
-//             firstName: firstName,
-//             lastName: lastName,
-//             age: age,
-//             email: email,
-//             balance: balance
-//         };
-//     }
-//
-//
-//     $scope.displayed = [];
-//     for (var j = 0; j < 500; j++) {
-//         $scope.displayed.push(createRandomItem());
-//     }
-// }])
-// .directive('stRatio',function(){
-//     return {
-//       link:function(scope, element, attr){
-//         var ratio=+(attr.stRatio);
-//
-//         element.css('width',ratio+'%');
-//
-//       }
-//     };
-// });
