@@ -127,13 +127,14 @@
                             <th st-ratio="30" st-sort="timestamp">Time Stamp</th>
                         </tr>
                     </thead>
-                        <tr ng-repeat="row in displayed">
+                    <tbody>
+                        <tr ng-repeat="category in categories_list">
                             <td> <input type="checkbox" class="checkbox"> </td>
-                            <td st-ratio="20">{{row.costcategory | uppercase}}</td>
-                            <td st-ratio="20">{{row.description | uppercase}}</td>
-                            <td st-ratio="10">{{row.estimatedcost | currency}}</td>
-                            <td st-ratio="30">{{row.timestamp | time}}</td>
-                        </tr>
+                            <td> {{ categories_list.indexOf(category) + 1 }} </td>
+                            <td> <a href ng-click="clickedCategories(category)">
+                                     <b> {{ category.category_name }} </b>
+                                 </a>
+                            </td>
                     </tbody>
                     <tfoot>
                         <tr>

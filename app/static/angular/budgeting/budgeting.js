@@ -14,7 +14,7 @@ angular.module('app.budgeting', ['smart-table'])
   // Signed in user
   $scope.username = store.get('username');
   // Load user's projects
-  getProjects();
+  getCategories();
 
   // Log Out function
   $scope.logOut = function() {
