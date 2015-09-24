@@ -72,5 +72,7 @@ wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
 # Create database tables
 cd /vagrant/
-python3 manage.py create_db
+python3 manage.py create
+python3 manage.py populate
+python3 manage.py runserver
 CONTENTS
