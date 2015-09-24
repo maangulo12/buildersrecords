@@ -16,6 +16,15 @@ angular.module('app.expenditures', [
         $state.go('login');
     }
     $scope.clickedCheckbox = function() {
-        
+
+    }
+    // GET EXPENDITURES function
+    function getExpenditures() {
+        $http.get('/api/expenditures?q={"filters":[{"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}')
+        .then(function(response) {
+            $scope.project_list = response.data.objects;
+        }, function(response) {
+            // Could not load user's project
+        });
     }
 });

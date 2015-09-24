@@ -116,7 +116,7 @@
                         <tr>
                             <th> <input id="checkbox_all" type="checkbox" class="checkbox"
                                         ng-click="clickedCheckbox()"> </th>
-                            <th> Date </th>
+                            <!-- <th> Date </th> -->
                             <th> Vendor </th>
                             <th> Description </th>
                             <th> Amount </th>
@@ -125,7 +125,7 @@
                             <th> Image </th>
                         <tr>
                     </thead>
-                    <tbody>
+                    <tbody ng-repeat="expenditure in expenditure_list">
                         <tr>
                             <td> <input type="checkbox" class="checkbox"> </td>
                             <td> 09/21/2015 </td>
