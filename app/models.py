@@ -5,6 +5,13 @@
     ~~~~~~~~~~~~~~~~~~
 
     This module implements all of the database models of this application.
+
+    Current Models:
+        -User        : users
+        -Project     : projects
+        -Category    : categories
+        -Item        : items
+        -Expenditure : expenditure
 """
 
 from app import db, bcrypt
@@ -46,7 +53,8 @@ class Project(db.Model):
     user_id      = db.Column(db.Integer, db.ForeignKey('users.id'))
     # timestamp
 
-    categories = db.relationship('Category', backref = 'projects')
+    categories   = db.relationship('Category',    backref = 'projects')
+    expenditures = db.relationship('Expenditure', backref = 'projects')
 
 
 # This is the categories table in the database
@@ -68,5 +76,18 @@ class Item(db.Model):
     budget      = db.Column(db.Numeric(11,2), nullable = False)
     actual      = db.Column(db.Numeric(11,2), nullable = False)
     notes       = db.Column(db.String(80),    nullable = False)
-
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+
+
+# This is the expenditures table in the database
+class Expenditure(db.Model):
+    __tablename__ = 'expenditures'
+    id          = db.Column(db.Integer,       primary_key = True)
+    date        = db.Column(db.Date,          nullable = False)
+    vendor      = db.Column(db.String(50),    nullable = False)
+    description = db.Column(db.String(80),    nullable = False)
+    amount      = db.Column(db.Numeric(11,2), nullable = False)
+    notes       = db.Column(db.String(80),    nullable = False)
+    loan        = db.Column(db.Boolean,       nullable = False)
+    image       = db.Column(db.LargeBinary,   nullable = False)
+    project_id  = db.Column(db.Integer, db.ForeignKey('projects.id'))
