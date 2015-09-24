@@ -1,0 +1,146 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Navigation Bar Header -->
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Navigation Bar Brand -->
+            <a class="navbar-brand" href="/projects"> BuildersRecords </a>
+        </div>
+        <!-- Navigation Bar List Items -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Send Feedback -->
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <b> Send Feedback </b>
+                    </a>
+                </li>
+                <!-- Help & Support -->
+                <li>
+                    <a href="#">
+                        <b> Help & Support </b>
+                    </a>
+                </li>
+                <!-- Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <b> {{ username }} </b>
+                        <span class="caret"></span>
+                    </a>
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> My Account </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Grid System -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li><a href="/projects"> Back to My Projects </a></li>
+            </ol>
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Dashboard -->
+                <a href="/dashboard" class="list-group-item">
+                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span> Dashboard
+                </a>
+                <!-- Budgeting -->
+                <a href="/budgeting" class="list-group-item active">
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span> Budgeting
+                </a>
+                <!-- Expenditures -->
+                <a href="/expenditures" class="list-group-item">
+                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span> Expenditures
+                </a>
+                <!-- Contractors -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span> Contractors
+                </a>
+                <!-- Loan Management -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span> Loan Management
+                </a>
+                <!-- Statistics -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span> Statistics
+                </a>
+                <!-- Gallery -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-picture glyphicon-padding" aria-hidden="true"></span> Gallery
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <div class="row">
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1 class="text-center"> Budgeting </h1>
+                    <!-- Horizontal Rule -->
+                    <hr>
+                </div>
+                <!-- Button - Add Category -->
+                <button type="button" class="btn btn-success" ng-click="">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <b> Add Category </b>
+                </button>
+                <!-- Button - Add Line item -->
+                <button type="button" class="btn btn-success" ng-click="">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <b> Add Line Item </b>
+                </button>
+                <!-- Button - Delete -->
+                <button type="button" class="btn btn-danger" ng-click="">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    <b> Delete </b>
+                </button>
+                <!-- Line Break -->
+                <br><br>
+                <!-- Table -->
+                <table st-table="displayed" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th> <input id="checkbox_all" type="checkbox" class="checkbox"
+                                      ng-click="clickedCheckbox()"> </th>
+                            <th st-ratio="20" st-sort="costcategory">Cost Category</th>
+                            <th st-ratio="20" st-sort="description">Description</th>
+                            <th st-ratio="10" st-sort="estimatedcost">Estimated Cost</th>
+                            <th st-ratio="30" st-sort="timestamp">Time Stamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="row in displayed">
+                            <td> <input type="checkbox" class="checkbox"> </td>
+                            <td st-ratio="20">{{row.costcategory | uppercase}}</td>
+                            <td st-ratio="20">{{row.description | uppercase}}</td>
+                            <td st-ratio="10">{{row.estimatedcost | currency}}</td>
+                            <td st-ratio="30">{{row.timestamp | time}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="text-center">
+                                <div st-items-by-page="10" st-pagination="" st-template="pagination.custom.html"></div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
