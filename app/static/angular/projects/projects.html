@@ -93,11 +93,11 @@
                 </td>
             </tr>
         </tbody>
-        <tbody ng-show="projects.length == 0">
+        <tbody ng-show="project_list.length == 0">
             <tr>
                 <td colspan="1"></td>
                 <td colspan="3">
-                    <a href="#"> <b> Create New Project </b> </a>
+                    <a href ng-click="showNewProjectModal()"> <b> Create New Project </b> </a>
                 </td>
             </tr>
         </tbody>
