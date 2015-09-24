@@ -49,3 +49,35 @@ def populate_db(app):
         'Content-Type' : 'application/json',
         'Authorization': 'Bearer ' + token
     })
+
+    # Add Categories
+    category_list = [
+        'Pre-Construction',
+        'Foundation',
+        'Interior Finishing',
+        'General Trades'
+    ]
+    for category in category_list:
+        client.post('/api/categories', data = json.dumps({
+            'category_name': category,
+            'project_id'   : 1
+        }), headers = {
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
+
+        # Add Items
+        item_list = [
+            'Item 1',
+            'Item 2',
+            'Item 3',
+            'Item 4'
+        ]
+        for item in item_list:
+            client.post('/api/items', data = json.dumps({
+                'item_name'  : category,
+                'description': ''
+            }), headers = {
+                'Content-Type' : 'application/json',
+                'Authorization': 'Bearer ' + token
+            })
