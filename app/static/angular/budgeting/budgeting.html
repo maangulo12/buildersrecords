@@ -130,11 +130,18 @@
                     <tbody>
                         <tr ng-repeat="category in categories_list">
                             <td> <input type="checkbox" class="checkbox"> </td>
-                            <td> {{ categories_list.indexOf(category) + 1 }} </td>
                             <td> <a href ng-click="clickedCategories(category)">
                                      <b> {{ category.category_name }} </b>
                                  </a>
                             </td>
+                                <tr ng-repeat="item in category.items">
+                                    <td> <input type="checkbox" class="checkbox"> </td>
+                                    <td> <a href ng-click="clickedItems(item)">
+                                             <b> {{ item.item_name }} </b>
+                                         </a>
+                                    </td>
+                                </tr>
+                        </tr>
                     </tbody>
                 </table>
             </div>
