@@ -1,16 +1,18 @@
-angular.module('app.signup', [
+angular.module('app.signup', [])
 
-])
 .config(function($stateProvider) {
     $stateProvider.state('signup', {
         url: '/signup',
         templateUrl: 'angular/signup/signup.html',
         controller: 'SignupController'
-    })
+    });
 })
-.controller('SignupController', function($http, $scope, store, $state, authService) {
-    store.remove('jwt');
+.controller('SignupController', function($scope, store, $state, $http, authService) {
+    init();
 
+    function init() {
+        store.remove('jwt');
+    }
     $scope.redirectToSignup = function() {
         $state.go('signup');
     }
@@ -35,18 +37,17 @@ angular.module('app.signup', [
             }).then(function(response2) {
                 console.log('Email Registration Sent.');
             });
+        }, function(error) {
+            $scope.signup_form.$invalid = true;
         });
         // Authenticate user
         $http.post('/auth', {
             username: $scope.signup.username,
             password: $scope.signup.password
         }).then(function(response) {
-            // Call authentication helper
             authService.authHelper(response);
-            // Go to projects page
             $state.go('projects');
         }, function(error) {
-            // Error occurred, go to login
             $state.go('login');
         });
     }
