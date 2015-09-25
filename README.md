@@ -22,7 +22,7 @@ $ cd buildersrecords
 $ vagrant up    
 ```
 
-#### SSH into virtual machine (VM)
+#### SSH into the virtual machine (VM)
 >
 ```bash
 $ vagrant ssh
