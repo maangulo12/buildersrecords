@@ -11,7 +11,6 @@ angular.module('app.expenditures', [])
     init();
 
     function init() {
-        $('#delete_button').addClass('disabled');
         $scope.username = store.get('username');
         getExpenditures();
     }
@@ -29,7 +28,13 @@ angular.module('app.expenditures', [])
         $state.go('login');
     }
     $scope.clickedAllCheckbox = function() {
-        
+        angular.forEach($scope.expenditure_list, function(expenditure) {
+            expenditure.Selected = $scope.checkboxAll;
+            $scope.selected = expenditure.Selected;
+        });
+    }
+    $scope.clickedSingleCheckbox = function(expenditure) {
+        $scope.selected = expenditure.Selected;
     }
     // ADD functions
     $scope.showAddExpenditureModal = function() {
@@ -52,6 +57,25 @@ angular.module('app.expenditures', [])
         }, function(error) {
             $scope.add_expenditure_form.$invalid = true;
             $scope.add_expenditure_form.date.$invalid = true;
+        });
+    }
+    // DELETE functions
+    $scope.showDeleteExpendituresModal = function() {
+        if (!$('#delete_button').hasClass('disabled')) {
+            $('#delete_expenditures_modal').modal('show');
+        }
+    }
+    $scope.deleteExpenditures = function() {
+        angular.forEach($scope.expenditure_list, function(expenditure) {
+            if (expenditure.Selected) {
+                $http.delete('/api/expenditures/' + expenditure.id)
+                .then(function(response) {
+                    $('#delete_expenditures_modal').modal('hide');
+                    getExpenditures();
+                }, function(error) {
+                    // Could not delete expenditures
+                });
+            }
         });
     }
 });
