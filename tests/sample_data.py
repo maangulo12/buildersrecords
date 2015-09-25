@@ -83,3 +83,23 @@ def populate_db(app):
                 'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
             })
+
+    # Add Expenditures
+    expenditure_list = [
+        'Expenditure 1',
+        'Expenditure 2',
+        'Expenditure 3',
+        'Expenditure 4'
+    ]
+    for expenditure in expenditure_list:
+        client.post('/api/expenditures', data = json.dumps({
+            'date'       : '09/24/2015',
+            'vendor'     : 'Vendor Name',
+            'description': 'Description',
+            'notes'      : 'Notes',
+            'loan'       : True,
+            'project_id': 1
+        }), headers = {
+            'Content-Type' : 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
