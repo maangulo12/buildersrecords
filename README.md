@@ -1,4 +1,4 @@
-# BuildersRecords
+# [BuildersRecords] (http://flask-angularjs.herokuapp.com/)
 
 Web app for budgeting home construction projects.
 
@@ -8,19 +8,24 @@ It is recommended to run vagrant to use the Python interpreter and the PostgreSQ
 
 ## Required software:
 
-1. [VirtualBox] (https://www.virtualbox.org/wiki/Downloads)
-2. [Vagrant] (https://www.vagrantup.com/downloads.html)
++ [VirtualBox] (https://www.virtualbox.org/wiki/Downloads)
++ [Vagrant] (https://www.vagrantup.com/downloads.html)
 
 ## Get Started:
 
 #### 1. Clone the project:
 
-    $ git clone git@github.com:maangulo12/buildersrecords.git
-    $ cd buildersrecords
+>
+```bash
+$ git clone git@github.com:maangulo12/buildersrecords.git
+$ cd buildersrecords
+```
 
 #### 2. Run vagrant:
-
-    $ vagrant up
+>
+```bash
+$ vagrant up    
+```
 
 #### 3. SSH into VM:
 
