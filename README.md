@@ -44,7 +44,7 @@ $ python3 application.py
 
 ## Extras
 
-#### Python Interpreter on VM
+#### Python Interpreter on the VM
 ```
 Remote Python 3.4.0 Interpreter via SSH:
 Host: 127.0.0.1
@@ -55,7 +55,7 @@ Authentication: Using primary key
 Python Interpreter Path: /usr/bin/python3
 ```
 
-#### PostgreSQL Database Server on VM
+#### PostgreSQL Database Server on the VM
 ```
 Host: localhost
 Port: 5432
