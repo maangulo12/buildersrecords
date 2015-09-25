@@ -1,8 +1,6 @@
-angular.module('app.projects', [
+angular.module('app.projects', [])
 
-])
 .config(function($stateProvider) {
-    // This state requires login (note the data field)
     $stateProvider.state('projects', {
         url: '/projects',
         templateUrl: 'angular/projects/projects.html',
@@ -10,23 +8,29 @@ angular.module('app.projects', [
         data: {
             requiresLogin: true
         }
-    })
+    });
 })
-.controller('ProjectsController', function($http, $scope, store, $state) {
-    // Bootstrap tooltip init
-    $('[data-toggle="tooltip"]').tooltip();
+.controller('ProjectsController', function($scope, store, $state, $http) {
+    init();
 
-    // Signed in user
-    $scope.username = store.get('username');
-    // Load user's projects
-    getProjects();
-
-    // Log Out function
+    function init() {
+        $('[data-toggle="tooltip"]').tooltip();
+        $scope.username = store.get('username');
+        getProjects();
+    }
+    // GET function
+    function getProjects() {
+        $http.get('/api/projects?q={"filters":[{"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}')
+        .then(function(response) {
+            $scope.project_list = response.data.objects;
+        }, function(error) {
+            // Could not load user's project
+        });
+    }
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
     }
-    // Clicked Project function
     $scope.clickedProject = function(project) {
         var index = $scope.project_list.indexOf(project);
         if (index !== -1) {
@@ -36,20 +40,10 @@ angular.module('app.projects', [
         }
         return false;
     }
-    // Redirect to Dashboard
     $scope.redirectToDashboard = function() {
         $state.go('dashboard');
     }
-    // GET PROJECTS function
-    function getProjects() {
-        $http.get('/api/projects?q={"filters":[{"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}')
-        .then(function(response) {
-            $scope.project_list = response.data.objects;
-        }, function(response) {
-            // Could not load user's project
-        });
-    }
-    // NEW PROJECT functions
+    // ADD functions
     $scope.showNewProjectModal = function() {
         $scope.project_name = '';
         $scope.new_project_form.$setPristine();
@@ -63,12 +57,12 @@ angular.module('app.projects', [
         .then(function(response) {
             $('#new_project_modal').modal('hide');
             getProjects();
-        }, function(response) {
+        }, function(error) {
             $scope.new_project_form.$invalid = true;
             $scope.new_project_form.project_name.$invalid = true;
         });
     }
-    // DELETE PROJECT functions
+    // DELETE functions
     $scope.showDeleteProjectModal = function() {
         $('#delete_project_modal').find('.modal-title').text('Delete Project - ' + store.get('project_name'));
         $('#delete_project_modal').find('.modal-title').addClass('text-danger');
@@ -79,11 +73,11 @@ angular.module('app.projects', [
         .then(function(response) {
             $('#delete_project_modal').modal('hide');
             getProjects();
-        }, function(response) {
+        }, function(error) {
             // Could not delete project
         });
     }
-    // UPDATE PROJECT (Edit) functions
+    // UPDATE functions
     $scope.showEditProjectModal = function(project) {
         $scope.updated_project_name = store.get('project_name');
         $scope.edit_project_form.$setPristine();
@@ -98,7 +92,7 @@ angular.module('app.projects', [
         .then(function(response) {
             $('#edit_project_modal').modal('hide');
             getProjects();
-        }, function(response) {
+        }, function(error) {
             $scope.edit_project_form.$invalid = true;
             $scope.new_project_form.updated_project_name.$invalid = true;
         });
