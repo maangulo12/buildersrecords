@@ -2,18 +2,18 @@
 
 Web app for budgeting home construction projects.
 
-## Recommended to run with Vagrant
+## Recommended Instructions
 
-It is recommended to run vagrant to use the Python interpreter and the PostgreSQL database server on the VM.
+It is recommended to install VirtualBox and Vagrant.
 
-## Required software:
+## Required Software
 
 + [VirtualBox] (https://www.virtualbox.org/wiki/Downloads)
 + [Vagrant] (https://www.vagrantup.com/downloads.html)
 
-## Get Started:
+## Quick Start
 
-#### 1. Clone the project:
+#### + Clone the project:
 
 >
 ```bash
