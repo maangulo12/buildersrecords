@@ -7,7 +7,7 @@ Web app for budgeting home construction projects.
 + [VirtualBox] (https://www.virtualbox.org/wiki/Downloads)
 + [Vagrant] (https://www.vagrantup.com/downloads.html)
 
-## Quick Start
+## To Contribute
 
 #### Clone the project
 >
@@ -28,7 +28,7 @@ $ vagrant up
 $ vagrant ssh
 ```
 
-#### cd into the vagrant folder
+#### CD into the vagrant folder
 >
 ```bash
 $ cd /vagrant/
