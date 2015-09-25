@@ -75,8 +75,10 @@ def populate_db(app):
         ]
         for item in item_list:
             client.post('/api/items', data = json.dumps({
-                'item_name'  : category,
-                'description': ''
+                'item_name'  : item,
+                'description': 'Description',
+                'notes': 'Notes',
+                'category_id': category_list.index(category) + 1
             }), headers = {
                 'Content-Type' : 'application/json',
                 'Authorization': 'Bearer ' + token
