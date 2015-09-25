@@ -8,7 +8,7 @@ angular.module('app.expenditures', [
         controller: 'ExpendituresController'
     })
 })
-.controller('ExpendituresController', function($scope, store, $state) {
+.controller('ExpendituresController', function($scope, store, $state, $http) {
     $scope.username = store.get('username');
     getExpenditures();
 
