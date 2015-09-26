@@ -31,7 +31,7 @@ def populate_db(app):
 
     # Authenticate User
     response = client.post('/auth', data = json.dumps({
-        'username': 'test',
+        'login': 'test',
         'password': 'test'
     }), headers = {
         'Content-Type': 'application/json'
