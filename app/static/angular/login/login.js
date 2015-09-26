@@ -22,7 +22,7 @@ angular.module('app.login', [])
     $scope.logIn = function() {
         // Authenticate user
         $http.post('/auth', {
-            username: $scope.login,
+            login: $scope.login,
             password: $scope.password
         }).then(function(response) {
             authService.authHelper(response);

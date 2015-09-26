@@ -42,7 +42,7 @@ angular.module('app.signup', [])
         });
         // Authenticate user
         $http.post('/auth', {
-            username: $scope.signup.username,
+            login: $scope.signup.username,
             password: $scope.signup.password
         }).then(function(response) {
             authService.authHelper(response);
