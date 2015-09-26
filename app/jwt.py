@@ -9,7 +9,7 @@
 """
 
 import jwt
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, current_app
 from flask.ext.restless import ProcessingException
 
 from app import app
@@ -17,17 +17,17 @@ from app.models import User
 
 
 def encode_token(user):
-    return jwt.encode({ 'user_id': user.id, 'username': user.username }, 'secret')
+    return jwt.encode({ 'user_id': user.id, 'username': user.username }, current_app.config['AUTH_SECRET'])
 
 
 def decode_token(token):
-    return jwt.decode(token, 'secret', options = { 'verify_exp': False })
+    return jwt.decode(token, current_app.config['AUTH_SECRET'], options = { 'verify_exp': current_app.config['AUTH_VERIFY_EXP'] })
 
 
 @app.route('/auth', methods = ['POST'])
 def auth():
     data = request.get_json(force = True)
-    login = data.get('login', None)
+    login    = data.get('login', None)
     password = data.get('password', None)
     criterion = [login, password, len(data) == 2]
 
@@ -41,7 +41,7 @@ def auth():
 
     if user and user.check_password(password):
         token = encode_token(user)
-        return jsonify({ 'token': token.decode('utf-8') })
+        return make_response(jsonify({ 'token': token.decode('utf-8') }), 200)
     else:
         return make_response('Unauthorized', 401)
 
@@ -54,7 +54,7 @@ def verify_jwt(*args, **kwargs):
 
     parts = auth.split()
 
-    if parts[0].lower() != 'Bearer'.lower():
+    if parts[0].lower() != current_app.config['AUTH_HEADER_PREFIX'].lower():
         raise ProcessingException('Unsupported authorization type', 400)
     elif len(parts) == 1:
         raise ProcessingException('Token missing', 400)

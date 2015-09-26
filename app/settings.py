@@ -14,9 +14,14 @@ import os
 SECRET_KEY  = os.environ.get('SECRET_KEY', 'secret_key')
 
 # WSGI server
-SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
-SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))
-DEBUG_FLAG  = True
+SERVER_HOST  = os.environ.get('SERVER_HOST', '0.0.0.0')
+SERVER_PORT  = int(os.environ.get('SERVER_PORT', 5555))
+SERVER_DEBUG = True
+
+# API Auth
+AUTH_HEADER_PREFIX = os.environ.get('AUTH_HEADER_PREFIX', 'Bearer')
+AUTH_VERIFY_EXP    = False
+AUTH_SECRET        = os.environ.get('AUTH_SECRET', 'secret')
 
 # Email provider settings
 MAIL_SERVER         = 'smtp.gmail.com'

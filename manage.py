@@ -27,11 +27,11 @@
 """
 
 import os
+from flask import current_app
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
 from app import app, db
-from app.settings import SERVER_HOST, SERVER_PORT, DEBUG_FLAG
 from tests.sample_data import populate_db
 
 
@@ -67,7 +67,9 @@ def recreate():
 @manager.command
 def runserver():
     "Runs this Flask application."
-    app.run(host = SERVER_HOST, port = SERVER_PORT, debug = DEBUG_FLAG)
+    app.run(host  = current_app.config['SERVER_HOST'],
+            port  = current_app.config['SERVER_PORT'],
+            debug = current_app.config['SERVER_DEBUG'])
 
 @manager.command
 def runtests():
