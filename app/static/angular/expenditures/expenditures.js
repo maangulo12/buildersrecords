@@ -4,7 +4,10 @@ angular.module('app.expenditures', [])
     $stateProvider.state('expenditures', {
         url: '/expenditures',
         templateUrl: 'angular/expenditures/expenditures.html',
-        controller: 'ExpendituresController'
+        controller: 'ExpendituresController',
+        data: {
+            requiresLogin: true
+        }
     });
 })
 .controller('ExpendituresController', function($scope, store, $state, $http) {
@@ -26,6 +29,14 @@ angular.module('app.expenditures', [])
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
+    }
+    $scope.clickedExpenditure = function(expenditure) {
+        var index = $scope.expenditure_list.indexOf(expenditure);
+        if (index !== -1) {
+            store.set('expenditure_id', expenditure.id);
+            return true;
+        }
+        return false;
     }
     $scope.clickedAllCheckbox = function() {
         angular.forEach($scope.expenditure_list, function(expenditure) {
@@ -77,5 +88,23 @@ angular.module('app.expenditures', [])
                 });
             }
         });
+    }
+    // UPDATE functions
+    $scope.showEditExpenditureModal = function() {
+        $scope.edit_expenditure_form.$setPristine();
+        $('#edit_expenditure_modal').modal('show');
+    }
+    $scope.updateExpenditure = function() {
+        // $http.put('/api/projects/' + store.get('project_id'), {
+        //     project_name: $scope.updated_project_name,
+        //     user_id: store.get('user_id')
+        // })
+        // .then(function(response) {
+        //     $('#edit_project_modal').modal('hide');
+        //     getProjects();
+        // }, function(error) {
+        //     $scope.edit_expenditure_form.$invalid = true;
+        //     $scope.edit_expenditure_form.expenditure_date.$invalid = true;
+        // });
     }
 });

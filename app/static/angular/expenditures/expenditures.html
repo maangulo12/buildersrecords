@@ -114,6 +114,7 @@
                     <thead>
                         <tr>
                             <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
+                            <th> # </th>
                             <th> Date </th>
                             <th> Vendor </th>
                             <th> Description </th>
@@ -127,8 +128,12 @@
                         <tr>
                             <td> <input type="checkbox" class="checkbox"
                                         ng-model="expenditure.Selected" ng-click="clickedSingleCheckbox(expenditure)"> </td>
+                            <td> <a href ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
+                                    <b> {{ expenditure_list.indexOf(expenditure) + 1 }} </b>
+                                 </a>
+                            </td>
                             <td> {{ expenditure.date }} </td>
-                            <td> <a href="#"><b> {{ expenditure.vendor }} </b></a> </td>
+                            <td> <a href ng-click=""><b> {{ expenditure.vendor }} </b></a> </td>
                             <td> {{ expenditure.description }} </td>
                             <td> $17,053.58 </td>
                             <td> {{ expenditure.notes }} </td>
@@ -258,6 +263,86 @@
                         <b> Yes, Delete </b>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal - Edit Expenditure -->
+<div class="container">
+    <div class="modal fade" id="edit_expenditure_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <h4 class="modal-title">
+                        <b> Edit Expenditure </b>
+                    </h4>
+                </div>
+                <!-- Form -->
+                <form name="edit_expenditure_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="edit_expenditure_form.$invalid && edit_expenditure_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems updating your expenditure. </b>
+                        </div>
+                        <!-- Updated Expenditure Date Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_expenditure_form.expenditure_date.$dirty &&
+                                                      edit_expenditure_form.expenditure_date.$invalid ||
+                                                      edit_expenditure_form.$submitted &&
+                                                      edit_expenditure_form.expenditure_date.$invalid,
+                                         'has-feedback': edit_expenditure_form.expenditure_date.$dirty &&
+                                                         edit_expenditure_form.expenditure_date.$invalid ||
+                                                         edit_expenditure_form.$submitted &&
+                                                         edit_expenditure_form.expenditure_date.$invalid }">
+                            <label class="control-label" for="expenditure_date"> Expenditure Date </label>
+                            <input class="form-control"
+                                   name="expenditure_date"
+                                   type="text"
+                                   placeholder="Expenditure Date"
+                                   ng-model="expenditure_date"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_expenditure_form.expenditure_date.$dirty &&
+                                         edit_expenditure_form.expenditure_date.$invalid ||
+                                         edit_expenditure_form.$submitted &&
+                                         edit_expenditure_form.expenditure_date.$invalid">
+                            </span>
+                            <div ng-messages="edit_expenditure_form.expenditure_date.$error"
+                                 ng-if="edit_expenditure_form.expenditure_date.$dirty &&
+                                        edit_expenditure_form.expenditure_date.$invalid ||
+                                        edit_expenditure_form.$submitted &&
+                                        edit_expenditure_form.expenditure_date.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                             </div>
+                         </div>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary"
+                                ng-click="edit_expenditure_form.$valid && updateExpenditure()">
+                            <b> Update </b>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
