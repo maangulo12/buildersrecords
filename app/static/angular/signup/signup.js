@@ -28,14 +28,16 @@ angular.module('app.signup', [])
             last_name : $scope.signup.last_name,
             email     : $scope.signup.email
         }).then(function(response) {
-            // Send email registration
-            $http.post('/email_registration', {
+            // Send registration email
+            $http.post('/registration', {
                 email     : $scope.signup.email,
                 first_name: $scope.signup.first_name,
                 last_name : $scope.signup.last_name,
                 username  : $scope.signup.username
             }).then(function(response2) {
-                console.log('Email Registration Sent.');
+                console.log('Registration email was sent.');
+            }, function(error) {
+                console.log('Registration email could not be sent.');
             });
         }, function(error) {
             $scope.signup_form.$invalid = true;
