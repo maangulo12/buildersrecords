@@ -13,11 +13,11 @@
         -Items        : /api/items
         -Expenditures : /api/expenditures
 
-    *Note: auth_func is imported in this module in order to protect API.
+    *Note: verify_jwt is imported in this module in order to protect API.
 """
 
 from app import api_manager
-from app.jwt import auth_func
+from app.jwt import verify_jwt
 from app.models import User, Project, Category, Item, Expenditure
 
 
@@ -29,11 +29,11 @@ api_manager.create_api(User,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
-    preprocessors    = dict(GET_SINGLE    = [auth_func],
-                            PUT_SINGLE    = [auth_func],
-                            PUT_MANY      = [auth_func],
-                            DELETE_SINGLE = [auth_func],
-                            DELETE_MANY   = [auth_func]),
+    preprocessors    = dict(GET_SINGLE    = [verify_jwt],
+                            PUT_SINGLE    = [verify_jwt],
+                            PUT_MANY      = [verify_jwt],
+                            DELETE_SINGLE = [verify_jwt],
+                            DELETE_MANY   = [verify_jwt]),
     collection_name  = 'users')
 
 # Projects: /api/projects
@@ -44,13 +44,13 @@ api_manager.create_api(Project,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
-    preprocessors    = dict(POST          = [auth_func],
-                            GET_SINGLE    = [auth_func],
-                            GET_MANY      = [auth_func],
-                            PUT_SINGLE    = [auth_func],
-                            PUT_MANY      = [auth_func],
-                            DELETE_SINGLE = [auth_func],
-                            DELETE_MANY   = [auth_func]),
+    preprocessors    = dict(POST          = [verify_jwt],
+                            GET_SINGLE    = [verify_jwt],
+                            GET_MANY      = [verify_jwt],
+                            PUT_SINGLE    = [verify_jwt],
+                            PUT_MANY      = [verify_jwt],
+                            DELETE_SINGLE = [verify_jwt],
+                            DELETE_MANY   = [verify_jwt]),
     collection_name  = 'projects')
 
 # Categories: /api/categories
@@ -61,13 +61,13 @@ api_manager.create_api(Category,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
-    preprocessors    = dict(POST          = [auth_func],
-                            GET_SINGLE    = [auth_func],
-                            GET_MANY      = [auth_func],
-                            PUT_SINGLE    = [auth_func],
-                            PUT_MANY      = [auth_func],
-                            DELETE_SINGLE = [auth_func],
-                            DELETE_MANY   = [auth_func]),
+    preprocessors    = dict(POST          = [verify_jwt],
+                            GET_SINGLE    = [verify_jwt],
+                            GET_MANY      = [verify_jwt],
+                            PUT_SINGLE    = [verify_jwt],
+                            PUT_MANY      = [verify_jwt],
+                            DELETE_SINGLE = [verify_jwt],
+                            DELETE_MANY   = [verify_jwt]),
     collection_name  = 'categories')
 
 # Items: /api/items
@@ -78,13 +78,13 @@ api_manager.create_api(Item,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
-    preprocessors    = dict(POST          = [auth_func],
-                            GET_SINGLE    = [auth_func],
-                            GET_MANY      = [auth_func],
-                            PUT_SINGLE    = [auth_func],
-                            PUT_MANY      = [auth_func],
-                            DELETE_SINGLE = [auth_func],
-                            DELETE_MANY   = [auth_func]),
+    preprocessors    = dict(POST          = [verify_jwt],
+                            GET_SINGLE    = [verify_jwt],
+                            GET_MANY      = [verify_jwt],
+                            PUT_SINGLE    = [verify_jwt],
+                            PUT_MANY      = [verify_jwt],
+                            DELETE_SINGLE = [verify_jwt],
+                            DELETE_MANY   = [verify_jwt]),
     collection_name  = 'items')
 
 # Expenditures: /api/expenditures
@@ -95,11 +95,11 @@ api_manager.create_api(Expenditure,
     methods          = ['GET', 'POST', 'DELETE', 'PUT'],
     url_prefix       = '/api',
     results_per_page = 0,
-    preprocessors    = dict(POST          = [auth_func],
-                            GET_SINGLE    = [auth_func],
-                            GET_MANY      = [auth_func],
-                            PUT_SINGLE    = [auth_func],
-                            PUT_MANY      = [auth_func],
-                            DELETE_SINGLE = [auth_func],
-                            DELETE_MANY   = [auth_func]),
+    preprocessors    = dict(POST          = [verify_jwt],
+                            GET_SINGLE    = [verify_jwt],
+                            GET_MANY      = [verify_jwt],
+                            PUT_SINGLE    = [verify_jwt],
+                            PUT_MANY      = [verify_jwt],
+                            DELETE_SINGLE = [verify_jwt],
+                            DELETE_MANY   = [verify_jwt]),
     collection_name  = 'expenditures')
