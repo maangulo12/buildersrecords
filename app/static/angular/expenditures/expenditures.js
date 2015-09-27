@@ -34,6 +34,10 @@ angular.module('app.expenditures', [])
         var index = $scope.expenditure_list.indexOf(expenditure);
         if (index !== -1) {
             store.set('expenditure_id', expenditure.id);
+            store.set('expenditure_date', expenditure.date);
+            store.set('expenditure_vendor', expenditure.vendor);
+            store.set('expenditure_description', expenditure.description);
+            store.set('expenditure_notes', expenditure.notes);
             return true;
         }
         return false;
@@ -50,15 +54,18 @@ angular.module('app.expenditures', [])
     // ADD functions
     $scope.showAddExpenditureModal = function() {
         $scope.date = '';
+        $scope.vendor = '';
+        $scope.description = '';
+        $scope.notes = '';
         $scope.add_expenditure_form.$setPristine();
         $('#add_expenditure_modal').modal('show');
     }
     $scope.addExpenditure = function() {
         $http.post('/api/expenditures', {
             date: $scope.date,
-            vendor: 'Vendor Name',
-            description: 'Description',
-            notes: 'Notes',
+            vendor: $scope.vendor,
+            description: $scope.description,
+            notes: $scope.notes,
             loan: true,
             project_id: store.get('project_id')
         })
@@ -83,6 +90,7 @@ angular.module('app.expenditures', [])
                 .then(function(response) {
                     $('#delete_expenditures_modal').modal('hide');
                     getExpenditures();
+                    $scope.selected = false;
                 }, function(error) {
                     // Could not delete expenditures
                 });
@@ -91,20 +99,27 @@ angular.module('app.expenditures', [])
     }
     // UPDATE functions
     $scope.showEditExpenditureModal = function() {
+        $scope.updated_date = store.get('expenditure_date');
+        $scope.updated_vendor = store.get('expenditure_vendor');
+        $scope.updated_description = store.get('expenditure_description');
+        $scope.updated_notes = store.get('expenditure_notes');
         $scope.edit_expenditure_form.$setPristine();
         $('#edit_expenditure_modal').modal('show');
     }
     $scope.updateExpenditure = function() {
-        // $http.put('/api/projects/' + store.get('project_id'), {
-        //     project_name: $scope.updated_project_name,
-        //     user_id: store.get('user_id')
-        // })
-        // .then(function(response) {
-        //     $('#edit_project_modal').modal('hide');
-        //     getProjects();
-        // }, function(error) {
-        //     $scope.edit_expenditure_form.$invalid = true;
-        //     $scope.edit_expenditure_form.expenditure_date.$invalid = true;
-        // });
+        $http.put('/api/expenditures/' + store.get('expenditure_id'), {
+            date: $scope.updated_date,
+            vendor: $scope.updated_vendor,
+            description: $scope.updated_description,
+            notes: $scope.updated_notes,
+            loan: true,
+            project_id: store.get('project_id')
+        })
+        .then(function(response) {
+            $('#edit_expenditure_modal').modal('hide');
+            getExpenditures();
+        }, function(error) {
+            $scope.edit_expenditure_form.$invalid = true;
+        });
     }
 });
