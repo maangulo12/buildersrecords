@@ -7,6 +7,7 @@ angular.module('app', [
     'angular-jwt',
     'angular-storage',
     'smart-table',
+    'mgcrea.ngStrap',
 
     'app.directives',
     'app.auth',
