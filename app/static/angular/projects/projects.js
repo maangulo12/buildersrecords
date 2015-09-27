@@ -14,7 +14,6 @@ angular.module('app.projects', [])
     init();
 
     function init() {
-        $('[data-toggle="tooltip"]').tooltip();
         $scope.username = store.get('username');
         getProjects();
     }
