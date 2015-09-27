@@ -89,7 +89,10 @@ def populate_db(app):
         'Expenditure 1',
         'Expenditure 2',
         'Expenditure 3',
-        'Expenditure 4'
+        'Expenditure 4',
+        'Expenditure 5',
+        'Expenditure 6',
+        'Expenditure 7'
     ]
     for expenditure in expenditure_list:
         client.post('/api/expenditures', data = json.dumps({
