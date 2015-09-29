@@ -134,13 +134,13 @@
                                      <b> {{ category.category_name }} </b>
                                  </a>
                             </td>
-                                <tr ng-repeat="item in category.items">
-                                    <td> <input type="checkbox" class="checkbox"> </td>
-                                    <td> <a href ng-click="clickedItems(item)">
-                                             <b> {{ item.item_name }} </b>
-                                         </a>
-                                    </td>
-                                </tr>
+                        </tr>
+                        <tr ng-repeat="item in category.items">
+                            <td> <input type="checkbox" class="checkbox"> </td>
+                            <td> <a href ng-click="clickedItems(item)">
+                                     <b> {{ item.item_name }} </b>
+                                 </a>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
