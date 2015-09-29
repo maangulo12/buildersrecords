@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -23,7 +24,7 @@ from flask_mail import Mail
 
 
 # Flask application
-app = Flask(__name__, static_url_path = '')
+app = Flask(__name__, static_url_path='')
 app.config.from_pyfile('settings.py')
 from app import views
 
@@ -38,7 +39,7 @@ from app import models
 from app import jwt
 
 # Flask-Restless
-api_manager = APIManager(app, flask_sqlalchemy_db = db)
+api_manager = APIManager(app, flask_sqlalchemy_db=db)
 from app import api
 
 # Flask-Mail

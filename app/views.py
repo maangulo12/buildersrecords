@@ -13,10 +13,11 @@ from app import app
 
 
 # This is the index view (first view loaded)
-@app.route('/', defaults = {'path': ''})
+@app.route('/', defaults={'path': ''})
 @app.route('/<path>')
 def index(path):
     return make_response(open('app/templates/index.html').read())
+
 
 # This is an error 404 view (when 404 error occurs this page loads)
 @app.errorhandler(404)

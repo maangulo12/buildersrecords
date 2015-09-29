@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -17,33 +18,33 @@ from app.models import User
 
 
 def encode_token(user):
-    return jwt.encode({ 'user_id': user.id, 'username': user.username },
-                        current_app.config['AUTH_SECRET'])
+    return jwt.encode({'user_id': user.id, 'username': user.username},
+                      current_app.config['AUTH_SECRET'])
 
 
 def decode_token(token):
     return jwt.decode(token, current_app.config['AUTH_SECRET'],
-                      options = { 'verify_exp': current_app.config['AUTH_VERIFY_EXP'] })
+                      options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']})
 
 
-@app.route('/auth', methods = ['POST'])
+@app.route('/auth', methods=['POST'])
 def auth():
-    data = request.get_json(force = True)
-    login    = data.get('login', None)
+    data = request.get_json(force=True)
+    login = data.get('login', None)
     password = data.get('password', None)
     criterion = [login, password, len(data) == 2]
 
     if not all(criterion):
         return make_response('Bad Request', 400)
 
-    user = User.query.filter_by(username = login).first()
+    user = User.query.filter_by(username=login).first()
 
     if user is None:
-        user = User.query.filter_by(email = login).first()
+        user = User.query.filter_by(email=login).first()
 
     if user and user.check_password(password):
         token = encode_token(user)
-        return make_response(jsonify({ 'token': token.decode('utf-8') }), 200)
+        return make_response(jsonify({'token': token.decode('utf-8')}), 200)
     else:
         return make_response('Unauthorized', 401)
 
@@ -65,7 +66,8 @@ def verify_jwt(*args, **kwargs):
 
     try:
         payload = decode_token(parts[1])
-        user = User.query.filter_by(id = payload['user_id'], username = payload['username']).first()
+        user = User.query.filter_by(
+            id=payload['user_id'], username=payload['username']).first()
 
         if user is None:
             raise ProcessingException('User does not exist', 401)

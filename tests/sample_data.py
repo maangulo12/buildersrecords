@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
@@ -19,34 +20,34 @@ def populate_db(app):
     client = app.test_client()
 
     # Create User
-    client.post('/api/users', data = json.dumps({
-        'username'  : 'test',
-        'password'  : 'test',
+    client.post('/api/users', data=json.dumps({
+        'username': 'test',
+        'password': 'test',
         'first_name': 'test',
-        'last_name' : 'test',
-        'email'     : 'test@gmail.com'
-    }), headers = {
+        'last_name': 'test',
+        'email': 'test@gmail.com'
+    }), headers={
         'Content-Type': 'application/json'
     })
 
     # Authenticate User
-    response = client.post('/auth', data = json.dumps({
+    response = client.post('/auth', data=json.dumps({
         'login': 'test',
         'password': 'test'
-    }), headers = {
+    }), headers={
         'Content-Type': 'application/json'
     })
 
     # Auth Token
-    data  = json.loads(response.data.decode('utf-8'))
+    data = json.loads(response.data.decode('utf-8'))
     token = data['token']
 
     # Create Project
-    client.post('/api/projects', data = json.dumps({
+    client.post('/api/projects', data=json.dumps({
         'project_name': 'Test Project',
-        'user_id'     :  1
-    }), headers = {
-        'Content-Type' : 'application/json',
+        'user_id':  1
+    }), headers={
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
     })
 
@@ -58,11 +59,11 @@ def populate_db(app):
         'General Trades'
     ]
     for category in category_list:
-        client.post('/api/categories', data = json.dumps({
+        client.post('/api/categories', data=json.dumps({
             'category_name': category,
-            'project_id'   : 1
-        }), headers = {
-            'Content-Type' : 'application/json',
+            'project_id': 1
+        }), headers={
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         })
 
@@ -74,13 +75,13 @@ def populate_db(app):
             'Item 4'
         ]
         for item in item_list:
-            client.post('/api/items', data = json.dumps({
-                'item_name'  : item,
+            client.post('/api/items', data=json.dumps({
+                'item_name': item,
                 'description': 'Description',
                 'notes': 'Notes',
                 'category_id': category_list.index(category) + 1
-            }), headers = {
-                'Content-Type' : 'application/json',
+            }), headers={
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             })
 
@@ -95,14 +96,14 @@ def populate_db(app):
         'Expenditure 7'
     ]
     for expenditure in expenditure_list:
-        client.post('/api/expenditures', data = json.dumps({
-            'date'       : '09/24/2015',
-            'vendor'     : 'Vendor Name',
+        client.post('/api/expenditures', data=json.dumps({
+            'date': '09/24/2015',
+            'vendor': 'Vendor Name',
             'description': 'Description',
-            'notes'      : 'Notes',
-            'loan'       : True,
+            'notes': 'Notes',
+            'loan': True,
             'project_id': 1
-        }), headers = {
-            'Content-Type' : 'application/json',
+        }), headers={
+            'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         })

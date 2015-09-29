@@ -39,11 +39,13 @@ migrate = Migrate(app, db)
 manager = Manager(app)
 manager.add_command('db', MigrateCommand)
 
+
 @manager.command
 def create():
     "Creates all of the tables in the database."
     db.create_all()
     print('Created all of the tables in the database.')
+
 
 @manager.command
 def drop():
@@ -51,11 +53,13 @@ def drop():
     db.drop_all()
     print('Dropped all of the tables from the database.')
 
+
 @manager.command
 def populate():
     "Populates the database with sample data."
     populate_db(app)
     print('Populated the database with sample data.')
+
 
 @manager.command
 def recreate():
@@ -64,18 +68,21 @@ def recreate():
     create()
     populate()
 
+
 @manager.command
 def runserver():
     "Runs this Flask application."
-    app.run(host  = current_app.config['SERVER_HOST'],
-            port  = current_app.config['SERVER_PORT'],
-            debug = current_app.config['SERVER_DEBUG'])
+    app.run(host=current_app.config['SERVER_HOST'],
+            port=current_app.config['SERVER_PORT'],
+            debug=current_app.config['SERVER_DEBUG'])
+
 
 @manager.command
 def runtests():
     "Runs tests to this application using nose."
     os.system('nosetests tests/tests.py')
     print('Finished running all tests.')
+
 
 if __name__ == "__main__":
     manager.run()

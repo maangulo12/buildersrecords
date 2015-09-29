@@ -1,10 +1,10 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
     BuildersRecords
     --------------------
     :copyright: (c) 2015
-
 
     To deploy this application, run this module.
 
@@ -17,4 +17,4 @@ from app.settings import SERVER_HOST, SERVER_PORT, SERVER_DEBUG
 
 
 if __name__ == '__main__':
-    app.run(host = SERVER_HOST, port = SERVER_PORT, debug = SERVER_DEBUG)
+    app.run(host=SERVER_HOST, port=SERVER_PORT, debug=SERVER_DEBUG)
