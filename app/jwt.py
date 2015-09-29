@@ -17,11 +17,13 @@ from app.models import User
 
 
 def encode_token(user):
-    return jwt.encode({ 'user_id': user.id, 'username': user.username }, current_app.config['AUTH_SECRET'])
+    return jwt.encode({ 'user_id': user.id, 'username': user.username },
+                        current_app.config['AUTH_SECRET'])
 
 
 def decode_token(token):
-    return jwt.decode(token, current_app.config['AUTH_SECRET'], options = { 'verify_exp': current_app.config['AUTH_VERIFY_EXP'] })
+    return jwt.decode(token, current_app.config['AUTH_SECRET'],
+                      options = { 'verify_exp': current_app.config['AUTH_VERIFY_EXP'] })
 
 
 @app.route('/auth', methods = ['POST'])
