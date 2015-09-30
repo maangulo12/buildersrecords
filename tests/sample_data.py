@@ -11,7 +11,7 @@
         python3 manage.py populate
 """
 
-import json
+import simplejson as json
 
 
 def populate_db(app):
@@ -26,7 +26,8 @@ def populate_db(app):
         'first_name': 'test',
         'last_name': 'test',
         'email': 'test@gmail.com'
-    }), headers={
+    }),
+        headers={
         'Content-Type': 'application/json'
     })
 
@@ -34,7 +35,8 @@ def populate_db(app):
     response = client.post('/auth', data=json.dumps({
         'login': 'test',
         'password': 'test'
-    }), headers={
+    }),
+        headers={
         'Content-Type': 'application/json'
     })
 
@@ -46,7 +48,8 @@ def populate_db(app):
     client.post('/api/projects', data=json.dumps({
         'project_name': 'Test Project',
         'user_id':  1
-    }), headers={
+    }),
+        headers={
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
     })
@@ -62,7 +65,8 @@ def populate_db(app):
         client.post('/api/categories', data=json.dumps({
             'category_name': category,
             'project_id': 1
-        }), headers={
+        }),
+            headers={
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         })
@@ -80,10 +84,21 @@ def populate_db(app):
                 'description': 'Description',
                 'notes': 'Notes',
                 'category_id': category_list.index(category) + 1
-            }), headers={
+            }),
+                headers={
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             })
+
+    # Add Fund
+    client.post('/api/funds', data=json.dumps({
+        'name': 'Blanco Bank',
+        'amount': 320000.00
+    }, use_decimal=True),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
 
     # Add Expenditures
     expenditure_list = [
@@ -100,10 +115,12 @@ def populate_db(app):
             'date': '09/24/2015',
             'vendor': 'Vendor Name',
             'description': 'Description',
+            'amount': 125.00,
             'notes': 'Notes',
-            'loan': True,
+            'fund_id': 1,
             'project_id': 1
-        }), headers={
+        }, use_decimal=True),
+            headers={
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         })
