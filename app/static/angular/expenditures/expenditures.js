@@ -23,7 +23,7 @@ angular.module('app.expenditures', [])
         .then(function(response) {
             $scope.expenditure_list = response.data.objects;
         }, function(error) {
-            // Could not load user's project
+            $scope.error_msg = 'Could not load your expenses. Please refresh your page.';
         });
     }
     $scope.logOut = function() {
@@ -37,6 +37,7 @@ angular.module('app.expenditures', [])
             store.set('expenditure_date', expenditure.date);
             store.set('expenditure_vendor', expenditure.vendor);
             store.set('expenditure_description', expenditure.description);
+            store.set('expenditure_amount', expenditure.amount);
             store.set('expenditure_notes', expenditure.notes);
             return true;
         }
@@ -53,9 +54,10 @@ angular.module('app.expenditures', [])
     }
     // ADD functions
     $scope.showAddExpenditureModal = function() {
-        $scope.date = '';
+        $scope.date = new Date();
         $scope.vendor = '';
         $scope.description = '';
+        $scope.amount = '';
         $scope.notes = '';
         $scope.add_expenditure_form.$setPristine();
         $('#add_expenditure_modal').modal('show');
@@ -65,6 +67,7 @@ angular.module('app.expenditures', [])
             date: $scope.date,
             vendor: $scope.vendor,
             description: $scope.description,
+            amount: $scope.amount,
             notes: $scope.notes,
             loan: true,
             project_id: store.get('project_id')
@@ -74,7 +77,6 @@ angular.module('app.expenditures', [])
             getExpenditures();
         }, function(error) {
             $scope.add_expenditure_form.$invalid = true;
-            $scope.add_expenditure_form.date.$invalid = true;
         });
     }
     // DELETE functions
@@ -92,16 +94,17 @@ angular.module('app.expenditures', [])
                     getExpenditures();
                     $scope.selected = false;
                 }, function(error) {
-                    // Could not delete expenditures
+                    $scope.error_msg = 'Could not delete your expense(s). Please try again.';
                 });
             }
         });
     }
     // UPDATE functions
     $scope.showEditExpenditureModal = function() {
-        $scope.updated_date = store.get('expenditure_date');
+        $scope.updated_date = new Date(store.get('expenditure_date'));
         $scope.updated_vendor = store.get('expenditure_vendor');
         $scope.updated_description = store.get('expenditure_description');
+        $scope.updated_amount = store.get('expenditure_amount');
         $scope.updated_notes = store.get('expenditure_notes');
         $scope.edit_expenditure_form.$setPristine();
         $('#edit_expenditure_modal').modal('show');
@@ -111,6 +114,7 @@ angular.module('app.expenditures', [])
             date: $scope.updated_date,
             vendor: $scope.updated_vendor,
             description: $scope.updated_description,
+            amount: $scope.updated_amount,
             notes: $scope.updated_notes,
             loan: true,
             project_id: store.get('project_id')
