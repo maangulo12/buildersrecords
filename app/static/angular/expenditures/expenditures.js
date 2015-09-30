@@ -23,7 +23,7 @@ angular.module('app.expenditures', [])
         .then(function(response) {
             $scope.expenditure_list = response.data.objects;
         }, function(error) {
-            $scope.error_msg = 'Could not load your expenses. Please refresh your page.';
+            $scope.error_msg = 'Could not load your expenses. Please try to refresh the page.';
         });
     }
     $scope.logOut = function() {
