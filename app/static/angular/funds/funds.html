@@ -1,0 +1,117 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Navigation Bar Header -->
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Navigation Bar Brand -->
+            <a class="navbar-brand" href="/projects"> BuildersRecords </a>
+        </div>
+        <!-- Navigation Bar List Items -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Send Feedback -->
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <b> Send Feedback </b>
+                    </a>
+                </li>
+                <!-- Help & Support -->
+                <li>
+                    <a href="#">
+                        <b> Help & Support </b>
+                    </a>
+                </li>
+                <!-- Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <b> {{ username }} </b>
+                        <span class="caret"></span>
+                    </a>
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> My Account </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Grid System -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li><a href="/projects">
+                        <span class="glyphicon glyphicon-arrow-left glyphicon-padding" aria-hidden="true"></span>
+                        Back to My Projects
+                    </a>
+                </li>
+            </ol>
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Dashboard -->
+                <a href="/dashboard" class="list-group-item">
+                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span> Dashboard
+                </a>
+                <!-- Budgeting -->
+                <a href="/budgeting" class="list-group-item">
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span> Budgeting
+                </a>
+                <!-- Expenditures -->
+                <a href="/expenditures" class="list-group-item">
+                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span> Expenditures
+                </a>
+                <!-- Contractors -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span> Contractors
+                </a>
+                <!-- Funds & Loans -->
+                <a href="/funds" class="list-group-item active">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span> Funds & Loans
+                </a>
+                <!-- Statistics -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span> Statistics
+                </a>
+                <!-- Gallery -->
+                <a href="#" class="list-group-item">
+                    <span class="glyphicon glyphicon-picture glyphicon-padding" aria-hidden="true"></span> Gallery
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <div class="row">
+                <!-- Alert -->
+                <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                     ng-if="error_msg">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only"> Error: </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button> <b> {{ error_msg }} </b>
+                </div>
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1> <span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Funds & Loans </h1>
+                    <!-- Sub Header -->
+                    <h4 class="text-muted"> Track all of your funds and loans here </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

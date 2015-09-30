@@ -13,13 +13,14 @@
         -Categories   : /api/categories
         -Items        : /api/items
         -Expenditures : /api/expenditures
+        -Funds        : /api/funds
 
     *Note: verify_jwt is imported in this module in order to protect API.
 """
 
 from app import api_manager
 from app.jwt import verify_jwt
-from app.models import User, Project, Category, Item, Expenditure
+from app.models import User, Project, Category, Item, Expenditure, Fund
 
 
 # Users: /api/users
@@ -104,3 +105,20 @@ api_manager.create_api(Expenditure,
                                           DELETE_SINGLE=[verify_jwt],
                                           DELETE_MANY=[verify_jwt]),
                        collection_name='expenditures')
+
+# Funds: /api/funds
+# methods allowed: GET, POST, DELETE, PUT
+# results_per_page: pagination turned off (set to 0)
+# All methods are protected (all of them are listed in preprocessors)
+api_manager.create_api(Fund,
+                       methods=['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix='/api',
+                       results_per_page=0,
+                       preprocessors=dict(POST=[verify_jwt],
+                                          GET_SINGLE=[verify_jwt],
+                                          GET_MANY=[verify_jwt],
+                                          PUT_SINGLE=[verify_jwt],
+                                          PUT_MANY=[verify_jwt],
+                                          DELETE_SINGLE=[verify_jwt],
+                                          DELETE_MANY=[verify_jwt]),
+                       collection_name='funds')

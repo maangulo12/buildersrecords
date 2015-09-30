@@ -12,6 +12,7 @@
         -Category    : categories
         -Item        : items
         -Expenditure : expenditure
+        -Funds       : funds
 """
 
 from app import db, bcrypt
@@ -78,6 +79,16 @@ class Item(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
 
+# This is the funds table in the database
+class Fund(db.Model):
+    __tablename__ = 'funds'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+    amount = db.Column(db.Numeric(11,2), nullable=False)
+
+    expenditures = db.relationship('Expenditure', backref='funds')
+
+
 # This is the expenditures table in the database
 class Expenditure(db.Model):
     __tablename__ = 'expenditures'
@@ -85,8 +96,8 @@ class Expenditure(db.Model):
     date = db.Column(db.Date, nullable=False)
     vendor = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(80), nullable=False)
-    # amount      = db.Column(db.Numeric(11,2), nullable = False)
+    amount = db.Column(db.Numeric(11,2), nullable=False)
     notes = db.Column(db.String(80), nullable=False)
-    loan = db.Column(db.Boolean, nullable=False)
     # image       = db.Column(db.LargeBinary, nullable = False)
+    fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
