@@ -118,6 +118,98 @@
                     <!-- Sub Header -->
                     <h4 class="text-muted"> Track all of your funds and loans here </h4>
                 </div>
+                <!-- Button - Add Fund -->
+                <button type="button" class="btn btn-success" ng-click="">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <b> Add </b>
+                </button>
+                <!-- Line Breaks -->
+                <br>
+                <br>
+                <!-- Collapse -->
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <!-- Panel - Out of Pocket -->
+                    <div class="panel panel-default">
+                        <!-- Panel Heading -->
+                        <div class="panel-heading" role="tab" id="out-of-project">
+                            <div class="row">
+                                <!-- Left Side -->
+                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                    <!-- Panel Title -->
+                                    <h4 class="panel-title">
+                                        <a role="button" data-toggle="collapse" data-parent="#accordion" class="glyphicon-padding"
+                                           href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                            <b> Out of Pocket </b>
+                                        </a>
+                                        <span class="text-success"> +$30,000 </span>
+                                    </h4>
+                                </div>
+                                <!-- Right Side -->
+                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                    <div class="text-right">
+                                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <!-- Panel Body -->
+                            <div class="panel-body">
+                                <h4> My Spending </h4>
+                                <p class="text-muted"> 0 </p>
+                                <!-- Progress Bar -->
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only"> 40% Complete (success) </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Panel - Loans -->
+                    <div class="panel panel-default">
+                        <!-- Panel Heading -->
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <!-- Panel Title -->
+                            <h4 class="panel-title">
+                                <div class="row">
+                                    <!-- Left Side -->
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                                        <!-- Panel Title -->
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion" class="glyphicon-padding"
+                                               href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                                                <b> Swing Loan </b>
+                                            </a>
+                                            <span class="text-success"> +$330,000 </span>
+                                        </h4>
+                                    </div>
+                                    <!-- Right Side -->
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                                        <div class="text-right">
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                            <!-- Panel Body -->
+                            <div class="panel-body">
+                                <h4> My Spending </h4>
+                                <p class="text-muted"> 0 </p>
+                                <!-- Progress Bar -->
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                        <span class="sr-only"> 40% Complete (success) </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
