@@ -30,7 +30,6 @@ def registration():
     msg.html = render_template('email/registration.html',
                                username=username,
                                first_name=first_name,
-                               last_name=last_name
-                               )
+                               last_name=last_name)
     # mail_service.send(msg)
     return make_response(jsonify({'msg': 'Registration email was sent'}), 201)
