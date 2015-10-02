@@ -17,7 +17,7 @@ angular.module('app.budgeting', [
   $scope.username = store.get('username');
   // Load user's projects
   getCategories();
-  // getItems();
+  getItems();
   // Log Out function
   $scope.logOut = function() {
       store.remove('jwt');
@@ -35,13 +35,15 @@ angular.module('app.budgeting', [
       });
   }
   // GET ITEMS function
-  // function getItems() {
-  //     $http.get('/api/items?q={"filters":[{"name":"category_id","op":"equals","val":"' + store.get('category_id') + '"}]}')
-  //     .then(function(response) {
-  //         $scope.items_list = response.data.objects;
-  //     }, function(response) {
-  //         // Could not load user's project
-  //     });
-  // }
+  function getItems() {
+      console.log('im in getcategories');
+      $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+      .then(function(response) {
+          console.log(response.data);
+          $scope.categories_list = response.data.objects;
+      }, function(response) {
+          // Could not load user's project
+      });
+  }
 
 });
