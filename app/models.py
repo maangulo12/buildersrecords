@@ -56,6 +56,7 @@ class Project(db.Model):
 
     categories = db.relationship('Category', backref='projects')
     expenditures = db.relationship('Expenditure', backref='projects')
+    funds = db.relationship('Fund', backref='projects')
 
 
 # This is the categories table in the database
@@ -85,8 +86,7 @@ class Fund(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     amount = db.Column(db.Numeric(11,2), nullable=False)
-
-    expenditures = db.relationship('Expenditure', backref='funds')
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
 
 
 # This is the expenditures table in the database
