@@ -17,15 +17,6 @@ angular.module('app.expenditures', [])
         $scope.username = store.get('username');
         getExpenditures();
     }
-    // GET function
-    function getExpenditures() {
-        $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
-        .then(function(response) {
-            $scope.expenditure_list = response.data.objects;
-        }, function(error) {
-            $scope.error_msg = 'Could not load your expenses. Please try to refresh the page.';
-        });
-    }
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
@@ -52,7 +43,16 @@ angular.module('app.expenditures', [])
     $scope.clickedSingleCheckbox = function(expenditure) {
         $scope.selected = expenditure.Selected;
     }
-    // ADD functions
+    // GET EXPENDITURES function
+    function getExpenditures() {
+        $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        .then(function(response) {
+            $scope.expenditure_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg = 'Could not load your expenses. Please try to refresh the page.';
+        });
+    }
+    // ADD EXPENDITURE functions
     $scope.showAddExpenditureModal = function() {
         $scope.date = new Date();
         $scope.vendor = '';
@@ -79,7 +79,7 @@ angular.module('app.expenditures', [])
             $scope.add_expenditure_form.$invalid = true;
         });
     }
-    // DELETE functions
+    // DELETE EXPENDITURES functions
     $scope.showDeleteExpendituresModal = function() {
         if (!$('#delete_button').hasClass('disabled')) {
             $('#delete_expenditures_modal').modal('show');
@@ -99,7 +99,7 @@ angular.module('app.expenditures', [])
             }
         });
     }
-    // UPDATE functions
+    // UPDATE EXPENDITURE functions
     $scope.showEditExpenditureModal = function() {
         $scope.updated_date = new Date(store.get('expenditure_date'));
         $scope.updated_vendor = store.get('expenditure_vendor');
