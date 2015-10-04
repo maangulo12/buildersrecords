@@ -13,6 +13,7 @@
         -Item        : items
         -Expenditure : expenditure
         -Funds       : funds
+        -Draws       : draws
 """
 
 from app import db, bcrypt
@@ -85,8 +86,20 @@ class Fund(db.Model):
     __tablename__ = 'funds'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
-    amount = db.Column(db.Numeric(11,2), nullable=False)
+    amount = db.Column(db.Numeric(12,2), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+
+    expenditures = db.relationship('Expenditure', backref='funds')
+    draws = db.relationship('Draw', backref='funds')
+
+
+# This is the draws table in the database
+class Draw(db.Model):
+    __tablename__ = 'draws'
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.Date, nullable=False)
+    amount = db.Column(db.Numeric(12,2), nullable=False)
+    fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
 
 
 # This is the expenditures table in the database
@@ -96,7 +109,7 @@ class Expenditure(db.Model):
     date = db.Column(db.Date, nullable=False)
     vendor = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(80), nullable=False)
-    amount = db.Column(db.Numeric(11,2), nullable=False)
+    amount = db.Column(db.Numeric(12,2), nullable=False)
     notes = db.Column(db.String(80), nullable=False)
     # image       = db.Column(db.LargeBinary, nullable = False)
     fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
