@@ -101,6 +101,35 @@ def populate_db(app):
         'Authorization': 'Bearer ' + token
     })
 
+    # Add Draws
+    client.post('/api/draws', data=json.dumps({
+        'date': '09/24/2015',
+        'amount': 25000.00,
+        'fund_id': 1
+    }, use_decimal=True),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+    client.post('/api/draws', data=json.dumps({
+        'date': '10/01/2015',
+        'amount': 5000.00,
+        'fund_id': 1
+    }, use_decimal=True),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+    client.post('/api/draws', data=json.dumps({
+        'date': '10/03/2015',
+        'amount': 7500.00,
+        'fund_id': 1
+    }, use_decimal=True),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+
     # Add Expenditures
     expenditure_list = [
         'Expenditure 1',
