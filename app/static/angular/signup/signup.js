@@ -8,17 +8,8 @@ angular.module('app.signup', [])
     });
 })
 .controller('SignupController', function($scope, store, $state, $http, authService) {
-    init();
+    store.remove('jwt');
 
-    function init() {
-        store.remove('jwt');
-    }
-    $scope.redirectToSignup = function() {
-        $state.go('signup');
-    }
-    $scope.redirectToLogin = function() {
-        $state.go('login');
-    }
     $scope.createAccount = function() {
         // Add user
         $http.post('/api/users', {

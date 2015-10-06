@@ -11,20 +11,18 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Navigation Bar Brand -->
-            <a class="navbar-brand" href="/"> BuildersRecords </a>
+            <a class="navbar-brand" ui-sref="home"> BuildersRecords </a>
         </div>
         <!-- Navigation Bar List Items -->
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="padding">
-                    <button type="button" class="btn btn-success navbar-btn active"
-                            ng-click="redirectToSignup()">
+                    <button type="button" class="btn btn-success navbar-btn active" ui-sref="signup">
                         <b> Sign Up </b>
                     </button>
                 </li>
                 <li class="padding">
-                    <button type="button" class="btn btn-info navbar-btn"
-                            ng-click="redirectToLogin()">
+                    <button type="button" class="btn btn-info navbar-btn" ui-sref="login">
                         <b> Log In </b>
                     </button>
                 </li>
@@ -37,7 +35,7 @@
     <div class="page-header text-center">
         <h2> Create Your New Account </h2>
         <p class="text-muted"> <b> Already have an account? </b>
-            <a href="/login"> <b> Log in </b> </a>
+            <a ui-sref="login"> <b> Log in </b> </a>
         </p>
     </div>
 </div>
@@ -302,12 +300,12 @@
                     <!-- Disclaimer -->
                     <div class="form-group text-center">
                         <h5> By clicking on 'Create Account' below, you are agreeing to the
-                            <a data-toggle="modal" data-target="#terms_of_service_modal" tabindex="-1">
+                            <a href="#">
                                 <label> Terms of Service </label>
                             </a> and the
-                            <a data-toggle="modal" data-target="#privacy_policy_modal" tabindex="-1">
+                            <a href="#">
                                 <label> Privacy Policy </label>
-                            </a>.
+                            </a>
                         </h5>
                     </div>
                     <!-- Submit -->
