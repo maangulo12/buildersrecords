@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Navigation Bar Brand -->
-            <a class="navbar-brand" href="/projects"> BuildersRecords </a>
+            <a class="navbar-brand" ui-sref="projects"> BuildersRecords </a>
         </div>
         <!-- Navigation Bar List Items -->
         <div class="collapse navbar-collapse">
@@ -55,8 +55,7 @@
         <div class="col-md-3 col-lg-3">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li><a href="/projects">
-                        <span class="glyphicon glyphicon-arrow-left glyphicon-padding" aria-hidden="true"></span>
+                <li><a ui-sref="projects">
                         Back to My Projects
                     </a>
                 </li>
@@ -64,17 +63,22 @@
             <!-- List Group -->
             <ul class="list-group">
                 <!-- Dashboard -->
-                <a href="/dashboard" class="list-group-item">
+                <a ui-sref="dashboard" class="list-group-item">
                     <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
                     Dashboard
                 </a>
                 <!-- Budgeting -->
-                <a href="/budgeting" class="list-group-item">
+                <a ui-sref="budgeting" class="list-group-item">
                     <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
                     Budgeting
                 </a>
+                <!-- Funds & Loans -->
+                <a ui-sref="funds" class="list-group-item active">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
+                    Funds & Loans
+                </a>
                 <!-- Expenditures -->
-                <a href="/expenditures" class="list-group-item">
+                <a ui-sref="expenditures" class="list-group-item">
                     <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
                     Expenditures
                 </a>
@@ -82,11 +86,6 @@
                 <a href="#" class="list-group-item">
                     <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span>
                     Contractors
-                </a>
-                <!-- Funds & Loans -->
-                <a href="/funds" class="list-group-item active">
-                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
-                    Funds & Loans
                 </a>
                 <!-- Statistics -->
                 <a href="#" class="list-group-item">
@@ -171,7 +170,8 @@
                                 <b> Add a Draw </b>
                             </button>
                             <!-- Button - Delete Draws -->
-                            <button type="button" class="btn btn-danger" ng-model="fund.selected"
+                            <button type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+                                    title="Delete Selected" ng-model="fund.selected"
                                     ng-class="{ 'disabled': !fund.selected }" ng-click="clickedFund(fund) && showDeleteDrawsModal()">
                                 <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                 <b> Delete </b>
@@ -236,6 +236,9 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div ng-if="fund_list.length == 0">
+                    <h4> Get started by adding your out of pocket funds or loans. </h4>
                 </div>
             </div>
         </div>
