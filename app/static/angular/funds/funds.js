@@ -58,7 +58,7 @@ angular.module('app.funds', [])
     }
     // GET FUNDS function
     function getFunds() {
-        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
             $scope.fund_list = response.data.objects;
 
@@ -84,7 +84,7 @@ angular.module('app.funds', [])
             name: $scope.fund.name,
             loan: $scope.fund.loan,
             amount: $scope.fund.amount,
-            project_id: store.get('project_id')
+            project_id: store.get('project').id
         })
         .then(function(response) {
             $('#add_fund_modal').modal('hide');
@@ -140,7 +140,7 @@ angular.module('app.funds', [])
             name: $scope.updated_fund.name,
             loan: $scope.updated_fund.loan,
             amount: $scope.updated_fund.amount,
-            project_id: store.get('project_id')
+            project_id: store.get('project').id
         })
         .then(function(response) {
             $('#edit_fund_modal').modal('hide');

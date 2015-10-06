@@ -56,16 +56,16 @@ def parse_ubuildit_file(path):
     wb = open_workbook(filename = path)
     ws = wb.sheet_by_name('UBI Cost Review')
 
-    categories = []
-    categories.append({'category_name': ws.cell_value(5 , 2), 'item_list': get_item_list(ws, 6 , 15)})  # Pre-Construction Costs
-    categories.append({'category_name': ws.cell_value(16, 2), 'item_list': get_item_list(ws, 17, 33)})  # Site Development Costs
-    categories.append({'category_name': ws.cell_value(34, 2), 'item_list': get_item_list(ws, 35, 43)})  # Site Preparation
-    categories.append({'category_name': ws.cell_value(44, 2), 'item_list': get_item_list(ws, 45, 47)})  # Foundation
-    categories.append({'category_name': ws.cell_value(48, 2), 'item_list': get_item_list(ws, 49, 52)})  # Slab Work
-    categories.append({'category_name': ws.cell_value(53, 2), 'item_list': get_item_list(ws, 54, 60)})  # Main Structure
-    categories.append({'category_name': ws.cell_value(61, 2), 'item_list': get_item_list(ws, 62, 93)})  # General Trades
-    categories.append({'category_name': ws.cell_value(94, 2), 'item_list': get_item_list(ws, 95, 130)}) # Interior Finishing
-    return categories
+    category_list = []
+    category_list.append({'category_name': ws.cell_value(5 , 2), 'item_list': get_item_list(ws, 6 , 15)})
+    category_list.append({'category_name': ws.cell_value(16, 2), 'item_list': get_item_list(ws, 17, 33)})
+    category_list.append({'category_name': ws.cell_value(34, 2), 'item_list': get_item_list(ws, 35, 43)})
+    category_list.append({'category_name': ws.cell_value(44, 2), 'item_list': get_item_list(ws, 45, 47)})
+    category_list.append({'category_name': ws.cell_value(48, 2), 'item_list': get_item_list(ws, 49, 52)})
+    category_list.append({'category_name': ws.cell_value(53, 2), 'item_list': get_item_list(ws, 54, 60)})
+    category_list.append({'category_name': ws.cell_value(61, 2), 'item_list': get_item_list(ws, 62, 93)})
+    category_list.append({'category_name': ws.cell_value(94, 2), 'item_list': get_item_list(ws, 95, 130)})
+    return category_list
 
 
 def get_item_list(ws, start, end):

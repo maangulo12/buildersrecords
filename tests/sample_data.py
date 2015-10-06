@@ -61,8 +61,9 @@ def populate_db(app):
     data = parse_ubuildit_file(FILE_PATH)
 
     for category in data:
+        # Add Category
         client.post('/api/categories', data=json.dumps({
-            'category_name': category['category_name'],
+            'name': category['category_name'],
             'project_id': 1
         }),
             headers={
@@ -71,8 +72,9 @@ def populate_db(app):
         })
 
         for item in category['item_list']:
+            # Add Item
             client.post('/api/items', data=json.dumps({
-                'item_name': item['cost_category'],
+                'name': item['cost_category'],
                 'description': item['notes'],
                 'notes': item['explanations'],
                 'category_id': data.index(category) + 1
@@ -146,6 +148,7 @@ def populate_db(app):
             'description': expenditure['description'],
             'amount': expenditure['amount'],
             'notes': expenditure['notes'],
+            'category_id': 5,
             'fund_id': fund_id,
             'project_id': 1
         }, use_decimal=True),
