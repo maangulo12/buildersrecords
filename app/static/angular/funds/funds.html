@@ -290,6 +290,7 @@
                                                          add_fund_form.$submitted &&
                                                          add_fund_form.name.$invalid }">
                             <label class="control-label" for="name"> Fund/Loan Name * </label>
+                            <p class="text-warning"> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </p>
                             <input class="form-control"
                                    name="name"
                                    type="text"
@@ -325,6 +326,7 @@
                                                          add_fund_form.$submitted &&
                                                          add_fund_form.loan.$invalid }">
                             <label class="control-label" for="loan"> Is this a loan? * </label>
+                            <p class="text-warning"> For out of pocket money or savings funds, select "No" </p>
                             <select class="form-control"
                                     name="loan"
                                     ng-model="fund.loan"
@@ -489,6 +491,7 @@
                                                          edit_fund_form.$submitted &&
                                                          edit_fund_form.name.$invalid }">
                             <label class="control-label" for="name"> Fund/Loan Name * </label>
+                            <p class="text-warning"> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </p>
                             <input class="form-control"
                                    name="name"
                                    type="text"
@@ -524,6 +527,7 @@
                                                          edit_fund_form.$submitted &&
                                                          edit_fund_form.loan.$invalid }">
                             <label class="control-label" for="loan"> Is this a loan? * </label>
+                            <p class="text-warning"> For out of pocket money or savings funds, select "No" </p>
                             <select class="form-control"
                                     name="loan"
                                     ng-model="updated_fund.loan"
