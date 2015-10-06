@@ -17,6 +17,7 @@ angular.module('app.expenditures', [])
         $scope.username = store.get('username');
         getExpenditures();
         getFunds();
+        getCategories();
     }
     $scope.logOut = function() {
         store.remove('jwt');
@@ -51,7 +52,7 @@ angular.module('app.expenditures', [])
     }
     // GET EXPENDITURES function
     function getExpenditures() {
-        $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
             $scope.expenditure_list = response.data.objects;
 
@@ -67,11 +68,20 @@ angular.module('app.expenditures', [])
     }
     // GET FUNDS function
     function getFunds() {
-        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
             $scope.fund_list = response.data.objects;
         }, function(error) {
             $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
+        });
+    }
+    // GET CATEGORIES function
+    function getCategories() {
+        $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
+        .then(function(response) {
+            $scope.category_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg = 'Could not load your project\'s categories. Please try to refresh the page.';
         });
     }
     // ADD EXPENDITURE functions
@@ -88,8 +98,9 @@ angular.module('app.expenditures', [])
             description: $scope.expenditure.description,
             amount: $scope.expenditure.amount,
             notes: $scope.expenditure.notes,
+            category_id: $scope.expenditure.category,
             fund_id: $scope.expenditure.fund,
-            project_id: store.get('project_id')
+            project_id: store.get('project').id
         })
         .then(function(response) {
             $('#add_expenditure_modal').modal('hide');
@@ -125,6 +136,7 @@ angular.module('app.expenditures', [])
         $scope.updated_expenditure.date = new Date(store.get('expenditure').date);
         $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
         $scope.updated_expenditure.description = store.get('expenditure').description;
+        $scope.updated_expenditure.category = store.get('expenditure').category;
         $scope.updated_expenditure.amount = store.get('expenditure').amount;
         $scope.updated_expenditure.fund = store.get('expenditure').fund;
         $scope.updated_expenditure.notes = store.get('expenditure').notes;
@@ -138,8 +150,9 @@ angular.module('app.expenditures', [])
             description: $scope.updated_expenditure.description,
             amount: $scope.updated_expenditure.amount,
             notes: $scope.updated_expenditure.notes,
+            category_id: $scope.updated_expenditure.category,
             fund_id: $scope.updated_expenditure.fund,
-            project_id: store.get('project_id')
+            project_id: store.get('project').id
         })
         .then(function(response) {
             $('#edit_expenditure_modal').modal('hide');

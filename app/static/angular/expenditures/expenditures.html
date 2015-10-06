@@ -139,6 +139,7 @@
                         <th class="text-center"> Date </th>
                         <th class="text-center"> Vendor </th>
                         <th class="text-center"> Description </th>
+                        <th class="text-center"> Category </th>
                         <th class="text-center"> Amount </th>
                         <th class="text-center"> Fund </th>
                         <th class="text-center"> Notes </th>
@@ -158,6 +159,7 @@
                         <td class="text-center"> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
                         <td class="text-center"> <a href ng-click=""><b> {{ expenditure.vendor }} </b></a> </td>
                         <td class="text-center"> {{ expenditure.description }} </td>
+                        <td class="text-center text-info"> {{ expenditure.categories.name }} </td>
                         <td class="text-right text-danger"> {{ expenditure.amount | currency }} </td>
                         <td class="text-center"> <b> {{ expenditure.funds.name }} </b> </td>
                         <td class="text-center"> {{ expenditure.notes }} </td>
@@ -165,7 +167,7 @@
                 </tbody>
                 <tbody ng-if="expenditure_list.length != 0">
                     <tr>
-                        <td colspan="4"></td>
+                        <td colspan="5"></td>
                         <td class="text-right"> <b> Total Amount Spent </b> </td>
                         <td class="text-right text-danger"> <b> {{ total_amount_spent | currency }} </b> </td>
                         <td colspan="2"></td>
@@ -314,6 +316,41 @@
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 80 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Category Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_expenditure_form.category.$dirty &&
+                                                      add_expenditure_form.category.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.category.$invalid,
+                                         'has-feedback': add_expenditure_form.category.$dirty &&
+                                                         add_expenditure_form.category.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.category.$invalid }">
+                            <label class="control-label" for="category"> Category * </label>
+                            <select class="form-control"
+                                    name="category"
+                                    ng-model="expenditure.category"
+                                    required>
+                                <option value="" disabled selected> Select a category </option>
+                                <option ng-repeat="category in category_list" value="{{ category.id }}">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.category.$dirty &&
+                                         add_expenditure_form.category.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.category.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.category.$error"
+                                 ng-if="add_expenditure_form.category.$dirty &&
+                                        add_expenditure_form.category.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.category.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
@@ -616,6 +653,41 @@
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 80 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Category Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_expenditure_form.category.$dirty &&
+                                                      edit_expenditure_form.category.$invalid ||
+                                                      edit_expenditure_form.$submitted &&
+                                                      edit_expenditure_form.category.$invalid,
+                                         'has-feedback': edit_expenditure_form.category.$dirty &&
+                                                         edit_expenditure_form.category.$invalid ||
+                                                         edit_expenditure_form.$submitted &&
+                                                         edit_expenditure_form.category.$invalid }">
+                            <label class="control-label" for="category"> Category * </label>
+                            <select class="form-control"
+                                    name="category"
+                                    ng-model="updated_expenditure.category"
+                                    required>
+                                <option value="" disabled selected> Select a category </option>
+                                <option ng-repeat="category in category_list" value="{{ category.id }}">
+                                    {{ category.name }}
+                                </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_expenditure_form.category.$dirty &&
+                                         edit_expenditure_form.category.$invalid ||
+                                         edit_expenditure_form.$submitted &&
+                                         edit_expenditure_form.category.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.category.$error"
+                                 ng-if="edit_expenditure_form.category.$dirty &&
+                                        edit_expenditure_form.category.$invalid ||
+                                        edit_expenditure_form.$submitted &&
+                                        edit_expenditure_form.category.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
