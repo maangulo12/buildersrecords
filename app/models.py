@@ -12,8 +12,8 @@
         -Category    : categories
         -Item        : items
         -Expenditure : expenditure
-        -Funds       : funds
-        -Draws       : draws
+        -Fund        : funds
+        -Draw        : draws
 """
 
 from app import db, bcrypt
@@ -56,25 +56,26 @@ class Project(db.Model):
     # timestamp
 
     categories = db.relationship('Category', backref='projects')
-    expenditures = db.relationship('Expenditure', backref='projects')
     funds = db.relationship('Fund', backref='projects')
+    expenditures = db.relationship('Expenditure', backref='projects')
 
 
 # This is the categories table in the database
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
-    category_name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
 
     items = db.relationship('Item', backref='categories')
+    expenditures = db.relationship('Expenditure', backref='categories')
 
 
 # This is the items table in the database
 class Item(db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
-    item_name = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(80), nullable=False)
     # budget      = db.Column(db.Numeric(11,2), nullable = False)
     notes = db.Column(db.String(80), nullable=False)
@@ -114,4 +115,5 @@ class Expenditure(db.Model):
     notes = db.Column(db.String(80))
     # image       = db.Column(db.LargeBinary, nullable = False)
     fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
