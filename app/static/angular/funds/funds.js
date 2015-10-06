@@ -82,6 +82,7 @@ angular.module('app.funds', [])
     $scope.addFund = function() {
         $http.post('/api/funds', {
             name: $scope.fund.name,
+            loan: $scope.fund.loan,
             amount: $scope.fund.amount,
             project_id: store.get('project_id')
         })
@@ -127,6 +128,7 @@ angular.module('app.funds', [])
     $scope.showEditFundModal = function() {
         $scope.updated_fund = {};
         $scope.updated_fund.name = store.get('fund').name;
+        $scope.updated_fund.loan = store.get('fund').loan;
         $scope.updated_fund.amount = store.get('fund').amount;
         $scope.edit_fund_form.$setPristine();
         $('#edit_fund_modal').find('.modal-title').text('Edit - ' + store.get('fund').name);
@@ -136,6 +138,7 @@ angular.module('app.funds', [])
     $scope.updateFund = function() {
         $http.put('/api/funds/' + store.get('fund').id, {
             name: $scope.updated_fund.name,
+            loan: $scope.updated_fund.loan,
             amount: $scope.updated_fund.amount,
             project_id: store.get('project_id')
         })

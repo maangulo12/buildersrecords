@@ -164,76 +164,81 @@
                     <div id="{{ fund_list.indexOf(fund) + 1 }}" class="panel-collapse collapse in"
                          role="tabpanel" aria-labelledby="fund_{{ fund.id }}">
                         <div class="panel-body">
-                            <!-- Button - Add Draw -->
-                            <button type="button" class="btn btn-success" ng-click="clickedFund(fund) && showAddDrawModal()">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                <b> Add a Draw </b>
-                            </button>
-                            <!-- Button - Delete Draws -->
-                            <button type="button" class="btn btn-danger" data-placement="right" bs-tooltip
-                                    title="Delete Selected" ng-model="fund.selected"
-                                    ng-class="{ 'disabled': !fund.selected }" ng-click="clickedFund(fund) && showDeleteDrawsModal()">
-                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                <b> Delete </b>
-                            </button>
-                            <!-- Line Breaks -->
-                            <br>
-                            <br>
-                            <!-- Table -->
-                            <table st-table="fund.draws" class="table table-striped table-hover table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th> <input type="checkbox" class="checkbox" ng-model="fund.checkboxAll"
-                                                    ng-click="clickedFund(fund) && clickedAllCheckbox()"> </th>
-                                        <th class="text-center"> Action </th>
-                                        <th class="text-center"> Draw </th>
-                                        <th class="text-center"> Date </th>
-                                        <th class="text-center"> Amount </th>
-                                    <tr>
-                                </thead>
-                                <tbody>
-                                    <tr ng-repeat="draw in fund.draws">
-                                        <td><input type="checkbox" class="checkbox" ng-model="draw.selected"
-                                                   ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)"></td>
-                                        <td class="text-center">
-                                            <a href data-placement="top" bs-tooltip title="Edit"
-                                               ng-click="clickedFund(fund) && clickedDraw(draw) && showEditDrawModal()">
-                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                            </a>
-                                        </td>
-                                        <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
-                                        <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
-                                        <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
-                                    </tr>
-                                </tbody>
-                                <tbody ng-if="fund.draws.length != 0">
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Total Draw Amount </b> </td>
-                                        <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
-                                    </tr>
-                                </tbody>
-                                <tbody ng-if="fund.draws.length != 0">
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
-                                        <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
-                                    </tr>
-                                </tbody>
-                                <tbody ng-if="fund.draws.length != 0">
-                                    <tr>
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Amount Left </b> </td>
-                                        <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
-                                    </tr>
-                                </tbody>
-                                <tbody ng-if="fund.draws.length == 0">
-                                    <tr>
-                                        <td></td>
-                                        <td colspan="4"> You have not made any draws yet. </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div ng-if="fund.loan == 0">
+                                <h4> This is not a loan </h4>
+                            </div>
+                            <div ng-if="fund.loan">
+                                <!-- Button - Add Draw -->
+                                <button type="button" class="btn btn-success" ng-click="clickedFund(fund) && showAddDrawModal()">
+                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    <b> Add a Draw </b>
+                                </button>
+                                <!-- Button - Delete Draws -->
+                                <button type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+                                        title="Delete Selected" ng-model="fund.selected"
+                                        ng-class="{ 'disabled': !fund.selected }" ng-click="clickedFund(fund) && showDeleteDrawsModal()">
+                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                    <b> Delete </b>
+                                </button>
+                                <!-- Line Breaks -->
+                                <br>
+                                <br>
+                                <!-- Table -->
+                                <table st-table="fund.draws" class="table table-striped table-hover table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th> <input type="checkbox" class="checkbox" ng-model="fund.checkboxAll"
+                                                        ng-click="clickedFund(fund) && clickedAllCheckbox()"> </th>
+                                            <th class="text-center"> Action </th>
+                                            <th class="text-center"> Draw </th>
+                                            <th class="text-center"> Date </th>
+                                            <th class="text-center"> Amount </th>
+                                        <tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="draw in fund.draws">
+                                            <td><input type="checkbox" class="checkbox" ng-model="draw.selected"
+                                                       ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)"></td>
+                                            <td class="text-center">
+                                                <a href data-placement="top" bs-tooltip title="Edit"
+                                                   ng-click="clickedFund(fund) && clickedDraw(draw) && showEditDrawModal()">
+                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                                </a>
+                                            </td>
+                                            <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
+                                            <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
+                                            <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="fund.draws.length != 0">
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-right"> <b> Total Draw Amount </b> </td>
+                                            <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="fund.draws.length != 0">
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
+                                            <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="fund.draws.length != 0">
+                                        <tr>
+                                            <td colspan="3"></td>
+                                            <td class="text-right"> <b> Amount Left </b> </td>
+                                            <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody ng-if="fund.draws.length == 0">
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="4"> You have not made any draws yet. </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -307,6 +312,40 @@
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Fund Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_fund_form.loan.$dirty &&
+                                                      add_fund_form.loan.$invalid ||
+                                                      add_fund_form.$submitted &&
+                                                      add_fund_form.loan.$invalid,
+                                         'has-feedback': add_fund_form.loan.$dirty &&
+                                                         add_fund_form.loan.$invalid ||
+                                                         add_fund_form.$submitted &&
+                                                         add_fund_form.loan.$invalid }">
+                            <label class="control-label" for="loan"> Is this a loan? * </label>
+                            <select class="form-control"
+                                    name="loan"
+                                    ng-model="fund.loan"
+                                    required>
+                                <option value="" disabled selected> Select your option </option>
+                                <option value="1"> Yes </option>
+                                <option value="0"> No </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_fund_form.loan.$dirty &&
+                                         add_fund_form.loan.$invalid ||
+                                         add_fund_form.$submitted &&
+                                         add_fund_form.loan.$invalid">
+                            </span>
+                            <div ng-messages="add_fund_form.loan.$error"
+                                 ng-if="add_fund_form.loan.$dirty &&
+                                        add_fund_form.loan.$invalid ||
+                                        add_fund_form.$submitted &&
+                                        add_fund_form.loan.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
@@ -472,6 +511,40 @@
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Fund Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_fund_form.loan.$dirty &&
+                                                      edit_fund_form.loan.$invalid ||
+                                                      edit_fund_form.$submitted &&
+                                                      edit_fund_form.loan.$invalid,
+                                         'has-feedback': edit_fund_form.loan.$dirty &&
+                                                         edit_fund_form.loan.$invalid ||
+                                                         edit_fund_form.$submitted &&
+                                                         edit_fund_form.loan.$invalid }">
+                            <label class="control-label" for="loan"> Is this a loan? * </label>
+                            <select class="form-control"
+                                    name="loan"
+                                    ng-model="updated_fund.loan"
+                                    required>
+                                <option value="" disabled selected> Select your option </option>
+                                <option value="1"> Yes </option>
+                                <option value="0"> No </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_fund_form.loan.$dirty &&
+                                         edit_fund_form.loan.$invalid ||
+                                         edit_fund_form.$submitted &&
+                                         edit_fund_form.loan.$invalid">
+                            </span>
+                            <div ng-messages="edit_fund_form.loan.$error"
+                                 ng-if="edit_fund_form.loan.$dirty &&
+                                        edit_fund_form.loan.$invalid ||
+                                        edit_fund_form.$submitted &&
+                                        edit_fund_form.loan.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
