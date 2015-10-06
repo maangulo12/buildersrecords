@@ -24,8 +24,7 @@ angular.module('app.projects', [])
     $scope.clickedProject = function(project) {
         var index = $scope.project_list.indexOf(project);
         if (index !== -1) {
-            store.set('project_id', project.id);
-            store.set('project_name', project.project_name);
+            store.set('project', project);
             return true;
         }
         return false;
@@ -44,13 +43,13 @@ angular.module('app.projects', [])
     }
     // ADD functions
     $scope.showNewProjectModal = function() {
-        $scope.project_name = '';
+        $scope.project = {};
         $scope.new_project_form.$setPristine();
         $('#new_project_modal').modal('show');
     }
     $scope.createProject = function() {
         $http.post('/api/projects', {
-            project_name: $scope.project_name,
+            name: $scope.project.name,
             user_id: store.get('user_id')
         })
         .then(function(response) {
@@ -58,36 +57,38 @@ angular.module('app.projects', [])
             getProjects();
         }, function(error) {
             $scope.new_project_form.$invalid = true;
-            $scope.new_project_form.project_name.$invalid = true;
+            $scope.new_project_form.name.$invalid = true;
         });
     }
     // DELETE functions
     $scope.showDeleteProjectModal = function() {
-        $('#delete_project_modal').find('.modal-title').text('Delete Project: ' + store.get('project_name'));
+        $('#delete_project_modal').find('.modal-title').text('Delete Project: ' + store.get('project').name);
         $('#delete_project_modal').find('.modal-title').addClass('text-danger');
         $('#delete_project_modal').find('.modal-title').css('font-weight', 'Bold');
+        $scope.error_msg_delete = false;
         $('#delete_project_modal').modal('show');
     }
     $scope.deleteProject = function() {
-        $http.delete('/api/projects/' + store.get('project_id'))
+        $http.delete('/api/projects/' + store.get('project').id)
         .then(function(response) {
             $('#delete_project_modal').modal('hide');
             getProjects();
         }, function(error) {
-            $scope.error_msg = 'Could not delete your project. Please try to refresh your page.';
+            $scope.error_msg_delete = 'Could not delete your project.';
         });
     }
     // UPDATE functions
     $scope.showEditProjectModal = function(project) {
-        $scope.updated_project_name = store.get('project_name');
+        $scope.updated_project = {};
+        $scope.updated_project.name = store.get('project').name;
         $scope.edit_project_form.$setPristine();
-        $('#edit_project_modal').find('.modal-title').text('Edit Project: ' + store.get('project_name'));
+        $('#edit_project_modal').find('.modal-title').text('Edit Project: ' + store.get('project').name);
         $('#edit_project_modal').find('.modal-title').css('font-weight', 'Bold');
         $('#edit_project_modal').modal('show');
     }
     $scope.updateProject = function() {
-        $http.put('/api/projects/' + store.get('project_id'), {
-            project_name: $scope.updated_project_name,
+        $http.put('/api/projects/' + store.get('project').id, {
+            name: $scope.updated_project.name,
             user_id: store.get('user_id')
         })
         .then(function(response) {
@@ -95,7 +96,7 @@ angular.module('app.projects', [])
             getProjects();
         }, function(error) {
             $scope.edit_project_form.$invalid = true;
-            $scope.new_project_form.updated_project_name.$invalid = true;
+            $scope.edit_project_form.name.$invalid = true;
         });
     }
 });
