@@ -8,15 +8,5 @@ angular.module('app.home', [])
     });
 })
 .controller('HomeController', function($scope, store, $state) {
-    init();
-
-    function init() {
-        store.remove('jwt');
-    }
-    $scope.redirectToSignup = function() {
-        $state.go('signup');
-    }
-    $scope.redirectToLogin = function() {
-        $state.go('login');
-    }
+    store.remove('jwt');
 });
