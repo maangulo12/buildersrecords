@@ -12,7 +12,10 @@
 """
 
 import simplejson as json
+from .parser import parse_ubuildit_file, parse_invoice_file
 
+
+FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
 def populate_db(app):
     # Client test
@@ -46,7 +49,7 @@ def populate_db(app):
 
     # Create Project
     client.post('/api/projects', data=json.dumps({
-        'name': 'Test Project',
+        'name': 'UBuildIt - Tim & Maritza Messer',
         'user_id':  1
     }),
         headers={
@@ -54,16 +57,12 @@ def populate_db(app):
         'Authorization': 'Bearer ' + token
     })
 
-    # Add Categories
-    category_list = [
-        'Pre-Construction',
-        'Foundation',
-        'Interior Finishing',
-        'General Trades'
-    ]
-    for category in category_list:
+    # Start parsing UBUILDIT file here
+    data = parse_ubuildit_file(FILE_PATH)
+
+    for category in data:
         client.post('/api/categories', data=json.dumps({
-            'category_name': category,
+            'category_name': category['category_name'],
             'project_id': 1
         }),
             headers={
@@ -71,29 +70,33 @@ def populate_db(app):
             'Authorization': 'Bearer ' + token
         })
 
-        # Add Items
-        item_list = [
-            'Item 1',
-            'Item 2',
-            'Item 3',
-            'Item 4'
-        ]
-        for item in item_list:
+        for item in category['item_list']:
             client.post('/api/items', data=json.dumps({
-                'item_name': item,
-                'description': 'Description',
-                'notes': 'Notes',
-                'category_id': category_list.index(category) + 1
+                'item_name': item['cost_category'],
+                'description': item['notes'],
+                'notes': item['explanations'],
+                'category_id': data.index(category) + 1
             }),
                 headers={
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + token
             })
 
-    # Add Fund
+    # Add Funds/Loans
     client.post('/api/funds', data=json.dumps({
-        'name': 'Swing Loan',
-        'amount': 320000.00,
+        'name': 'Messer',
+        'loan': False,
+        'amount': 30000.00,
+        'project_id': 1
+    }, use_decimal=True),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+    client.post('/api/funds', data=json.dumps({
+        'name': 'Blanco Loan',
+        'loan': True,
+        'amount': 330000.00,
         'project_id': 1
     }, use_decimal=True),
         headers={
@@ -105,7 +108,7 @@ def populate_db(app):
     client.post('/api/draws', data=json.dumps({
         'date': '09/24/2015',
         'amount': 25000.00,
-        'fund_id': 1
+        'fund_id': 2
     }, use_decimal=True),
         headers={
         'Content-Type': 'application/json',
@@ -114,7 +117,7 @@ def populate_db(app):
     client.post('/api/draws', data=json.dumps({
         'date': '10/01/2015',
         'amount': 5000.00,
-        'fund_id': 1
+        'fund_id': 2
     }, use_decimal=True),
         headers={
         'Content-Type': 'application/json',
@@ -123,31 +126,27 @@ def populate_db(app):
     client.post('/api/draws', data=json.dumps({
         'date': '10/03/2015',
         'amount': 7500.00,
-        'fund_id': 1
+        'fund_id': 2
     }, use_decimal=True),
         headers={
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token
     })
 
-    # Add Expenditures
-    expenditure_list = [
-        'Expenditure 1',
-        'Expenditure 2',
-        'Expenditure 3',
-        'Expenditure 4',
-        'Expenditure 5',
-        'Expenditure 6',
-        'Expenditure 7'
-    ]
-    for expenditure in expenditure_list:
+    # Start parsing INVOICE file here
+    data = parse_invoice_file(FILE_PATH)
+    for expenditure in data:
+        fund_id = 1
+        if expenditure['notes'] == 'Blanco':
+            fund_id = 2
+
         client.post('/api/expenditures', data=json.dumps({
-            'date': '09/24/2015',
-            'vendor': 'Vendor Name',
-            'description': 'Description',
-            'amount': 125.00,
-            'notes': 'Notes',
-            'fund_id': 1,
+            'date': expenditure['date'],
+            'vendor': expenditure['vendor'],
+            'description': expenditure['description'],
+            'amount': expenditure['amount'],
+            'notes': expenditure['notes'],
+            'fund_id': fund_id,
             'project_id': 1
         }, use_decimal=True),
             headers={
