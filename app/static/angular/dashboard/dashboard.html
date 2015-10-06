@@ -55,8 +55,7 @@
         <div class="col-md-3">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li><a href="/projects">
-                        <span class="glyphicon glyphicon-arrow-left glyphicon-padding" aria-hidden="true"></span>
+                <li><a ui-sref="projects">
                         Back to My Projects
                     </a>
                 </li>
@@ -102,37 +101,36 @@
         </div>
         <!-- Right Side -->
         <div class="col-md-9">
-            <div class="row">
-                <!-- Page Header -->
-                <div class="page-header">
-                    <h1 class="text-center"> {{ project_name }} </h1>
-                    <!-- Horizontal Rule -->
-                    <hr>
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1> <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
+                    Dashboard
+                </h1>
+                <h4 class="text-muted"> {{ project_name }} </h4>
+            </div>
+            <!-- Statistics -->
+            <div class= "row">
+                <!-- Make sure the col-mds add up to 12 -->
+                <div class="col-md-4">
+                    <h2 class="text-center text-muted"> "Stat 1" </h2>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
-                <!-- Statistics -->
-                <div class= "row">
-                    <!-- Make sure the col-mds add up to 12 -->
-                    <div class="col-md-4">
-                        <h2 class="text-center text-muted"> "Stat 1" </h2>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-md-4">
-                        <h2 class="text-center text-muted"> "Stat 2" </h2>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
-                    <div class="col-md-4">
-                        <h2 class="text-center text-muted"> "Stat 3" </h2>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                    </div>
+                <div class="col-md-4">
+                    <h2 class="text-center text-muted"> "Stat 2" </h2>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+                <div class="col-md-4">
+                    <h2 class="text-center text-muted"> "Stat 3" </h2>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
