@@ -46,7 +46,7 @@ def populate_db(app):
 
     # Create Project
     client.post('/api/projects', data=json.dumps({
-        'project_name': 'Test Project',
+        'name': 'Test Project',
         'user_id':  1
     }),
         headers={
