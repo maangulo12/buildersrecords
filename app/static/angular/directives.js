@@ -63,7 +63,7 @@ angular.module('app.directives', [
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.projectNameExists = function(projectName) {
 
-                var promise = $http.get('/api/projects?q={"filters":[{"name":"project_name","op":"equals","val":"' + projectName + '"}, \
+                var promise = $http.get('/api/projects?q={"filters":[{"name":"name","op":"equals","val":"' + projectName + '"}, \
                                                                      {"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}');
                 var success = function(response) {
                     if (response.data.num_results == 0) {

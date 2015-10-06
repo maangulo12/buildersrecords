@@ -1,7 +1,6 @@
 // This module contains the authentication service functions
-angular.module('app.auth', [
+angular.module('app.auth', [])
 
-])
 .service('authService', function(store, jwtHelper) {
     this.authHelper = function(response) {
         // Add token to jwt variable
