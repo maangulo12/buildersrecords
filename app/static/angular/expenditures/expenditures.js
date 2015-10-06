@@ -16,6 +16,7 @@ angular.module('app.expenditures', [])
     function init() {
         $scope.username = store.get('username');
         getExpenditures();
+        getFunds();
     }
     $scope.logOut = function() {
         store.remove('jwt');
@@ -24,52 +25,70 @@ angular.module('app.expenditures', [])
     $scope.clickedExpenditure = function(expenditure) {
         var index = $scope.expenditure_list.indexOf(expenditure);
         if (index !== -1) {
-            store.set('expenditure_id', expenditure.id);
-            store.set('expenditure_date', expenditure.date);
-            store.set('expenditure_vendor', expenditure.vendor);
-            store.set('expenditure_description', expenditure.description);
-            store.set('expenditure_amount', expenditure.amount);
-            store.set('expenditure_notes', expenditure.notes);
+            store.set('expenditure', expenditure);
             return true;
         }
         return false;
     }
     $scope.clickedAllCheckbox = function() {
         angular.forEach($scope.expenditure_list, function(expenditure) {
-            expenditure.Selected = $scope.checkboxAll;
-            $scope.selected = expenditure.Selected;
+            expenditure.selected = $scope.checkboxAll;
+            $scope.selected = expenditure.selected;
         });
     }
     $scope.clickedSingleCheckbox = function(expenditure) {
-        $scope.selected = expenditure.Selected;
+        if (expenditure.selected) {
+            $scope.selected = true;
+        } else {
+            var is_selected = false;
+            angular.forEach($scope.expenditure_list, function(e) {
+                if (e.selected) {
+                    is_selected = true;
+                }
+            });
+            $scope.selected = is_selected;
+        }
     }
     // GET EXPENDITURES function
     function getExpenditures() {
         $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
         .then(function(response) {
             $scope.expenditure_list = response.data.objects;
+
+            var amount_spent = 0;
+            angular.forEach($scope.expenditure_list, function(expenditure) {
+                amount_spent += expenditure.amount;
+            });
+            $scope.total_amount_spent = amount_spent;
+
         }, function(error) {
             $scope.error_msg = 'Could not load your expenses. Please try to refresh the page.';
         });
     }
+    // GET FUNDS function
+    function getFunds() {
+        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        .then(function(response) {
+            $scope.fund_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
+        });
+    }
     // ADD EXPENDITURE functions
     $scope.showAddExpenditureModal = function() {
-        $scope.date = new Date();
-        $scope.vendor = '';
-        $scope.description = '';
-        $scope.amount = '';
-        $scope.notes = '';
+        $scope.expenditure = {};
+        $scope.expenditure.date = new Date();
         $scope.add_expenditure_form.$setPristine();
         $('#add_expenditure_modal').modal('show');
     }
     $scope.addExpenditure = function() {
         $http.post('/api/expenditures', {
-            date: $scope.date,
-            vendor: $scope.vendor,
-            description: $scope.description,
-            amount: $scope.amount,
-            notes: $scope.notes,
-            loan: true,
+            date: $scope.expenditure.date,
+            vendor: $scope.expenditure.vendor,
+            description: $scope.expenditure.description,
+            amount: $scope.expenditure.amount,
+            notes: $scope.expenditure.notes,
+            fund_id: $scope.expenditure.fund,
             project_id: store.get('project_id')
         })
         .then(function(response) {
@@ -77,6 +96,7 @@ angular.module('app.expenditures', [])
             getExpenditures();
         }, function(error) {
             $scope.add_expenditure_form.$invalid = true;
+            console.log(error);
         });
     }
     // DELETE EXPENDITURES functions
@@ -87,36 +107,38 @@ angular.module('app.expenditures', [])
     }
     $scope.deleteExpenditures = function() {
         angular.forEach($scope.expenditure_list, function(expenditure) {
-            if (expenditure.Selected) {
+            if (expenditure.selected) {
                 $http.delete('/api/expenditures/' + expenditure.id)
                 .then(function(response) {
                     $('#delete_expenditures_modal').modal('hide');
                     getExpenditures();
                     $scope.selected = false;
                 }, function(error) {
-                    $scope.error_msg = 'Could not delete your expense(s). Please try again.';
+                    $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
                 });
             }
         });
     }
     // UPDATE EXPENDITURE functions
     $scope.showEditExpenditureModal = function() {
-        $scope.updated_date = new Date(store.get('expenditure_date'));
-        $scope.updated_vendor = store.get('expenditure_vendor');
-        $scope.updated_description = store.get('expenditure_description');
-        $scope.updated_amount = store.get('expenditure_amount');
-        $scope.updated_notes = store.get('expenditure_notes');
+        $scope.updated_expenditure = {};
+        $scope.updated_expenditure.date = new Date(store.get('expenditure').date);
+        $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
+        $scope.updated_expenditure.description = store.get('expenditure').description;
+        $scope.updated_expenditure.amount = store.get('expenditure').amount;
+        $scope.updated_expenditure.fund = store.get('expenditure').fund;
+        $scope.updated_expenditure.notes = store.get('expenditure').notes;
         $scope.edit_expenditure_form.$setPristine();
         $('#edit_expenditure_modal').modal('show');
     }
     $scope.updateExpenditure = function() {
-        $http.put('/api/expenditures/' + store.get('expenditure_id'), {
-            date: $scope.updated_date,
-            vendor: $scope.updated_vendor,
-            description: $scope.updated_description,
-            amount: $scope.updated_amount,
-            notes: $scope.updated_notes,
-            loan: true,
+        $http.put('/api/expenditures/' + store.get('expenditure').id, {
+            date: $scope.updated_expenditure.date,
+            vendor: $scope.updated_expenditure.vendor,
+            description: $scope.updated_expenditure.description,
+            amount: $scope.updated_expenditure.amount,
+            notes: $scope.updated_expenditure.notes,
+            fund_id: $scope.updated_expenditure.fund,
             project_id: store.get('project_id')
         })
         .then(function(response) {
