@@ -8,28 +8,19 @@ angular.module('app.login', [])
     });
 })
 .controller('LoginController', function($scope, store, $state, $http, authService) {
-    init();
+    store.remove('jwt');
 
-    function init() {
-        store.remove('jwt');
-    }
-    $scope.redirectToSignup = function() {
-        $state.go('signup');
-    }
-    $scope.redirectToLogin = function() {
-        $state.go('login');
-    }
     $scope.logIn = function() {
         // Authenticate user
         $http.post('/auth', {
-            login: $scope.login,
-            password: $scope.password
+            login: $scope.login.user,
+            password: $scope.login.password
         }).then(function(response) {
             authService.authHelper(response);
             $state.go('projects');
         }, function(error) {
             $scope.login_form.$invalid = true;
-            $scope.password = '';
+            $scope.login.password = '';
         });
     }
 });
