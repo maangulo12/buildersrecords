@@ -135,7 +135,6 @@
                 <thead>
                     <tr>
                         <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
-                        <th class="text-center"> Action </th>
                         <th class="text-center"> Date </th>
                         <th class="text-center"> Vendor </th>
                         <th class="text-center"> Description </th>
@@ -143,18 +142,13 @@
                         <th class="text-center"> Amount </th>
                         <th class="text-center"> Fund </th>
                         <th class="text-center"> Notes </th>
+                        <th class="text-center"> Action </th>
                     <tr>
                 </thead>
                 <tbody ng-repeat="expenditure in expenditure_list">
                     <tr>
                         <td> <input type="checkbox" class="checkbox"
                                     ng-model="expenditure.selected" ng-click="clickedSingleCheckbox(expenditure)">
-                        </td>
-                        <td class="text-center">
-                            <a href data-placement="top" bs-tooltip title="Edit"
-                               ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
-                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                            </a>
                         </td>
                         <td class="text-center"> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
                         <td class="text-center"> <a href ng-click=""><b> {{ expenditure.vendor }} </b></a> </td>
@@ -163,6 +157,16 @@
                         <td class="text-right text-danger"> {{ expenditure.amount | currency }} </td>
                         <td class="text-center"> <b> {{ expenditure.funds.name }} </b> </td>
                         <td class="text-center"> {{ expenditure.notes }} </td>
+                        <td class="text-center">
+                            <a href data-placement="top" bs-tooltip title="Edit"
+                               ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
+                               <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                            </a>
+                            <a href data-placement="top" bs-tooltip title="Delete"
+                               ng-click="clickedExpenditure(expenditure) && showSingleDeleteExpenditureModal()">
+                               <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                            </a>
+                        </td>
                     </tr>
                 </tbody>
                 <tbody ng-if="expenditure_list.length != 0">
@@ -515,6 +519,49 @@
                         <b> No </b>
                     </button>
                     <button type="button" class="btn btn-danger" ng-click="deleteExpenditures()">
+                        <b> Yes, Delete </b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Delete Single Expenditure -->
+<div class="container">
+    <div class="modal fade" id="delete_single_expenditure_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <h4 class="modal-title">
+                        <b class="text-danger"> Delete Expenditure </b>
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                         ng-if="error_msg_delete_single">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only"> Error: </span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button> <b> {{ error_msg_delete_single }} </b>
+                    </div>
+                    <p class="text-center">
+                        Are you sure you would like to <b> delete </b>?
+                    </p>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <b> No </b>
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteSingleExpenditure()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>

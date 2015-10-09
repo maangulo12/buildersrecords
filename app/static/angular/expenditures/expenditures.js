@@ -130,6 +130,18 @@ angular.module('app.expenditures', [])
             }
         });
     }
+    $scope.showSingleDeleteExpenditureModal = function() {
+        $('#delete_single_expenditure_modal').modal('show');
+    }
+    $scope.deleteSingleExpenditure = function() {
+        $http.delete('/api/expenditures/' + store.get('expenditure').id)
+        .then(function(response) {
+            $('#delete_single_expenditure_modal').modal('hide');
+            getExpenditures();
+        }, function(error) {
+            $scope.error_msg_delete_single = 'Could not delete your expense. Please try again.';
+        });
+    }
     // UPDATE EXPENDITURE functions
     $scope.showEditExpenditureModal = function() {
         $scope.updated_expenditure = {};
