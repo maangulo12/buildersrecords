@@ -20,7 +20,7 @@ angular.module('app.budgeting', [])
     }
     // GET categories function
     function getCategories() {
-        $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
             $scope.category_list = response.data.objects;
         }, function(error) {
