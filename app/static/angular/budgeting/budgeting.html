@@ -123,43 +123,46 @@
                       <thead>
                           <tr>
                             <th> </th>
+                            <th colspan="6"> Category </th>
+                          </tr>
+                      </thead>
+                      <tbody ng-repeat="category in category_list">
+                          <tr>
+                              <td>
+                                <button ng-if="category.expanded" ng-click="category.expanded = false">-</button>
+                                <button ng-if="!category.expanded" ng-click="category.expanded = true">+</button>
+                              </td>
+                              <td colspan="6" class="text-success"> {{ category.name  }}
+                              </td>
+
+                          </tr>
+                          <tr ng-if="category.expanded">
+                            <th> </th>
                             <th class="text-center"> Item Name </th>
                             <th class="text-center"> Description </th>
                             <th class="text-center"> Estimated Cost </th>
                             <th class="text-center"> Notes </th>
                             <th class="text-center"> Action </th>
                           </tr>
-                      </thead>
-                      <tbody ng-repeat="category in category_list">
-                          <tr>
-                              <!-- <td> -->
-                                <!-- <button ng-if="category.expanded" ng-click="category.expanded = false">-</button>
-                                <button ng-if="!category.expanded" ng-click="category.expanded = true">+</button>
-                              </td> -->
-                              <td colspan="6" class="text-success"> {{ category.name  }}
-                              </td>
-                                <!-- <tr ng-if="category.expanded" ng-repeat-end=""> -->
-                              <tr ng-repeat="item in category.items">
-                                  <td> <input type="checkbox" class="checkbox"
-                                              ng-model="item.selected" ng-click="clickedSingleCheckbox(item)">
-                                  </td>
-                                  <td> {{ item.name }} </td>
-                                  <td> {{ item.description }} </td>
-                                  <td> </td>
-                                  <!-- <td class="text-right text-danger">-{{ item.estimated_cost | currency }} </td> -->
-                                  <td> {{ item.notes }} </td>
-                                  <td>
-                                      <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
-                                         ng-click="clickedItem(item) && showEditItemModal()">
-                                         <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
-                                      </a>
-                                      <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
-                                         ng-click="clickedItem(item) && showSingleDeleteItemModal()">
-                                         <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
-                                      </a>
-                                  </td>
-                              <!-- </tr> -->
-                            </tr>
+                          <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                            <td> <input type="checkbox" class="checkbox"
+                                        ng-model="item.selected" ng-click="clickedSingleCheckbox(item)">
+                            </td>
+                            <td> {{ item.name }} </td>
+                            <td> {{ item.description }} </td>
+                            <td> </td>
+                            <!-- <td class="text-right text-danger">-{{ item.estimated_cost | currency }} </td> -->
+                            <td> {{ item.notes }} </td>
+                            <td>
+                                <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
+                                   ng-click="clickedItem(item) && showEditItemModal()">
+                                   <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                                </a>
+                                <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
+                                   ng-click="clickedItem(item) && showSingleDeleteItemModal()">
+                                   <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                                </a>
+                            </td>
                           </tr>
                       </tbody>
                 </table>
