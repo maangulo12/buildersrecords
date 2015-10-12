@@ -6,44 +6,87 @@ angular.module('app.budgeting', [
         url: '/budgeting',
         templateUrl: 'angular/budgeting/budgeting.html',
         controller: 'BudgetingController'
+        // data: {
+        //     requiresLogin: true
+        // }
     })
 })
+
 .controller('BudgetingController', function($scope, store, $state, $http) {
-  // Bootstrap tooltip init
-  $('[data-toggle="tooltip"]').tooltip();
+    init();
 
-  console.log('BudgetingController');
-  // Signed in user
-  $scope.username = store.get('username');
-  // Load user's projects
-  getCategories();
-  getItems();
-  // Log Out function
-  $scope.logOut = function() {
-      store.remove('jwt');
-      $state.go('login');
-  }
-  // GET CATEGORIES function
-  function getCategories() {
-      console.log('im in getcategories');
-      $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
-      .then(function(response) {
-          console.log(response.data);
-          $scope.categories_list = response.data.objects;
-      }, function(response) {
-          // Could not load user's project
-      });
-  }
-  // GET ITEMS function
-  function getItems() {
-      console.log('im in getcategories');
-      $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
-      .then(function(response) {
-          console.log(response.data);
-          $scope.categories_list = response.data.objects;
-      }, function(response) {
-          // Could not load user's project
-      });
-  }
+    function init() {
+        $scope.username = store.get('username');
+        getCategories();
+        getItems();
+    }
+    // GET categories function
+    function getCategories() {
+        $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project_id') + '"}]}')
+        .then(function(response) {
+            $scope.category_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg = 'Could not load your category list. Please try to refresh the page.';
+        });
+    }
+    // GET items function
+    function getItems() {
+        $http.get('/api/items?q={"filters":[{"name":"category_id","op":"equals","val":"' + store.get('category_id') + '"}]}')
+        .then(function(response) {
+            $scope.item_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg = 'Could not load your item list. Please try to refresh the page.';
+        });
+    }
 
+    $scope.logOut = function() {
+        store.remove('jwt');
+        $state.go('login');
+    }
+    $scope.clickedItem = function(item) {
+        var index = $scope.item_list.indexOf(item);
+        if (index !== -1) {
+            store.set('item_id', item.id)
+            store.set('item_name', item.name);
+            store.set('item_description', item.description);
+            store.set('item_amount', item.amount);
+            store.set('item_notes', item.notes);
+            return true;
+        }
+        return false;
+    }
+    $scope.clickedAllCheckbox = function() {
+        angular.forEach($scope.item_list, function(item) {
+            item.Selected = $scope.checkboxAll;
+            $scope.selected = item.Selected;
+        });
+    }
+    $scope.clickedSingleCheckbox = function(item) {
+        $scope.selected = item.Selected;
+    }
+    // ADD functions
+    $scope.showAddItemModal = function() {
+        $scope.name = '';
+        $scope.description = '';
+        $scope.amount = '';
+        $scope.notes = '';
+        $scope.add_item_form.$setPristine();
+        $('#add_item_modal').modal('show');
+    }
+    $scope.addItem = function() {
+        $http.post('/api/items', {
+            item_name: $scope.name,
+            category: $scope.category,
+            description: $scope.description,
+            amount: $scope.amount,
+            notes: $scope.notes,
+            project_id: store.get('project_id')
+        })
+        .then(function(response) {
+            $('#add_item_modal').modal('hide');
+            getItems();
+        }, function(error) {
+            $scope.add_item_form.$invalid = true;
+        });
+    }
 });
