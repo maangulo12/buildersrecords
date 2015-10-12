@@ -1,14 +1,13 @@
-angular.module('app.budgeting', [
+angular.module('app.budgeting', [])
 
-])
 .config(function($stateProvider) {
     $stateProvider.state('budgeting', {
         url: '/budgeting',
         templateUrl: 'angular/budgeting/budgeting.html',
-        controller: 'BudgetingController'
-        // data: {
-        //     requiresLogin: true
-        // }
+        controller: 'BudgetingController',
+        data: {
+            requiresLogin: true
+        }
     })
 })
 
@@ -18,7 +17,6 @@ angular.module('app.budgeting', [
     function init() {
         $scope.username = store.get('username');
         getCategories();
-        getItems();
     }
     // GET categories function
     function getCategories() {
@@ -29,16 +27,6 @@ angular.module('app.budgeting', [
             $scope.error_msg = 'Could not load your category list. Please try to refresh the page.';
         });
     }
-    // GET items function
-    function getItems() {
-        $http.get('/api/items?q={"filters":[{"name":"category_id","op":"equals","val":"' + store.get('category_id') + '"}]}')
-        .then(function(response) {
-            $scope.item_list = response.data.objects;
-        }, function(error) {
-            $scope.error_msg = 'Could not load your item list. Please try to refresh the page.';
-        });
-    }
-
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
@@ -46,11 +34,7 @@ angular.module('app.budgeting', [
     $scope.clickedItem = function(item) {
         var index = $scope.item_list.indexOf(item);
         if (index !== -1) {
-            store.set('item_id', item.id)
-            store.set('item_name', item.name);
-            store.set('item_description', item.description);
-            store.set('item_amount', item.amount);
-            store.set('item_notes', item.notes);
+            store.set('item', item);
             return true;
         }
         return false;
@@ -80,11 +64,11 @@ angular.module('app.budgeting', [
             description: $scope.description,
             amount: $scope.amount,
             notes: $scope.notes,
-            project_id: store.get('project_id')
+            project_id: store.get('project').id
         })
         .then(function(response) {
             $('#add_item_modal').modal('hide');
-            getItems();
+            getCategories();
         }, function(error) {
             $scope.add_item_form.$invalid = true;
         });
