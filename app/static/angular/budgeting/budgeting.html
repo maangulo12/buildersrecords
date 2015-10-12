@@ -60,32 +60,39 @@
             <!-- List Group -->
             <ul class="list-group">
                 <!-- Dashboard -->
-                <a href="/dashboard" class="list-group-item">
-                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span> Dashboard
+                <a ui-sref="dashboard" class="list-group-item">
+                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
+                    Dashboard
                 </a>
                 <!-- Budgeting -->
-                <a href="/budgeting" class="list-group-item active">
-                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span> Budgeting
+                <a ui-sref="budgeting" class="list-group-item active">
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
+                    Budgeting
+                </a>
+                <!-- Funds & Loans -->
+                <a ui-sref="funds" class="list-group-item">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
+                    Funds & Loans
                 </a>
                 <!-- Expenditures -->
-                <a href="/expenditures" class="list-group-item">
-                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span> Expenditures
+                <a ui-sref="expenditures" class="list-group-item">
+                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
+                    Expenditures
                 </a>
                 <!-- Contractors -->
                 <a href="#" class="list-group-item">
-                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span> Contractors
-                </a>
-                <!-- Loan Management -->
-                <a href="#" class="list-group-item">
-                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span> Loan Management
+                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span>
+                    Contractors
                 </a>
                 <!-- Statistics -->
                 <a href="#" class="list-group-item">
-                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span> Statistics
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span>
+                    Statistics
                 </a>
                 <!-- Gallery -->
                 <a href="#" class="list-group-item">
-                    <span class="glyphicon glyphicon-picture glyphicon-padding" aria-hidden="true"></span> Gallery
+                    <span class="glyphicon glyphicon-picture glyphicon-padding" aria-hidden="true"></span>
+                    Gallery
                 </a>
             </ul>
         </div>
@@ -101,7 +108,7 @@
               <!-- Button - Add a Line Item -->
               <button type="button" class="btn btn-success" ng-click="showAddItemModal()">
                   <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                  <b> Add A New Line Item </b>
+                  <b> Add </b>
               </button>
               <!-- Button - Delete Item/s -->
               <button id="delete_button" type="button" class="btn btn-danger"
@@ -116,56 +123,43 @@
                       <thead>
                           <tr>
                             <th> </th>
-                            <th> </th>
-                            <th class="text-center"> Category </th>
-                          <tr>
+                            <th class="text-center"> Item Name </th>
+                            <th class="text-center"> Description </th>
+                            <th class="text-center"> Estimated Cost </th>
+                            <th class="text-center"> Notes </th>
+                            <th class="text-center"> Action </th>
+                          </tr>
                       </thead>
                       <tbody ng-repeat="category in category_list">
                           <tr>
-                              <td class="text-center">
-                                  <a href data-placement="top" bs-tooltip title="Edit"
-                                     ng-click="clickedCategory(category) && showEditCategoryModal()">
-                                      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                  </a>
-                              </td>
-                              <td>
-                                <button ng-if="category.expanded" ng-click="category.expanded = false">-</button>
+                              <!-- <td> -->
+                                <!-- <button ng-if="category.expanded" ng-click="category.expanded = false">-</button>
                                 <button ng-if="!category.expanded" ng-click="category.expanded = true">+</button>
+                              </td> -->
+                              <td colspan="6" class="text-success"> {{ category.name  }}
                               </td>
-                              <td class="text-center"> {{ category.category_name  }}
-                                <tr ng-if="category.expanded" ng-repeat-end="">
-                                  <table st-table="item_list" class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                          <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
-                                          <th> </th>
-                                          <th> </th>
-                                          <th class="text-center"> Item Name </th>
-                                          <th class="text-center"> Description </th>
-                                          <th class="text-center"> Estimated Cost </th>
-                                          <th class="text-center"> Notes </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody ng-repeat="item in item_list">
-                                        <tr>
-                                            <td> <input type="checkbox" class="checkbox"
-                                                        ng-model="item.Selected" ng-click="clickedSingleCheckbox(expenditure)">
-                                            </td>
-                                            <td class="text-center">
-                                                <a href data-placement="top" bs-tooltip title="Edit"
-                                                   ng-click="clickedItem(item) && showEditItemModal()">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </a>
-                                            </td>
-                                            <td class="text-center"> {{ item.item_name }} </td>
-                                            <td class="text-center"> {{ item.description }} </td>
-                                            <td class="text-right text-danger">-{{ item.estimated_cost | currency }} </td>
-                                            <td class="text-center"> {{ item.notes }} </td>
-                                        </tr>
-                                    </tbody>
-                                  </table>
-                                </tr>
-                              </td>
+                                <!-- <tr ng-if="category.expanded" ng-repeat-end=""> -->
+                              <tr ng-repeat="item in category.items">
+                                  <td> <input type="checkbox" class="checkbox"
+                                              ng-model="item.selected" ng-click="clickedSingleCheckbox(item)">
+                                  </td>
+                                  <td> {{ item.name }} </td>
+                                  <td> {{ item.description }} </td>
+                                  <td> </td>
+                                  <!-- <td class="text-right text-danger">-{{ item.estimated_cost | currency }} </td> -->
+                                  <td> {{ item.notes }} </td>
+                                  <td>
+                                      <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
+                                         ng-click="clickedItem(item) && showEditItemModal()">
+                                         <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                                      </a>
+                                      <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
+                                         ng-click="clickedItem(item) && showSingleDeleteItemModal()">
+                                         <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                                      </a>
+                                  </td>
+                              <!-- </tr> -->
+                            </tr>
                           </tr>
                       </tbody>
                 </table>
@@ -199,7 +193,7 @@
                             <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <ul class="dropdown-menu">
-                            <li ng-repeat="category in category_list"><a href="#">{{category.category_name}}</a></li>
+                            <li ng-repeat="category in category_list"><a href="#">{{category.name}}</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#">Link</a></li>
                           </ul>
