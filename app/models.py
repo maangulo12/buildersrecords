@@ -77,7 +77,7 @@ class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(80), nullable=False)
-    # budget      = db.Column(db.Numeric(11,2), nullable = False)
+    amount = db.Column(db.Numeric(12,2), nullable=False)
     notes = db.Column(db.String(80), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
@@ -113,7 +113,7 @@ class Expenditure(db.Model):
     description = db.Column(db.String(80), nullable=False)
     amount = db.Column(db.Numeric(12,2), nullable=False)
     notes = db.Column(db.String(80))
-    # image       = db.Column(db.LargeBinary, nullable = False)
+    # image = db.Column(db.LargeBinary, nullable = False)
     fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
