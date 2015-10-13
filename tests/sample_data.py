@@ -11,6 +11,7 @@
         python3 manage.py populate
 """
 
+import random
 import simplejson as json
 from .parser import parse_ubuildit_file, parse_invoice_file
 
@@ -76,6 +77,7 @@ def populate_db(app):
             client.post('/api/items', data=json.dumps({
                 'name': item['cost_category'],
                 'description': item['notes'],
+                'amount': item['budget'],
                 'notes': item['explanations'],
                 'category_id': data.index(category) + 1
             }),
@@ -148,7 +150,7 @@ def populate_db(app):
             'description': expenditure['description'],
             'amount': expenditure['amount'],
             'notes': expenditure['notes'],
-            'category_id': 5,
+            'category_id': random.randint(1, 8),
             'fund_id': fund_id,
             'project_id': 1
         }, use_decimal=True),
