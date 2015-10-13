@@ -38,7 +38,7 @@ Web app for budgeting home construction projects.
 
 + Budgeting module:
 ```
-    ~~ -Display table ~~
+    ~~Display table.~~
     -Add, Update, Delete line items and categories
 ```
 
