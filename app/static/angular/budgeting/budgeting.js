@@ -50,20 +50,17 @@ angular.module('app.budgeting', [])
     }
     // ADD functions
     $scope.showAddItemModal = function() {
-        $scope.name = '';
-        $scope.description = '';
-        $scope.amount = '';
-        $scope.notes = '';
+        $scope.item = {};
         $scope.add_item_form.$setPristine();
         $('#add_item_modal').modal('show');
     }
     $scope.addItem = function() {
         $http.post('/api/items', {
-            item_name: $scope.name,
-            category: $scope.category,
-            description: $scope.description,
-            amount: $scope.amount,
-            notes: $scope.notes,
+            name: $scope.item.name,
+            category: $scope.item.category,
+            description: $scope.item.description,
+            amount: $scope.item.amount,
+            notes: $scope.item.notes,
             project_id: store.get('project').id
         })
         .then(function(response) {
@@ -73,4 +70,5 @@ angular.module('app.budgeting', [])
             $scope.add_item_form.$invalid = true;
         });
     }
+
 });
