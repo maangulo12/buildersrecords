@@ -57,11 +57,10 @@ angular.module('app.budgeting', [])
     $scope.addItem = function() {
         $http.post('/api/items', {
             name: $scope.item.name,
-            category: $scope.item.category,
             description: $scope.item.description,
             amount: $scope.item.amount,
             notes: $scope.item.notes,
-            project_id: store.get('project').id
+            category_id: $scope.item.category
         })
         .then(function(response) {
             $('#add_item_modal').modal('hide');

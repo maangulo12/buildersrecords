@@ -78,7 +78,7 @@ class Item(db.Model):
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(80), nullable=False)
     amount = db.Column(db.Numeric(12,2), nullable=False)
-    notes = db.Column(db.String(80), nullable=False)
+    notes = db.Column(db.String(80))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
 
