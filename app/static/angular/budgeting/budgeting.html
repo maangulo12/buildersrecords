@@ -129,7 +129,6 @@
                               </td>
                               <td colspan="6" class="text-success"> {{ category.name  }}
                               </td>
-
                           </tr>
                           <tr ng-if="category.expanded">
                             <th> </th>
@@ -183,50 +182,71 @@
                 <form name="add_item_form" novalidate>
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <!-- Category Selection -->
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary">Category</button>
-                          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <ul class="dropdown-menu">
-                            <li ng-repeat="category in category_list"><a href="#">{{category.name}}</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Link</a></li>
-                          </ul>
-                        </div>
-                        <!-- Line Break -->
-                        <hr>
+                      <!-- Category Field -->
+                      <div class="form-group"
+                           ng-class="{ 'has-error': add_item_form.category.$dirty &&
+                                                    add_item_form.category.$invalid ||
+                                                    add_item_form.$submitted &&
+                                                    add_item_form.category.$invalid,
+                                       'has-feedback': add_item_form.category.$dirty &&
+                                                       add_item_form.category.$invalid ||
+                                                       add_item_form.$submitted &&
+                                                       add_item_form.category.$invalid }">
+                          <label class="control-label" for="category"> Category * </label>
+                          <select class="form-control"
+                                  name="category"
+                                  ng-model="item.category"
+                                  required>
+                              <option value="" disabled selected> Select a category </option>
+                              <option ng-repeat="category in category_list" value="{{ category.id }}">
+                                  {{ category.name }}
+                              </option>
+                              <option  value="other">Create New Category</option>
+                          </select>
+                          <span class="glyphicon glyphicon-remove form-control-feedback"
+                                ng-if="add_item_form.category.$dirty &&
+                                       add_item_form.category.$invalid ||
+                                       add_item_form.$submitted &&
+                                       add_item_form.category.$invalid">
+                          </span>
+                          <div ng-messages="add_item_form.category.$error"
+                               ng-if="add_item_form.category.$dirty &&
+                                      add_item_form.category.$invalid ||
+                                      add_item_form.$submitted &&
+                                      add_item_form.category.$invalid">
+                              <div ng-message="required"
+                                   class="help-block"> This field is required. </div>
+                          </div>
+                      </div>
                         <!-- Item Name Field -->
                         <div class="form-group"
-                             ng-class="{ 'has-error': add_item_form.item_name.$dirty &&
-                                                      add_item_form.item_name.$invalid ||
+                             ng-class="{ 'has-error': add_item_form.name.$dirty &&
+                                                      add_item_form.name.$invalid ||
                                                       add_item_form.$submitted &&
-                                                      add_item_form.item_name.$invalid,
-                                         'has-feedback': add_item_form.item_name.$dirty &&
-                                                         add_item_form.item_name.$invalid ||
+                                                      add_item_form.name.$invalid,
+                                         'has-feedback': add_item_form.name.$dirty &&
+                                                         add_item_form.name.$invalid ||
                                                          add_item_form.$submitted &&
-                                                         add_item_form.item_name.$invalid }">
-                            <label class="control-label" for="item_name"> Item Name * </label>
+                                                         add_item_form.name.$invalid }">
+                            <label class="control-label" for="name"> Item Name * </label>
                             <input class="form-control"
-                                   name="item_name"
+                                   name="name"
                                    type="text"
                                    placeholder="Name"
-                                   ng-model="item_name"
+                                   ng-model="item.name"
                                    required
                                    ng-maxlength=50>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="add_item_form.item_name.$dirty &&
-                                         add_item_form.item_name.$invalid ||
+                                  ng-if="add_item_form.name.$dirty &&
+                                         add_item_form.name.$invalid ||
                                          add_item_form.$submitted &&
-                                         add_item_form.item_name.$invalid">
+                                         add_item_form.name.$invalid">
                             </span>
-                            <div ng-messages="add_item_form.item_name.$error"
-                                 ng-if="add_item_form.item_name.$dirty &&
-                                        add_item_form.item_name.$invalid ||
+                            <div ng-messages="add_item_form.name.$error"
+                                 ng-if="add_item_form.name.$dirty &&
+                                        add_item_form.name.$invalid ||
                                         add_item_form.$submitted &&
-                                        add_item_form.item_name.$invalid">
+                                        add_item_form.name.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
@@ -248,7 +268,7 @@
                                    name="description"
                                    type="text"
                                    placeholder="Description"
-                                   ng-model="description"
+                                   ng-model="item.description"
                                    required
                                    ng-maxlength=80>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -285,9 +305,9 @@
                                        name="amount"
                                        type="number"
                                        placeholder="Estimated Cost"
-                                       ng-model="amount"
+                                       ng-model="item.amount"
                                        required
-                                       ng-maxlength=11>
+                                       ng-maxlength=12>
                             </div>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_item_form.amount.$dirty &&
@@ -303,7 +323,7 @@
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
-                                     class="help-block"> This field cannot be longer than 11 digits. </div>
+                                     class="help-block"> This field cannot be longer than 12 digits. </div>
                             </div>
                         </div>
                         <!-- Notes Field -->
@@ -321,7 +341,7 @@
                                    name="notes"
                                    type="text"
                                    placeholder="Notes (Optional)"
-                                   ng-model="notes"
+                                   ng-model="item.notes"
                                    ng-maxlength=80>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_item_form.notes.$dirty &&
