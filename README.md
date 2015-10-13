@@ -5,7 +5,7 @@ Web app for budgeting home construction projects.
 ## To Do List:
 
 + Home module:
-``` html
+```
     -Update home page to show the app features (remove project calendar)
     -Possibly update background picture (house picture)
     -Mobile Friendly
@@ -13,37 +13,37 @@ Web app for budgeting home construction projects.
 ```
 
 + Signup module:
-``` html
+```
     -Add modal for Terms of Service
     -Add modal for Privacy Policy
 ```
 
 + Login module:
-``` html
+```
     -Forgot Password link
 ```
 
 + Projects module:
-``` html
+```
     -Delete Project ('bulk' delete everything about the project)
     -Remove projectNameExists (in directives & update Project model)
     -Think about other fields to add here about the project
 ```
 
 + Dashboard module:
-``` html
+```
     -Research D3 or other alternatives
     -Think about what to show here
 ```
 
 + Budgeting module:
-``` html
-    <s> -Display table </s>
+```
+    ~~ -Display table ~~
     -Add, Update, Delete line items and categories
 ```
 
 + Funds module:
-``` html
+```
     -Edit Loan (pre-select choice in loan question in dropdown)
     -Edit Draw (after updating, table rows shift)
     -Edit Draw (date of draw needs to be correct)
@@ -51,7 +51,7 @@ Web app for budgeting home construction projects.
 ```
 
 + Expenditures module:
-``` html
+```
     -Edit Expenditure (date of expenditure needs to be correct)
     -Edit Expenditure (pre-select choice in category dropdown)
     -Edit Expenditure (pre-select choice in fund/loan dropdown)
@@ -59,7 +59,7 @@ Web app for budgeting home construction projects.
 ```
 
 + Other modules:
-``` html
+```
     -Implement Forgot Password
     -Implement Send Feedback
     -Implement Help & Support
@@ -69,7 +69,7 @@ Web app for budgeting home construction projects.
 ```
 
 + All modules:
-``` html
+```
     -Amount directive 'format' needs to allow decimals
 ```
 
