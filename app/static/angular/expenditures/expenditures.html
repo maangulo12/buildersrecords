@@ -153,11 +153,11 @@
                         <td class="text-center"> <b> {{ expenditure.funds.name }} </b> </td>
                         <td class="text-center"> {{ expenditure.notes }} </td>
                         <td class="text-center">
-                            <a href data-placement="top" bs-tooltip title="Edit"
+                            <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
                                ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
                                <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
                             </a>
-                            <a href data-placement="top" bs-tooltip title="Delete"
+                            <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
                                ng-click="clickedExpenditure(expenditure) && showSingleDeleteExpenditureModal()">
                                <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
                             </a>
