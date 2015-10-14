@@ -29,7 +29,7 @@ angular.module('app.dashboard', [])
             var budget_colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
 
             var expenditures_data = [];
-            var expenditures_colors = getColorList($scope.category_list.length, 'crimson', 'brown');
+            var expenditures_colors = getColorList($scope.category_list.length, 'coral', 'darkred');
 
             angular.forEach($scope.category_list, function(category) {
 
@@ -60,15 +60,28 @@ angular.module('app.dashboard', [])
                 i++;
             });
 
+            // Draw Budget Pie Chart
             var ctx = $('#modular-doughnut').get(0).getContext('2d');
             var chart = new Chart(ctx).Doughnut(budget_data, {
-                responsive: true
+                responsive: true,
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
             });
+            var legend = document.createElement('div');
+    		legend.innerHTML = chart.generateLegend();
+            document.getElementById('legend-holder').appendChild(legend.firstChild);
 
+            // Draw Expenditures Pie Chart
             var ctx2 = $('#modular-doughnut2').get(0).getContext('2d');
             var chart2 = new Chart(ctx2).Doughnut(expenditures_data, {
-                responsive: true
+                responsive: true,
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
             });
+            var legend2 = document.createElement('div');
+    		legend2.innerHTML = chart2.generateLegend();
+            document.getElementById('legend-holder2').appendChild(legend2.firstChild);
+
         }, function(error) {
             $scope.error_msg = 'Could not load your budget pie chart.';
         });
@@ -88,4 +101,14 @@ angular.module('app.dashboard', [])
         }
         return colors;
     }
+    Number.prototype.formatMoney = function(c, d, t) {
+        var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+    };
 });
