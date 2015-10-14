@@ -130,14 +130,14 @@
                 <thead>
                     <tr>
                         <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
-                        <th class="text-center"> Date </th>
-                        <th class="text-center"> Vendor </th>
-                        <th class="text-center"> Description </th>
-                        <th class="text-center"> Category </th>
-                        <th class="text-center"> Amount </th>
-                        <th class="text-center"> Fund </th>
-                        <th class="text-center"> Notes </th>
-                        <th class="text-center"> Action </th>
+                        <th> Date </th>
+                        <th> Vendor </th>
+                        <th> Description </th>
+                        <th> Category </th>
+                        <th> Amount </th>
+                        <th> Fund </th>
+                        <th> Notes </th>
+                        <th> </th>
                     <tr>
                 </thead>
                 <tbody ng-repeat="expenditure in expenditure_list">
@@ -145,14 +145,14 @@
                         <td> <input type="checkbox" class="checkbox"
                                     ng-model="expenditure.selected" ng-click="clickedSingleCheckbox(expenditure)">
                         </td>
-                        <td class="text-center"> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
-                        <td class="text-center"> <a href ng-click=""><b> {{ expenditure.vendor }} </b></a> </td>
-                        <td class="text-center"> {{ expenditure.description }} </td>
-                        <td class="text-center text-info"> {{ expenditure.categories.name }} </td>
-                        <td class="text-right text-danger"> {{ expenditure.amount | currency }} </td>
-                        <td class="text-center"> <b> {{ expenditure.funds.name }} </b> </td>
-                        <td class="text-center"> {{ expenditure.notes }} </td>
-                        <td class="text-center">
+                        <td> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
+                        <td class="text-success"> <b> {{ expenditure.vendor }} </b></a> </td>
+                        <td> {{ expenditure.description }} </td>
+                        <td> <b> {{ expenditure.categories.name }} </b> </td>
+                        <td class="text-right"> {{ expenditure.amount | currency }} </td>
+                        <td> <b> {{ expenditure.funds.name }} </b> </td>
+                        <td> {{ expenditure.notes }} </td>
+                        <td>
                             <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
                                ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
                                <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
@@ -166,10 +166,10 @@
                 </tbody>
                 <tbody ng-if="expenditure_list.length != 0">
                     <tr>
-                        <td colspan="5"></td>
+                        <td colspan="4"></td>
                         <td class="text-right"> <b> Total Amount Spent </b> </td>
-                        <td class="text-right text-danger"> <b> {{ total_amount_spent | currency }} </b> </td>
-                        <td colspan="2"></td>
+                        <td class="text-right"> <b> {{ total_amount_spent | currency }} </b> </td>
+                        <td colspan="3"></td>
                     </tr>
                 </tbody>
                 <tbody ng-if="expenditure_list.length == 0">
