@@ -97,44 +97,41 @@
         <!-- Right Side -->
         <div class="col-md-9">
             <!-- Header -->
-            <h1> <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
-                Dashboard
+            <h1>
+                Overview
             </h1>
             <!-- Sub Header -->
             <h4 class="text-muted"> {{ project_name }} </h4>
-            <!-- Charts -->
-            <div class= "row">
-                <!-- Budget -->
-                <h2 class="text-center"> Budget </h2>
-                <!-- Donut Chart -->
-                <div class="row">
-                    <!-- Donut -->
-                    <div class="col-md-6 col-lg-6">
-                        <div class="canvas-holder">
-                            <canvas id="modular-doughnut" width="9" height="5"></canvas>
-                        </div>
-                    </div>
-                    <!-- Legend -->
-                    <div class="col-md-6 col-lg-6">
-                        <h4> Categories </h4>
-                        <div id="legend-holder"></div>
+            <!-- Budget -->
+            <h2 class="text-center"> Budget </h2>
+            <!-- Donut Chart -->
+            <div class="row">
+                <!-- Donut -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="canvas-holder">
+                        <canvas id="modular-doughnut" width="9" height="5"></canvas>
                     </div>
                 </div>
-                <!-- Expenditures -->
-                <h2 class="text-center"> Expenditures </h2>
-                <!-- Donut Chart -->
-                <div class="row">
-                    <!-- Donut -->
-                    <div class="col-md-6 col-lg-6">
-                        <div class="canvas-holder2">
-                            <canvas id="modular-doughnut2" width="9" height="5"></canvas>
-                        </div>
+                <!-- Legend -->
+                <div class="col-md-6 col-lg-6">
+                    <h4> Categories </h4>
+                    <div id="legend-holder"></div>
+                </div>
+            </div>
+            <!-- Expenditures -->
+            <h2 class="text-center"> Expenditures </h2>
+            <!-- Donut Chart -->
+            <div class="row">
+                <!-- Donut -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="canvas-holder2">
+                        <canvas id="modular-doughnut2" width="9" height="5"></canvas>
                     </div>
-                    <!-- Legend -->
-                    <div class="col-md-6 col-lg-6">
-                        <h4> Categories </h4>
-                        <div id="legend-holder2"></div>
-                    </div>
+                </div>
+                <!-- Legend -->
+                <div class="col-md-6 col-lg-6">
+                    <h4> Categories </h4>
+                    <div id="legend-holder2"></div>
                 </div>
             </div>
         </div>
@@ -142,7 +139,7 @@
 </div>
 <!-- Header -->
 <div class="container">
-    <h2> Over / Under Budget </h2>
+    <h2> Cost Review </h2>
 </div>
 <!-- Line Break -->
 <br>
@@ -151,28 +148,53 @@
     <table st-table="category_list" class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
+                <th> </th>
                 <th class="text-center"> Cost Category / Detail </th>
-                <th class="text-center"> Notes </th>
+                <th class="text-center"> </th>
                 <th class="text-center"> Budget </th>
                 <th class="text-center"> Actual </th>
                 <th class="text-center"> Over / Under Budget </th>
+                <th class="text-center"> Remaining Payments </th>
             <tr>
         </thead>
         <tbody ng-repeat="category in category_list">
             <tr>
-                <td colspan="5" class="text-success"> <b> {{ category.name }} </b> </td>
+                <td>
+                  <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
+                  <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
+                </td>
+                <td class="text-success"> <b> {{ category.name }} </b> </td>
+                <td> </td>
+                <td class="text-right"> <b> {{ category.total_cost | currency }} </b> </td>
+                <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
+                <td class="text-right" ng-class="{ 'text-danger': category.total_expenditure > category.total_cost }">
+                    <b> {{ category.total_expenditure - category.total_cost | currency }} </b>
+                </td>
+                <td> </td>
             </tr>
-            <tr ng-repeat="item in category.items">
+            <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                <td> </td>
                 <td> {{ item.name }} </td>
-                <td> {{ item.notes }} </td>
+                <td> {{ item.description }} </td>
                 <td class="text-right"> {{ item.amount | currency }} </td>
-                <td> </td>
-                <td> </td>
+                <td class="text-right"> </td>
+                <td class="text-right"> </td>
+                <td class="text-right"> </td>
             </tr>
         </tbody>
         <tbody ng-if="category_list.length != 0">
+            <tr>
+                <td colspan="2"> </td>
+                <td> <b> Grand Total </b> </td>
+                <td class="text-right"> <b> {{ grand_total_cost | currency }} </b> </td>
+                <td class="text-right"> <b> {{ grand_total_expenditure | currency }} </b> </td>
+                <td class="text-right"> <b> {{ grand_total_expenditure - grand_total_cost | currency }} </b> </td>
+                <td> </td>
+            </tr>
         </tbody>
         <tbody ng-if="category_list.length == 0">
         </tbody>
     </table>
 </div>
+<!-- Line Breaks -->
+<br><br><br><br>

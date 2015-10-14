@@ -16,14 +16,16 @@ angular.module('app.dashboard', [])
     function init() {
         $scope.username = store.get('username');
         $scope.project_name = store.get('project').name;
-        drawPieCharts();
+        getCategories();
     }
-    function drawPieCharts() {
+    function getCategories() {
         $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
             $scope.category_list = response.data.objects;
 
             var i = 0;
+            var grand_total_cost = 0;
+            var grand_total_expenditure = 0;
 
             var budget_data = [];
             var budget_colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
@@ -33,25 +35,29 @@ angular.module('app.dashboard', [])
 
             angular.forEach($scope.category_list, function(category) {
 
-                var category_cost = 0;
+                var total_cost = 0;
                 angular.forEach(category.items, function(item) {
-                    category_cost += item.amount;
+                    total_cost += item.amount;
                 });
+                category.total_cost = total_cost;
+                grand_total_cost += total_cost;
 
                 budget_data.push({
-                    value: category_cost,
+                    value: total_cost,
                     color: budget_colors[i],
                     highlight: budget_colors[i],
                     label: category.name
                 });
 
-                var category_expenditure = 0;
+                var total_expenditure = 0;
                 angular.forEach(category.expenditures, function(expenditure) {
-                    category_expenditure += expenditure.amount;
+                    total_expenditure += expenditure.amount;
                 });
+                category.total_expenditure = total_expenditure;
+                grand_total_expenditure += total_expenditure;
 
                 expenditures_data.push({
-                    value: category_expenditure,
+                    value: total_expenditure,
                     color: expenditures_colors[i],
                     highlight: expenditures_colors[i],
                     label: category.name
@@ -59,6 +65,8 @@ angular.module('app.dashboard', [])
 
                 i++;
             });
+            $scope.grand_total_cost = grand_total_cost;
+            $scope.grand_total_expenditure = grand_total_expenditure;
 
             // Draw Budget Pie Chart
             var ctx = $('#modular-doughnut').get(0).getContext('2d');
