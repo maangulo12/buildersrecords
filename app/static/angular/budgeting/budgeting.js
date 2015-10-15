@@ -17,7 +17,6 @@ angular.module('app.budgeting', [])
     function init() {
         $scope.username = store.get('username');
         getCategories();
-        getItems();
     }
     // GET categories function
     function getCategories() {
@@ -33,21 +32,26 @@ angular.module('app.budgeting', [])
         $state.go('login');
     }
     $scope.clickedItem = function(item) {
-        var index = $scope.item_list.indexOf(item);
+        var index = $scope.category.items.indexOf(item);
         if (index !== -1) {
             store.set('item', item);
             return true;
         }
         return false;
     }
-    $scope.clickedAllCheckbox = function() {
-        angular.forEach($scope.item_list, function(item) {
-            item.Selected = $scope.checkboxAll;
-            $scope.selected = item.Selected;
-        });
-    }
-    $scope.clickedSingleCheckbox = function(item) {
-        $scope.selected = item.Selected;
+    $scope.clickedSingleCheckbox = function(category, item) {
+        if (item.selected) {
+            $scope.selected = true;
+            console.log("khk");
+        } else {
+            var is_selected = false;
+            angular.forEach(category.items, function(e) {
+                if (e.selected) {
+                    is_selected = true;
+                }
+            });
+            $scope.selected = is_selected;
+        }
     }
     // ADD functions
     $scope.showAddItemModal = function() {
@@ -70,24 +74,38 @@ angular.module('app.budgeting', [])
             $scope.add_item_form.$invalid = true;
         });
     }
-    // DELETE ITEMS functions
+    // DELETE EXPENDITURES functions
     $scope.showDeleteItemsModal = function() {
         if (!$('#delete_button').hasClass('disabled')) {
             $('#delete_items_modal').modal('show');
         }
     }
     $scope.deleteItems = function() {
-        angular.forEach($scope.item_list, function(item) {
+      angular.forEach($scope.category_list, function(category) {
+        angular.forEach(category.items, function(item) {
             if (item.selected) {
                 $http.delete('/api/items/' + item.id)
                 .then(function(response) {
                     $('#delete_items_modal').modal('hide');
-                    getItems();
+                    getCategories();
                     $scope.selected = false;
                 }, function(error) {
                     $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
                 });
             }
+        });
+      });
+    }
+    $scope.showSingleDeleteItemModal = function() {
+        $('#delete_single_item_modal').modal('show');
+    }
+    $scope.deleteSingleItem = function() {
+        $http.delete('/api/items/' + store.get('item').id)
+        .then(function(response) {
+            $('#delete_single_item_modal').modal('hide');
+            getCategories();
+        }, function(error) {
+            $scope.error_msg_delete_single = 'Could not delete your item. Please try again.';
         });
     }
 

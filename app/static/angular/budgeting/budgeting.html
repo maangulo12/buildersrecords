@@ -144,7 +144,7 @@
                           </tr>
                           <tr ng-if="category.expanded" ng-repeat="item in category.items">
                             <td> <input type="checkbox" class="checkbox"
-                                        ng-model="item.selected" ng-click="clickedSingleCheckbox(item)">
+                                        ng-model="item.selected" ng-click="clickedSingleCheckbox(category, item)">
                             </td>
                             <td> {{ item.name }} </td>
                             <td class="text-left"> {{ item.description }} </td>
@@ -416,6 +416,48 @@
                         <b> No </b>
                     </button>
                     <button type="button" class="btn btn-danger" ng-click="deleteItems()">
+                        <b> Yes, Delete </b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal - Delete Single Expenditure -->
+<div class="container">
+    <div class="modal fade" id="delete_single_item_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <h4 class="modal-title">
+                        <b class="text-danger"> Delete Item </b>
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                         ng-if="error_msg_delete_single">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only"> Error: </span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button> <b> {{ error_msg_delete_single }} </b>
+                    </div>
+                    <p class="text-center">
+                        Are you sure you would like to <b> delete </b>?
+                    </p>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <b> No </b>
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="deleteSingleItem()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
