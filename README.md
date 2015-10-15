@@ -30,7 +30,7 @@ Web app for budgeting home construction projects.
     -Think about other fields to add here about the project
 ```
 
-+ Dashboard module:
++ Dashboard module: Miguel 10/15/2015
 ```
     -Research D3 or other alternatives
     -Think about what to show here
@@ -49,7 +49,7 @@ Web app for budgeting home construction projects.
     -Think about what to show for non loan funds
 ```
 
-+ Expenditures module:
++ Expenditures module: Miguel 10/15/2015
 ```
     -Edit Expenditure (date of expenditure needs to be correct)
     -Edit Expenditure (pre-select choice in category dropdown)
