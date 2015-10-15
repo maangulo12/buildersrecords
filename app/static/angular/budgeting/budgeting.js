@@ -17,6 +17,7 @@ angular.module('app.budgeting', [])
     function init() {
         $scope.username = store.get('username');
         getCategories();
+        getItems();
     }
     // GET categories function
     function getCategories() {
@@ -67,6 +68,26 @@ angular.module('app.budgeting', [])
             getCategories();
         }, function(error) {
             $scope.add_item_form.$invalid = true;
+        });
+    }
+    // DELETE ITEMS functions
+    $scope.showDeleteItemsModal = function() {
+        if (!$('#delete_button').hasClass('disabled')) {
+            $('#delete_items_modal').modal('show');
+        }
+    }
+    $scope.deleteItems = function() {
+        angular.forEach($scope.item_list, function(item) {
+            if (item.selected) {
+                $http.delete('/api/items/' + item.id)
+                .then(function(response) {
+                    $('#delete_items_modal').modal('hide');
+                    getItems();
+                    $scope.selected = false;
+                }, function(error) {
+                    $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
+                });
+            }
         });
     }
 
