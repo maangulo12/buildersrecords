@@ -153,6 +153,7 @@
                 <th class="text-center"> </th>
                 <th class="text-center"> Budget </th>
                 <th class="text-center"> Actual </th>
+                <th class="text-center"> Paid </th>
                 <th class="text-center"> Over / Under Budget </th>
                 <th class="text-center"> Remaining Payments </th>
             <tr>
@@ -167,6 +168,7 @@
                 <td> </td>
                 <td class="text-right"> <b> {{ category.total_cost | currency }} </b> </td>
                 <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
+                <td> </td>
                 <td class="text-right" ng-class="{ 'text-danger': category.total_expenditure > category.total_cost }">
                     <b> {{ category.total_expenditure - category.total_cost | currency }} </b>
                 </td>
@@ -180,6 +182,7 @@
                 <td class="text-right"> </td>
                 <td class="text-right"> </td>
                 <td class="text-right"> </td>
+                <td class="text-right"> </td>
             </tr>
         </tbody>
         <tbody ng-if="category_list.length != 0">
@@ -188,6 +191,7 @@
                 <td> <b> Grand Total </b> </td>
                 <td class="text-right"> <b> {{ grand_total_cost | currency }} </b> </td>
                 <td class="text-right"> <b> {{ grand_total_expenditure | currency }} </b> </td>
+                <td> </td>
                 <td class="text-right"> <b> {{ grand_total_expenditure - grand_total_cost | currency }} </b> </td>
                 <td> </td>
             </tr>
