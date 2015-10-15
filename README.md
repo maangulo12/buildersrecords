@@ -23,7 +23,7 @@ Web app for budgeting home construction projects.
     -Forgot Password link
 ```
 
-+ Projects module:
++ Projects module: Amy Lopes 10/15/2015
 ```
     -Delete Project ('bulk' delete everything about the project)
     -Remove projectNameExists (in directives & update Project model)
@@ -36,7 +36,7 @@ Web app for budgeting home construction projects.
     -Think about what to show here
 ```
 
-+ Budgeting module:
++ Budgeting module: Amy Lopes 10/15/2015
 ```
     -Add, Update, Delete line items and categories
 ```
