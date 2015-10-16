@@ -352,6 +352,41 @@
                                      class="help-block"> This field is required. </div>
                             </div>
                         </div>
+                        <!-- Item Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_expenditure_form.item.$dirty &&
+                                                      add_expenditure_form.item.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.item.$invalid,
+                                         'has-feedback': add_expenditure_form.item.$dirty &&
+                                                         add_expenditure_form.item.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.item.$invalid }">
+                            <label class="control-label" for="item"> Item * </label>
+                            <select class="form-control"
+                                    name="item"
+                                    ng-model="expenditure.item"
+                                    required>
+                                <option value="" disabled selected> Select an item </option>
+                                <option ng-repeat="item in item_list" value="{{ item.id }}">
+                                    {{ item.name }}
+                                </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.item.$dirty &&
+                                         add_expenditure_form.item.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.item.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.item.$error"
+                                 ng-if="add_expenditure_form.item.$dirty &&
+                                        add_expenditure_form.item.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.item.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
                         <!-- Amount Field -->
                         <div class="form-group"
                              ng-class="{ 'has-error': add_expenditure_form.amount.$dirty &&
