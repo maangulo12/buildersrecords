@@ -23,7 +23,7 @@ Web app for budgeting home construction projects.
     -Forgot Password link
 ```
 
-+ Projects module: Amy Lopes 10/15/2015
++ Projects module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Delete Project ('bulk' delete everything about the project)
     -Remove projectNameExists (in directives & update Project model)
@@ -36,7 +36,7 @@ Web app for budgeting home construction projects.
     -Think about what to show here
 ```
 
-+ Budgeting module: Amy Lopes 10/15/2015
++ Budgeting module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Add, Update, Delete line items and categories
 ```
@@ -49,11 +49,10 @@ Web app for budgeting home construction projects.
     -Think about what to show for non loan funds
 ```
 
-+ Expenditures module: Miguel 10/15/2015
++ Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
     -Edit Expenditure (date of expenditure needs to be correct)
-    -Edit Expenditure (pre-select choice in category dropdown)
-    -Edit Expenditure (pre-select choice in fund/loan dropdown)
+    -Implement item dropdown
     -Pagination for table
 ```
 
