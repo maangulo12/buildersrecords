@@ -148,9 +148,9 @@ angular.module('app.expenditures', [])
         $scope.updated_expenditure.date = new Date(store.get('expenditure').date);
         $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
         $scope.updated_expenditure.description = store.get('expenditure').description;
-        $scope.updated_expenditure.category = store.get('expenditure').category;
+        $scope.updated_expenditure.category = store.get('expenditure').categories.id;
         $scope.updated_expenditure.amount = store.get('expenditure').amount;
-        $scope.updated_expenditure.fund = store.get('expenditure').fund;
+        $scope.updated_expenditure.fund = store.get('expenditure').funds.id;
         $scope.updated_expenditure.notes = store.get('expenditure').notes;
         $scope.edit_expenditure_form.$setPristine();
         $('#edit_expenditure_modal').modal('show');

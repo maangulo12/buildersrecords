@@ -331,11 +331,9 @@
                             <select class="form-control"
                                     name="category"
                                     ng-model="expenditure.category"
+                                    ng-options="category.id as category.name for category in category_list"
                                     required>
                                 <option value="" disabled selected> Select a category </option>
-                                <option ng-repeat="category in category_list" value="{{ category.id }}">
-                                    {{ category.name }}
-                                </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_expenditure_form.category.$dirty &&
@@ -348,41 +346,6 @@
                                         add_expenditure_form.category.$invalid ||
                                         add_expenditure_form.$submitted &&
                                         add_expenditure_form.category.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
-                            </div>
-                        </div>
-                        <!-- Item Field -->
-                        <div class="form-group"
-                             ng-class="{ 'has-error': add_expenditure_form.item.$dirty &&
-                                                      add_expenditure_form.item.$invalid ||
-                                                      add_expenditure_form.$submitted &&
-                                                      add_expenditure_form.item.$invalid,
-                                         'has-feedback': add_expenditure_form.item.$dirty &&
-                                                         add_expenditure_form.item.$invalid ||
-                                                         add_expenditure_form.$submitted &&
-                                                         add_expenditure_form.item.$invalid }">
-                            <label class="control-label" for="item"> Item * </label>
-                            <select class="form-control"
-                                    name="item"
-                                    ng-model="expenditure.item"
-                                    required>
-                                <option value="" disabled selected> Select an item </option>
-                                <option ng-repeat="item in item_list" value="{{ item.id }}">
-                                    {{ item.name }}
-                                </option>
-                            </select>
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="add_expenditure_form.item.$dirty &&
-                                         add_expenditure_form.item.$invalid ||
-                                         add_expenditure_form.$submitted &&
-                                         add_expenditure_form.item.$invalid">
-                            </span>
-                            <div ng-messages="add_expenditure_form.item.$error"
-                                 ng-if="add_expenditure_form.item.$dirty &&
-                                        add_expenditure_form.item.$invalid ||
-                                        add_expenditure_form.$submitted &&
-                                        add_expenditure_form.item.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
                             </div>
@@ -440,11 +403,9 @@
                             <select class="form-control"
                                     name="fund"
                                     ng-model="expenditure.fund"
+                                    ng-options="fund.id as fund.name for fund in fund_list"
                                     required>
                                 <option value="" disabled selected> Select your fund </option>
-                                <option ng-repeat="fund in fund_list" value="{{ fund.id }}">
-                                    {{ fund.name }}
-                                </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_expenditure_form.fund.$dirty &&
@@ -746,11 +707,8 @@
                             <select class="form-control"
                                     name="category"
                                     ng-model="updated_expenditure.category"
+                                    ng-options="category.id as category.name for category in category_list"
                                     required>
-                                <option value="" disabled selected> Select a category </option>
-                                <option ng-repeat="category in category_list" value="{{ category.id }}">
-                                    {{ category.name }}
-                                </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="edit_expenditure_form.category.$dirty &&
@@ -820,10 +778,8 @@
                             <select class="form-control"
                                     name="fund"
                                     ng-model="updated_expenditure.fund"
+                                    ng-options="fund.id as fund.name for fund in fund_list"
                                     required>
-                                <option ng-repeat="fund in fund_list" value="{{ fund.id }}">
-                                    {{ fund.name }}
-                                </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_expenditure_form.fund.$dirty &&
@@ -854,7 +810,7 @@
                             <input class="form-control"
                                    name="notes"
                                    type="text"
-                                   placeholder="Notes"
+                                   placeholder="Notes (Optional)"
                                    ng-model="updated_expenditure.notes"
                                    ng-maxlength=80>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
