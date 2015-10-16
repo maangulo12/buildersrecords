@@ -109,78 +109,100 @@
             <div class="page-header">
                 <h1> <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Expenditures </h1>
                 <!-- Sub Header -->
-                <h4 class="text-muted"> Track all of your expenses here </h4>
+                <h4 class="text-muted"> Keep track of all of your expenses </h4>
             </div>
-            <!-- Button - Add Expenditure -->
-            <button type="button" class="btn btn-success" ng-click="showAddExpenditureModal()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <b> Add </b>
-            </button>
-            <!-- Button - Delete Expenditure -->
-            <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
-                    title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteExpendituresModal()">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                <b> Delete </b>
-            </button>
-            <!-- Line Break -->
-            <br>
-            <br>
-            <!-- Table -->
-            <table st-table="expenditure_list" class="table table-striped table-hover table-bordered">
-                <thead>
-                    <tr>
-                        <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
-                        <th> Date </th>
-                        <th> Vendor </th>
-                        <th> Description </th>
-                        <th> Category </th>
-                        <th> Amount </th>
-                        <th> Fund </th>
-                        <th> Notes </th>
-                        <th> </th>
-                    <tr>
-                </thead>
-                <tbody ng-repeat="expenditure in expenditure_list">
-                    <tr>
-                        <td> <input type="checkbox" class="checkbox"
-                                    ng-model="expenditure.selected" ng-click="clickedSingleCheckbox(expenditure)">
-                        </td>
-                        <td> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
-                        <td class="text-success"> <b> {{ expenditure.vendor }} </b></a> </td>
-                        <td> {{ expenditure.description }} </td>
-                        <td> <b> {{ expenditure.categories.name }} </b> </td>
-                        <td class="text-right"> {{ expenditure.amount | currency }} </td>
-                        <td> <b> {{ expenditure.funds.name }} </b> </td>
-                        <td> {{ expenditure.notes }} </td>
-                        <td>
-                            <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
-                               ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
-                               <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
-                            </a>
-                            <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
-                               ng-click="clickedExpenditure(expenditure) && showSingleDeleteExpenditureModal()">
-                               <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-                <tbody ng-if="expenditure_list.length != 0">
-                    <tr>
-                        <td colspan="4"></td>
-                        <td class="text-right"> <b> Total Amount Spent </b> </td>
-                        <td class="text-right"> <b> {{ total_amount_spent | currency }} </b> </td>
-                        <td colspan="3"></td>
-                    </tr>
-                </tbody>
-                <tbody ng-if="expenditure_list.length == 0">
-                    <tr>
-                        <td colspan="1"></td>
-                        <td colspan="8"> You do not have any expenditures yet. </td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Donut Chart -->
+            <div class="row">
+                <!-- Donut -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="canvas-holder">
+                        <canvas id="modular-doughnut" width="8" height="5"></canvas>
+                    </div>
+                </div>
+                <!-- Legend -->
+                <div class="col-md-6 col-lg-6">
+                    <h4> Categories </h4>
+                    <div id="legend-holder"></div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+<!-- Line Break -->
+<br>
+<!-- Full container -->
+<div class="container">
+    <!-- Button - Add Expenditure -->
+    <button type="button" class="btn btn-success" title="Add an Expenditure"
+            ng-click="showAddExpenditureModal()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <b> Add </b>
+    </button>
+    <!-- Button - Delete Expenditure -->
+    <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+            title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteExpendituresModal()">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        <b> Delete </b>
+    </button>
+    <!-- Line Break -->
+    <br>
+    <br>
+    <!-- Table -->
+    <table st-table="expenditure_list" class="table table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
+                <th> Date </th>
+                <th> Vendor </th>
+                <th> Description </th>
+                <th> Category </th>
+                <th> Item </th>
+                <th> Amount </th>
+                <th> Fund </th>
+                <th> Notes </th>
+                <th> </th>
+            <tr>
+        </thead>
+        <tbody ng-repeat="expenditure in expenditure_list">
+            <tr>
+                <td> <input type="checkbox" class="checkbox"
+                            ng-model="expenditure.selected" ng-click="clickedSingleCheckbox(expenditure)">
+                </td>
+                <td> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
+                <td class="text-success"> <b> {{ expenditure.vendor }} </b></a> </td>
+                <td> {{ expenditure.description }} </td>
+                <td> <b> {{ expenditure.categories.name }} </b> </td>
+                <td> </td>
+                <td class="text-right"> {{ expenditure.amount | currency }} </td>
+                <td> <b> {{ expenditure.funds.name }} </b> </td>
+                <td> {{ expenditure.notes }} </td>
+                <td>
+                    <a class="text-primary" href data-placement="top" bs-tooltip title="Edit"
+                       ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
+                       <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                    </a>
+                    <a class="text-danger" href data-placement="right" bs-tooltip title="Delete"
+                       ng-click="clickedExpenditure(expenditure) && showSingleDeleteExpenditureModal()">
+                       <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="expenditure_list.length != 0">
+            <tr>
+                <td colspan="5"></td>
+                <td class="text-right"> <b> Total Amount Spent </b> </td>
+                <td class="text-right"> <b> {{ total_amount_spent | currency }} </b> </td>
+                <td colspan="3"></td>
+            </tr>
+        </tbody>
+        <tbody ng-if="expenditure_list.length == 0">
+            <tr>
+                <td colspan="1"></td>
+                <td colspan="9"> You do not have any expenditures yet. </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <!-- END -->
 
@@ -346,6 +368,39 @@
                                         add_expenditure_form.category.$invalid ||
                                         add_expenditure_form.$submitted &&
                                         add_expenditure_form.category.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
+                        <!-- Item Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_expenditure_form.item.$dirty &&
+                                                      add_expenditure_form.item.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.item.$invalid,
+                                         'has-feedback': add_expenditure_form.item.$dirty &&
+                                                         add_expenditure_form.item.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.item.$invalid }">
+                            <label class="control-label" for="item"> Item * </label>
+                            <select class="form-control"
+                                    name="item"
+                                    ng-model="expenditure.item"
+                                    ng-options="item.id as item.name for item in categories.items"
+                                    required>
+                                <option value="" disabled selected> Select an item </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.item.$dirty &&
+                                         add_expenditure_form.item.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.item.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.item.$error"
+                                 ng-if="add_expenditure_form.item.$dirty &&
+                                        add_expenditure_form.item.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.item.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
                             </div>
