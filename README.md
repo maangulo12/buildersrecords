@@ -30,7 +30,7 @@ Web app for budgeting home construction projects.
     -Think about other fields to add here about the project
 ```
 
-+ Dashboard module: Miguel 10/15/2015
++ Dashboard module: <b> Miguel 10/15/2015 </b>
 ```
     -Research D3 or other alternatives
     -Think about what to show here
