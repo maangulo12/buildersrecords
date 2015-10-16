@@ -52,39 +52,6 @@
     padding: 25px 0;
     background-color: #233140;
 }
-#canvas-holder {
-    width: 240px;
-}
-.doughnut-legend li span {
-    display: block;
-    width: 14px;
-    height: 14px;
-    border-radius: 7px;
-    float: left;
-    margin-top: 4px;
-    margin-right: 8px;
-}
-.doughnut-legend {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    margin-top: 20px;
-}
-.doughnut-legend li {
-    margin-bottom: 4px;
-}
-.doughnut-legend li:first-letter {
-    text-transform: capitalize;
-}
-.comm-how {
-    display: inline-block;
-    float: left;
-    color: #979797;
-    width: 55px;
-    text-align: right;
-    margin-right: 20px;
-}
 .top_padding {
     padding-top: 60px;
 }
@@ -113,7 +80,7 @@ li button {
     border-radius: 7px;
     float: left;
     margin-top: 4px;
-    margin-right: 8px; 
+    margin-right: 8px;
 }
 .doughnut-legend {
     list-style: none;
