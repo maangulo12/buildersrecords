@@ -148,9 +148,8 @@ def populate_db(app):
         client.post('/api/expenditures', data=json.dumps({
             'date': expenditure['date'],
             'vendor': expenditure['vendor'],
-            'description': expenditure['description'],
+            'notes': expenditure['description'],
             'amount': expenditure['amount'],
-            'notes': expenditure['notes'],
             'category_id': random.randint(1, 8),
             'item_id': random.randint(1, 110),
             'fund_id': fund_id,
