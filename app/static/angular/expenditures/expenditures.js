@@ -18,6 +18,7 @@ angular.module('app.expenditures', [])
         getExpenditures();
         getFunds();
         getCategories();
+        getItems();
     }
     $scope.logOut = function() {
         store.remove('jwt');
@@ -113,6 +114,15 @@ angular.module('app.expenditures', [])
             $scope.error_msg = 'Could not load your project\'s categories. Please try to refresh the page.';
         });
     }
+    // GET ITEMS function
+    function getItems() {
+        $http.get('/api/items?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
+        .then(function(response) {
+            $scope.item_list = response.data.objects;
+        }, function(error) {
+            //$scope.error_msg_add = 'Could not load the item list.';
+        });
+    }
     // ADD EXPENDITURE functions
     $scope.showAddExpenditureModal = function() {
         $scope.expenditure = {};
@@ -121,13 +131,14 @@ angular.module('app.expenditures', [])
         $('#add_expenditure_modal').modal('show');
     }
     $scope.addExpenditure = function() {
+        console.log($scope.expenditure.item);
         $http.post('/api/expenditures', {
             date: $scope.expenditure.date,
             vendor: $scope.expenditure.vendor,
             description: $scope.expenditure.description,
             amount: $scope.expenditure.amount,
             notes: $scope.expenditure.notes,
-            category_id: $scope.expenditure.category,
+            item_id: $scope.expenditure.item,
             fund_id: $scope.expenditure.fund,
             project_id: store.get('project').id
         })
