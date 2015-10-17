@@ -19,7 +19,6 @@
 from app import db, bcrypt
 
 
-# This is the users table in the database
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -32,21 +31,17 @@ class User(db.Model):
 
     projects = db.relationship('Project', backref='users')
 
-    # This method is needed in order to hash the user's password
     def __init__(self, username, password, first_name, last_name, email):
         self.username = username
-        # Hashing user's password
         self.password = bcrypt.generate_password_hash(password)
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
 
-    # This method checks if the entered password matches the password hash
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
 
 
-# This is the projects table in the database
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
@@ -55,12 +50,12 @@ class Project(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     # timestamp
 
+    items = db.relationship('Item', backref='projects')
     categories = db.relationship('Category', backref='projects')
     funds = db.relationship('Fund', backref='projects')
     expenditures = db.relationship('Expenditure', backref='projects')
 
 
-# This is the categories table in the database
 class Category(db.Model):
     __tablename__ = 'categories'
     id = db.Column(db.Integer, primary_key=True)
@@ -71,7 +66,6 @@ class Category(db.Model):
     expenditures = db.relationship('Expenditure', backref='categories')
 
 
-# This is the items table in the database
 class Item(db.Model):
     __tablename__ = 'items'
     id = db.Column(db.Integer, primary_key=True)
@@ -80,9 +74,11 @@ class Item(db.Model):
     amount = db.Column(db.Numeric(12,2), nullable=False)
     notes = db.Column(db.String(80))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
+
+    expenditures = db.relationship('Expenditure', backref='items')
 
 
-# This is the funds table in the database
 class Fund(db.Model):
     __tablename__ = 'funds'
     id = db.Column(db.Integer, primary_key=True)
@@ -95,7 +91,6 @@ class Fund(db.Model):
     draws = db.relationship('Draw', backref='funds')
 
 
-# This is the draws table in the database
 class Draw(db.Model):
     __tablename__ = 'draws'
     id = db.Column(db.Integer, primary_key=True)
@@ -104,7 +99,6 @@ class Draw(db.Model):
     fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
 
 
-# This is the expenditures table in the database
 class Expenditure(db.Model):
     __tablename__ = 'expenditures'
     id = db.Column(db.Integer, primary_key=True)
@@ -116,4 +110,5 @@ class Expenditure(db.Model):
     # image = db.Column(db.LargeBinary, nullable = False)
     fund_id = db.Column(db.Integer, db.ForeignKey('funds.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))
