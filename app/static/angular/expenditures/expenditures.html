@@ -154,9 +154,9 @@
                 <th style="width: 2%"> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
                 <th st-sort="date" style="width: 5%"> Date </th>
                 <th st-sort="vendor" style="width: 12%"> Vendor </th>
-                <th st-sort="description" style="width: 25%"> Description </th>
                 <th st-sort="categories.name" style="width: 15%"> Category </th>
-                <th st-sort="items.name" style="width: 20%"> Item </th>
+                <th st-sort="items.name" style="width: 20%"> Item / Job </th>
+                <th st-sort="description" style="width: 25%"> Notes </th>
                 <th st-sort="amount" style="width: 5%"> Amount </th>
                 <th st-sort="funds.name" style="width: 7%"> Fund </th>
                 <th colspan="2" style="width: 4%"> Action </th>
@@ -169,9 +169,9 @@
                 </td>
                 <td> {{ expenditure.date | date: 'MM/dd/yyyy' }} </td>
                 <td class="text-success"> <b> {{ expenditure.vendor }} </b></a> </td>
-                <td> {{ expenditure.description }} </td>
                 <td> <b> {{ expenditure.categories.name }} </b> </td>
                 <td> {{ expenditure.items.name }} </td>
+                <td> {{ expenditure.notes }} </td>
                 <td class="text-right"> {{ expenditure.amount | currency }} </td>
                 <td> <b> {{ expenditure.funds.name }} </b> </td>
                 <td>
@@ -201,7 +201,7 @@
         <tfoot>
 			<tr>
 				<td colspan="11" class="text-center">
-					<div st-pagination="" st-items-by-page="10" ></div>
+					<div class="info" st-pagination="" st-items-by-page="10" ></div>
 				</td>
 			</tr>
 		</tfoot>
@@ -309,41 +309,6 @@
                                      class="help-block"> This field cannot be longer than 50 characters. </div>
                             </div>
                         </div>
-                        <!-- Description Field -->
-                        <div class="form-group"
-                             ng-class="{ 'has-error': add_expenditure_form.description.$dirty &&
-                                                      add_expenditure_form.description.$invalid ||
-                                                      add_expenditure_form.$submitted &&
-                                                      add_expenditure_form.description.$invalid,
-                                         'has-feedback': add_expenditure_form.description.$dirty &&
-                                                         add_expenditure_form.description.$invalid ||
-                                                         add_expenditure_form.$submitted &&
-                                                         add_expenditure_form.description.$invalid }">
-                            <label class="control-label" for="description"> Description * </label>
-                            <input class="form-control"
-                                   name="description"
-                                   type="text"
-                                   placeholder="Description"
-                                   ng-model="expenditure.description"
-                                   required
-                                   ng-maxlength=80>
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="add_expenditure_form.description.$dirty &&
-                                         add_expenditure_form.description.$invalid ||
-                                         add_expenditure_form.$submitted &&
-                                         add_expenditure_form.description.$invalid">
-                            </span>
-                            <div ng-messages="add_expenditure_form.description.$error"
-                                 ng-if="add_expenditure_form.description.$dirty &&
-                                        add_expenditure_form.description.$invalid ||
-                                        add_expenditure_form.$submitted &&
-                                        add_expenditure_form.description.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
-                                <div ng-message="maxlength"
-                                     class="help-block"> This field cannot be longer than 80 characters. </div>
-                            </div>
-                        </div>
                         <!-- Item Field -->
                         <div class="form-group"
                              ng-class="{ 'has-error': add_expenditure_form.item.$dirty &&
@@ -375,6 +340,38 @@
                                         add_expenditure_form.item.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
+                        <!-- Notes Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_expenditure_form.notes.$dirty &&
+                                                      add_expenditure_form.notes.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.notes.$invalid,
+                                         'has-feedback': add_expenditure_form.notes.$dirty &&
+                                                         add_expenditure_form.notes.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.notes.$invalid }">
+                            <label class="control-label" for="notes"> Notes </label>
+                            <input class="form-control"
+                                   name="notes"
+                                   type="text"
+                                   placeholder="Notes (Optional)"
+                                   ng-model="expenditure.notes"
+                                   ng-maxlength=80>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.notes.$dirty &&
+                                         add_expenditure_form.notes.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.notes.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.notes.$error"
+                                 ng-if="add_expenditure_form.notes.$dirty &&
+                                        add_expenditure_form.notes.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.notes.$invalid">
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
@@ -447,38 +444,6 @@
                                         add_expenditure_form.fund.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
-                            </div>
-                        </div>
-                        <!-- Notes Field -->
-                        <div class="form-group"
-                             ng-class="{ 'has-error': add_expenditure_form.notes.$dirty &&
-                                                      add_expenditure_form.notes.$invalid ||
-                                                      add_expenditure_form.$submitted &&
-                                                      add_expenditure_form.notes.$invalid,
-                                         'has-feedback': add_expenditure_form.notes.$dirty &&
-                                                         add_expenditure_form.notes.$invalid ||
-                                                         add_expenditure_form.$submitted &&
-                                                         add_expenditure_form.notes.$invalid }">
-                            <label class="control-label" for="notes"> Notes </label>
-                            <input class="form-control"
-                                   name="notes"
-                                   type="text"
-                                   placeholder="Notes (Optional)"
-                                   ng-model="expenditure.notes"
-                                   ng-maxlength=80>
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="add_expenditure_form.notes.$dirty &&
-                                         add_expenditure_form.notes.$invalid ||
-                                         add_expenditure_form.$submitted &&
-                                         add_expenditure_form.notes.$invalid">
-                            </span>
-                            <div ng-messages="add_expenditure_form.notes.$error"
-                                 ng-if="add_expenditure_form.notes.$dirty &&
-                                        add_expenditure_form.notes.$invalid ||
-                                        add_expenditure_form.$submitted &&
-                                        add_expenditure_form.notes.$invalid">
-                                <div ng-message="maxlength"
-                                     class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
                         </div>
                         <!-- Required fields -->
@@ -685,71 +650,69 @@
                                      class="help-block"> This field cannot be longer than 50 characters. </div>
                             </div>
                         </div>
-                        <!-- Description Field -->
+                        <!-- Item Field -->
                         <div class="form-group"
-                             ng-class="{ 'has-error': edit_expenditure_form.description.$dirty &&
-                                                      edit_expenditure_form.description.$invalid ||
+                             ng-class="{ 'has-error': edit_expenditure_form.item.$dirty &&
+                                                      edit_expenditure_form.item.$invalid ||
                                                       edit_expenditure_form.$submitted &&
-                                                      edit_expenditure_form.description.$invalid,
-                                         'has-feedback': edit_expenditure_form.description.$dirty &&
-                                                         edit_expenditure_form.description.$invalid ||
+                                                      edit_expenditure_form.item.$invalid,
+                                         'has-feedback': edit_expenditure_form.item.$dirty &&
+                                                         edit_expenditure_form.item.$invalid ||
                                                          edit_expenditure_form.$submitted &&
-                                                         edit_expenditure_form.description.$invalid }">
-                            <label class="control-label" for="description"> Description * </label>
-                            <input class="form-control"
-                                   name="description"
-                                   type="text"
-                                   placeholder="Description"
-                                   ng-model="updated_expenditure.description"
-                                   required
-                                   ng-maxlength=80>
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="edit_expenditure_form.description.$dirty &&
-                                         edit_expenditure_form.description.$invalid ||
-                                         edit_expenditure_form.$submitted &&
-                                         edit_expenditure_form.description.$invalid">
-                            </span>
-                            <div ng-messages="edit_expenditure_form.description.$error"
-                                 ng-if="edit_expenditure_form.description.$dirty &&
-                                        edit_expenditure_form.description.$invalid ||
-                                        edit_expenditure_form.$submitted &&
-                                        edit_expenditure_form.description.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
-                                <div ng-message="maxlength"
-                                     class="help-block"> This field cannot be longer than 80 characters. </div>
-                            </div>
-                        </div>
-                        <!-- Category Field -->
-                        <div class="form-group"
-                             ng-class="{ 'has-error': edit_expenditure_form.category.$dirty &&
-                                                      edit_expenditure_form.category.$invalid ||
-                                                      edit_expenditure_form.$submitted &&
-                                                      edit_expenditure_form.category.$invalid,
-                                         'has-feedback': edit_expenditure_form.category.$dirty &&
-                                                         edit_expenditure_form.category.$invalid ||
-                                                         edit_expenditure_form.$submitted &&
-                                                         edit_expenditure_form.category.$invalid }">
-                            <label class="control-label" for="category"> Category * </label>
+                                                         edit_expenditure_form.item.$invalid }">
+                            <label class="control-label" for="item"> Item * </label>
                             <select class="form-control"
-                                    name="category"
-                                    ng-model="updated_expenditure.category"
-                                    ng-options="category.id as category.name for category in category_list"
+                                    name="item"
+                                    ng-model="updated_expenditure.item"
+                                    ng-options="item.id as item.name group by item.categories.name for item in item_list"
                                     required>
+                                <option value="" disabled selected> Select an item </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="edit_expenditure_form.category.$dirty &&
-                                         edit_expenditure_form.category.$invalid ||
+                                  ng-if="edit_expenditure_form.item.$dirty &&
+                                         edit_expenditure_form.item.$invalid ||
                                          edit_expenditure_form.$submitted &&
-                                         edit_expenditure_form.category.$invalid">
+                                         edit_expenditure_form.item.$invalid">
                             </span>
-                            <div ng-messages="add_expenditure_form.category.$error"
-                                 ng-if="edit_expenditure_form.category.$dirty &&
-                                        edit_expenditure_form.category.$invalid ||
+                            <div ng-messages="edit_expenditure_form.item.$error"
+                                 ng-if="edit_expenditure_form.item.$dirty &&
+                                        edit_expenditure_form.item.$invalid ||
                                         edit_expenditure_form.$submitted &&
-                                        edit_expenditure_form.category.$invalid">
+                                        edit_expenditure_form.item.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
+                        <!-- Notes Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_expenditure_form.notes.$dirty &&
+                                                      edit_expenditure_form.notes.$invalid ||
+                                                      edit_expenditure_form.$submitted &&
+                                                      edit_expenditure_form.notes.$invalid,
+                                         'has-feedback': edit_expenditure_form.notes.$dirty &&
+                                                         edit_expenditure_form.notes.$invalid ||
+                                                         edit_expenditure_form.$submitted &&
+                                                         edit_expenditure_form.notes.$invalid }">
+                            <label class="control-label" for="notes"> Notes </label>
+                            <input class="form-control"
+                                   name="notes"
+                                   type="text"
+                                   placeholder="Notes (Optional)"
+                                   ng-model="updated_expenditure.notes"
+                                   ng-maxlength=80>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_expenditure_form.notes.$dirty &&
+                                         edit_expenditure_form.notes.$invalid ||
+                                         edit_expenditure_form.$submitted &&
+                                         edit_expenditure_form.notes.$invalid">
+                            </span>
+                            <div ng-messages="edit_expenditure_form.notes.$error"
+                                 ng-if="edit_expenditure_form.notes.$dirty &&
+                                        edit_expenditure_form.notes.$invalid ||
+                                        edit_expenditure_form.$submitted &&
+                                        edit_expenditure_form.notes.$invalid">
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
                         </div>
                         <!-- Amount Field -->
@@ -821,38 +784,6 @@
                                         add_expenditure_form.fund.$invalid">
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
-                            </div>
-                        </div>
-                        <!-- Notes Field -->
-                        <div class="form-group"
-                             ng-class="{ 'has-error': edit_expenditure_form.notes.$dirty &&
-                                                      edit_expenditure_form.notes.$invalid ||
-                                                      edit_expenditure_form.$submitted &&
-                                                      edit_expenditure_form.notes.$invalid,
-                                         'has-feedback': edit_expenditure_form.notes.$dirty &&
-                                                         edit_expenditure_form.notes.$invalid ||
-                                                         edit_expenditure_form.$submitted &&
-                                                         edit_expenditure_form.notes.$invalid }">
-                            <label class="control-label" for="notes"> Notes </label>
-                            <input class="form-control"
-                                   name="notes"
-                                   type="text"
-                                   placeholder="Notes (Optional)"
-                                   ng-model="updated_expenditure.notes"
-                                   ng-maxlength=80>
-                            <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="edit_expenditure_form.notes.$dirty &&
-                                         edit_expenditure_form.notes.$invalid ||
-                                         edit_expenditure_form.$submitted &&
-                                         edit_expenditure_form.notes.$invalid">
-                            </span>
-                            <div ng-messages="edit_expenditure_form.notes.$error"
-                                 ng-if="edit_expenditure_form.notes.$dirty &&
-                                        edit_expenditure_form.notes.$invalid ||
-                                        edit_expenditure_form.$submitted &&
-                                        edit_expenditure_form.notes.$invalid">
-                                <div ng-message="maxlength"
-                                     class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
                         </div>
                         <!-- Required fields -->
