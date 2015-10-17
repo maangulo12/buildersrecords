@@ -30,9 +30,6 @@ angular.module('app.dashboard', [])
             var budget_data = [];
             var budget_colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
 
-            var expenditures_data = [];
-            var expenditures_colors = getColorList($scope.category_list.length, 'coral', 'darkred');
-
             angular.forEach($scope.category_list, function(category) {
 
                 var total_cost = 0;
@@ -56,13 +53,6 @@ angular.module('app.dashboard', [])
                 category.total_expenditure = total_expenditure;
                 grand_total_expenditure += total_expenditure;
 
-                expenditures_data.push({
-                    value: total_expenditure,
-                    color: expenditures_colors[i],
-                    highlight: expenditures_colors[i],
-                    label: category.name
-                });
-
                 i++;
             });
             $scope.grand_total_cost = grand_total_cost;
@@ -78,17 +68,6 @@ angular.module('app.dashboard', [])
             var legend = document.createElement('div');
     		legend.innerHTML = chart.generateLegend();
             document.getElementById('legend-holder').appendChild(legend.firstChild);
-
-            // Draw Expenditures Pie Chart
-            var ctx2 = $('#modular-doughnut2').get(0).getContext('2d');
-            var chart2 = new Chart(ctx2).Doughnut(expenditures_data, {
-                responsive: true,
-                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-            });
-            var legend2 = document.createElement('div');
-    		legend2.innerHTML = chart2.generateLegend();
-            document.getElementById('legend-holder2').appendChild(legend2.firstChild);
 
         }, function(error) {
             $scope.error_msg = 'Could not load your budget pie chart.';

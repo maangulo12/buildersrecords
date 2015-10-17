@@ -116,22 +116,6 @@
                     <div id="legend-holder"></div>
                 </div>
             </div>
-            <!-- Expenditures -->
-            <h2 class="text-center"> Expenditures </h2>
-            <!-- Donut Chart -->
-            <div class="row">
-                <!-- Donut -->
-                <div class="col-md-6 col-lg-6">
-                    <div class="canvas-holder2">
-                        <canvas id="modular-doughnut2" width="9" height="5"></canvas>
-                    </div>
-                </div>
-                <!-- Legend -->
-                <div class="col-md-6 col-lg-6">
-                    <h4> Categories </h4>
-                    <div id="legend-holder2"></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
@@ -143,7 +127,7 @@
 <br>
 <!-- Table -->
 <div class="container">
-    <table st-table="category_list" class="table table-striped table-hover">
+    <table st-table="category_list" class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th> </th>
@@ -184,7 +168,7 @@
             </tr>
         </tbody>
         <tbody ng-if="category_list.length != 0">
-            <tr>
+            <tr class="active">
                 <td colspan="2"> </td>
                 <td> <b> Grand Total </b> </td>
                 <td class="text-right"> <b> {{ grand_total_cost | currency }} </b> </td>
