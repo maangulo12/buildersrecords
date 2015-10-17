@@ -79,7 +79,8 @@ def populate_db(app):
                 'description': item['description'],
                 'amount': item['budget'],
                 'notes': item['explanations'],
-                'category_id': data.index(category) + 1
+                'category_id': data.index(category) + 1,
+                'project_id': 1
             }),
                 headers={
                 'Content-Type': 'application/json',
@@ -151,6 +152,7 @@ def populate_db(app):
             'amount': expenditure['amount'],
             'notes': expenditure['notes'],
             'category_id': random.randint(1, 8),
+            'item_id': random.randint(1, 110),
             'fund_id': fund_id,
             'project_id': 1
         }, use_decimal=True),
