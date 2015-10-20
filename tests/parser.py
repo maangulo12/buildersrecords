@@ -35,7 +35,7 @@ def parse_invoice_file(path):
             'date':        str(date(year, month, day)),
             'vendor':      cells[1].value,
             'description': cells[2].value,
-            'amount':      convert_to_float(cells[3].value),
+            'cost':      convert_to_float(cells[3].value),
             'notes':       cells[4].value
         })
 

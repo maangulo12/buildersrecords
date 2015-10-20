@@ -48,7 +48,7 @@ angular.module('app.dashboard', [])
 
                 var total_expenditure = 0;
                 angular.forEach(category.expenditures, function(expenditure) {
-                    total_expenditure += expenditure.amount;
+                    total_expenditure += expenditure.cost;
                 });
                 category.total_expenditure = total_expenditure;
                 grand_total_expenditure += total_expenditure;

@@ -149,7 +149,7 @@ def populate_db(app):
             'date': expenditure['date'],
             'vendor': expenditure['vendor'],
             'notes': expenditure['description'],
-            'amount': expenditure['amount'],
+            'cost': expenditure['cost'],
             'category_id': random.randint(1, 8),
             'item_id': random.randint(1, 110),
             'fund_id': fund_id,
