@@ -55,11 +55,12 @@ angular.module('app.expenditures', [])
     function getExpenditures() {
         $http.get('/api/expenditures?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
+            console.log(response.data.objects);
             $scope.expenditure_list = response.data.objects;
 
             var amount_spent = 0;
-            angular.forEach($scope.expenditure_list, function(expenditure) {
-                amount_spent += expenditure.amount;
+            angular.forEach(response.data.objects, function(expenditure) {
+                amount_spent += expenditure.cost;
             });
             $scope.total_amount_spent = amount_spent;
 
@@ -89,7 +90,7 @@ angular.module('app.expenditures', [])
             angular.forEach($scope.category_list, function(category) {
                 var total_expenditure = 0;
                 angular.forEach(category.expenditures, function(expenditure) {
-                    total_expenditure += expenditure.amount;
+                    total_expenditure += expenditure.cost;
                 });
                 expenditures_data.push({
                     value: total_expenditure,
@@ -118,7 +119,18 @@ angular.module('app.expenditures', [])
     function getItems() {
         $http.get('/api/items?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
         .then(function(response) {
-            $scope.item_list = response.data.objects;
+            var list = [];
+            angular.forEach(response.data.objects, function(item) {
+                list.push({
+                    id: item.id,
+                    name: item.name,
+                    category: {
+                        id: item.categories.id,
+                        name: item.categories.name,
+                    }
+                });
+            });
+            $scope.item_list = list;
         }, function(error) {
             //$scope.error_msg_add = 'Could not load the item list.';
         });
@@ -135,15 +147,17 @@ angular.module('app.expenditures', [])
         $http.post('/api/expenditures', {
             date: $scope.expenditure.date,
             vendor: $scope.expenditure.vendor,
-            description: $scope.expenditure.description,
-            amount: $scope.expenditure.amount,
             notes: $scope.expenditure.notes,
-            item_id: $scope.expenditure.item,
-            fund_id: $scope.expenditure.fund,
+            cost: $scope.expenditure.cost,
+            fund_id: $scope.expenditure.fund.id,
+            category_id: $scope.expenditure.item.category.id,
+            item_id: $scope.expenditure.item.id,
             project_id: store.get('project').id
         })
         .then(function(response) {
             $('#add_expenditure_modal').modal('hide');
+            // This needs re-work
+            // Add element to expenditure list
             getExpenditures();
         }, function(error) {
             $scope.add_expenditure_form.$invalid = true;
@@ -162,6 +176,7 @@ angular.module('app.expenditures', [])
                 $http.delete('/api/expenditures/' + expenditure.id)
                 .then(function(response) {
                     $('#delete_expenditures_modal').modal('hide');
+                    // This needs re-work
                     getExpenditures();
                     $scope.selected = false;
                 }, function(error) {
@@ -170,6 +185,7 @@ angular.module('app.expenditures', [])
             }
         });
     }
+    // DELETE SINGLE EXPENDITURE functions
     $scope.showSingleDeleteExpenditureModal = function() {
         $('#delete_single_expenditure_modal').modal('show');
     }
@@ -187,11 +203,13 @@ angular.module('app.expenditures', [])
         $scope.updated_expenditure = {};
         $scope.updated_expenditure.date = new Date(store.get('expenditure').date);
         $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
-        $scope.updated_expenditure.description = store.get('expenditure').description;
-        $scope.updated_expenditure.category = store.get('expenditure').categories.id;
-        $scope.updated_expenditure.amount = store.get('expenditure').amount;
-        $scope.updated_expenditure.fund = store.get('expenditure').funds.id;
+        // Needs work
+        console.log(store.get('expenditure').items.id);
+        $scope.updated_expenditure.item = store.get('expenditure').items.id;
         $scope.updated_expenditure.notes = store.get('expenditure').notes;
+        $scope.updated_expenditure.cost = store.get('expenditure').cost;
+        console.log(store.get('expenditure').funds.id);
+        $scope.updated_expenditure.fund = store.get('expenditure').funds.id;
         $scope.edit_expenditure_form.$setPristine();
         $('#edit_expenditure_modal').modal('show');
     }
@@ -199,20 +217,23 @@ angular.module('app.expenditures', [])
         $http.put('/api/expenditures/' + store.get('expenditure').id, {
             date: $scope.updated_expenditure.date,
             vendor: $scope.updated_expenditure.vendor,
-            description: $scope.updated_expenditure.description,
-            amount: $scope.updated_expenditure.amount,
             notes: $scope.updated_expenditure.notes,
-            category_id: $scope.updated_expenditure.category,
+            cost: $scope.updated_expenditure.cost,
             fund_id: $scope.updated_expenditure.fund,
+            category_id: $scope.updated_expenditure.item.category.id,
+            item_id: $scope.updated_expenditure.item.id,
             project_id: store.get('project').id
         })
         .then(function(response) {
             $('#edit_expenditure_modal').modal('hide');
+            // This needs re-work
+            // Update element in the list
             getExpenditures();
         }, function(error) {
             $scope.edit_expenditure_form.$invalid = true;
         });
     }
+    // UTILITY functions
     function getColorList(num_items, start_spec, end_spec) {
         var colors = [];
         var rainbow = new Rainbow();
