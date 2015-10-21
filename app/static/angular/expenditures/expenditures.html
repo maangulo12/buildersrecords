@@ -107,9 +107,9 @@
             </div>
             <!-- Page Header -->
             <div class="page-header">
-                <h1> <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Expenditures </h1>
+                <h1> Expenditures </h1>
                 <!-- Sub Header -->
-                <h4 class="text-muted"> Keep track of all of your expenses </h4>
+                <h4 class="text-muted"> Track all of your expenses </h4>
             </div>
             <!-- Donut Chart -->
             <div class="row">
@@ -152,13 +152,27 @@
         <thead>
             <tr>
                 <th style="width: 2%"> <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()"> </th>
-                <th st-sort="date" style="width: 5%"> Date </th>
-                <th st-sort="vendor" style="width: 12%"> Vendor </th>
-                <th st-sort="categories.name" style="width: 15%"> Category </th>
-                <th st-sort="items.name" style="width: 20%"> Item / Job </th>
-                <th st-sort="description" style="width: 25%"> Notes </th>
-                <th st-sort="amount" style="width: 5%"> Cost </th>
-                <th st-sort="funds.name" style="width: 7%"> Fund </th>
+                <th st-sort="date" style="width: 5%">
+                    <a href style="text-decoration: none; color: #fff;"> Date </a>
+                </th>
+                <th st-sort="vendor" style="width: 12%">
+                    <a href style="text-decoration: none; color: #fff;"> Vendor </a>
+                </th>
+                <th st-sort="categories.name" style="width: 15%">
+                    <a href style="text-decoration: none; color: #fff;"> Category </a>
+                </th>
+                <th st-sort="items.name" style="width: 20%">
+                    <a href style="text-decoration: none; color: #fff;"> Item / Job </a>
+                </th>
+                <th st-sort="notes" style="width: 25%">
+                    <a href style="text-decoration: none; color: #fff;"> Notes </a>
+                </th>
+                <th st-sort="cost" style="width: 5%">
+                    <a href style="text-decoration: none; color: #fff;"> Cost </a>
+                </th>
+                <th st-sort="funds.name" style="width: 7%">
+                    <a href style="text-decoration: none; color: #fff;"> Fund </a>
+                </th>
                 <th colspan="2" style="width: 4%"> Action </th>
             <tr>
         </thead>
@@ -187,10 +201,10 @@
                    </a>
                 </td>
             </tr>
-            <tr ng-if="expenditure_list.length != 0">
+            <tr ng-if="expenditure_list.length != 0" class="active">
                 <td colspan="5"></td>
                 <td class="text-right"> <b> Total Amount Spent </b> </td>
-                <td class="text-right"> <b> {{ total_amount_spent | currency }} </b> </td>
+                <td class="text-right"> <b> {{ total_cost | currency }} </b> </td>
                 <td colspan="4"></td>
             </tr>
             <tr ng-if="expenditure_list.length == 0">
@@ -201,14 +215,15 @@
         <tfoot>
 			<tr>
 				<td colspan="11" class="text-center">
-					<div st-pagination="" st-items-by-page="10"></div>
+					<div st-pagination="" st-items-by-page="10"
+                         st-template="angular/pagination.custom.html"></div>
 				</td>
 			</tr>
 		</tfoot>
     </table>
 </div>
 <!-- Line Breaks -->
-<br><br><br>
+<br><br><br><br><br>
 <!-- END -->
 
 <!-- MODALS -->
