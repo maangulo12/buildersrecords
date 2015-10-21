@@ -51,9 +51,10 @@ Web app for budgeting home construction projects.
 
 + Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
-    -Edit Expenditure (date of expenditure needs to be correct)
-    -Implement item dropdown
-    -Pagination for table
+    -Fix colors of pagination navbar
+    -Fix table resizing
+    -Add and Update tests
+    -Empty project test
 ```
 
 + Other modules:
