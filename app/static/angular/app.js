@@ -1,5 +1,4 @@
 // This is the main entry point of this Angular app.
-// Here, I load all of the extensions and modules that are used in this app.
 angular.module('app', [
     'ngMessages',
     'ui.validate',
@@ -21,8 +20,6 @@ angular.module('app', [
     'app.budgeting'
 ])
 .config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
-    // These are the app configurations:
-
     // This basically tells Angular to route to / if URL does not match any
     $urlRouterProvider.otherwise('/');
 
