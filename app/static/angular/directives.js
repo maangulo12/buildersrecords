@@ -1,9 +1,8 @@
 // This module contains all of the directives of this Angular app.
 // Directives are markers on a DOM element that tell Angular compiler
 // to attach a specified behavior to that DOM element.
-angular.module('app.directives', [
+angular.module('app.directives', [])
 
-])
 .directive('usernameAvailability', function($http, $q) {
     // This directive checks if an username is available.
     // It basically goes to the backend and checks if that username already exists.
@@ -83,6 +82,7 @@ angular.module('app.directives', [
     }
 })
 .directive('format', function ($filter) {
+    // This directive is used for formatting input field to allow only numbers
     return {
         require: 'ngModel',
         link: function (scope, element, attrs, ctrl) {
@@ -98,5 +98,17 @@ angular.module('app.directives', [
                 return plainNumber;
             });
         }
-    };
+    }
+})
+.directive('pageSelect', function() {
+    // This directive is used smart-table custom pagination
+    return {
+        restrict: 'E',
+        template: '<input type="text" class="select-page" ng-model="inputPage" ng-change="selectPage(inputPage)">',
+        link: function(scope, element, attrs) {
+            scope.$watch('currentPage', function(c) {
+                scope.inputPage = c;
+            });
+        }
+    }
 });
