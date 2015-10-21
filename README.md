@@ -16,6 +16,7 @@ Web app for budgeting home construction projects.
 ```
     -Add modal for Terms of Service
     -Add modal for Privacy Policy
+    -Send email notification
 ```
 
 + Login module:
