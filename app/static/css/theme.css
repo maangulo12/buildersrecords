@@ -104,11 +104,20 @@ th {
     background-color: #2c3e50;
     color: #fff;
 }
-.st-sort-ascent:before{
+.st-sort-ascent:before {
     content: '\25B2';
 }
-.st-sort-descent:before{
+.st-sort-descent:before {
     content: '\25BC';
+}
+.select-page {
+    width: 50px;
+    text-align: center;
+    color: #2c3e50;
+}
+.pagination li a input {
+    padding: 0;
+    margin: -5px 0;
 }
 
 /*# sourceMappingURL=theme.css.map */

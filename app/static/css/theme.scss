@@ -103,9 +103,17 @@ th {
     background-color: $blue_color;
     color: $white_color;
 }
-.st-sort-ascent:before{
+.st-sort-ascent:before {
     content: '\25B2';
 }
-.st-sort-descent:before{
+.st-sort-descent:before {
     content: '\25BC';
+}
+.select-page {
+    width: 50px;
+    text-align: center;
+}
+.pagination li a input {
+    padding: 0;
+    margin: -5px 0;
 }
