@@ -52,8 +52,8 @@ Web app for budgeting home construction projects.
 
 + Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
-    -Fix colors of pagination navbar
     -Fix table resizing
+    -Fix table footer
     -Add and Update tests
     -Empty project test
 ```
