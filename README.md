@@ -28,6 +28,7 @@ Web app for budgeting home construction projects.
 ```
     -Delete Project ('bulk' delete everything about the project)
     -Remove projectNameExists (in directives & update Project model)
+    -Ability to upload a file
     -Think about other fields to add here about the project
 ```
 
@@ -58,13 +59,17 @@ Web app for budgeting home construction projects.
     -Empty project test
 ```
 
++ Subcontractors module: <b> Miguel 10/26/2015 </b>
+```
+    -Display table with subcontractors
+```
+
 + Other modules:
 ```
     -Implement Forgot Password
     -Implement Send Feedback
     -Implement Help & Support
     -Implement Account Settings
-    -Implement Contractors feature
     -Implement Gallery feature
 ```
 
