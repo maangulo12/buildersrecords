@@ -15,9 +15,10 @@ angular.module('app', [
     'app.signup',
     'app.projects',
     'app.dashboard',
+    'app.budgeting',
     'app.funds',
     'app.expenditures',
-    'app.budgeting'
+    'app.subcontractors'
 ])
 .config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
     // This basically tells Angular to route to / if URL does not match any
