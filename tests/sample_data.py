@@ -159,3 +159,32 @@ def populate_db(app):
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
         })
+
+    # Add Subcontractors
+    client.post('/api/subcontractors', data=json.dumps({
+        'name': 'John Smith',
+        'contact_info': '210-543-4534',
+        'project_id': 1
+    }),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+    client.post('/api/subcontractors', data=json.dumps({
+        'name': 'Shawn Tarver',
+        'contact_info': '512-586-6516',
+        'project_id': 1
+    }),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
+    client.post('/api/subcontractors', data=json.dumps({
+        'name': 'Mike Jones',
+        'contact_info': '210-253-5861',
+        'project_id': 1
+    }),
+        headers={
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token
+    })
