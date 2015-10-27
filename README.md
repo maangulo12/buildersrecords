@@ -70,7 +70,6 @@ Web app for budgeting home construction projects.
     -Implement Send Feedback
     -Implement Help & Support
     -Implement Account Settings
-    -Implement Gallery feature
 ```
 
 + All modules:
