@@ -1,6 +1,6 @@
 # [BuildersRecords] (http://flask-angularjs.herokuapp.com/)
 
-Web app for budgeting home construction projects.
+Web app for accounting home construction projects.
 
 ## To Do List:
 
