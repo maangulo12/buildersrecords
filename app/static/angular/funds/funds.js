@@ -95,7 +95,7 @@ angular.module('app.funds', [])
     }
     // DELETE FUND functions
     $scope.showDeleteFundModal = function() {
-        $('#delete_fund_modal').find('.modal-title').text('Delete - ' + store.get('fund').name);
+        $('#delete_fund_modal').find('.modal-title').text('Delete your fund/loan: ' + store.get('fund').name);
         $('#delete_fund_modal').find('.modal-title').addClass('text-danger');
         $('#delete_fund_modal').find('.modal-title').css('font-weight', 'Bold');
         $scope.error_msg_delete = false;
