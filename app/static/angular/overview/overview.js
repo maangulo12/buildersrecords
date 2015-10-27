@@ -53,6 +53,13 @@ angular.module('app.overview', [])
                 category.total_expenditure = total_expenditure;
                 grand_total_expenditure += total_expenditure;
 
+                if (total_cost === 0 || total_expenditure >= total_cost) {
+                    category.paid = 100;
+                    category.remaining = 0;
+                } else {
+                    category.paid = Math.round(total_expenditure / total_cost * 100);
+                    category.remaining = total_cost - total_expenditure;
+                }
                 i++;
             });
             $scope.grand_total_cost = grand_total_cost;

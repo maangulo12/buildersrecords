@@ -132,11 +132,16 @@
                 <td> </td>
                 <td class="text-right"> <b> {{ category.total_cost | currency }} </b> </td>
                 <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
-                <td> </td>
+                <td class="text-right" ng-class="{ 'text-success': category.paid === 100,
+                                                   'text-danger': category.paid !== 100 }">
+                    <b> {{ category.paid }}% </b>
+                </td>
                 <td class="text-right" ng-class="{ 'text-danger': category.total_expenditure > category.total_cost }">
                     <b> {{ category.total_expenditure - category.total_cost | currency }} </b>
                 </td>
-                <td> </td>
+                <td class="text-right" ng-class="{ 'text-danger': category.remaining !== 0 }">
+                    <b ng-if="category.remaining"> {{ category.remaining | currency }} </b>
+                </td>
             </tr>
             <tr ng-if="category.expanded" ng-repeat="item in category.items">
                 <td> </td>
