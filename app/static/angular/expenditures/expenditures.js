@@ -64,12 +64,12 @@ angular.module('app.expenditures', [])
             var colors = getColorList(response.data.objects.length, 'coral', 'darkred');
 
             angular.forEach(response.data.objects, function(category) {
-                var total = 0;
+                var category_total = 0;
                 angular.forEach(category.expenditures, function(expenditure) {
-                    total += expenditure.cost;
+                    category_total += expenditure.cost;
                 });
                 data.push({
-                    value: total,
+                    value: category_total,
                     color: colors[i],
                     highlight: colors[i],
                     label: category.name
