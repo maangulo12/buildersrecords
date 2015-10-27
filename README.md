@@ -32,9 +32,8 @@ Web app for accounting home construction projects.
     -Think about other fields to add here about the project
 ```
 
-+ Dashboard module: <b> Miguel 10/15/2015 </b>
++ Overview module: <b> Miguel 10/15/2015 </b>
 ```
-    -Research D3 or other alternatives
     -Think about what to show here
 ```
 
@@ -77,6 +76,7 @@ Web app for accounting home construction projects.
 
 + Modules to Consider:
 ```
+    -Implement Reports features
     -Implement Gallery module
     -Implement Send Feedback
     -Implement Help & Support
