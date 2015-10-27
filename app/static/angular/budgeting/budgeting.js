@@ -108,5 +108,4 @@ angular.module('app.budgeting', [])
             $scope.error_msg_delete_single = 'Could not delete your item. Please try again.';
         });
     }
-
 });
