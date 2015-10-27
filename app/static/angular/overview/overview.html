@@ -1,0 +1,181 @@
+<!-- Navigation Bar -->
+<nav class="navbar navbar-default">
+    <div class="container">
+        <!-- Navigation Bar Header -->
+        <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                    data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation </span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Navigation Bar Brand -->
+            <a class="navbar-brand" ui-sref="projects"> BuildersRecords </a>
+        </div>
+        <!-- Navigation Bar List Items -->
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- Send Feedback -->
+                <li>
+                    <a href="#">
+                        <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                        <b> Send Feedback </b>
+                    </a>
+                </li>
+                <!-- Help & Support -->
+                <li>
+                    <a href="#">
+                        <b> Help & Support </b>
+                    </a>
+                </li>
+                <!-- Dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                        <b> {{ username }} </b>
+                        <span class="caret"></span>
+                    </a>
+                    <!-- Dropdown Menu -->
+                    <ul class="dropdown-menu">
+                        <li><a href="#"> My Account </a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Grid System -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <li><a ui-sref="projects">
+                        My Projects
+                    </a>
+                </li>
+            </ol>
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Overview -->
+                <a ui-sref="overview" class="list-group-item active">
+                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
+                    Overview
+                </a>
+                <!-- Budgeting -->
+                <a ui-sref="budgeting" class="list-group-item">
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
+                    Budgeting
+                </a>
+                <!-- Funds & Loans -->
+                <a ui-sref="funds" class="list-group-item">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
+                    Funds & Loans
+                </a>
+                <!-- Expenditures -->
+                <a ui-sref="expenditures" class="list-group-item">
+                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
+                    Expenditures
+                </a>
+                <!-- Subcontractors -->
+                <a ui-sref="subcontractors" class="list-group-item">
+                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span>
+                    Subcontractors
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <!-- Header -->
+            <h1> Overview </h1>
+            <!-- Sub Header -->
+            <h4 class="text-muted"> {{ project_name }} </h4>
+            <!-- Budget -->
+            <h2 class="text-center"> Budget </h2>
+            <!-- Donut Chart -->
+            <div class="row">
+                <!-- Donut -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="canvas-holder">
+                        <canvas id="modular-doughnut" width="9" height="5"></canvas>
+                    </div>
+                </div>
+                <!-- Legend -->
+                <div class="col-md-6 col-lg-6">
+                    <h4> Categories </h4>
+                    <div id="legend-holder"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header -->
+<div class="container">
+    <h2> Cost Review </h2>
+</div>
+<!-- Line Break -->
+<br>
+<!-- Table -->
+<div class="container">
+    <table st-table="category_list" class="table table-striped table-hover table-responsive">
+        <thead>
+            <tr>
+                <th> </th>
+                <th class="text-center"> Cost Category / Detail </th>
+                <th class="text-center"> </th>
+                <th class="text-center"> Budget </th>
+                <th class="text-center"> Actual </th>
+                <th class="text-center"> Paid </th>
+                <th class="text-center"> Over / Under Budget </th>
+                <th class="text-center"> Remaining Payments </th>
+            <tr>
+        </thead>
+        <tbody ng-repeat="category in category_list">
+            <tr>
+                <td>
+                  <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
+                  <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
+                </td>
+                <td class="text-success"> <b> {{ category.name }} </b> </td>
+                <td> </td>
+                <td class="text-right"> <b> {{ category.total_cost | currency }} </b> </td>
+                <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
+                <td> </td>
+                <td class="text-right" ng-class="{ 'text-danger': category.total_expenditure > category.total_cost }">
+                    <b> {{ category.total_expenditure - category.total_cost | currency }} </b>
+                </td>
+                <td> </td>
+            </tr>
+            <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                <td> </td>
+                <td> {{ item.name }} </td>
+                <td> {{ item.description }} </td>
+                <td class="text-right"> {{ item.amount | currency }} </td>
+                <td class="text-right"> </td>
+                <td class="text-right"> </td>
+                <td class="text-right"> </td>
+                <td class="text-right"> </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="category_list.length != 0">
+            <tr class="active">
+                <td colspan="2"> </td>
+                <td> <b> Grand Total </b> </td>
+                <td class="text-right"> <b> {{ grand_total_cost | currency }} </b> </td>
+                <td class="text-right"> <b> {{ grand_total_expenditure | currency }} </b> </td>
+                <td> </td>
+                <td class="text-right"> <b> {{ grand_total_expenditure - grand_total_cost | currency }} </b> </td>
+                <td> </td>
+            </tr>
+        </tbody>
+        <tbody ng-if="category_list.length == 0">
+        </tbody>
+    </table>
+</div>
+<!-- Line Breaks -->
+<br><br><br><br>
