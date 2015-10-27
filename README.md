@@ -117,6 +117,7 @@ $ cd /vagrant/
 #### Run app
 >
 ```bash
+$ python3 manage.py recreate
 $ python3 application.py    
 ```
 
