@@ -64,17 +64,22 @@ Web app for budgeting home construction projects.
     -Display table with subcontractors
 ```
 
-+ Other modules:
++ Modules to Implement:
 ```
     -Implement Forgot Password
-    -Implement Send Feedback
-    -Implement Help & Support
     -Implement Account Settings
 ```
 
 + All modules:
 ```
     -Amount directive 'format' needs to allow decimals
+```
+
++ Modules to Consider:
+```
+    -Implement Gallery module
+    -Implement Send Feedback
+    -Implement Help & Support
 ```
 
 ## Required Software
