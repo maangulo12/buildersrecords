@@ -14,7 +14,7 @@ angular.module('app', [
     'app.login',
     'app.signup',
     'app.projects',
-    'app.dashboard',
+    'app.overview',
     'app.budgeting',
     'app.funds',
     'app.expenditures',

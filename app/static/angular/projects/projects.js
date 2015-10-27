@@ -29,8 +29,8 @@ angular.module('app.projects', [])
         }
         return false;
     }
-    $scope.redirectToDashboard = function() {
-        $state.go('dashboard');
+    $scope.redirectToOverview = function() {
+        $state.go('overview');
     }
     // GET function
     function getProjects() {
