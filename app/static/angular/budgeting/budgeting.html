@@ -11,7 +11,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- Navigation Bar Brand -->
-            <a class="navbar-brand" href="/projects"> BuildersRecords </a>
+            <a class="navbar-brand" ui-sref="projects"> BuildersRecords </a>
         </div>
         <!-- Navigation Bar List Items -->
         <div class="collapse navbar-collapse">
@@ -79,52 +79,53 @@
         <!-- Right Side -->
         <div class="col-md-9">
             <div class="row">
-              <!-- Page Header -->
-              <div class="page-header">
-                  <h1> <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Budgeting </h1>
-                  <!-- Sub Header -->
-                  <h4 class="text-muted"> Create an organized item cost plan </h4>
-              </div>
-              <!-- Button - Add a Line Item -->
-              <button type="button" class="btn btn-success" ng-click="showAddItemModal()">
-                  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                  <b> Add </b>
-              </button>
-              <!-- Button - Delete Expenditure -->
-              <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
-                      title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteItemsModal()">
-                  <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                  <b> Delete </b>
-              </button>
-              <!-- Line Break -->
-              <br>
-              <br>
+                <!-- Page Header -->
+                <div class="page-header">
+                    <h1> Budgeting </h1>
+                    <!-- Sub Header -->
+                    <h4 class="text-muted"> Create an organized cost plan </h4>
+                </div>
+                <!-- Button - Add a Line Item -->
+                <button type="button" class="btn btn-success" ng-click="showAddItemModal()">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <b> Add </b>
+                </button>
+                <!-- Button - Delete Expenditure -->
+                <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+                        title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteItemsModal()">
+                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                    <b> Delete </b>
+                </button>
+                <!-- Line Break -->
+                <br>
+                <br>
                 <!-- Table -->
                 <table st-table="category_list" class="table table-striped table-bordered">
-                      <thead>
-                          <tr>
+                    <!-- Table Header -->
+                    <thead>
+                        <tr>
                             <th> </th>
                             <th colspan="6"> Category </th>
-                          </tr>
-                      </thead>
-                      <tbody ng-repeat="category in category_list">
-                          <tr>
-                              <td>
-                                <button ng-if="category.expanded" ng-click="category.expanded = false">-</button>
-                                <button ng-if="!category.expanded" ng-click="category.expanded = true">+</button>
-                              </td>
-                              <td colspan="6" class="text-success"> {{ category.name  }}
-                              </td>
-                          </tr>
-                          <tr ng-if="category.expanded">
+                        </tr>
+                    </thead>
+                    <!-- Table Body -->
+                    <tbody ng-repeat="category in category_list">
+                        <tr>
+                            <td>
+                                <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
+                                <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
+                            </td>
+                            <td colspan="6" class="text-success"> {{ category.name  }} </td>
+                        </tr>
+                        <tr ng-if="category.expanded">
                             <th> </th>
                             <th class="text-center"> Item Name </th>
                             <th class="text-center"> Description </th>
                             <th class="text-center"> Estimated Cost </th>
                             <th class="text-center"> Notes </th>
                             <th class="text-center"> Action </th>
-                          </tr>
-                          <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                        </tr>
+                        <tr ng-if="category.expanded" ng-repeat="item in category.items">
                             <td> <input type="checkbox" class="checkbox"
                                         ng-model="item.selected" ng-click="clickedSingleCheckbox(category, item)">
                             </td>
@@ -135,20 +136,25 @@
                             <td>
                                 <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
                                    ng-click="clickedItem(item) && showEditItemModal()">
-                                   <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
                                 </a>
                                 <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
                                    ng-click="clickedItem(item) && showSingleDeleteItemModal()">
-                                   <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                                    <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
                                 </a>
                             </td>
-                          </tr>
-                      </tbody>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+<!-- Line Breaks -->
+<br><br><br><br><br>
+<!-- END -->
+
+<!-- MODALS -->
 <!-- Modal - Add Line Item -->
 <div class="container">
     <div class="modal fade" id="add_item_modal" aria-hidden="true">
@@ -363,6 +369,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal - Delete Items -->
 <div class="container">
     <div class="modal fade" id="delete_items_modal" aria-hidden="true">
@@ -405,6 +412,7 @@
         </div>
     </div>
 </div>
+
 <!-- Modal - Delete Single Expenditure -->
 <div class="container">
     <div class="modal fade" id="delete_single_item_modal" aria-hidden="true">
