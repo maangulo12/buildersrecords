@@ -46,8 +46,12 @@ class User(db.Model):
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=False, unique=True)
-    # project_type = db.Column(db.String(30), nullable = False)
+    name = db.Column(db.String(50), nullable=False)
+    address = db.Column(db.String(80), nullable=False)
+    city = db.Column(db.String(30), nullable=False)
+    state = db.Column(db.String(2), nullable=False)
+    zipcode = db.Column(db.String(10), nullable=False)
+    project_type = db.Column(db.String(15), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # timestamp
 
