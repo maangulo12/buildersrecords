@@ -85,6 +85,10 @@ angular.module('app.projects', [])
     $scope.showEditProjectModal = function(project) {
         $scope.updated_project = {};
         $scope.updated_project.name = store.get('project').name;
+        $scope.updated_project.address = store.get('project').address;
+        $scope.updated_project.city = store.get('project').city;
+        $scope.updated_project.state = store.get('project').state;
+        $scope.updated_project.zipcode = store.get('project').zipcode;
         $scope.edit_project_form.$setPristine();
         $('#edit_project_modal').find('.modal-title').text('Edit Project: ' + store.get('project').name);
         $('#edit_project_modal').find('.modal-title').css('font-weight', 'Bold');
@@ -93,6 +97,11 @@ angular.module('app.projects', [])
     $scope.updateProject = function() {
         $http.put('/api/projects/' + store.get('project').id, {
             name: $scope.updated_project.name,
+            address: $scope.updated_project.address,
+            city: $scope.updated_project.city,
+            state: $scope.updated_project.state,
+            zipcode: $scope.updated_project.zipcode,
+            project_type: $scope.updated_project.type,
             user_id: store.get('user_id')
         })
         .then(function(response) {
@@ -100,7 +109,6 @@ angular.module('app.projects', [])
             getProjects();
         }, function(error) {
             $scope.edit_project_form.$invalid = true;
-            $scope.edit_project_form.name.$invalid = true;
         });
     }
 });
