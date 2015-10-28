@@ -55,32 +55,6 @@ angular.module('app.directives', [])
         }
     }
 })
-.directive('projectNameExists', function($http, $q, store) {
-    // This directive checks if a project with that name already exists.
-    return {
-        require: 'ngModel',
-        link: function(scope, element, attrs, ctrl) {
-            ctrl.$asyncValidators.projectNameExists = function(projectName) {
-
-                var promise = $http.get('/api/projects?q={"filters":[{"name":"name","op":"equals","val":"' + projectName + '"}, \
-                                                                     {"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}');
-                var success = function(response) {
-                    if (response.data.num_results == 0) {
-                        ctrl.$setValidity('projectNameExists', true);
-                    } else {
-                        ctrl.$setValidity('projectNameExists', false);
-                        return $q.reject(response);
-                    }
-                }
-                var failure = function(response) {
-                    ctrl.$setValidity('projectNameExists', false);
-                    return $q.reject(response);
-                }
-                return promise.then(success, failure);
-            }
-        }
-    }
-})
 .directive('format', function ($filter) {
     // This directive is used for formatting input field to allow only numbers
     return {
