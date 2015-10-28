@@ -54,10 +54,10 @@
                     <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
                     <b> Overview </b>
                 </a>
-                <!-- Budgeting -->
-                <a ui-sref="budgeting" class="list-group-item active">
+                <!-- Budget -->
+                <a ui-sref="budget" class="list-group-item active">
                     <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
-                    <b> Budgeting </b>
+                    <b> Budget </b>
                 </a>
                 <!-- Funds & Loans -->
                 <a ui-sref="funds" class="list-group-item">
@@ -80,76 +80,93 @@
         <div class="col-md-9">
             <!-- Page Header -->
             <div class="page-header">
-                <h1> Budgeting </h1>
+                <h1> Budget </h1>
                 <!-- Sub Header -->
-                <h4 class="text-muted"> Create an organized cost plan </h4>
+                <h4 class="text-muted"> Breakdown of your budget </h4>
             </div>
-            <!-- Button - Add Item -->
-            <button type="button" class="btn btn-success" title="Add an Item"
-                    ng-click="showAddItemModal()">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <b> Add </b>
-            </button>
-            <!-- Button - Delete Expenditure -->
-            <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
-                    title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteItemsModal()">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                <b> Delete </b>
-            </button>
-            <!-- Line Break -->
-            <br>
-            <br>
-            <!-- Table -->
-            <table st-table="category_list" class="table table-striped table-hover table-responsive">
-                <!-- Table Header -->
-                <thead>
-                    <tr>
-                        <th style="width: 5%"> </th>
-                        <th colspan="6" style="width: 95%"> Category </th>
-                    </tr>
-                </thead>
-                <!-- Table Body -->
-                <tbody ng-repeat="category in category_list">
-                    <tr>
-                        <td>
-                            <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
-                            <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
-                        </td>
-                        <td colspan="6" class="text-success"> <b> {{ category.name }} </b> </td>
-                    </tr>
-                    <tr ng-if="category.expanded">
-                        <th> </th>
-                        <th class="text-center"> Item Name </th>
-                        <th class="text-center"> Description </th>
-                        <th class="text-center"> Estimated Cost </th>
-                        <th class="text-center"> Notes </th>
-                        <th colspan="2" class="text-center"> Action </th>
-                    </tr>
-                    <tr ng-if="category.expanded" ng-repeat="item in category.items">
-                        <td> <input type="checkbox" class="checkbox"
-                                    ng-model="item.selected" ng-click="clickedSingleCheckbox(category, item)">
-                        </td>
-                        <td> <b> {{ item.name }} </b> </td>
-                        <td class="text-left"> {{ item.description }} </td>
-                        <td class="text-right"> {{ item.amount| currency }} </td>
-                        <td class="text-left"> {{ item.notes }} </td>
-                        <td>
-                            <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
-                               ng-click="clickedItem(item) && showEditItemModal()">
-                                <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                        <td>
-                            <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
-                               ng-click="clickedItem(item) && showSingleDeleteItemModal()">
-                                <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <!-- Donut Chart -->
+            <div class="row">
+                <!-- Donut -->
+                <div class="col-md-6 col-lg-6">
+                    <div class="canvas-holder">
+                        <canvas id="modular-doughnut" width="8" height="5"></canvas>
+                    </div>
+                </div>
+                <!-- Legend -->
+                <div class="col-md-6 col-lg-6">
+                    <h4> Categories </h4>
+                    <div id="legend-holder"></div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
+<!-- Full Container -->
+<div class="container">
+    <!-- Button - Add Item -->
+    <button type="button" class="btn btn-success" title="Add an Item"
+            ng-click="showAddItemModal()">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <b> Add </b>
+    </button>
+    <!-- Button - Delete Expenditure -->
+    <button id="delete_button" type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+            title="Delete Selected" ng-class="{ 'disabled': !selected }" ng-click="showDeleteItemsModal()">
+        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+        <b> Delete </b>
+    </button>
+    <!-- Line Break -->
+    <br>
+    <br>
+    <!-- Table -->
+    <table st-table="category_list" class="table table-striped table-hover table-responsive">
+        <!-- Table Header -->
+        <thead>
+            <tr>
+                <th style="width: 5%"> </th>
+                <th colspan="6" style="width: 95%"> Category </th>
+            </tr>
+        </thead>
+        <!-- Table Body -->
+        <tbody ng-repeat="category in category_list">
+            <tr>
+                <td>
+                    <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
+                    <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
+                </td>
+                <td colspan="6" class="text-success"> <b> {{ category.name }} </b> </td>
+            </tr>
+            <tr ng-if="category.expanded">
+                <th> </th>
+                <th class="text-center"> Item Name </th>
+                <th class="text-center"> Description </th>
+                <th class="text-center"> Estimated Cost </th>
+                <th class="text-center"> Notes </th>
+                <th colspan="2" class="text-center"> Action </th>
+            </tr>
+            <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                <td> <input type="checkbox" class="checkbox"
+                            ng-model="item.selected" ng-click="clickedSingleCheckbox(category, item)">
+                </td>
+                <td> <b> {{ item.name }} </b> </td>
+                <td class="text-left"> {{ item.description }} </td>
+                <td class="text-right"> {{ item.amount| currency }} </td>
+                <td class="text-left"> {{ item.notes }} </td>
+                <td>
+                    <a href data-placement="top" bs-tooltip title="Edit" class="text-primary"
+                       ng-click="clickedItem(item) && showEditItemModal()">
+                        <span class="glyphicon glyphicon-pencil glyphicon-padding" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td>
+                    <a href data-placement="top" bs-tooltip title="Delete" class="text-danger"
+                       ng-click="clickedItem(item) && showSingleDeleteItemModal()">
+                        <span class="glyphicon glyphicon-trash glyphicon-padding" aria-hidden="true"></span>
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <!-- Line Breaks -->
 <br><br><br><br><br>

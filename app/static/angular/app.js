@@ -15,7 +15,7 @@ angular.module('app', [
     'app.signup',
     'app.projects',
     'app.overview',
-    'app.budgeting',
+    'app.budget',
     'app.funds',
     'app.expenditures',
     'app.subcontractors'

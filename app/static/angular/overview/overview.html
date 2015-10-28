@@ -54,10 +54,10 @@
                     <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
                     <b> Overview </b>
                 </a>
-                <!-- Budgeting -->
-                <a ui-sref="budgeting" class="list-group-item">
+                <!-- Budget -->
+                <a ui-sref="budget" class="list-group-item">
                     <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
-                    <b> Budgeting </b>
+                    <b> Budget </b>
                 </a>
                 <!-- Funds & Loans -->
                 <a ui-sref="funds" class="list-group-item">
@@ -75,6 +75,7 @@
                     <b> Subcontractors </b>
                 </a>
             </ul>
+            </ul>
         </div>
         <!-- Right Side -->
         <div class="col-md-9">
@@ -82,22 +83,6 @@
             <h1> Overview </h1>
             <!-- Sub Header -->
             <h4 class="text-muted"> {{ project_name }} </h4>
-            <!-- Budget -->
-            <h2 class="text-center"> Budget </h2>
-            <!-- Donut Chart -->
-            <div class="row">
-                <!-- Donut -->
-                <div class="col-md-6 col-lg-6">
-                    <div class="canvas-holder">
-                        <canvas id="modular-doughnut" width="9" height="5"></canvas>
-                    </div>
-                </div>
-                <!-- Legend -->
-                <div class="col-md-6 col-lg-6">
-                    <h4> Categories </h4>
-                    <div id="legend-holder"></div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

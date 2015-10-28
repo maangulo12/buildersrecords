@@ -35,7 +35,7 @@ Web app for accounting home construction projects.
     -Think about what to show here
 ```
 
-+ Budgeting module: <b> Amy Lopes 10/15/2015 </b>
++ Budget module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Add, Update, Delete line items and categories
 ```
