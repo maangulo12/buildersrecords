@@ -50,6 +50,11 @@ angular.module('app.projects', [])
     $scope.createProject = function() {
         $http.post('/api/projects', {
             name: $scope.project.name,
+            address: $scope.project.address,
+            city: $scope.project.city,
+            state: $scope.project.state,
+            zipcode: $scope.project.zipcode,
+            project_type: $scope.project.type,
             user_id: store.get('user_id')
         })
         .then(function(response) {
@@ -57,7 +62,6 @@ angular.module('app.projects', [])
             getProjects();
         }, function(error) {
             $scope.new_project_form.$invalid = true;
-            $scope.new_project_form.name.$invalid = true;
         });
     }
     // DELETE functions
