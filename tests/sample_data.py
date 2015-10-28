@@ -51,6 +51,11 @@ def populate_db(app):
     # Create Project
     client.post('/api/projects', data=json.dumps({
         'name': 'UBuildIt - Tim & Maritza Messer',
+        'address': '251 Wizard Way',
+        'city': 'Spring Branch',
+        'state': 'TX',
+        'zipcode': '78070',
+        'project_type': 'ubuildit',
         'user_id':  1
     }),
         headers={
