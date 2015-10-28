@@ -27,9 +27,7 @@ Web app for accounting home construction projects.
 + Projects module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Delete Project ('bulk' delete everything about the project)
-    -Remove projectNameExists (in directives & update Project model)
     -Ability to upload a file
-    -Think about other fields to add here about the project
 ```
 
 + Overview module: <b> Miguel 10/15/2015 </b>
