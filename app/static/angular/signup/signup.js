@@ -11,7 +11,6 @@ angular.module('app.signup', [])
     store.remove('jwt');
 
     $scope.createAccount = function() {
-        // Add user
         $http.post('/api/users', {
             username  : $scope.signup.username,
             password  : $scope.signup.password,
@@ -19,23 +18,23 @@ angular.module('app.signup', [])
             last_name : $scope.signup.last_name,
             email     : $scope.signup.email
         }).then(function(response) {
-            // Send registration email
-            $http.post('/api/email/registration', {
-                email     : $scope.signup.email,
-                first_name: $scope.signup.first_name,
-                last_name : $scope.signup.last_name,
-                username  : $scope.signup.username
-            }).then(function(response2) {
-                console.log(response2.data);
-            }, function(error) {
-                console.log(error.data);
-            });
+            sendEmail();
+            authenticate();
         }, function(error) {
             $scope.signup_form.$invalid = true;
         });
-        // Authenticate user
+    }
+    function sendEmail() {
+        $http.post('/api/email/registration', {
+            email     : $scope.signup.email,
+            first_name: $scope.signup.first_name,
+            last_name : $scope.signup.last_name,
+            username  : $scope.signup.username
+        });
+    }
+    function authenticate() {
         $http.post('/api/auth', {
-            login: $scope.signup.username,
+            login   : $scope.signup.username,
             password: $scope.signup.password
         }).then(function(response) {
             authService.authHelper(response);
