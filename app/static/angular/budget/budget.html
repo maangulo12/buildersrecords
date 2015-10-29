@@ -228,8 +228,9 @@
                           </div>
                       </div>
                       <!-- Input New Category Name Field -->
+                  <div>
                       <div ng-if="item.category=='other'" class="form-group">
-                          <input type="text" name="newCategoryName" placeholder="Category Name">
+                          <input type="text" name="category" placeholder="Category" ng-model= "item.newmodel">
                       </div>
                   </div>
                         <!-- Item Name Field -->
