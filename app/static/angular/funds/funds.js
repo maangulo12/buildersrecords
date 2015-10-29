@@ -14,7 +14,7 @@ angular.module('app.funds', [])
     init();
 
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         getFunds();
     }
     $scope.logOut = function() {
@@ -81,9 +81,9 @@ angular.module('app.funds', [])
     }
     $scope.addFund = function() {
         $http.post('/api/funds', {
-            name: $scope.fund.name,
-            loan: $scope.fund.loan,
-            amount: $scope.fund.amount,
+            name      : $scope.fund.name,
+            loan      : $scope.fund.loan,
+            amount    : $scope.fund.amount,
             project_id: store.get('project').id
         })
         .then(function(response) {
@@ -137,9 +137,9 @@ angular.module('app.funds', [])
     }
     $scope.updateFund = function() {
         $http.put('/api/funds/' + store.get('fund').id, {
-            name: $scope.updated_fund.name,
-            loan: $scope.updated_fund.loan,
-            amount: $scope.updated_fund.amount,
+            name      : $scope.updated_fund.name,
+            loan      : $scope.updated_fund.loan,
+            amount    : $scope.updated_fund.amount,
             project_id: store.get('project').id
         })
         .then(function(response) {
@@ -160,8 +160,8 @@ angular.module('app.funds', [])
     }
     $scope.addDraw = function() {
         $http.post('/api/draws', {
-            date: $scope.draw.date,
-            amount: $scope.draw.amount,
+            date   : $scope.draw.date,
+            amount : $scope.draw.amount,
             fund_id: store.get('fund').id
         })
         .then(function(response) {
@@ -202,8 +202,8 @@ angular.module('app.funds', [])
     }
     $scope.updateDraw = function() {
         $http.put('/api/draws/' + store.get('draw').id, {
-            date: $scope.updated_draw.date,
-            amount: $scope.updated_draw.amount,
+            date   : $scope.updated_draw.date,
+            amount : $scope.updated_draw.amount,
             fund_id: store.get('fund').id
         })
         .then(function(response) {
