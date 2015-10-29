@@ -6,6 +6,9 @@
     ~~~~~~~~~~~~~~
 
     This is the module used for sending emails to users.
+
+    Current APIs:
+        -registration : /api/email/registration
 """
 
 from flask import make_response, render_template, request
@@ -14,7 +17,9 @@ from flask_mail import Message
 from app import app, mail_service
 
 
-@app.route('/api/email/registration', methods=['POST'])
+API_ENTRY = '/api/email'
+
+@app.route(API_ENTRY + '/registration', methods=['POST'])
 def registration():
     data = request.get_json(force=True)
     email = data.get('email', None)
