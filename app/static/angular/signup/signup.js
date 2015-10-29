@@ -34,7 +34,7 @@ angular.module('app.signup', [])
             $scope.signup_form.$invalid = true;
         });
         // Authenticate user
-        $http.post('/auth', {
+        $http.post('/api/auth', {
             login: $scope.signup.username,
             password: $scope.signup.password
         }).then(function(response) {

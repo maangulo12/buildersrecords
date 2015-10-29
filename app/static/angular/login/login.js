@@ -12,7 +12,7 @@ angular.module('app.login', [])
 
     $scope.logIn = function() {
         // Authenticate user
-        $http.post('/auth', {
+        $http.post('/api/auth', {
             login: $scope.login.user,
             password: $scope.login.password
         }).then(function(response) {
