@@ -7,6 +7,6 @@ angular.module('app.home', [])
         controller: 'HomeController'
     });
 })
-.controller('HomeController', function($scope, store, $state) {
+.controller('HomeController', function(store) {
     store.remove('jwt');
 });
