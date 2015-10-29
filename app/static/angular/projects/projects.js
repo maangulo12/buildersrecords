@@ -48,6 +48,23 @@ angular.module('app.projects', [])
         $('#new_project_modal').modal('show');
     }
     $scope.createProject = function() {
+        if ($scope.project.file) {
+            $http.post('/api/upload/ubuildit', {
+                file: $scope.project.file,
+                user_id: store.get('user_id')
+            })
+            .then(function(response) {
+                console.log(response.data);
+                addProject();
+            }, function(error) {
+                console.log(error.data);
+                $scope.new_project_form.$invalid = true;
+            });
+        } else {
+            addProject();
+        }
+    }
+    function addProject() {
         $http.post('/api/projects', {
             name: $scope.project.name,
             address: $scope.project.address,

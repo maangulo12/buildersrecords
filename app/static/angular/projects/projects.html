@@ -379,7 +379,7 @@
                                     required>
                                 <option value="" disabled selected> Select your option </option>
                                 <option value="ubuildit"> UBuildIt </option>
-                                <option value="own"> Create My Own </option>
+                                <option value="own"> Create my own </option>
                             </select>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="new_project_form.type.$dirty &&
@@ -397,13 +397,10 @@
                             </div>
                         </div>
                         <!-- File Upload Field -->
-                        <div class="form-group">
-                            <label class="control-label" for="file"> File Upload </label>
-                            <p class="text-warning"> Would you like to upload your UBuildIt Cost Review file? (Optional) </p>
-                            <input name="file" type="file" ng-model="project.file">
+                        <div ng-if="project.type=='ubuildit'" class="form-group">
+                            <label class="control-label" for="file"> Would you like to upload your UBuildIt Cost Review file? (Recommended) </label>
+                            <input name="file" type="file" fileread="project.file">
                         </div>
-                        <!-- Required fields -->
-                        <p class="text-danger"> * Required fields </p>
                     </div>
                     <!-- Modal Footer -->
                     <div class="modal-footer">
