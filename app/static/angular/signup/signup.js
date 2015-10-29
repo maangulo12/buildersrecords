@@ -20,15 +20,15 @@ angular.module('app.signup', [])
             email     : $scope.signup.email
         }).then(function(response) {
             // Send registration email
-            $http.post('/registration', {
+            $http.post('/api/email/registration', {
                 email     : $scope.signup.email,
                 first_name: $scope.signup.first_name,
                 last_name : $scope.signup.last_name,
                 username  : $scope.signup.username
             }).then(function(response2) {
-                console.log('Registration email was sent.');
+                console.log(response2.data);
             }, function(error) {
-                console.log('Registration email could not be sent.');
+                console.log(error.data);
             });
         }, function(error) {
             $scope.signup_form.$invalid = true;
