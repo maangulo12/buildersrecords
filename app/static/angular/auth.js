@@ -7,8 +7,10 @@ angular.module('app.auth', [])
         store.set('jwt', response.data.token);
         // Decode tokenPayload
         var tokenPayload = jwtHelper.decodeToken(response.data.token);
-        // Set user_id and username
-        store.set('user_id', tokenPayload.user_id);
-        store.set('username', tokenPayload.username);
+        var user = {
+            id: tokenPayload.user_id,
+            username: tokenPayload.username
+        }
+        store.set('user', user);
     }
 });
