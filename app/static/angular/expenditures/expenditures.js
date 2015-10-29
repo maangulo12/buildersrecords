@@ -13,20 +13,17 @@ angular.module('app.expenditures', [])
 .controller('ExpendituresController', function($scope, store, $state, $http, $filter) {
     init();
 
-    // Init function
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         getCategories();
         getExpenditures();
         getItems();
         getFunds();
     }
-    // Logout function
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
     }
-    // Needed for UPDATE and DELETE
     $scope.clickedExpenditure = function(expenditure) {
         var index = $scope.expenditure_list.indexOf(expenditure);
         if (index !== -1) {
@@ -35,7 +32,6 @@ angular.module('app.expenditures', [])
         }
         return false;
     }
-    // Needed for disabling/enabling Delete button
     $scope.clickedAllCheckbox = function() {
         angular.forEach($scope.expenditure_list, function(expenditure) {
             expenditure.selected = $scope.checkboxAll;
@@ -69,10 +65,10 @@ angular.module('app.expenditures', [])
                     category_total += expenditure.cost;
                 });
                 data.push({
-                    value: category_total,
-                    color: colors[i],
+                    value    : category_total,
+                    color    : colors[i],
                     highlight: colors[i],
-                    label: category.name
+                    label    : category.name
                 });
                 i++;
             });
@@ -114,10 +110,10 @@ angular.module('app.expenditures', [])
             var list = [];
             angular.forEach(response.data.objects, function(item) {
                 list.push({
-                    id: item.id,
+                    id  : item.id,
                     name: item.name,
                     category: {
-                        id: item.categories.id,
+                        id  : item.categories.id,
                         name: item.categories.name,
                     }
                 });
@@ -135,7 +131,7 @@ angular.module('app.expenditures', [])
             var list = [];
             angular.forEach(response.data.objects, function(fund) {
                 list.push({
-                    id: fund.id,
+                    id  : fund.id,
                     name: fund.name
                 });
             });
@@ -154,14 +150,14 @@ angular.module('app.expenditures', [])
     }
     $scope.addExpenditure = function() {
         $http.post('/api/expenditures', {
-            date: $filter('date')($scope.expenditure.date,'yyyy-MM-dd'),
-            vendor: $scope.expenditure.vendor,
-            notes: $scope.expenditure.notes,
-            cost: $scope.expenditure.cost,
-            fund_id: $scope.expenditure.fund.id,
+            date       : $filter('date')($scope.expenditure.date,'yyyy-MM-dd'),
+            vendor     : $scope.expenditure.vendor,
+            notes      : $scope.expenditure.notes,
+            cost       : $scope.expenditure.cost,
+            fund_id    : $scope.expenditure.fund.id,
             category_id: $scope.expenditure.item.category.id,
-            item_id: $scope.expenditure.item.id,
-            project_id: store.get('project').id
+            item_id    : $scope.expenditure.item.id,
+            project_id : store.get('project').id
         })
         .then(function(response) {
             $('#add_expenditure_modal').modal('hide');
@@ -224,17 +220,17 @@ angular.module('app.expenditures', [])
         $scope.updated_expenditure.date = new Date(store.get('expenditure').date);
         $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
         $scope.updated_expenditure.item = {
-            id: store.get('expenditure').items.id,
+            id  : store.get('expenditure').items.id,
             name: store.get('expenditure').items.name,
             category: {
-                id: store.get('expenditure').categories.id,
+                id  : store.get('expenditure').categories.id,
                 name: store.get('expenditure').categories.name,
             }
         };
         $scope.updated_expenditure.notes = store.get('expenditure').notes;
         $scope.updated_expenditure.cost = store.get('expenditure').cost;
         $scope.updated_expenditure.fund = {
-            id: store.get('expenditure').funds.id,
+            id  : store.get('expenditure').funds.id,
             name: store.get('expenditure').funds.name
         };
         $scope.edit_expenditure_form.$setPristine();
@@ -242,14 +238,14 @@ angular.module('app.expenditures', [])
     }
     $scope.updateExpenditure = function() {
         $http.put('/api/expenditures/' + store.get('expenditure').id, {
-            date: $filter('date')($scope.updated_expenditure.date,'yyyy-MM-dd'),
-            vendor: $scope.updated_expenditure.vendor,
-            notes: $scope.updated_expenditure.notes,
-            cost: $scope.updated_expenditure.cost,
-            fund_id: $scope.updated_expenditure.fund.id,
+            date       : $filter('date')($scope.updated_expenditure.date,'yyyy-MM-dd'),
+            vendor     : $scope.updated_expenditure.vendor,
+            notes      : $scope.updated_expenditure.notes,
+            cost       : $scope.updated_expenditure.cost,
+            fund_id    : $scope.updated_expenditure.fund.id,
             category_id: $scope.updated_expenditure.item.category.id,
-            item_id: $scope.updated_expenditure.item.id,
-            project_id: store.get('project').id
+            item_id    : $scope.updated_expenditure.item.id,
+            project_id : store.get('project').id
         })
         .then(function(response) {
             $('#edit_expenditure_modal').modal('hide');
