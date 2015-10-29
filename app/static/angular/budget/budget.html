@@ -227,6 +227,11 @@
                                    class="help-block"> This field is required. </div>
                           </div>
                       </div>
+                      <!-- Input New Category Name Field -->
+                      <div ng-if="item.category=='other'" class="form-group">
+                          <input type="text" name="newCategoryName" placeholder="Category Name">
+                      </div>
+                  </div>
                         <!-- Item Name Field -->
                         <div class="form-group"
                              ng-class="{ 'has-error': add_item_form.name.$dirty &&
