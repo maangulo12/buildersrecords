@@ -8,13 +8,13 @@
     This is the module used for sending emails to users.
 """
 
-from flask import make_response, render_template, request, jsonify
+from flask import make_response, render_template, request
 from flask_mail import Message
 
 from app import app, mail_service
 
 
-@app.route('/registration', methods=['POST'])
+@app.route('/api/email/registration', methods=['POST'])
 def registration():
     data = request.get_json(force=True)
     email = data.get('email', None)
@@ -32,4 +32,4 @@ def registration():
                                first_name=first_name,
                                last_name=last_name)
     # mail_service.send(msg)
-    return make_response(jsonify({'msg': 'Registration email was sent'}), 201)
+    return make_response('Registration email was sent', 201)
