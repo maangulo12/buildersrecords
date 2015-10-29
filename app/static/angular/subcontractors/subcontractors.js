@@ -13,12 +13,10 @@ angular.module('app.subcontractors', [])
 .controller('SubcontractorController', function($scope, store, $state, $http) {
     init();
 
-    // Init function
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         getSubcontractors();
     }
-    // Logout function
     $scope.logOut = function() {
         store.remove('jwt');
         $state.go('login');
