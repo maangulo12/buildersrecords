@@ -14,7 +14,7 @@ angular.module('app.projects', [])
     init();
 
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         getProjects();
     }
     $scope.logOut = function() {
@@ -34,7 +34,7 @@ angular.module('app.projects', [])
     }
     // GET function
     function getProjects() {
-        $http.get('/api/projects?q={"filters":[{"name":"user_id","op":"equals","val":"' + store.get('user_id') + '"}]}')
+        $http.get('/api/projects?q={"filters":[{"name":"user_id","op":"equals","val":"' + store.get('user').id + '"}]}')
         .then(function(response) {
             $scope.project_list = response.data.objects;
         }, function(error) {
@@ -50,14 +50,12 @@ angular.module('app.projects', [])
     $scope.createProject = function() {
         if ($scope.project.file) {
             $http.post('/api/upload/ubuildit', {
-                file: $scope.project.file,
-                user_id: store.get('user_id')
+                file   : $scope.project.file,
+                user_id: store.get('user').id
             })
             .then(function(response) {
-                console.log(response.data);
                 addProject();
             }, function(error) {
-                console.log(error.data);
                 $scope.new_project_form.$invalid = true;
             });
         } else {
@@ -66,13 +64,13 @@ angular.module('app.projects', [])
     }
     function addProject() {
         $http.post('/api/projects', {
-            name: $scope.project.name,
-            address: $scope.project.address,
-            city: $scope.project.city,
-            state: $scope.project.state,
-            zipcode: $scope.project.zipcode,
+            name        : $scope.project.name,
+            address     : $scope.project.address,
+            city        : $scope.project.city,
+            state       : $scope.project.state,
+            zipcode     : $scope.project.zipcode,
             project_type: $scope.project.type,
-            user_id: store.get('user_id')
+            user_id     : store.get('user').id
         })
         .then(function(response) {
             $('#new_project_modal').modal('hide');
@@ -113,13 +111,13 @@ angular.module('app.projects', [])
     }
     $scope.updateProject = function() {
         $http.put('/api/projects/' + store.get('project').id, {
-            name: $scope.updated_project.name,
-            address: $scope.updated_project.address,
-            city: $scope.updated_project.city,
-            state: $scope.updated_project.state,
-            zipcode: $scope.updated_project.zipcode,
+            name        : $scope.updated_project.name,
+            address     : $scope.updated_project.address,
+            city        : $scope.updated_project.city,
+            state       : $scope.updated_project.state,
+            zipcode     : $scope.updated_project.zipcode,
             project_type: $scope.updated_project.type,
-            user_id: store.get('user_id')
+            user_id     : store.get('user').id
         })
         .then(function(response) {
             $('#edit_project_modal').modal('hide');
