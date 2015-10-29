@@ -8,14 +8,13 @@ angular.module('app.budget', [])
         data: {
             requiresLogin: true
         }
-    })
+    });
 })
-
 .controller('BudgetController', function($scope, store, $state, $http) {
     init();
 
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         getCategories();
     }
     // GET categories function
@@ -34,10 +33,10 @@ angular.module('app.budget', [])
                     total_cost += item.amount;
                 });
                 budget_data.push({
-                    value: total_cost,
-                    color: budget_colors[i],
+                    value    : total_cost,
+                    color    : budget_colors[i],
                     highlight: budget_colors[i],
-                    label: category.name
+                    label    : category.name
                 });
                 i++;
             });
@@ -90,10 +89,10 @@ angular.module('app.budget', [])
     }
     $scope.addItem = function() {
         $http.post('/api/items', {
-            name: $scope.item.name,
+            name       : $scope.item.name,
             description: $scope.item.description,
-            amount: $scope.item.amount,
-            notes: $scope.item.notes,
+            amount     : $scope.item.amount,
+            notes      : $scope.item.notes,
             category_id: $scope.item.category
         })
         .then(function(response) {
@@ -110,20 +109,20 @@ angular.module('app.budget', [])
         }
     }
     $scope.deleteItems = function() {
-      angular.forEach($scope.category_list, function(category) {
-        angular.forEach(category.items, function(item) {
-            if (item.selected) {
-                $http.delete('/api/items/' + item.id)
-                .then(function(response) {
-                    $('#delete_items_modal').modal('hide');
-                    getCategories();
-                    $scope.selected = false;
-                }, function(error) {
-                    $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
-                });
-            }
+        angular.forEach($scope.category_list, function(category) {
+            angular.forEach(category.items, function(item) {
+                if (item.selected) {
+                    $http.delete('/api/items/' + item.id)
+                    .then(function(response) {
+                        $('#delete_items_modal').modal('hide');
+                        getCategories();
+                        $scope.selected = false;
+                    }, function(error) {
+                        $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
+                    });
+                }
+            });
         });
-      });
     }
     $scope.showSingleDeleteItemModal = function() {
         $('#delete_single_item_modal').modal('show');
