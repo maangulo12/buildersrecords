@@ -14,7 +14,7 @@ angular.module('app.overview', [])
     init();
 
     function init() {
-        $scope.username = store.get('username');
+        $scope.username = store.get('user').username;
         $scope.project_name = store.get('project').name;
         getCategories();
     }
