@@ -28,6 +28,6 @@ def ubuildit():
     if not all(criterion):
         return make_response('Could not upload file', 400)
 
-    if upload_file(temp_file) and check_file(temp_file):
-        parsed_file = parse_file(temp_file)
-        return make_response('File was successfully uploaded', 201)
+    #if upload_file(temp_file) and check_file(temp_file):
+    #    parsed_file = parse_file(temp_file)
+    return make_response('File was successfully uploaded', 201)
