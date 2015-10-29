@@ -17,7 +17,7 @@
         -Draws          : /api/draws
         -Subcontractors : /api/subcontractors
 
-    *Note: verify_jwt is imported in this module in order to protect API.
+    *Note: verify_jwt is imported in this module for security.
 """
 
 from app import api_manager
