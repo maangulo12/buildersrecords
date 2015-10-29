@@ -7,6 +7,9 @@
 
     This is the JSON Web Token module. It is used for authenticating users
     to the API of this application.
+
+    Current APIs:
+        -auth : /api/auth
 """
 
 import jwt
@@ -18,17 +21,30 @@ from app.models import User
 
 
 def encode_token(user):
+    """
+    This function is used to create the json web token.
+    """
     return jwt.encode({'user_id': user.id, 'username': user.username},
                       current_app.config['AUTH_SECRET'])
 
 
 def decode_token(token):
+    """
+    This function is used to decode the json web token.
+    """
     return jwt.decode(token, current_app.config['AUTH_SECRET'],
                       options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']})
 
 
-@app.route('/auth', methods=['POST'])
+@app.route('/api/auth', methods=['POST'])
 def auth():
+    """
+    This route is used for authentication.
+
+    POST request needs:
+        login    : 'username' or 'email address'
+        password : 'password'
+    """
     data = request.get_json(force=True)
     login = data.get('login', None)
     password = data.get('password', None)
@@ -50,6 +66,9 @@ def auth():
 
 
 def verify_jwt(*args, **kwargs):
+    """
+    This function is used to verify the json web token.
+    """
     auth = request.headers.get('Authorization', None)
 
     if auth is None:
