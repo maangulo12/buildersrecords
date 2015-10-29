@@ -27,6 +27,7 @@ from flask_mail import Mail
 app = Flask(__name__, static_url_path='')
 app.config.from_pyfile('settings.py')
 from app import views
+from app import uploads
 
 # Flask-Bcrypt
 bcrypt = Bcrypt(app)
