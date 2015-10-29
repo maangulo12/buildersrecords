@@ -11,7 +11,6 @@ angular.module('app.login', [])
     store.remove('jwt');
 
     $scope.logIn = function() {
-        // Authenticate user
         $http.post('/api/auth', {
             login: $scope.login.user,
             password: $scope.login.password
