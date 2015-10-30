@@ -100,7 +100,7 @@ angular.module('app.directives', [])
                         scope.fileread = loadEvent.target.result;
                     });
                 }
-                reader.readAsDataURL(changeEvent.target.files[0]);
+                reader.readAsText(changeEvent.target.files[0], 'UTF-8');
             });
         }
     }
