@@ -18,6 +18,10 @@ SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))
 SERVER_DEBUG = True
 
+# Uploads
+UPLOAD_FOLDER = os.environ.get('UPLOAD_FOLDER', '/uploads/')
+ALLOWED_EXTENSIONS = set(['xlsx', 'xls'])
+
 # API Auth
 AUTH_HEADER_PREFIX = os.environ.get('AUTH_HEADER_PREFIX', 'Bearer')
 AUTH_VERIFY_EXP = False
