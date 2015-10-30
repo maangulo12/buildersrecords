@@ -128,7 +128,7 @@
                     </h4>
                 </div>
                 <!-- Form -->
-                <form name="new_project_form" novalidate>
+                <form name="new_project_form" novalidate enctype="multipart/form-data">
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Alert -->
@@ -399,7 +399,7 @@
                         <!-- File Upload Field -->
                         <div ng-if="project.type=='ubuildit'" class="form-group">
                             <label class="control-label" for="file"> Would you like to upload your UBuildIt Cost Review file? (Recommended) </label>
-                            <input name="file" type="file" fileread="project.file">
+                            <input id="project_file" name="file" type="file" fileread="project.file">
                         </div>
                     </div>
                     <!-- Modal Footer -->
