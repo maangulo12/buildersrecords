@@ -18,6 +18,7 @@ from .parser import parse_ubuildit_file, parse_invoice_file
 
 FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
+
 def populate_db(app):
     # Client test
     app.testing = True
