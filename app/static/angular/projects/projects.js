@@ -47,14 +47,19 @@ angular.module('app.projects', [])
         $scope.new_project_form.$setPristine();
         $('#new_project_modal').modal('show');
     }
+    $scope.changeFile = function() {
+        console.log('File has been changed');
+    }
     $scope.createProject = function() {
-        var filename = $('#project_file').val().split('\\').pop();
+        if ($('#project_file').length) {
+            var file = $('#project_file')[0].files[0];
+            var fd = new FormData();
+            fd.append('file', file);
+            fd.append('user_id', store.get('user').id);
 
-        if ($scope.project.file) {
-            $http.post('/api/upload/ubuildit', {
-                filename: filename,
-                file    : $scope.project.file,
-                user_id : store.get('user').id
+            $http.post('/api/upload/ubuildit', fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
             })
             .then(function(response) {
                 console.log(response.data);
