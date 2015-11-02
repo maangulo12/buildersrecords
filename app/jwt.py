@@ -93,3 +93,6 @@ def verify_jwt(*args, **kwargs):
 
     except jwt.InvalidTokenError:
         raise ProcessingException('Token is invalid', 400)
+
+
+# add decorator function
