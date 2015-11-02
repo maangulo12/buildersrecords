@@ -18,15 +18,15 @@ def parse_invoice_file(path):
     :param file: The location path of the file
     """
 
-    wb = open_workbook(filename = path)
+    wb = open_workbook(filename=path)
     ws = wb.sheet_by_name('Invoices indexed by date')
 
     expenditure_list = []
 
     for i in range(2, 140):
-        cells = ws.row_slice(rowx       = i,
-                             start_colx = 1,
-                             end_colx   = 6)
+        cells = ws.row_slice(rowx=i,
+                             start_colx=1,
+                             end_colx=6)
 
         date_tuple = xldate_as_tuple(cells[0].value, 0)
         year, month, day, hour, minutes, seconds = date_tuple
@@ -53,18 +53,26 @@ def parse_ubuildit_file(path):
         }
     """
 
-    wb = open_workbook(filename = path)
+    wb = open_workbook(filename=path)
     ws = wb.sheet_by_name('UBI Cost Review')
 
     category_list = []
-    category_list.append({'category_name': ws.cell_value(5 , 2), 'item_list': get_item_list(ws, 6 , 15)})
-    category_list.append({'category_name': ws.cell_value(16, 2), 'item_list': get_item_list(ws, 17, 33)})
-    category_list.append({'category_name': ws.cell_value(34, 2), 'item_list': get_item_list(ws, 35, 43)})
-    category_list.append({'category_name': ws.cell_value(44, 2), 'item_list': get_item_list(ws, 45, 47)})
-    category_list.append({'category_name': ws.cell_value(48, 2), 'item_list': get_item_list(ws, 49, 52)})
-    category_list.append({'category_name': ws.cell_value(53, 2), 'item_list': get_item_list(ws, 54, 60)})
-    category_list.append({'category_name': ws.cell_value(61, 2), 'item_list': get_item_list(ws, 62, 93)})
-    category_list.append({'category_name': ws.cell_value(94, 2), 'item_list': get_item_list(ws, 95, 130)})
+    category_list.append({'category_name': ws.cell_value(
+        5, 2), 'item_list': get_item_list(ws, 6, 15)})
+    category_list.append({'category_name': ws.cell_value(
+        16, 2), 'item_list': get_item_list(ws, 17, 33)})
+    category_list.append({'category_name': ws.cell_value(
+        34, 2), 'item_list': get_item_list(ws, 35, 43)})
+    category_list.append({'category_name': ws.cell_value(
+        44, 2), 'item_list': get_item_list(ws, 45, 47)})
+    category_list.append({'category_name': ws.cell_value(
+        48, 2), 'item_list': get_item_list(ws, 49, 52)})
+    category_list.append({'category_name': ws.cell_value(
+        53, 2), 'item_list': get_item_list(ws, 54, 60)})
+    category_list.append({'category_name': ws.cell_value(
+        61, 2), 'item_list': get_item_list(ws, 62, 93)})
+    category_list.append({'category_name': ws.cell_value(
+        94, 2), 'item_list': get_item_list(ws, 95, 130)})
     return category_list
 
 
@@ -78,9 +86,9 @@ def get_item_list(ws, start, end):
     temp_list = []
 
     for i in range(start, end):
-        cells = ws.row_slice(rowx       = i,
-                             start_colx = 2,
-                             end_colx   = 10)
+        cells = ws.row_slice(rowx=i,
+                             start_colx=2,
+                             end_colx=10)
 
         temp_list.append({
             'cost_category':     cells[0].value,
