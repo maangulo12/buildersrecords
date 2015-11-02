@@ -13,12 +13,12 @@
 
 import os
 import sys
-from xlrd import open_workbook
 from werkzeug import secure_filename
 from flask import make_response, request
 
 from app import app
 from app.settings import UPLOAD_PATH
+from app.utility import parse_ubuildit_file
 
 
 API_ENTRY = '/api/upload'
@@ -34,15 +34,16 @@ def upload_file(path, filename, file_obj):
     """
     try:
         secured_file = secure_filename(filename)
-        location = os.path.join(path, secured_file)
-        file_obj.save(location)
+        full_path = os.path.join(path, secured_file)
+        file_obj.save(full_path)
         return True
 
     except:
-        print("Unexpected error:", sys.exc_info()[0])
+        print('Unexpected error:', sys.exc_info()[0])
         return False
 
 
+# add route protection
 @app.route(API_ENTRY + '/ubuildit', methods=['POST'])
 def ubuildit():
     """
@@ -59,9 +60,12 @@ def ubuildit():
     if upload_file(UPLOAD_PATH, file_obj.name, file_obj):
         try:
             secured_file = secure_filename(file_obj.name)
-            wb = open_workbook(filename=''.join([UPLOAD_PATH, secured_file]))
-            ws = wb.sheet_by_name('UBI Cost Review')
-            # Parse file
+            full_path = ''.join([UPLOAD_PATH, secured_file])
+
+            category_list = parse_ubuildit_file(full_path)
+            for category in category_list:
+                print(category['category_name'])
+
             return make_response('File was successfully uploaded', 201)
         except:
             return make_response('Excel file could not be read', 400)
