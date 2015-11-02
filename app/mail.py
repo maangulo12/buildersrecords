@@ -19,6 +19,8 @@ from app import app, mail_service
 
 API_ENTRY = '/api/email'
 
+
+# add route protection
 @app.route(API_ENTRY + '/registration', methods=['POST'])
 def registration():
     data = request.get_json(force=True)
