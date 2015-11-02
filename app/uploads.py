@@ -51,8 +51,14 @@ def ubuildit():
     """
     # get length of request
     file_obj = request.files['file']
+    name = request.form['name']
+    address = request.form['address']
+    city = request.form['city']
+    state = request.form['state']
+    zipcode = request.form['zipcode']
+    project_type = request.form['project_type']
     user_id = request.form['user_id']
-    criterion = [file_obj, user_id]
+    criterion = [file_obj, name, address, city, state, zipcode, project_type, user_id]
 
     if not all(criterion):
         return make_response('Bad request', 400)
@@ -60,9 +66,12 @@ def ubuildit():
     if upload_file(UPLOAD_PATH, file_obj.name, file_obj):
         try:
             secured_file = secure_filename(file_obj.name)
+            # create unique file_name
             full_path = ''.join([UPLOAD_PATH, secured_file])
 
             category_list = parse_ubuildit_file(full_path)
+            # add project
+
             for category in category_list:
                 print(category['category_name'])
 
