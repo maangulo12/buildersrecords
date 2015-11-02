@@ -53,8 +53,15 @@ angular.module('app.projects', [])
     $scope.createProject = function() {
         if ($('#project_file').length) {
             var file = $('#project_file')[0].files[0];
+
             var fd = new FormData();
             fd.append('file', file);
+            fd.append('name', $scope.project.name);
+            fd.append('address', $scope.project.address);
+            fd.append('city', $scope.project.city);
+            fd.append('state', $scope.project.state);
+            fd.append('zipcode', $scope.project.zipcode);
+            fd.append('project_type', $scope.project.type);
             fd.append('user_id', store.get('user').id);
 
             $http.post('/api/upload/ubuildit', fd, {
@@ -62,32 +69,28 @@ angular.module('app.projects', [])
                 headers: { 'Content-Type': undefined }
             })
             .then(function(response) {
-                console.log(response.data);
-                addProject();
+                $('#new_project_modal').modal('hide');
+                getProjects();
             }, function(error) {
-                console.log(error.data);
                 $scope.new_project_form.$invalid = true;
             });
         } else {
-            addProject();
+            $http.post('/api/projects', {
+                name        : $scope.project.name,
+                address     : $scope.project.address,
+                city        : $scope.project.city,
+                state       : $scope.project.state,
+                zipcode     : $scope.project.zipcode,
+                project_type: $scope.project.type,
+                user_id     : store.get('user').id
+            })
+            .then(function(response) {
+                $('#new_project_modal').modal('hide');
+                getProjects();
+            }, function(error) {
+                $scope.new_project_form.$invalid = true;
+            });
         }
-    }
-    function addProject() {
-        $http.post('/api/projects', {
-            name        : $scope.project.name,
-            address     : $scope.project.address,
-            city        : $scope.project.city,
-            state       : $scope.project.state,
-            zipcode     : $scope.project.zipcode,
-            project_type: $scope.project.type,
-            user_id     : store.get('user').id
-        })
-        .then(function(response) {
-            $('#new_project_modal').modal('hide');
-            getProjects();
-        }, function(error) {
-            $scope.new_project_form.$invalid = true;
-        });
     }
     // DELETE functions
     $scope.showDeleteProjectModal = function() {
