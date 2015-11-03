@@ -133,7 +133,7 @@
                 </thead>
                 <!-- Table Body -->
                 <tbody>
-                    <!-- Data Table Row -->
+                    <!-- Subcontractors -->
                     <tr ng-repeat="subcontractor in collection">
                         <td style="width: 5%">
                             <input type="checkbox" class="checkbox" ng-model="subcontractor.selected"
@@ -161,8 +161,10 @@
                            </a>
                         </td>
                     </tr>
-                    <!-- Empty Table Row -->
-                    <tr ng-if="subcontractor_list.length == 0">
+                </tbody>
+                <!-- Empty Project -->
+                <tbody ng-if="subcontractor_list.length == 0">
+                    <tr>
                         <td colspan="1"></td>
                         <td colspan="6"> You have not added any subcontractors yet. </td>
                     </tr>
