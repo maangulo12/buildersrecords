@@ -99,9 +99,12 @@ li button {
     text-align: right;
     margin-right : 20px;
 }
-th {
+thead tr {
     background-color: $blue_color;
     color: $white_color;
+}
+.footer-color {
+    background-color: #eceded;
 }
 .st-sort-ascent:before {
     content: '\25B2';
