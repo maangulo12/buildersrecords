@@ -6,10 +6,9 @@ Web app for accounting home construction projects.
 
 + Priorities:
 ```
-    -Stripe (Processing Payments) (Pricing)
-    -Auth0 (Security for Authentication) (Pricing)
-    -AWS (ElasticBeanstalk & S3) Full Deployment (Pricing)
-    -AWS Maintenance (Pricing)
+    -Stripe
+    -Auth0
+    -AWS Deployment
     -GitHub Private Account
     -Domain Name Pricing
     -SSL Certificate
