@@ -23,17 +23,21 @@ angular.module('app.overview', [])
         .then(function(response) {
             $scope.category_list = response.data.objects;
 
-            var grand_total_cost = 0;
+            var grand_total_budget = 0;
+            var grand_total_actual = 0;
             var grand_total_expenditure = 0;
 
             angular.forEach(response.data.objects, function(category) {
-
-                var total_cost = 0;
+                var total_actual = 0;
+                var total_budget = 0;
                 angular.forEach(category.items, function(item) {
-                    total_cost += item.amount;
+                    total_budget += item.budget;
+                    total_actual += item.actual;
                 });
-                category.total_cost = total_cost;
-                grand_total_cost += total_cost;
+                category.total_budget = total_budget;
+                category.total_actual = total_actual;
+                grand_total_budget += total_budget;
+                grand_total_actual += total_actual;
 
                 var total_expenditure = 0;
                 angular.forEach(category.expenditures, function(expenditure) {
@@ -42,15 +46,16 @@ angular.module('app.overview', [])
                 category.total_expenditure = total_expenditure;
                 grand_total_expenditure += total_expenditure;
 
-                if (total_cost === 0 || total_expenditure >= total_cost) {
+                if (total_actual === 0 || total_expenditure >= total_actual) {
                     category.paid = 100;
-                    category.remaining = 0;
+                    category.unpaid = 0;
                 } else {
-                    category.paid = Math.round(total_expenditure / total_cost * 100);
-                    category.remaining = total_cost - total_expenditure;
+                    category.paid = Math.round(total_expenditure / total_actual * 100);
+                    category.unpaid = total_actual - total_expenditure;
                 }
             });
-            $scope.grand_total_cost = grand_total_cost;
+            $scope.grand_total_budget = grand_total_budget;
+            $scope.grand_total_actual = grand_total_actual;
             $scope.grand_total_expenditure = grand_total_expenditure;
 
         }, function(error) {
