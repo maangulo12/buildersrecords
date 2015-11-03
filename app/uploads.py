@@ -81,14 +81,16 @@ def ubuildit():
             db.session.commit()
 
             for cat in category_list:
-                category = Category(name=cat['category_name'], project_id=project.id)
+                category = Category(
+                    name=cat['category_name'], project_id=project.id)
                 db.session.add(category)
                 db.session.commit()
 
                 for cat_item in cat['item_list']:
                     item = Item(name=cat_item['cost_category'], description=cat_item['description'],
-                                amount=cat_item['budget'], notes=cat_item['explanations'],
-                                category_id=category.id, project_id=project.id)
+                                budget=cat_item['budget'], actual=cat_item['actual'],
+                                notes=cat_item['explanations'], category_id=category.id,
+                                project_id=project.id)
                     db.session.add(item)
                     db.session.commit()
 
