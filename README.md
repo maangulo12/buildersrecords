@@ -40,11 +40,13 @@ Web app for accounting home construction projects.
 + Overview module: <b> Miguel 10/15/2015 </b>
 ```
     -Think about what to show here
+    -Empty project test
 ```
 
 + Budget module: <b> Amy Lopes 10/15/2015 </b>
 ```
-    -Add, Update, Delete line items and categories
+    -Add, Update, Delete items and categories
+    -Empty project test
 ```
 
 + Funds module:
@@ -53,6 +55,7 @@ Web app for accounting home construction projects.
     -Edit Draw (after updating, table rows shift)
     -Edit Draw (date of draw needs to be correct)
     -Think about what to show for non loan funds
+    -Empty project test
 ```
 
 + Expenditures module: <b> Miguel 10/15/2015 </b>
