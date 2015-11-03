@@ -24,25 +24,37 @@ angular.module('app.budget', [])
             $scope.category_list = response.data.objects;
 
             var i = 0;
-            var budget_data = [];
-            var budget_colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
+            var data = [];
+            var colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
+            var grand_total_budget = 0;
+            var grand_total_actual = 0;
 
             angular.forEach(response.data.objects, function(category) {
-                var total_cost = 0;
+                var total_budget = 0;
+                var total_actual = 0;
                 angular.forEach(category.items, function(item) {
-                    total_cost += item.amount;
+                    total_budget += item.budget;
+                    total_actual += item.actual;
                 });
-                budget_data.push({
-                    value    : total_cost,
-                    color    : budget_colors[i],
-                    highlight: budget_colors[i],
+                category.total_budget = total_budget;
+                category.total_actual = total_actual;
+                grand_total_budget += total_budget;
+                grand_total_actual += total_actual;
+
+                data.push({
+                    value    : total_actual,
+                    color    : colors[i],
+                    highlight: colors[i],
                     label    : category.name
                 });
                 i++;
             });
+            $scope.grand_total_budget = grand_total_budget;
+            $scope.grand_total_actual = grand_total_actual;
+            
             // Draw Budget Pie Chart
             var ctx = $('#modular-doughnut').get(0).getContext('2d');
-            var chart = new Chart(ctx).Doughnut(budget_data, {
+            var chart = new Chart(ctx).Doughnut(data, {
                 responsive: true,
                 tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
                 legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
