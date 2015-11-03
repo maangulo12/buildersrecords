@@ -111,6 +111,8 @@
         </div>
     </div>
 </div>
+<!-- Line Break -->
+<br>
 <!-- Full container -->
 <div class="container">
     <!-- Button - Add Expenditure -->
@@ -164,7 +166,7 @@
         </thead>
         <!-- Table Body -->
         <tbody>
-            <!-- Data Table Row -->
+            <!-- Expenditures -->
             <tr ng-repeat="expenditure in collection">
                 <td style="width: 2%">
                     <input type="checkbox" class="checkbox" ng-model="expenditure.selected"
@@ -204,14 +206,14 @@
                    </a>
                 </td>
             </tr>
-            <!-- Total Table Row -->
+            <!-- Total -->
             <tr ng-if="expenditure_list.length != 0" class="active">
                 <td colspan="5"></td>
                 <td class="text-right"> <b> Total Amount Spent </b> </td>
                 <td class="text-right"> <b> {{ total_cost | currency }} </b> </td>
                 <td colspan="4"></td>
             </tr>
-            <!-- Empty Table Row -->
+            <!-- Empty Project -->
             <tr ng-if="expenditure_list.length == 0">
                 <td colspan="1"></td>
                 <td colspan="9"> You do not have any expenditures yet. </td>
@@ -230,7 +232,7 @@
     </table>
 </div>
 <!-- Line Breaks -->
-<br><br><br><br><br>
+<br><br><br><br>
 <!-- END -->
 
 <!-- MODALS -->
