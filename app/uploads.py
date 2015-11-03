@@ -16,7 +16,8 @@ import sys
 from werkzeug import secure_filename
 from flask import make_response, request
 
-from app import app
+from app import app, db
+from app.models import Project, Category, Item
 from app.settings import UPLOAD_PATH
 from app.utility import parse_ubuildit_file
 
@@ -58,24 +59,41 @@ def ubuildit():
     zipcode = request.form['zipcode']
     project_type = request.form['project_type']
     user_id = request.form['user_id']
-    criterion = [file_obj, name, address, city, state, zipcode, project_type, user_id]
+    criterion = [file_obj, name, address, city,
+                 state, zipcode, project_type, user_id]
 
     if not all(criterion):
         return make_response('Bad request', 400)
 
+    # create unique file_name
     if upload_file(UPLOAD_PATH, file_obj.name, file_obj):
         try:
             secured_file = secure_filename(file_obj.name)
-            # create unique file_name
             full_path = ''.join([UPLOAD_PATH, secured_file])
 
             category_list = parse_ubuildit_file(full_path)
-            # add project
 
-            for category in category_list:
-                print(category['category_name'])
+            # validation for field sizes
+
+            project = Project(name=name, address=address, city=city, state=state,
+                              zipcode=zipcode, project_type=project_type, user_id=user_id)
+            db.session.add(project)
+            db.session.commit()
+
+            for cat in category_list:
+                category = Category(name=cat['category_name'], project_id=project.id)
+                db.session.add(category)
+                db.session.commit()
+
+                for cat_item in cat['item_list']:
+                    item = Item(name=cat_item['cost_category'], description=cat_item['description'],
+                                amount=cat_item['budget'], notes=cat_item['explanations'],
+                                category_id=category.id, project_id=project.id)
+                    db.session.add(item)
+                    db.session.commit()
 
             return make_response('File was successfully uploaded', 201)
+
         except:
             return make_response('Excel file could not be read', 400)
     else:
