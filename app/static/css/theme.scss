@@ -4,21 +4,21 @@ $dark_blue_color: #233140;
 $font_family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 .jumbotron {
-    background: url("../img/home.jpg") no-repeat fixed;
+    background: url("../img/house.jpg") no-repeat;
     background-size: cover;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 75px;
+    padding-bottom: 75px;
 }
 .jumbotron .name {
     display: block;
     color: $white_color;
     font-family: $font_family;
-    font-size: 2em;
+    font-size: 4em;
     font-weight: 700;
 }
 .jumbotron .desc {
     color: $white_color;
-    font-size: 1.25em;
+    font-size: 2em;
     font-weight: 300;
 }
 .features {
@@ -27,14 +27,14 @@ $font_family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 @media(min-width:768px) {
     .jumbotron {
-        padding-top: 150px;
+        padding-top: 200px;
         padding-bottom: 150px;
     }
     .jumbotron .name {
         font-size: 4.75em;
     }
     .jumbotron .desc {
-        font-size: 1.75em;
+        font-size: 3em;
     }
     .features {
         padding-bottom: 100px;
