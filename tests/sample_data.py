@@ -14,7 +14,7 @@
 import random
 import simplejson as json
 
-from .parser import parse_ubuildit_file, parse_invoice_file
+from app.utility import parse_ubuildit_file, parse_invoice_file
 
 
 FILE_PATH = 'tests/data/spreadsheet.xlsx'
@@ -84,7 +84,8 @@ def populate_db(app):
             client.post('/api/items', data=json.dumps({
                 'name': item['cost_category'],
                 'description': item['description'],
-                'amount': item['budget'],
+                'budget': item['budget'],
+                'actual': item['actual'],
                 'notes': item['explanations'],
                 'category_id': data.index(category) + 1,
                 'project_id': 1
