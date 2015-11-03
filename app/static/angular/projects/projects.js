@@ -72,6 +72,7 @@ angular.module('app.projects', [])
                 $('#new_project_modal').modal('hide');
                 getProjects();
             }, function(error) {
+                console.log(error.data);
                 $scope.new_project_form.$invalid = true;
             });
         } else {
