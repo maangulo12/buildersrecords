@@ -17,9 +17,6 @@ Web app for accounting home construction projects.
 
 + Home module:
 ```
-    -Update home page to show the app features (remove project calendar)
-    -Possibly update background picture (house picture)
-    -Mobile Friendly
     -About Us
 ```
 
@@ -38,7 +35,7 @@ Web app for accounting home construction projects.
 + Projects module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Delete Project ('bulk' delete everything about the project)
-    -Ability to upload a file
+    -Test upload file
 ```
 
 + Overview module: <b> Miguel 10/15/2015 </b>
