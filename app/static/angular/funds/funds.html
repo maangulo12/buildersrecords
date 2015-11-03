@@ -103,21 +103,17 @@
             <!-- Line Breaks -->
             <br>
             <br>
-            <!-- Collapse -->
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <!-- Panel - Loans -->
-                <div ng-repeat="fund in fund_list" class="panel panel-default">
+            <!-- Panels -->
+            <div ng-repeat="fund in fund_list">
+                <div class="panel panel-default">
                     <!-- Panel Heading -->
-                    <div class="panel-heading" role="tab" id="fund_{{ fund.id }}">
+                    <div class="panel-heading">
                         <div class="row">
                             <!-- Left Side -->
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                                 <!-- Panel Title -->
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" class="glyphicon-padding"
-                                       href="#{{ fund_list.indexOf(fund) + 1 }}" aria-expanded="true" aria-controls="fund_{{ fund.id }}">
-                                        <b> {{ fund.name }} </b>
-                                    </a>
+                                    <b> {{ fund.name }} </b>
                                 </h4>
                                 <h5 class="text-success" ng-model="fund.amount"> {{ fund.amount | currency }} </h5>
                             </div>
@@ -139,94 +135,110 @@
                         </div>
                     </div>
                     <!-- Panel Body -->
-                    <div id="{{ fund_list.indexOf(fund) + 1 }}" class="panel-collapse collapse in"
-                         role="tabpanel" aria-labelledby="fund_{{ fund.id }}">
-                        <div class="panel-body">
-                            <div ng-if="fund.loan == 0">
-                                <h4> This is not a loan </h4>
+                    <div class="panel-body">
+                        <div ng-show="fund.loan == 0">
+                            <!-- Panel Title -->
+                            <h3 class="text-center">
+                                Spending
+                            </h3>
+                            <!-- Donut Chart -->
+                            <div class="row">
+                                <!-- Donut -->
+                                <div class="col-md-7 col-lg-7">
+                                    <div class="canvas-holder">
+                                        <canvas id="modular-doughnut1" width="10" height="5"></canvas>
+                                    </div>
+                                </div>
+                                <!-- Legend -->
+                                <div class="col-md-5 col-lg-5">
+                                    <div id="legend-holder1"></div>
+                                </div>
                             </div>
-                            <div ng-if="fund.loan">
-                                <!-- Button - Add Draw -->
-                                <button type="button" class="btn btn-success" ng-click="clickedFund(fund) && showAddDrawModal()">
-                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    <b> Add a Draw </b>
-                                </button>
-                                <!-- Button - Delete Draws -->
-                                <button type="button" class="btn btn-danger" data-placement="right" bs-tooltip
-                                        title="Delete Selected" ng-model="fund.selected"
-                                        ng-class="{ 'disabled': !fund.selected }" ng-click="clickedFund(fund) && showDeleteDrawsModal()">
-                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                    <b> Delete </b>
-                                </button>
-                                <!-- Line Breaks -->
-                                <br>
-                                <br>
-                                <!-- Table -->
-                                <table st-table="fund.draws" class="table table-striped table-hover table-responsive">
-                                    <thead>
-                                        <tr>
-                                            <th> <input type="checkbox" class="checkbox" ng-model="fund.checkboxAll"
-                                                        ng-click="clickedFund(fund) && clickedAllCheckbox()"> </th>
-                                            <th class="text-center"> Action </th>
-                                            <th class="text-center"> Draw </th>
-                                            <th class="text-center"> Date </th>
-                                            <th class="text-center"> Amount </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="draw in fund.draws">
-                                            <td><input type="checkbox" class="checkbox" ng-model="draw.selected"
-                                                       ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)"></td>
-                                            <td class="text-center">
-                                                <a class="text-primary" href data-placement="top" bs-tooltip title="Edit"
-                                                   ng-click="clickedFund(fund) && clickedDraw(draw) && showEditDrawModal()">
-                                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                                </a>
-                                            </td>
-                                            <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
-                                            <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
-                                            <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody ng-if="fund.draws.length != 0">
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="text-right"> <b> Total Draw Amount </b> </td>
-                                            <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody ng-if="fund.draws.length != 0">
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
-                                            <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody ng-if="fund.draws.length != 0">
-                                        <tr>
-                                            <td colspan="3"></td>
-                                            <td class="text-right"> <b> Amount Left </b> </td>
-                                            <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
-                                        </tr>
-                                    </tbody>
-                                    <tbody ng-if="fund.draws.length == 0">
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="4"> You have not made any draws yet. </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                        </div>
+                        <div ng-show="fund.loan">
+                            <!-- Button - Add Draw -->
+                            <button type="button" class="btn btn-success" ng-click="clickedFund(fund) && showAddDrawModal()">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                <b> Add a Draw </b>
+                            </button>
+                            <!-- Button - Delete Draws -->
+                            <button type="button" class="btn btn-danger" data-placement="right" bs-tooltip
+                                    title="Delete Selected" ng-model="fund.selected"
+                                    ng-class="{ 'disabled': !fund.selected }" ng-click="clickedFund(fund) && showDeleteDrawsModal()">
+                                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                <b> Delete </b>
+                            </button>
+                            <!-- Line Breaks -->
+                            <br>
+                            <br>
+                            <!-- Table -->
+                            <table st-table="fund.draws" class="table table-striped table-hover table-responsive">
+                                <!-- Table Header -->
+                                <thead>
+                                    <tr>
+                                        <th> <input type="checkbox" class="checkbox" ng-model="fund.checkboxAll"
+                                                    ng-click="clickedFund(fund) && clickedAllCheckbox()"> </th>
+                                        <th class="text-center"> Action </th>
+                                        <th class="text-center"> Draw </th>
+                                        <th class="text-center"> Date </th>
+                                        <th class="text-center"> Amount </th>
+                                    </tr>
+                                </thead>
+                                <!-- Table Body -->
+                                <tbody>
+                                    <tr ng-repeat="draw in fund.draws">
+                                        <td><input type="checkbox" class="checkbox" ng-model="draw.selected"
+                                                   ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)"></td>
+                                        <td class="text-center">
+                                            <a class="text-primary" href data-placement="top" bs-tooltip title="Edit"
+                                               ng-click="clickedFund(fund) && clickedDraw(draw) && showEditDrawModal()">
+                                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                                            </a>
+                                        </td>
+                                        <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
+                                        <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
+                                        <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
+                                    </tr>
+                                </tbody>
+                                <!-- Totals -->
+                                <tbody ng-if="fund.draws.length != 0">
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Total Draw Amount </b> </td>
+                                        <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
+                                        <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Amount Left </b> </td>
+                                        <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
+                                    </tr>
+                                </tbody>
+                                <!-- Empty Totals -->
+                                <tbody ng-if="fund.draws.length == 0">
+                                    <tr>
+                                        <td></td>
+                                        <td colspan="4"> You have not made any draws yet. </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-                <div ng-if="fund_list.length == 0">
-                    <h4> Get started by adding your out of pocket funds or loans. </h4>
-                </div>
+            </div>
+            <!-- Empty Project -->
+            <div ng-if="fund_list.length == 0">
+                <h4> Get started by adding your out of pocket funds or loans. </h4>
             </div>
         </div>
     </div>
 </div>
+<!-- Line Breaks -->
+<br><br><br><br>
 <!-- END -->
 
 <!-- MODALS -->

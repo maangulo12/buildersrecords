@@ -16,6 +16,7 @@ angular.module('app.funds', [])
     function init() {
         $scope.username = store.get('user').username;
         getFunds();
+        drawPiechart();
     }
     $scope.logOut = function() {
         store.remove('jwt');
@@ -62,12 +63,54 @@ angular.module('app.funds', [])
         .then(function(response) {
             $scope.fund_list = response.data.objects;
 
-            angular.forEach($scope.fund_list, function(fund) {
+            angular.forEach(response.data.objects, function(fund) {
                 var draw_amount = 0;
                 angular.forEach(fund.draws, function(draw) {
                     draw_amount += draw.amount;
                 });
                 fund.total_draw = draw_amount;
+            });
+
+        }, function(error) {
+            $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
+        });
+    }
+    function drawPiechart() {
+        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
+        .then(function(response) {
+            var i = 1;
+
+            angular.forEach(response.data.objects, function(fund) {
+                var data = [];
+                var total_spent = 0;
+
+                angular.forEach(fund.expenditures, function(expenditure) {
+                    total_spent += expenditure.cost;
+                });
+                data.push({
+                    value    : total_spent,
+                    color    : '#f1554c',
+                    highlight: '#f1554c',
+                    label    : 'Amount Spent'
+                });
+                data.push({
+                    value    : fund.amount - total_spent,
+                    color    : '#6acdb2',
+                    highlight: '#6acdb2',
+                    label    : 'Amount Left'
+                });
+                // Draw Funds Pie Chart
+                var ctx = $('#modular-doughnut' + i).get(0).getContext('2d');
+                var chart = new Chart(ctx).Doughnut(data, {
+                    responsive: true,
+                    tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
+                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+                });
+                var legend = document.createElement('div');
+                legend.innerHTML = chart.generateLegend();
+                document.getElementById('legend-holder' + i).appendChild(legend.firstChild);
+
+                i++;
             });
         }, function(error) {
             $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
@@ -212,5 +255,16 @@ angular.module('app.funds', [])
         }, function(error) {
             $scope.edit_draw_form.$invalid = true;
         });
+    }
+    // UTILITY functions
+    Number.prototype.formatMoney = function(c, d, t) {
+        var n = this,
+            c = isNaN(c = Math.abs(c)) ? 2 : c,
+            d = d == undefined ? "." : d,
+            t = t == undefined ? "," : t,
+            s = n < 0 ? "-" : "",
+            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+            j = (j = i.length) > 3 ? j % 3 : 0;
+        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
     }
 });
