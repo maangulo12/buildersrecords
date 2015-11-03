@@ -8,7 +8,35 @@
     This module implements the utility functions of this application.
 """
 
-from xlrd import open_workbook
+from datetime import date
+from xlrd import open_workbook, xldate_as_tuple
+
+
+def parse_invoice_file(path):
+    """
+    Parses the Invoice Excel file.
+    :param path: the location of the file
+    """
+    wb = open_workbook(filename=path)
+    ws = wb.sheet_by_name('Invoices indexed by date')
+    expenditure_list = []
+
+    for i in range(2, 140):
+        cells = ws.row_slice(rowx=i,
+                             start_colx=1,
+                             end_colx=6)
+
+        date_tuple = xldate_as_tuple(cells[0].value, 0)
+        year, month, day, hour, minutes, seconds = date_tuple
+
+        expenditure_list.append({
+            'date':        str(date(year, month, day)),
+            'vendor':      cells[1].value,
+            'description': cells[2].value,
+            'cost':        convert_to_float(cells[3].value),
+            'notes':       cells[4].value
+        })
+    return expenditure_list
 
 
 def parse_ubuildit_file(path):
