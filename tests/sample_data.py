@@ -99,7 +99,7 @@ def populate_db(app):
     client.post('/api/funds', data=json.dumps({
         'name': 'Messer',
         'loan': False,
-        'amount': 30000.00,
+        'amount': 100000.00,
         'project_id': 1
     }, use_decimal=True),
         headers={
