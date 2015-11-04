@@ -78,7 +78,7 @@
         </div>
         <!-- Right Side -->
         <div class="col-md-9 col-lg-9">
-            <!-- Alert -->
+            <!-- Alert - Error -->
             <div class="alert alert-danger alert-dismissible text-center" role="alert"
                  ng-if="error_msg">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -102,6 +102,14 @@
             <!-- Line Breaks -->
             <br>
             <br>
+            <!-- Alert - Empty Project -->
+            <div class="alert alert-info alert-dismissible text-center" role="alert"
+                 ng-if="fund_list.length == 0">
+                <span class="sr-only"> Info: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Get started by adding your out of pocket funds or loans. </b>
+            </div>
             <!-- Panels -->
             <div ng-repeat="fund in fund_list">
                 <div class="panel panel-default">
@@ -279,10 +287,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- Empty Project -->
-            <div ng-if="fund_list.length == 0">
-                <h4> Get started by adding your out of pocket funds or loans. </h4>
             </div>
         </div>
     </div>
