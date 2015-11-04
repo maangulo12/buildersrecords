@@ -85,10 +85,6 @@
                 <!-- Sub Header -->
                 <h4 class="text-muted"> {{ project_name }} </h4>
             </div>
-            <!-- Bar Chart -->
-            <div class="canvas-holder">
-                <canvas id="modular-bar" width="770" height="350"></canvas>
-            </div>
         </div>
     </div>
 </div>
@@ -166,7 +162,12 @@
             </tr>
         </tbody>
         <!-- Empty Project -->
-        <tbody ng-if="category_list.length == 0"></tbody>
+        <tbody >
+            <tr ng-if="category_list.length == 0" class="active">
+                <td> </td>
+                <td colspan="9"> No categories to show. </td>
+            </tr>
+        </tbody>
         <!-- Table Footer -->
         <tfoot ng-if="category_list.length != 0">
             <tr class="footer-color">
