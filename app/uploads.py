@@ -15,10 +15,11 @@ import os
 import sys
 from werkzeug import secure_filename
 from flask import make_response, request
+from tinys3 import Connection
 
 from app import app, db
 from app.models import Project, Category, Item
-from app.settings import UPLOAD_PATH
+from app.settings import UPLOAD_PATH, AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET
 from app.utility import parse_ubuildit_file
 
 
@@ -34,9 +35,18 @@ def upload_file(path, filename, file_obj):
     :return: True if the file is saved
     """
     try:
+        criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
+
         secured_file = secure_filename(filename)
-        full_path = os.path.join(path, secured_file)
-        file_obj.save(full_path)
+
+        if all(criterion):
+            conn = Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+            full_path = os.path.join(S3_BUCKET, path)
+            conn.upload(secured_file, file_obj, full_path)
+        else:
+            full_path = os.path.join(path, secured_file)
+            file_obj.save(full_path)
+
         return True
 
     except:
