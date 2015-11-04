@@ -86,19 +86,19 @@ li button {
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 15px;
     margin-top: 20px;
 }
 .doughnut-legend li {
-    margin-bottom: 4px;
+    margin-bottom: 7px;
 }
 .comm-how {
     display: inline-block;
     float: left;
-    color: #979797;
+    color: #2c3e50;
     width: 55px;
     text-align: right;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 thead tr {
     background-color: #2c3e50;
