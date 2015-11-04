@@ -181,7 +181,12 @@
             </tr>
         </tbody>
         <!-- Empty Project -->
-        <tbody ng-if="category_list.length == 0"></tbody>
+        <tbody ng-if="category_list.length == 0">
+            <tr class="active">
+                <td> </td>
+                <td colspan="7"> No categories to show. </td>
+            </tr>
+        </tbody>
         <!-- Table Footer -->
         <tfoot ng-if="category_list.length != 0">
             <tr class="footer-color">

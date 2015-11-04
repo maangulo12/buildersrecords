@@ -25,9 +25,20 @@ angular.module('app.budget', [])
 
             var i = 0;
             var data = [];
-            var colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
+            var colors = [];
             var grand_total_budget = 0;
             var grand_total_actual = 0;
+
+            if (response.data.objects.length == 0) {
+                data.push({
+                    value    : 0.01,
+                    color    : '#AAAAAA',
+                    highlight: '#AAAAAA',
+                    label    : 'No categories'
+                });
+            } else {
+                colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
+            }
 
             angular.forEach(response.data.objects, function(category) {
                 var total_budget = 0;
