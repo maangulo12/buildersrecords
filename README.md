@@ -69,7 +69,7 @@ Web app for accounting home construction projects.
 
 + Subcontractors module: <b> Miguel 10/26/2015 </b>
 ```
-    -Display table with subcontractors
+    -Add, Edit, and Delete functionality
 ```
 
 + Modules to Implement:
