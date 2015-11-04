@@ -16,7 +16,6 @@ angular.module('app.funds', [])
     function init() {
         $scope.username = store.get('user').username;
         getFunds();
-        drawPiechart();
     }
     $scope.logOut = function() {
         store.remove('jwt');
@@ -69,49 +68,17 @@ angular.module('app.funds', [])
                     draw_amount += draw.amount;
                 });
                 fund.total_draw = draw_amount;
-            });
 
-        }, function(error) {
-            $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
-        });
-    }
-    function drawPiechart() {
-        $http.get('/api/funds?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
-        .then(function(response) {
-            var i = 1;
-
-            angular.forEach(response.data.objects, function(fund) {
-                var data = [];
-                var total_spent = 0;
-
+                var total_expenditure = 0;
                 angular.forEach(fund.expenditures, function(expenditure) {
-                    total_spent += expenditure.cost;
+                    total_expenditure += expenditure.cost;
                 });
-                data.push({
-                    value    : total_spent,
-                    color    : '#f1554c',
-                    highlight: '#f1554c',
-                    label    : 'Amount Spent'
-                });
-                data.push({
-                    value    : fund.amount - total_spent,
-                    color    : '#6acdb2',
-                    highlight: '#6acdb2',
-                    label    : 'Amount Left'
-                });
-                // Draw Funds Pie Chart
-                var ctx = $('#modular-doughnut' + i).get(0).getContext('2d');
-                var chart = new Chart(ctx).Doughnut(data, {
-                    responsive: true,
-                    tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
-                    legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-                });
-                var legend = document.createElement('div');
-                legend.innerHTML = chart.generateLegend();
-                document.getElementById('legend-holder' + i).appendChild(legend.firstChild);
+                fund.total_expenditure = total_expenditure;
 
-                i++;
+                fund.spent = Math.round(total_expenditure / fund.amount * 100);
+                fund.left = Math.round((fund.amount - total_expenditure) / fund.amount * 100);
             });
+
         }, function(error) {
             $scope.error_msg = 'Could not load your funds/loans. Please try to refresh the page.';
         });
