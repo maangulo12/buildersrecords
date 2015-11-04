@@ -16,13 +16,18 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'secret_key')
 # WSGI server
 SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = int(os.environ.get('SERVER_PORT', 5555))
-SERVER_DEBUG = True
+SERVER_DEBUG = os.environ.get('SERVER_DEBUG', True)
 
-# Uploads path
+# AWS
+AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY', None)
+AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY', None)
+S3_BUCKET = os.environ.get('S3_BUCKET', None)
+
+# Uploads
 UPLOAD_PATH = os.environ.get('UPLOAD_PATH', '/uploads/')
 
 # API Auth
-AUTH_HEADER_PREFIX = os.environ.get('AUTH_HEADER_PREFIX', 'Bearer')
+AUTH_HEADER_PREFIX = 'Bearer'
 AUTH_VERIFY_EXP = False
 AUTH_SECRET = os.environ.get('AUTH_SECRET', 'secret')
 
@@ -31,9 +36,8 @@ MAIL_SERVER = 'smtp.gmail.com'
 MAIL_PORT = 465
 MAIL_USE_SSL = True
 MAIL_DEBUG = True
-MAIL_USERNAME = os.environ.get('MAIL_USERNAME',
-                               'buildersrecords.app@gmail.com')
-MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD' 'buildersrecords123')
+MAIL_USERNAME = os.environ.get('MAIL_USERNAME', 'email@gmail.com')
+MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD' 'password')
 MAIL_DEFAULT_SENDER = ('BuildersRecords', MAIL_USERNAME)
 
 # Local DB settings
