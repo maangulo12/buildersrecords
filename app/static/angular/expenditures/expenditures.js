@@ -57,7 +57,18 @@ angular.module('app.expenditures', [])
         .then(function(response) {
             var i = 0;
             var data = [];
-            var colors = getColorList(response.data.objects.length, 'coral', 'darkred');
+            var colors = [];
+
+            if (response.data.objects.length == 0) {
+                data.push({
+                    value    : 0.01,
+                    color    : '#AAAAAA',
+                    highlight: '#AAAAAA',
+                    label    : 'No categories'
+                });
+            } else {
+                colors = getColorList(response.data.objects.length, 'coral', 'darkred');
+            }
 
             angular.forEach(response.data.objects, function(category) {
                 var category_total = 0;

@@ -79,7 +79,7 @@
         </div>
         <!-- Right Side -->
         <div class="col-md-9 col-lg-9">
-            <!-- Alert -->
+            <!-- Alert - Error -->
             <div class="alert alert-danger alert-dismissible text-center" role="alert"
                  ng-if="error_msg">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -214,16 +214,15 @@
                 <td colspan="4"></td>
             </tr>
             <!-- Empty Project -->
-            <tr ng-if="expenditure_list.length == 0">
+            <tr ng-if="expenditure_list.length == 0" class="active">
                 <td colspan="1"></td>
-                <td colspan="9"> You do not have any expenditures yet. </td>
+                <td colspan="9"> You have not made any expenditures yet. </td>
             </tr>
         </tbody>
         <!-- Table Footer -->
         <tfoot>
 			<tr>
-                <td colspan="5"> <b> Showing ... to ... of ... expenditures. </b> </td>
-				<td colspan="5" class="text-right">
+				<td colspan="10" class="text-right">
 					<div st-pagination="" st-items-by-page="10"
                          st-template="angular/pagination.custom.html"></div>
 				</td>
