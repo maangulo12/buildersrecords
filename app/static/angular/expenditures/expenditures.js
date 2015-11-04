@@ -72,12 +72,13 @@ angular.module('app.expenditures', [])
                 });
                 i++;
             });
-            // Draw Expenditures Pie Chart
+            // Draw Pie Chart
             var ctx = $('#modular-doughnut').get(0).getContext('2d');
             var chart = new Chart(ctx).Doughnut(data, {
+                scaleIntegersOnly: false,
                 responsive: true,
-                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(0, '.', ',') %>",
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(0, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(2, '.', ',') %>",
+                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(2, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
             });
             var legend = document.createElement('div');
     		legend.innerHTML = chart.generateLegend();
