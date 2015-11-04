@@ -63,20 +63,23 @@ angular.module('app.funds', [])
             $scope.fund_list = response.data.objects;
 
             angular.forEach(response.data.objects, function(fund) {
-                var draw_amount = 0;
-                angular.forEach(fund.draws, function(draw) {
-                    draw_amount += draw.amount;
-                });
-                fund.total_draw = draw_amount;
-
                 var total_expenditure = 0;
                 angular.forEach(fund.expenditures, function(expenditure) {
                     total_expenditure += expenditure.cost;
                 });
                 fund.total_expenditure = total_expenditure;
 
+                var total_draw = 0;
+                angular.forEach(fund.draws, function(draw) {
+                    total_draw += draw.amount;
+                });
+                fund.total_draw = total_draw;
+
                 fund.spent = Math.round(total_expenditure / fund.amount * 100);
                 fund.left = Math.round((fund.amount - total_expenditure) / fund.amount * 100);
+
+                fund.draw_received = Math.round(total_draw / fund.amount * 100);
+                fund.draw_left = Math.round((fund.amount - total_draw) / fund.amount * 100);
             });
 
         }, function(error) {

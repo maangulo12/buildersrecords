@@ -170,6 +170,40 @@
                         </div>
                         <!-- Loan Draws -->
                         <div ng-show="fund.loan">
+                            <!-- Title -->
+                            <div class="row">
+                                <!-- Left Side -->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <h4> <span class="glyphicon glyphicon-list" aria-hidden="true"></span> <b> Loan Draws </b> </h4>
+                                </div>
+                                <!-- Right Side -->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <h5 class="text-right"> <b> Total = {{ fund.amount | currency }} </b> </h5>
+                                </div>
+                            </div>
+                            <!-- Progress Bar -->
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ fund.draw_received }}%;">
+                                    <span class="sr-only"> {{ fund.draw_received }}% Complete </span>
+                                </div>
+                                <div class="progress-bar progress-bar-success progress-bar-striped" style="width: {{ fund.draw_left }}%;">
+                                    <span class="sr-only"> {{ fund.draw_left }}% Complete </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Left Side -->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <p class="text-warning"> <b> {{ fund.total_draw | currency }} Received </b> </p>
+                                    <p class="text-muted"> <b> {{ fund.draw_received }}% of Total </b> </p>
+                                </div>
+                                <!-- Right Side -->
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                    <div ng-if="fund.amount > fund.total_expenditure">
+                                        <p class="text-right text-success"> <b> {{ fund.amount - fund.total_draw | currency }} Left </b> </p>
+                                        <p class="text-right text-muted"> <b> {{ fund.draw_left }}% of Total </b> </p>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Line Break -->
                             <br>
                             <!-- Button - Add Draw -->
