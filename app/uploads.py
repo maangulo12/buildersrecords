@@ -41,8 +41,8 @@ def upload_file(path, filename, file_obj):
 
         if all(criterion):
             conn = Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-            full_path = os.path.join(S3_BUCKET, path)
-            conn.upload(secured_file, file_obj, full_path)
+            full_path = os.path.join(path, secured_file)
+            conn.upload(full_path, file_obj, S3_BUCKET)
         else:
             full_path = os.path.join(path, secured_file)
             file_obj.save(full_path)
