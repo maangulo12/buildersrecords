@@ -23,12 +23,13 @@ API_ENTRY = '/api/email'
 # add route protection
 @app.route(API_ENTRY + '/registration', methods=['POST'])
 def registration():
-    data = request.get_json(force=True)
-    email = data.get('email', None)
+    data       = request.get_json(force=True)
+    email      = data.get('email', None)
     first_name = data.get('first_name', None)
-    last_name = data.get('last_name', None)
-    username = data.get('username', None)
-    criterion = [email, first_name, last_name, username, len(data) == 4]
+    last_name  = data.get('last_name', None)
+    username   = data.get('username', None)
+    
+    criterion  = [email, first_name, last_name, username, len(data) == 4]
 
     if not all(criterion):
         return make_response('Registration email could not be sent', 400)
