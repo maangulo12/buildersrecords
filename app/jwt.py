@@ -45,9 +45,10 @@ def auth():
         login    : 'username' or 'email address'
         password : 'password'
     """
-    data = request.get_json(force=True)
-    login = data.get('login', None)
-    password = data.get('password', None)
+    data      = request.get_json(force=True)
+    login     = data.get('login', None)
+    password  = data.get('password', None)
+
     criterion = [login, password, len(data) == 2]
 
     if not all(criterion):
