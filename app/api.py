@@ -30,100 +30,106 @@ from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, S
 # results_per_page: pagination turned off (set to 0)
 # GET_MANY and POST are unprotected (not listed in preprocessors)
 api_manager.create_api(User,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(GET_SINGLE=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='users')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'users',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          GET_SINGLE    = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Projects: /api/projects
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Project,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='projects')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'projects',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          POST          = [verify_jwt],
+                                          GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Categories: /api/categories
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Category,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='categories')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'categories',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          POST          = [verify_jwt],
+                                          GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Items: /api/items
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Item,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='items')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'items',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          POST          = [verify_jwt],
+                                          GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Expenditures: /api/expenditures
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Expenditure,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='expenditures')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'expenditures',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          POST          = [verify_jwt],
+                                          GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Funds: /api/funds
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Fund,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='funds')
+                       methods          = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix       = '/api',
+                       collection_name  = 'funds',
+                       results_per_page = 0,
+                       preprocessors    = dict(
+                                          POST          = [verify_jwt],
+                                          GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
+                                          PUT_SINGLE    = [verify_jwt],
+                                          PUT_MANY      = [verify_jwt],
+                                          DELETE_SINGLE = [verify_jwt],
+                                          DELETE_MANY   = [verify_jwt]))
 
 # Draws: /api/draws
 # methods allowed: GET, POST, DELETE, PUT
@@ -131,18 +137,19 @@ api_manager.create_api(Fund,
 # allow_delete_many: to allow bulk deletions
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Draw,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       allow_delete_many=True,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='draws')
+                       methods           = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix        = '/api',
+                       collection_name   = 'draws',
+                       results_per_page  = 0,
+                       allow_delete_many = True,
+                       preprocessors     = dict(
+                                           POST          = [verify_jwt],
+                                           GET_SINGLE    = [verify_jwt],
+                                           GET_MANY      = [verify_jwt],
+                                           PUT_SINGLE    = [verify_jwt],
+                                           PUT_MANY      = [verify_jwt],
+                                           DELETE_SINGLE = [verify_jwt],
+                                           DELETE_MANY   = [verify_jwt]))
 
 
 # Subcontractors: /api/subcontractors
@@ -151,15 +158,16 @@ api_manager.create_api(Draw,
 # allow_delete_many: to allow bulk deletions
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Subcontractor,
-                       methods=['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix='/api',
-                       results_per_page=0,
-                       allow_delete_many=True,
-                       preprocessors=dict(POST=[verify_jwt],
-                                          GET_SINGLE=[verify_jwt],
-                                          GET_MANY=[verify_jwt],
-                                          PUT_SINGLE=[verify_jwt],
-                                          PUT_MANY=[verify_jwt],
-                                          DELETE_SINGLE=[verify_jwt],
-                                          DELETE_MANY=[verify_jwt]),
-                       collection_name='subcontractors')
+                       methods           = ['GET', 'POST', 'DELETE', 'PUT'],
+                       url_prefix        = '/api',
+                       collection_name   = 'subcontractors',
+                       results_per_page  = 0,
+                       allow_delete_many = True,
+                       preprocessors     = dict(
+                                           POST          = [verify_jwt],
+                                           GET_SINGLE    = [verify_jwt],
+                                           GET_MANY      = [verify_jwt],
+                                           PUT_SINGLE    = [verify_jwt],
+                                           PUT_MANY      = [verify_jwt],
+                                           DELETE_SINGLE = [verify_jwt],
+                                           DELETE_MANY   = [verify_jwt]))
