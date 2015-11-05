@@ -1,4 +1,4 @@
-# [BuildersRecords] (http://flask-angularjs.herokuapp.com/)
+# [BuildersRecords] (http://www.buildersrecords.com/)
 
 Web app for accounting home construction projects.
 
@@ -8,9 +8,11 @@ Web app for accounting home construction projects.
 ```
     -Stripe
     -Auth0
-    -AWS Deployment
+    -Heroku Deployment
+    -Heroku Add-ons
+    -AWS File Storage
     -GitHub Private Account
-    -Domain Name Pricing
+    -Domain Name
     -SSL Certificate
 ```
 
@@ -34,37 +36,28 @@ Web app for accounting home construction projects.
 + Projects module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Delete Project ('bulk' delete everything about the project)
-    -Test upload file
 ```
 
 + Overview module: <b> Miguel 10/15/2015 </b>
 ```
     -Overview Graph
     -Overview Table
-    -Empty project test
 ```
 
 + Budget module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Add, Update, Delete items and categories
-    -Empty project test
 ```
 
 + Funds module:
 ```
-    -Edit Loan (pre-select choice in loan question in dropdown)
-    -Edit Draw (after updating, table rows shift)
-    -Edit Draw (date of draw needs to be correct)
-    -Think about what to show for non loan funds
-    -Empty project test
+    -Edit Loan
+    -Edit Draw
 ```
 
 + Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
     -Fix table resizing
-    -Fix table footer
-    -Add and Update tests
-    -Empty project test
 ```
 
 + Subcontractors module: <b> Miguel 10/26/2015 </b>
