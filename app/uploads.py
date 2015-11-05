@@ -29,10 +29,10 @@ API_ENTRY = '/api/upload'
 def upload_file(path, filename, file_obj):
     """
     Saves a file to the specified path.
-    :param path: the path to store the file
-    :param filename: the name of the file including the file extension
-    :param file_obj: the file as a FileStorage object
-    :return: True if the file is saved
+        :param path: the path to store the file
+        :param filename: the name of the file including the file extension
+        :param file_obj: the file as a FileStorage object
+        :return: True if the file is saved
     """
     try:
         criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
@@ -61,14 +61,15 @@ def ubuildit():
     This route is used for uploading a UBuildIt Cost Review excel file.
     """
     # get length of request
-    file_obj = request.files['file']
-    name = request.form['name']
-    address = request.form['address']
-    city = request.form['city']
-    state = request.form['state']
-    zipcode = request.form['zipcode']
+    file_obj     = request.files['file']
+    name         = request.form['name']
+    address      = request.form['address']
+    city         = request.form['city']
+    state        = request.form['state']
+    zipcode      = request.form['zipcode']
     project_type = request.form['project_type']
-    user_id = request.form['user_id']
+    user_id      = request.form['user_id']
+
     criterion = [file_obj, name, address, city,
                  state, zipcode, project_type, user_id]
 
