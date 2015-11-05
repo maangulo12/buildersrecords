@@ -55,7 +55,7 @@ class AppTestCase(unittest.TestCase):
             'first_name': 'first',
             'last_name':  'last',
             'email':      'email@gmail.com'
-        }), headers={'content-type': 'application/json'})
+        }), headers={'Content-Type': 'application/json'})
         self.assertTrue(response.status_code is 201)
 
         # login for authentication header
@@ -71,7 +71,7 @@ class AppTestCase(unittest.TestCase):
             'first_name': 'first1',
             'last_name':  'last1',
             'email':      'email1@gmail.com'
-        }), headers={'content-type': 'application/json'})
+        }), headers={'Content-Type': 'application/json'})
         self.assertTrue(response.status_code is 200)
 
         # DELETE /api/users/<int: id> (id = 1)
