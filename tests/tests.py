@@ -5,7 +5,7 @@
     tests.py
     ---------------
 
-    This module is used for testing the backend of the application.
+    This module is used for testing the backend of this application.
 
     -How to use it (type the following in the command-line):
         python3 manage.py runtests
@@ -50,13 +50,15 @@ class AppTestCase(unittest.TestCase):
 
         # POST /api/users (new user)
         response = self.client.post('/api/users', data=json.dumps({
-            'username': 'mangulo',
-            'password': 'password',
-            'first_name': 'Miguel',
-            'last_name': 'Angulo',
-            'email': 'my_email@gmail.com'
+            'username':   'user',
+            'password':   'password',
+            'first_name': 'first',
+            'last_name':  'last',
+            'email':      'email@gmail.com'
         }), headers={'content-type': 'application/json'})
         self.assertTrue(response.status_code is 201)
+
+        # login for authentication header
 
         # GET /api/users/<int: id> (id = 1)
         response = self.client.get('/api/users/1')
@@ -64,11 +66,11 @@ class AppTestCase(unittest.TestCase):
 
         # PUT /api/users/<int: id> (id = 1)
         response = self.client.put('/api/users/1', data=json.dumps({
-            'username': 'username',
-            'password': 'password',
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'email': 'my_email@gmail.com'
+            'username':   'user1',
+            'password':   'password1',
+            'first_name': 'first1',
+            'last_name':  'last1',
+            'email':      'email1@gmail.com'
         }), headers={'content-type': 'application/json'})
         self.assertTrue(response.status_code is 200)
 
