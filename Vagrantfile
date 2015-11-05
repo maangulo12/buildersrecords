@@ -30,15 +30,16 @@ Vagrant.configure(2) do |config|
     # Run this shell script
     config.vm.provision :shell, inline: $shell
     # Open 5432 port of this VM to communicate with 5432 port of my local PC
-    # 5432 port = PostgreSQL port (database port)
+    # 5432 port = PostgreSQL port
     config.vm.network :forwarded_port, guest: 5432, host: 5432
     # Open 5555 port of this VM to communicate with 5555 port of my local PC
-    # 5555 port = Flask port (application port)
+    # 5555 port = Flask port
     config.vm.network :forwarded_port, guest: 5555, host: 5555
 end
 
 # This is the shell script that configures this VM
 $shell = <<-CONTENTS
+
 sudo -s
 export DEBIAN_FRONTEND=noninteractive
 
@@ -79,4 +80,5 @@ chmod 777 uploads
 cd /vagrant/
 python3 manage.py create
 python3 manage.py populate
+
 CONTENTS
