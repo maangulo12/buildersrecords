@@ -15,10 +15,11 @@ from xlrd import open_workbook, xldate_as_tuple
 def parse_invoice_file(path):
     """
     Parses the Invoice Excel file.
-    :param path: the location of the file
+        :param path: the location of the file
     """
     wb = open_workbook(filename=path)
     ws = wb.sheet_by_name('Invoices indexed by date')
+
     expenditure_list = []
 
     for i in range(2, 140):
@@ -42,12 +43,12 @@ def parse_invoice_file(path):
 def parse_ubuildit_file(path):
     """
     Parses the UBuildIt Excel file.
-    :param path: the location of the file
-    :returns
-        category_list: {
-            'category_name:' 'name_of_category',
-            'item_list': 'list_of_items[]'
-        }
+        :param path: the location of the file
+        :return:
+            category_list: {
+                'category_name:' 'name_of_category',
+                'item_list': 'list_of_items[]'
+                }
     """
     wb = open_workbook(filename=path)
     ws = wb.sheet_by_name('UBI Cost Review')
@@ -67,9 +68,10 @@ def parse_ubuildit_file(path):
 def get_item_list(ws, start, end):
     """
     Get item list from excel file.
-    :param start: start position to read row of file
-    :param end: end position to read row of file
-    :return: Returns the item_list parsed
+        :param ws: excel worksheet object
+        :param start: start position to read row of file
+        :param end: end position to read row of file
+        :return: Returns the item_list parsed
     """
     temp_list = []
 
@@ -93,8 +95,8 @@ def get_item_list(ws, start, end):
 def convert_to_float(s):
     """
     Converts a String into int or float.
-    :param s: String
-    :return: Returns an int or float
+        :param s: String
+        :return: Returns an int or float
     """
     if isinstance(s, float):
         return round(s, 2)
