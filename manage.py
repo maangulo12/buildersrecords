@@ -5,8 +5,7 @@
     manage.py
     ---------------
 
-    This module is used as a utility module for doing quick
-    commands in this application.
+    This module is used for performing quick commands in this application.
 
     -Commands:
         create    : Creates all of the tables in the database.
@@ -19,10 +18,10 @@
         shell     : Runs a Python shell using IPython.
 
     -How to use this module (type the following in the command-line):
-        1. Type this to see the available commands:
+        1. Type the following to see the available commands:
             python3 manage.py
 
-        2. Or type this to execute command:
+        2. Or type the following to execute command:
             python3 manage.py (insert command here)
 """
 
