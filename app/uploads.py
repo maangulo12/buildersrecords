@@ -13,9 +13,11 @@
 
 import os
 import sys
+from uuid import uuid4
 from werkzeug import secure_filename
 from flask import make_response, request
-from tinys3 import Connection
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
 
 from app import app, db
 from app.models import Project, Category, Item
@@ -26,31 +28,29 @@ from app.utility import parse_ubuildit_file
 API_ENTRY = '/api/upload'
 
 
-def upload_file(path, filename, file_obj):
+def save_file(path, file_obj, aws_flag=False):
     """
     Saves a file to the specified path.
-        :param path: the path to store the file
-        :param filename: the name of the file including the file extension
+        :param path: the path to store the file including the filename and
+                     file extension
         :param file_obj: the file as a FileStorage object
-        :return: True if the file is saved
+        :param aws_flag: whether to store on AWS S3
+        :return: True if the file is uploaded or saved
     """
     try:
-        criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
-
-        secured_file = secure_filename(filename)
-
-        if all(criterion):
-            conn = Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-            full_path = os.path.join(path, secured_file)
-            conn.upload(full_path, file_obj, S3_BUCKET)
+        if (aws_flag):
+            conn         = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+            bucket       = conn.get_bucket(S3_BUCKET)
+            k            = Key(bucket=bucket, name=path)
+            file_content = file_obj.read()
+            k.set_contents_from_string(file_content)
         else:
-            full_path = os.path.join(path, secured_file)
-            file_obj.save(full_path)
+            file_obj.save(path)
 
         return True
 
     except:
-        print('Unexpected error:', sys.exc_info()[0])
+        print('Could not upload file', sys.exc_info()[0])
         return False
 
 
@@ -76,15 +76,13 @@ def ubuildit():
     if not all(criterion):
         return make_response('Bad request', 400)
 
-    # create unique file_name
-    if upload_file(UPLOAD_PATH, file_obj.name, file_obj):
+    aws_criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
+    unique_id     = uuid4()
+    full_path     = UPLOAD_PATH + str(unique_id)
+
+    if save_file(full_path, file_obj, all(aws_criterion)):
         try:
-            secured_file = secure_filename(file_obj.name)
-            full_path = ''.join([UPLOAD_PATH, secured_file])
-
-            category_list = parse_ubuildit_file(full_path)
-
-            # validation for field sizes
+            category_list = parse_ubuildit_file(full_path, all(aws_criterion))
 
             project = Project(name=name, address=address, city=city,
                               state=state, zipcode=zipcode,
@@ -93,8 +91,8 @@ def ubuildit():
             db.session.commit()
 
             for cat in category_list:
-                category = Category(
-                    name=cat['category_name'], project_id=project.id)
+                category = Category(name=cat['category_name'],
+                                    project_id=project.id)
                 db.session.add(category)
                 db.session.commit()
 
