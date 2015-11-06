@@ -260,17 +260,17 @@
                                 </tbody>
                                 <!-- Totals -->
                                 <tbody ng-if="fund.draws.length != 0">
-                                    <tr>
+                                    <tr class="active">
                                         <td colspan="3"></td>
                                         <td class="text-right"> <b> Total Draw Amount </b> </td>
                                         <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="active">
                                         <td colspan="3"></td>
                                         <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
                                         <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
                                     </tr>
-                                    <tr>
+                                    <tr class="active">
                                         <td colspan="3"></td>
                                         <td class="text-right"> <b> Amount Left </b> </td>
                                         <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
