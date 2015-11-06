@@ -67,6 +67,7 @@ def ubuildit():
     city         = request.form['city']
     state        = request.form['state']
     zipcode      = request.form['zipcode']
+    home_sq      = request.form['home_sq']
     project_type = request.form['project_type']
     user_id      = request.form['user_id']
 
@@ -85,7 +86,7 @@ def ubuildit():
             category_list = parse_ubuildit_file(full_path, all(aws_criterion))
 
             project = Project(name=name, address=address, city=city,
-                              state=state, zipcode=zipcode,
+                              state=state, zipcode=zipcode, home_sq=home_sq,
                               project_type=project_type, user_id=user_id)
             db.session.add(project)
             db.session.commit()
