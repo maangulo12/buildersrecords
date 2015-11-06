@@ -52,6 +52,7 @@ class Project(db.Model):
     city          = db.Column(db.String(30), nullable=False)
     state         = db.Column(db.String(2), nullable=False)
     zipcode       = db.Column(db.String(10), nullable=False)
+    home_sq       = db.Column(db.Integer, nullable=False)
     project_type  = db.Column(db.String(15), nullable=False)
     user_id       = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     # timestamp
