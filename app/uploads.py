@@ -86,8 +86,9 @@ def ubuildit():
 
             # validation for field sizes
 
-            project = Project(name=name, address=address, city=city, state=state,
-                              zipcode=zipcode, project_type=project_type, user_id=user_id)
+            project = Project(name=name, address=address, city=city,
+                              state=state, zipcode=zipcode,
+                              project_type=project_type, user_id=user_id)
             db.session.add(project)
             db.session.commit()
 
@@ -98,9 +99,12 @@ def ubuildit():
                 db.session.commit()
 
                 for cat_item in cat['item_list']:
-                    item = Item(name=cat_item['cost_category'], description=cat_item['description'],
-                                budget=cat_item['budget'], actual=cat_item['actual'],
-                                notes=cat_item['explanations'], category_id=category.id,
+                    item = Item(name=cat_item['cost_category'],
+                                description=cat_item['description'],
+                                budget=cat_item['budget'],
+                                actual=cat_item['actual'],
+                                notes=cat_item['explanations'],
+                                category_id=category.id,
                                 project_id=project.id)
                     db.session.add(item)
                     db.session.commit()
