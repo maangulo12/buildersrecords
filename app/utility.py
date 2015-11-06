@@ -54,14 +54,22 @@ def parse_ubuildit_file(path):
     ws = wb.sheet_by_name('UBI Cost Review')
 
     category_list = []
-    category_list.append({'category_name': ws.cell_value(5, 2), 'item_list': get_item_list(ws, 6, 15)})
-    category_list.append({'category_name': ws.cell_value(16, 2), 'item_list': get_item_list(ws, 17, 33)})
-    category_list.append({'category_name': ws.cell_value(34, 2), 'item_list': get_item_list(ws, 35, 43)})
-    category_list.append({'category_name': ws.cell_value(44, 2), 'item_list': get_item_list(ws, 45, 47)})
-    category_list.append({'category_name': ws.cell_value(48, 2), 'item_list': get_item_list(ws, 49, 52)})
-    category_list.append({'category_name': ws.cell_value(53, 2), 'item_list': get_item_list(ws, 54, 60)})
-    category_list.append({'category_name': ws.cell_value(61, 2), 'item_list': get_item_list(ws, 62, 93)})
-    category_list.append({'category_name': ws.cell_value(94, 2), 'item_list': get_item_list(ws, 95, 130)})
+    category_list.append({'category_name': ws.cell_value(5, 2),
+                          'item_list':     get_item_list(ws, 6, 15)})
+    category_list.append({'category_name': ws.cell_value(16, 2),
+                          'item_list':     get_item_list(ws, 17, 33)})
+    category_list.append({'category_name': ws.cell_value(34, 2),
+                          'item_list':     get_item_list(ws, 35, 43)})
+    category_list.append({'category_name': ws.cell_value(44, 2),
+                          'item_list':     get_item_list(ws, 45, 47)})
+    category_list.append({'category_name': ws.cell_value(48, 2),
+                          'item_list':     get_item_list(ws, 49, 52)})
+    category_list.append({'category_name': ws.cell_value(53, 2),
+                          'item_list':     get_item_list(ws, 54, 60)})
+    category_list.append({'category_name': ws.cell_value(61, 2),
+                          'item_list':     get_item_list(ws, 62, 93)})
+    category_list.append({'category_name': ws.cell_value(94, 2),
+                          'item_list':     get_item_list(ws, 95, 130)})
     return category_list
 
 
