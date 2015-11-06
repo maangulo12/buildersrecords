@@ -8,8 +8,13 @@
     This module implements the utility functions of this application.
 """
 
+from urllib.request import urlopen
 from datetime import date
 from xlrd import open_workbook, xldate_as_tuple
+from boto.s3.connection import S3Connection
+from boto.s3.key import Key
+
+from app.settings import AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET
 
 
 def parse_invoice_file(path):
@@ -40,17 +45,29 @@ def parse_invoice_file(path):
     return expenditure_list
 
 
-def parse_ubuildit_file(path):
+def parse_ubuildit_file(path, aws_flag=False):
     """
     Parses the UBuildIt Excel file.
-        :param path: the location of the file
+        :param path: the path to store the file including the filename and
+                     file extension
+        :param aws_flag: whether to read file from AWS S3
         :return:
             category_list: {
                 'category_name:' 'name_of_category',
                 'item_list': 'list_of_items[]'
                 }
     """
-    wb = open_workbook(filename=path)
+    wb = None
+
+    if (aws_flag):
+        conn   = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+        bucket = conn.get_bucket(S3_BUCKET)
+        k      = Key(bucket=bucket, name=path)
+        file_content = k.get_contents_as_string()
+        wb = open_workbook(file_contents=file_content)
+    else:
+        wb = open_workbook(filename=path)
+
     ws = wb.sheet_by_name('UBI Cost Review')
 
     category_list = []
