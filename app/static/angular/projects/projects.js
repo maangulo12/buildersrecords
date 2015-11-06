@@ -61,6 +61,7 @@ angular.module('app.projects', [])
             fd.append('city', $scope.project.city);
             fd.append('state', $scope.project.state);
             fd.append('zipcode', $scope.project.zipcode);
+            fd.append('home_sq', $scope.project.home_sq);
             fd.append('project_type', $scope.project.type);
             fd.append('user_id', store.get('user').id);
 
@@ -72,18 +73,18 @@ angular.module('app.projects', [])
                 $('#new_project_modal').modal('hide');
                 getProjects();
             }, function(error) {
-                console.log(error.data);
                 $scope.new_project_form.$invalid = true;
             });
         } else {
             $http.post('/api/projects', {
-                name        : $scope.project.name,
-                address     : $scope.project.address,
-                city        : $scope.project.city,
-                state       : $scope.project.state,
-                zipcode     : $scope.project.zipcode,
+                name:         $scope.project.name,
+                address:      $scope.project.address,
+                city:         $scope.project.city,
+                state:        $scope.project.state,
+                zipcode:      $scope.project.zipcode,
+                home_sq:      $scope.project.home_sq,
                 project_type: $scope.project.type,
-                user_id     : store.get('user').id
+                user_id:      store.get('user').id
             })
             .then(function(response) {
                 $('#new_project_modal').modal('hide');
@@ -112,12 +113,13 @@ angular.module('app.projects', [])
     }
     // UPDATE functions
     $scope.showEditProjectModal = function(project) {
-        $scope.updated_project = {};
-        $scope.updated_project.name = store.get('project').name;
+        $scope.updated_project         = {};
+        $scope.updated_project.name    = store.get('project').name;
         $scope.updated_project.address = store.get('project').address;
-        $scope.updated_project.city = store.get('project').city;
-        $scope.updated_project.state = store.get('project').state;
+        $scope.updated_project.city    = store.get('project').city;
+        $scope.updated_project.state   = store.get('project').state;
         $scope.updated_project.zipcode = store.get('project').zipcode;
+        $scope.updated_project.home_sq = store.get('project').home_sq;
         $scope.edit_project_form.$setPristine();
         $('#edit_project_modal').find('.modal-title').text('Edit Project: ' + store.get('project').name);
         $('#edit_project_modal').find('.modal-title').css('font-weight', 'Bold');
@@ -125,13 +127,13 @@ angular.module('app.projects', [])
     }
     $scope.updateProject = function() {
         $http.put('/api/projects/' + store.get('project').id, {
-            name        : $scope.updated_project.name,
-            address     : $scope.updated_project.address,
-            city        : $scope.updated_project.city,
-            state       : $scope.updated_project.state,
-            zipcode     : $scope.updated_project.zipcode,
-            project_type: $scope.updated_project.type,
-            user_id     : store.get('user').id
+            name:    $scope.updated_project.name,
+            address: $scope.updated_project.address,
+            city:    $scope.updated_project.city,
+            state:   $scope.updated_project.state,
+            zipcode: $scope.updated_project.zipcode,
+            home_sq: $scope.project.home_sq,
+            user_id: store.get('user').id
         })
         .then(function(response) {
             $('#edit_project_modal').modal('hide');

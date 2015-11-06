@@ -362,6 +362,41 @@
                                      class="help-block"> This field cannot be longer than 10 characters. </div>
                             </div>
                         </div>
+                        <!-- Home Square Footage Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': new_project_form.home_sq.$dirty &&
+                                                      new_project_form.home_sq.$invalid ||
+                                                      new_project_form.$submitted &&
+                                                      new_project_form.home_sq.$invalid,
+                                         'has-feedback': new_project_form.home_sq.$dirty &&
+                                                         new_project_form.home_sq.$invalid ||
+                                                         new_project_form.$submitted &&
+                                                         new_project_form.home_sq.$invalid }">
+                            <label class="control-label" for="home_sq"> Home Square Footage * </label>
+                            <div class="input-group">
+                                <input class="form-control"
+                                       name="home_sq"
+                                       type="text"
+                                       placeholder="Home Square Footage"
+                                       ng-model="project.home_sq"
+                                       required>
+                                <div class="input-group-addon"> ft </div>
+                            </div>                            
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="new_project_form.home_sq.$dirty &&
+                                         new_project_form.home_sq.$invalid ||
+                                         new_project_form.$submitted &&
+                                         new_project_form.home_sq.$invalid">
+                            </span>
+                            <div ng-messages="new_project_form.home_sq.$error"
+                                 ng-if="new_project_form.home_sq.$dirty &&
+                                        new_project_form.home_sq.$invalid ||
+                                        new_project_form.$submitted &&
+                                        new_project_form.home_sq.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
                         <!-- Project Type Field -->
                         <div class="form-group"
                              ng-class="{ 'has-error': new_project_form.type.$dirty &&
@@ -710,6 +745,41 @@
                                       class="help-block"> This field is required. </div>
                                  <div ng-message="maxlength"
                                       class="help-block"> This field cannot be longer than 10 characters. </div>
+                             </div>
+                         </div>
+                         <!-- Home Square Footage Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': edit_project_form.home_sq.$dirty &&
+                                                       edit_project_form.home_sq.$invalid ||
+                                                       edit_project_form.$submitted &&
+                                                       edit_project_form.home_sq.$invalid,
+                                          'has-feedback': edit_project_form.home_sq.$dirty &&
+                                                          edit_project_form.home_sq.$invalid ||
+                                                          edit_project_form.$submitted &&
+                                                          edit_project_form.home_sq.$invalid }">
+                             <label class="control-label" for="home_sq"> Home Square Footage * </label>
+                             <div class="input-group">
+                                 <input class="form-control"
+                                        name="home_sq"
+                                        type="text"
+                                        placeholder="Home Square Footage"
+                                        ng-model="updated_project.home_sq"
+                                        required>
+                                 <div class="input-group-addon"> ft </div>
+                             </div>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="edit_project_form.home_sq.$dirty &&
+                                          edit_project_form.home_sq.$invalid ||
+                                          edit_project_form.$submitted &&
+                                          edit_project_form.home_sq.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.home_sq.$error"
+                                  ng-if="edit_project_form.home_sq.$dirty &&
+                                         edit_project_form.home_sq.$invalid ||
+                                         edit_project_form.$submitted &&
+                                         edit_project_form.home_sq.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
                              </div>
                          </div>
                     </div>
