@@ -57,6 +57,7 @@ def populate_db(app):
         'city':         'Spring Branch',
         'state':        'TX',
         'zipcode':      '78070',
+        'home_sq':      '2000',
         'project_type': 'ubuildit',
         'user_id':      1
     }),
