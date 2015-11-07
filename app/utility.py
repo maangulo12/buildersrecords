@@ -60,11 +60,11 @@ def parse_ubuildit_file(path, aws_flag=False):
     wb = None
 
     if (aws_flag):
-        conn   = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-        bucket = conn.get_bucket(S3_BUCKET)
-        k      = Key(bucket=bucket, name=path)
-        file_content = k.get_contents_as_string()
-        wb = open_workbook(file_contents=file_content)
+        conn      = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+        bucket    = conn.get_bucket(S3_BUCKET)
+        k         = Key(bucket=bucket, name=path)
+        file_data = k.get_contents_as_string()
+        wb        = open_workbook(file_contents=file_data)
     else:
         wb = open_workbook(filename=path)
 
