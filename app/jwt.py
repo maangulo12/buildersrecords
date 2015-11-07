@@ -86,8 +86,8 @@ def verify_jwt(*args, **kwargs):
 
     try:
         payload = decode_token(parts[1])
-        user = User.query.filter_by(
-            id=payload['user_id'], username=payload['username']).first()
+        user = User.query.filter_by(id=payload['user_id'],
+                                    username=payload['username']).first()
 
         if user is None:
             raise ProcessingException('User does not exist', 401)
