@@ -25,7 +25,7 @@ AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY', None)
 S3_BUCKET      = os.environ.get('S3_BUCKET', None)
 
 # Uploads
-UPLOAD_PATH = os.environ.get('UPLOAD_PATH', '/uploads/')
+UPLOAD_PATH = os.environ.get('UPLOAD_PATH', '/uploads')
 
 # API Auth
 AUTH_HEADER_PREFIX = 'Bearer'
