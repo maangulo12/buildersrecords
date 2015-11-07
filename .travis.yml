@@ -2,6 +2,16 @@ language: python
 python:
   - "3.4"
 install:
+  - "apt-get -y install postgresql postgresql-contrib"
+  - "service postgresql restart
+     sudo -u postgres psql << EOF
+        ALTER ROLE postgres PASSWORD 'password';
+     EOF
+     sudo -u postgres psql << EOF
+        CREATE DATABASE app_db;
+     EOF"
+  - "apt-get -y install libffi-dev"
+  - "apt-get -y install libpq-dev"
   - "pip install -r requirements.txt"
 script:
   - python manage.py runtests
