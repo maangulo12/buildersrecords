@@ -1,5 +1,7 @@
 # [BuildersRecords] (http://www.buildersrecords.com/)
 
+[![Build Status](https://travis-ci.org/maangulo12/buildersrecords.svg)] (https://travis-ci.org/maangulo12/buildersrecords)
+
 Web app for accounting home construction projects.
 
 ## To Do List:
