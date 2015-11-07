@@ -43,6 +43,50 @@ class AppTestCase(unittest.TestCase):
         response = self.client.get('/')
         self.assertTrue(response.status_code is 200)
 
+    def test_api(self):
+        # GET /api/users (list)
+        response = self.client.get('/api/users')
+        self.assertTrue(response.status_code is 200)
+
+        # POST /api/users (new user)
+        response = self.client.post('/api/users', data=json.dumps({
+            'username':   'user',
+            'password':   'password',
+            'first_name': 'first',
+            'last_name':  'last',
+            'email':      'email@gmail.com'
+        }), headers={'Content-Type': 'application/json'})
+        self.assertTrue(response.status_code is 201)
+
+        # Authenticate User
+        response = self.client.post('/api/auth', data=json.dumps({
+            'login':    'user',
+            'password': 'password'
+        }), headers={'Content-Type': 'application/json'})
+
+        # Auth Token
+        data = json.loads(response.data.decode('utf-8'))
+        token = data['token']
+
+        # GET /api/users/<int: id> (id = 1)
+        response = self.client.get('/api/users/1', headers={
+            'Authorization': 'Bearer ' + token
+        })
+        self.assertTrue(response.status_code is 200)
+
+        # PUT /api/users/<int: id> (id = 1)
+        response = self.client.put('/api/users/1', data=json.dumps({
+            'username':   'user1',
+            'password':   'password1',
+            'first_name': 'first1',
+            'last_name':  'last1',
+            'email':      'email1@gmail.com'
+        }), headers={
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
+        self.assertTrue(response.status_code is 200)
+
 
 if __name__ == '__main__':
     unittest.main()
