@@ -39,11 +39,11 @@ def save_file(path, file_obj, aws_flag=False):
     """
     try:
         if (aws_flag):
-            conn         = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-            bucket       = conn.get_bucket(S3_BUCKET)
-            k            = Key(bucket=bucket, name=path)
-            file_content = file_obj.read()
-            k.set_contents_from_string(file_content)
+            conn      = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
+            bucket    = conn.get_bucket(S3_BUCKET)
+            k         = Key(bucket=bucket, name=path)
+            file_data = file_obj.read()
+            k.set_contents_from_string(file_data)
         else:
             file_obj.save(path)
 
@@ -69,17 +69,17 @@ def ubuildit():
     zipcode      = request.form['zipcode']
     home_sq      = request.form['home_sq']
     project_type = request.form['project_type']
-    user_id      = request.form['user_id']
+    username      = request.form['username']
 
     criterion = [file_obj, name, address, city,
-                 state, zipcode, project_type, user_id]
+                 state, zipcode, project_type, username]
 
     if not all(criterion):
         return make_response('Bad request', 400)
 
     aws_criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
     unique_id     = uuid4()
-    full_path     = UPLOAD_PATH + str(unique_id)
+    full_path     = UPLOAD_PATH + '/' + username + '/' + str(unique_id)
 
     if save_file(full_path, file_obj, all(aws_criterion)):
         try:
