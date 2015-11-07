@@ -58,10 +58,20 @@ class AppTestCase(unittest.TestCase):
         }), headers={'Content-Type': 'application/json'})
         self.assertTrue(response.status_code is 201)
 
-        # login for authentication header
+        # Authenticate User
+        response = self.client.post('/api/auth', data=json.dumps({
+            'login':    'user',
+            'password': 'password'
+        }), headers={'Content-Type': 'application/json'})
+
+        # Auth Token
+        data = json.loads(response.data.decode('utf-8'))
+        token = data['token']
 
         # GET /api/users/<int: id> (id = 1)
-        response = self.client.get('/api/users/1')
+        response = self.client.get('/api/users/1', headers={
+            'Authorization': 'Bearer ' + token
+        })
         self.assertTrue(response.status_code is 200)
 
         # PUT /api/users/<int: id> (id = 1)
@@ -71,11 +81,16 @@ class AppTestCase(unittest.TestCase):
             'first_name': 'first1',
             'last_name':  'last1',
             'email':      'email1@gmail.com'
-        }), headers={'Content-Type': 'application/json'})
+        }), headers={
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        })
         self.assertTrue(response.status_code is 200)
 
         # DELETE /api/users/<int: id> (id = 1)
-        response = self.client.delete('/api/users/1')
+        response = self.client.delete('/api/users/1', headers={
+            'Authorization': 'Bearer ' + token
+        })
         self.assertTrue(response.status_code is 204)
 
 
