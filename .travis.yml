@@ -2,8 +2,6 @@ language: python
 python:
   - "3.4"
 before_install:
-  - export DEBIAN_FRONTEND=noninteractive
-  - sudo apt-get update
   - sudo apt-get -y upgrade
   - sudo apt-get -y install libffi-dev
   - sudo apt-get -y install libpq-dev
