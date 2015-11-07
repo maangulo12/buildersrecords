@@ -63,7 +63,7 @@ angular.module('app.projects', [])
             fd.append('zipcode', $scope.project.zipcode);
             fd.append('home_sq', $scope.project.home_sq);
             fd.append('project_type', $scope.project.type);
-            fd.append('user_id', store.get('user').id);
+            fd.append('username', store.get('user').username);
 
             $http.post('/api/upload/ubuildit', fd, {
                 transformRequest: angular.identity,
