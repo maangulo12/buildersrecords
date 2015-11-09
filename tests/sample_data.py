@@ -85,7 +85,7 @@ def populate_db(app):
             client.post('/api/items', data=json.dumps({
                 'name':        item['cost_category'],
                 'description': item['description'],
-                'budget':      item['budget'],
+                'estimated':   item['estimated'],
                 'actual':      item['actual'],
                 'notes':       item['explanations'],
                 'category_id': data.index(category) + 1,
