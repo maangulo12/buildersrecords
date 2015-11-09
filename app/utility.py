@@ -107,7 +107,7 @@ def get_item_list(ws, start, end):
         temp_list.append({
             'cost_category':     cells[0].value,
             'description':       cells[1].value,
-            'budget':            convert_to_float(cells[2].value),
+            'estimated':         convert_to_float(cells[2].value),
             'actual':            convert_to_float(cells[3].value),
             'change_orders':     cells[4].value,
             'over_under_budget': cells[5].value,
