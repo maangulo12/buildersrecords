@@ -28,7 +28,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"> My Account </a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                        <li><a href ui-sref="login"> Log Out </a></li>
                     </ul>
                 </li>
             </ul>
@@ -79,6 +79,18 @@
         </div>
         <!-- Right Side -->
         <div class="col-md-9">
+            <!-- Alert -->
+            <div class="container">
+                <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                     ng-if="error_msg_get">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only"> Error: </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <b> Could not load your project information. Please try to refresh your page. </b>
+                </div>
+            </div>
             <!-- Page Header -->
             <div class="page-header">
                 <h1> Overview </h1>
@@ -122,10 +134,10 @@
                 </td>
                 <td class="text-success"> <b> {{ category.name }} </b> </td>
                 <td> </td>
-                <td class="text-right"> <b> {{ category.total_budget | currency }} </b> </td>
+                <td class="text-right"> <b> {{ category.total_estimated | currency }} </b> </td>
                 <td class="text-right"> <b> {{ category.total_actual | currency }} </b> </td>
-                <td class="text-right" ng-class="{ 'text-danger': category.total_actual > category.total_budget }">
-                    <b> {{ category.total_actual - category.total_budget | currency }} </b>
+                <td class="text-right" ng-class="{ 'text-danger': category.total_actual > category.total_estimated }">
+                    <b> {{ category.total_actual - category.total_estimated | currency }} </b>
                 </td>
                 <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
                 <td class="text-right" ng-class="{ 'text-danger': category.unpaid !== 0 }">
@@ -152,10 +164,10 @@
                 <td> </td>
                 <td> <b> {{ item.name }} </b> </td>
                 <td> {{ item.description }} </td>
-                <td class="text-right"> {{ item.budget | currency }} </td>
+                <td class="text-right"> {{ item.estimated | currency }} </td>
                 <td class="text-right"> {{ item.actual | currency }} </td>
-                <td class="text-right" ng-class="{ 'text-danger': item.actual > item.budget }">
-                    {{ item.actual - item.budget | currency }}
+                <td class="text-right" ng-class="{ 'text-danger': item.actual > item.estiamted }">
+                    {{ item.actual - item.estimated | currency }}
                 </td>
                 <td class="text-right"> {{ item.total_expenditure | currency }} </td>
                 <td colspan="3"> </td>
@@ -173,10 +185,10 @@
             <tr class="footer-color">
                 <td colspan="2"> </td>
                 <td> <b> Grand Total </b> </td>
-                <td class="text-right"> <b> {{ grand_total_budget | currency }} </b> </td>
+                <td class="text-right"> <b> {{ grand_total_estimated | currency }} </b> </td>
                 <td class="text-right"> <b> {{ grand_total_actual | currency }} </b> </td>
-                <td class="text-right" ng-class="{ 'text-danger': grand_total_actual > grand_total_budget }">
-                    <b> {{ grand_total_actual - grand_total_budget | currency }} </b>
+                <td class="text-right" ng-class="{ 'text-danger': grand_total_actual > grand_total_estimated }">
+                    <b> {{ grand_total_actual - grand_total_estimated | currency }} </b>
                 </td>
                 <td class="text-right"> <b> {{ grand_total_expenditure | currency }} </b> </td>
                 <td colspan="3"> </td>
