@@ -69,7 +69,7 @@ def ubuildit():
     zipcode      = request.form['zipcode']
     home_sq      = request.form['home_sq']
     project_type = request.form['project_type']
-    username      = request.form['username']
+    username     = request.form['username']
 
     criterion = [file_obj, name, address, city,
                  state, zipcode, project_type, username]
@@ -100,7 +100,7 @@ def ubuildit():
                 for cat_item in cat['item_list']:
                     item = Item(name=cat_item['cost_category'],
                                 description=cat_item['description'],
-                                budget=cat_item['budget'],
+                                estimated=cat_item['estimated'],
                                 actual=cat_item['actual'],
                                 notes=cat_item['explanations'],
                                 category_id=category.id,
