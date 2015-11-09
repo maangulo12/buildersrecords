@@ -2,86 +2,21 @@ angular.module('app.budget', [])
 
 .config(function($stateProvider) {
     $stateProvider.state('budget', {
-        url: '/budget',
+        url:         '/budget',
         templateUrl: 'angular/budget/budget.html',
-        controller: 'BudgetController',
-        data: {
+        controller:  'BudgetController',
+        data:        {
             requiresLogin: true
         }
     });
 })
-.controller('BudgetController', function($scope, store, $state, $http) {
+.controller('BudgetController', function($scope, store, CategoryService, ItemService) {
     init();
 
     function init() {
         $scope.username = store.get('user').username;
+        drawPieChart();
         getCategories();
-    }
-    // GET categories function
-    function getCategories() {
-        $http.get('/api/categories?q={"filters":[{"name":"project_id","op":"equals","val":"' + store.get('project').id + '"}]}')
-        .then(function(response) {
-            $scope.category_list = response.data.objects;
-
-            var i = 0;
-            var data = [];
-            var colors = [];
-            var grand_total_budget = 0;
-            var grand_total_actual = 0;
-
-            if (response.data.objects.length == 0) {
-                data.push({
-                    value    : 0.01,
-                    color    : '#AAAAAA',
-                    highlight: '#AAAAAA',
-                    label    : 'No categories'
-                });
-            } else {
-                colors = getColorList($scope.category_list.length, 'mediumspringgreen', 'darkslategray');
-            }
-
-            angular.forEach(response.data.objects, function(category) {
-                var total_budget = 0;
-                var total_actual = 0;
-                angular.forEach(category.items, function(item) {
-                    total_budget += item.budget;
-                    total_actual += item.actual;
-                });
-                category.total_budget = total_budget;
-                category.total_actual = total_actual;
-                grand_total_budget += total_budget;
-                grand_total_actual += total_actual;
-
-                data.push({
-                    value    : total_actual,
-                    color    : colors[i],
-                    highlight: colors[i],
-                    label    : category.name
-                });
-                i++;
-            });
-            $scope.grand_total_budget = grand_total_budget;
-            $scope.grand_total_actual = grand_total_actual;
-
-            // Draw Pie Chart
-            var ctx = $('#modular-doughnut').get(0).getContext('2d');
-            var chart = new Chart(ctx).Doughnut(data, {
-                scaleIntegersOnly: false,
-                responsive: true,
-                tooltipTemplate: "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(2, '.', ',') %>",
-                legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(2, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
-            });
-            var legend = document.createElement('div');
-    		legend.innerHTML = chart.generateLegend();
-            document.getElementById('legend-holder').appendChild(legend.firstChild);
-
-        }, function(error) {
-            $scope.error_msg = 'Could not load your category list. Please try to refresh the page.';
-        });
-    }
-    $scope.logOut = function() {
-        store.remove('jwt');
-        $state.go('login');
     }
     $scope.clickedItem = function(item) {
         var index = $scope.category.items.indexOf(item);
@@ -94,7 +29,6 @@ angular.module('app.budget', [])
     $scope.clickedSingleCheckbox = function(category, item) {
         if (item.selected) {
             $scope.selected = true;
-            console.log("khk");
         } else {
             var is_selected = false;
             angular.forEach(category.items, function(e) {
@@ -105,6 +39,83 @@ angular.module('app.budget', [])
             $scope.selected = is_selected;
         }
     }
+    // GET function
+    function drawPieChart() {
+        CategoryService.getCategories()
+        .then(function(response) {
+            var i      = 0;
+            var data   = [];
+            var colors = [];
+            var num_categories = response.data.objects.length;
+
+            if (num_categories == 0) {
+                data.push({
+                    value:     0.01,
+                    color:     '#AAAAAA',
+                    highlight: '#AAAAAA',
+                    label:     'No categories'
+                });
+            } else {
+                colors = getColorList(num_categories, 'mediumspringgreen', 'darkslategray');
+            }
+
+            angular.forEach(response.data.objects, function(category) {
+                var total_actual = 0;
+
+                angular.forEach(category.items, function(item) {
+                    total_actual += item.actual;
+                });
+                data.push({
+                    value:     total_actual,
+                    color:     colors[i],
+                    highlight: colors[i],
+                    label:     category.name
+                });
+                i++;
+            });
+            var ctx = $('#modular-doughnut').get(0).getContext('2d');
+            var chart = new Chart(ctx).Doughnut(data, {
+                scaleIntegersOnly: false,
+                responsive:        true,
+                tooltipTemplate:   "<%if (label){%><%=label%>: <%}%>$<%= value.formatMoney(2, '.', ',') %>",
+                legendTemplate:    "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<segments.length; i++){%><li><div class=\"comm-how\">$<%=segments[i].value.formatMoney(2, '.', ',')%></div><span style=\"background-color:<%=segments[i].fillColor%>\"></span><%if(segments[i].label){%><%=segments[i].label%><%}%></li><%}%></ul>"
+            });
+            var legend       = document.createElement('div');
+            legend.innerHTML = chart.generateLegend();
+            document.getElementById('legend-holder').appendChild(legend.firstChild);
+
+        }, function(error) {
+            $scope.error_msg_get = true;
+        });
+    }
+    function getCategories() {
+        CategoryService.getCategories()
+        .then(function(response) {
+            $scope.category_list = response.data.objects;
+
+            var grand_total_estimated = 0;
+            var grand_total_actual    = 0;
+
+            angular.forEach(response.data.objects, function(category) {
+                var total_estimated = 0;
+                var total_actual    = 0;
+
+                angular.forEach(category.items, function(item) {
+                    total_estimated += item.estimated;
+                    total_actual    += item.actual;
+                });
+                category.total_estimated  = total_estimated;
+                category.total_actual     = total_actual;
+                grand_total_estimated    += total_estimated;
+                grand_total_actual       += total_actual;
+            });
+            $scope.grand_total_estimated = grand_total_estimated;
+            $scope.grand_total_actual    = grand_total_actual;
+
+        }, function(error) {
+            $scope.error_msg_get = true;
+        });
+    }
     // ADD functions
     $scope.showAddItemModal = function() {
         $scope.item = {};
@@ -112,13 +123,25 @@ angular.module('app.budget', [])
         $('#add_item_modal').modal('show');
     }
     $scope.addItem = function() {
-        $http.post('/api/items', {
-            name       : $scope.item.name,
-            description: $scope.item.description,
-            amount     : $scope.item.amount,
-            notes      : $scope.item.notes,
-            category_id: $scope.item.category
-        })
+        if ($scope.item.new_category) {
+            CategoryService.addCategory($scope.item.new_category)
+            .then(function(response) {
+                CategoryService.getNewCategoryId($scope.item.new_category)
+                .then(function(response) {
+                    $scope.item.category = response.data.objects[0].id
+                    addItem($scope.item);
+                }, function(error) {
+                    $scope.add_item_form.$invalid = true;
+                });
+            }, function(error) {
+                $scope.add_item_form.$invalid = true;
+            });
+        } else {
+            addItem($scope.item);
+        }
+    }
+    function addItem() {
+        ItemService.addItem($scope.item)
         .then(function(response) {
             $('#add_item_modal').modal('hide');
             getCategories();
@@ -136,13 +159,13 @@ angular.module('app.budget', [])
         angular.forEach($scope.category_list, function(category) {
             angular.forEach(category.items, function(item) {
                 if (item.selected) {
-                    $http.delete('/api/items/' + item.id)
+                    ItemService.deleteItem(item.id)
                     .then(function(response) {
                         $('#delete_items_modal').modal('hide');
                         getCategories();
                         $scope.selected = false;
                     }, function(error) {
-                        $scope.error_msg_delete = 'Could not delete your expense(s). Please try again.';
+                        $scope.error_msg_delete = true;
                     });
                 }
             });
@@ -152,12 +175,12 @@ angular.module('app.budget', [])
         $('#delete_single_item_modal').modal('show');
     }
     $scope.deleteSingleItem = function() {
-        $http.delete('/api/items/' + store.get('item').id)
+        ItemService.deleteItem(store.get('item').id)
         .then(function(response) {
             $('#delete_single_item_modal').modal('hide');
             getCategories();
         }, function(error) {
-            $scope.error_msg_delete_single = 'Could not delete your item. Please try again.';
+            $scope.error_msg_delete_single = true;
         });
     }
     // UTILITY functions
