@@ -2,20 +2,23 @@ angular.module('app.login', [])
 
 .config(function($stateProvider) {
     $stateProvider.state('login', {
-        url: '/login',
+        url:         '/login',
         templateUrl: 'angular/login/login.html',
-        controller: 'LoginController'
+        controller:  'LoginController'
     });
 })
-.controller('LoginController', function($scope, store, $state, $http, authService) {
-    store.remove('jwt');
+.controller('LoginController', function($scope, store, $state, AuthService) {
+    init();
 
+    function init() {
+        store.remove('jwt');
+    }
     $scope.logIn = function() {
-        $http.post('/api/auth', {
-            login: $scope.login.user,
-            password: $scope.login.password
-        }).then(function(response) {
-            authService.authHelper(response);
+        // Authenticate User
+        AuthService.authenticate($scope.login.user, $scope.login.password)
+        .then(function(response) {
+            // Store Token
+            AuthService.storeToken(response);
             $state.go('projects');
         }, function(error) {
             $scope.login_form.$invalid = true;
