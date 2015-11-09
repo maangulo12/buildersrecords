@@ -8,8 +8,8 @@ angular.module('app', [
     'smart-table',
     'mgcrea.ngStrap',
 
-    'app.auth',
     'app.directives',
+    'app.services',
     'app.home',
     'app.login',
     'app.signup',
