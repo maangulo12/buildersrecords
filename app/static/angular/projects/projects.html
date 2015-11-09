@@ -28,7 +28,7 @@
                     <ul class="dropdown-menu">
                         <li><a href="#"> My Account </a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href ng-click="logOut()"> Log Out </a></li>
+                        <li><a href ui-sref="login"> Log Out </a></li>
                     </ul>
                 </li>
             </ul>
@@ -37,12 +37,13 @@
 </nav>
 <!-- Alert -->
 <div class="container">
-    <div class="alert alert-danger alert-dismissible text-center" role="alert" ng-if="error_msg">
+    <div class="alert alert-danger alert-dismissible text-center" role="alert"
+         ng-if="error_msg_get">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only"> Error: </span>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true"> &times; </span>
-        </button> <b> {{ error_msg }} </b>
+        </button> <b> Could not get your projects. Please try to refresh your page. </b>
     </div>
 </div>
 <!-- Page-Header -->
@@ -79,7 +80,7 @@
                         <!-- Left Side -->
                         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                             <span class="glyphicon glyphicon-home glyphicon-padding" aria-hidden="true"></span>
-                            <a href ng-click="clickedProject(project) && redirectToOverview()">
+                            <a href ng-click="clickedProject(project)" ui-sref="overview">
                                 <b> {{ project.name }} </b>
                             </a>
                             <p class="text-muted"> {{ project.address }} {{ project.city }}, {{ project.state }} {{ project.zipcode }} </p>
@@ -379,7 +380,8 @@
                                        type="text"
                                        placeholder="Home Square Footage"
                                        ng-model="project.home_sq"
-                                       required>
+                                       required
+                                       format="number">
                                 <div class="input-group-addon"> ft </div>
                             </div>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -478,7 +480,7 @@
                         <span class="sr-only"> Error: </span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true"> &times; </span>
-                        </button> <b> {{ error_msg_delete }} </b>
+                        </button> <b> Could not delete your project. </b>
                     </div>
                     <p class="text-center">
                         Deleting your project is <b> irreversible </b>. Are you sure you would like to delete it?
