@@ -2,11 +2,15 @@ angular.module('app.home', [])
 
 .config(function($stateProvider) {
     $stateProvider.state('home', {
-        url: '/',
+        url:         '/',
         templateUrl: 'angular/home/home.html',
-        controller: 'HomeController'
+        controller:  'HomeController'
     });
 })
 .controller('HomeController', function(store) {
-    store.remove('jwt');
+    init();
+
+    function init() {
+        store.remove('jwt');
+    }
 });
