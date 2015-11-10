@@ -1,6 +1,6 @@
-angular.module('app.projects', [])
+var app = angular.module('app.projects', []);
 
-.config(function($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('projects', {
         url:         '/projects',
         templateUrl: 'angular/projects/projects.html',
@@ -9,8 +9,9 @@ angular.module('app.projects', [])
             requiresLogin: true
         }
     });
-})
-.controller('ProjectsController', function($scope, store, ProjectService, UploadService) {
+});
+
+app.controller('ProjectsController', function($scope, store, ProjectService, UploadService) {
     init();
 
     function init() {
@@ -27,8 +28,7 @@ angular.module('app.projects', [])
     }
     // GET function
     function getProjects() {
-        ProjectService.getProjects()
-        .then(function(response) {
+        ProjectService.getProjects().then(function(response) {
             $scope.project_list = response.data.objects;
         }, function(error) {
             $scope.error_msg_get = true;
@@ -55,8 +55,7 @@ angular.module('app.projects', [])
             form.append('project_type', $scope.project.type);
             form.append('username', store.get('user').username);
 
-            UploadService.uploadUbuildit(form)
-            .then(function(response) {
+            UploadService.uploadUbuildit(form).then(function(response) {
                 $('#new_project_modal').modal('hide');
                 addProject();
             }, function(error) {
@@ -67,8 +66,7 @@ angular.module('app.projects', [])
         }
     }
     function addProject() {
-        ProjectService.addProject($scope.project)
-        .then(function(response) {
+        ProjectService.addProject($scope.project).then(function(response) {
             $('#new_project_modal').modal('hide');
             getProjects();
         }, function(error) {
@@ -81,8 +79,7 @@ angular.module('app.projects', [])
         $('#delete_project_modal').modal('show');
     }
     $scope.deleteProject = function() {
-        ProjectService.deleteProject()
-        .then(function(response) {
+        ProjectService.deleteProject().then(function(response) {
             $('#delete_project_modal').modal('hide');
             getProjects();
         }, function(error) {
@@ -91,13 +88,18 @@ angular.module('app.projects', [])
     }
     // UPDATE functions
     $scope.showEditProjectModal = function(project) {
-        $scope.updated_project = store.get('project');
+        $scope.updated_project         = {};
+        $scope.updated_project.name    = store.get('project').name;
+        $scope.updated_project.address = store.get('project').address;
+        $scope.updated_project.city    = store.get('project').city;
+        $scope.updated_project.state   = store.get('project').state;
+        $scope.updated_project.zipcode = store.get('project').zipcode;
+        $scope.updated_project.home_sq = store.get('project').home_sq;
         $scope.edit_project_form.$setPristine();
         $('#edit_project_modal').modal('show');
     }
     $scope.updateProject = function() {
-        ProjectService.updateProject($scope.updated_project)
-        .then(function(response) {
+        ProjectService.updateProject($scope.updated_project).then(function(response) {
             $('#edit_project_modal').modal('hide');
             getProjects();
         }, function(error) {
