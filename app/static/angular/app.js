@@ -1,5 +1,5 @@
-// This is the main entry point of this Angular app.
-angular.module('app', [
+// Main entry point of this Angular app
+var app = angular.module('app', [
     'ngMessages',
     'ui.validate',
     'ui.router',
@@ -10,6 +10,7 @@ angular.module('app', [
 
     'app.directives',
     'app.services',
+    'app.utility',
     'app.home',
     'app.login',
     'app.signup',
@@ -19,26 +20,29 @@ angular.module('app', [
     'app.funds',
     'app.expenditures',
     'app.subcontractors'
-])
-.config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
-    // This basically tells Angular to route to / if URL does not match any
+]);
+
+// App Configurations
+app.config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
+    // Tells Angular to route to / if URL does not match any
     $urlRouterProvider.otherwise('/');
 
-    // This turns on html5mode
+    // Turns on html5mode
     $locationProvider.html5Mode(true);
 
-    // This is the function that returns the JSON web token in every request
+    // Returns the JSON web token in every request
     // It adds the token to the header of every request
     jwtInterceptorProvider.tokenGetter = function(store) {
         return store.get('jwt');
     }
-    // This is needed for the JSON web token to work
     $httpProvider.interceptors.push('jwtInterceptor');
-})
-.run(function($rootScope, $state, store, jwtHelper) {
-    // This function is needed to restrict access to routes that require login
-    // This function also checks if the token is expired. If it is, then Angular
-    // would route to login page
+});
+
+// App Run
+app.run(function($rootScope, $state, store, jwtHelper) {
+    // Restricts access to routes that require login
+    // Also checks if the token is expired
+    // If expired, then Angular would route to login page
     $rootScope.$on('$stateChangeStart', function(e, to) {
         if (to.data && to.data.requiresLogin) {
             if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
