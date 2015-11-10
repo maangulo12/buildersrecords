@@ -51,19 +51,25 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
     // GET CATEGORIES function: Displays Piechart
     function getCategories() {
         CategoryService.getCategories().then(function(response) {
-            var i      = 0;
-            var data   = [];
-            var colors = [];
+            var i              = 0;
+            var data           = [];
+            var colors         = [];
+            var start_color    = 'coral';
+            var end_color      = 'darkred';
+            var gray_color     = '#AAAAAA';
+            var num_categories = response.data.objects.length;
 
-            if (response.data.objects.length == 0) {
+            if (num_categories == 0) {
                 data.push({
-                    value    : 0.01,
-                    color    : '#AAAAAA',
-                    highlight: '#AAAAAA',
-                    label    : 'No categories'
+                    value:     0.01,
+                    color:     gray_color,
+                    highlight: gray_color,
+                    label:     'No categories'
                 });
+            } else if (num_categories == 1) {
+                colors.push(start_color);
             } else {
-                colors = getColorList(response.data.objects.length, 'coral', 'darkred');
+                colors = getColorList(num_categories, start_color, end_color);
             }
 
             angular.forEach(response.data.objects, function(category) {
