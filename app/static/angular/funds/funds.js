@@ -17,6 +17,8 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
     function init() {
         $scope.username = store.get('user').username;
         getFunds();
+        $scope.loan_question = [{ value: true, name: 'Yes' },
+                                { value: false, name: 'No' }];
     }
     $scope.clickedFund = function(fund) {
         var index = $scope.fund_list.indexOf(fund);
@@ -77,9 +79,6 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
                 fund.draw_received = Math.round(total_draw / fund.amount * 100);
                 fund.draw_left     = Math.round((fund.amount - total_draw) / fund.amount * 100);
-
-                $scope.loan_question = [{ value: true, name: 'Yes' },
-                                        { value: false, name: 'No' }];
             });
         }, function(error) {
             $scope.error_msg_get = true;
