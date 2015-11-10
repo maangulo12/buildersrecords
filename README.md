@@ -62,7 +62,7 @@ Web app for accounting home construction projects.
 + Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
     -Fix table resizing
-    -Fix table shuffling (Add and Editfunctions)
+    -Fix table shuffling (Add and Edit functions)
     -Update Piechart legend
     -Empty Project Test
 ```
