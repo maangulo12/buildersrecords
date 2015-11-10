@@ -1,6 +1,6 @@
-angular.module('app.budget', [])
+var app = angular.module('app.budget', []);
 
-.config(function($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('budget', {
         url:         '/budget',
         templateUrl: 'angular/budget/budget.html',
@@ -9,8 +9,9 @@ angular.module('app.budget', [])
             requiresLogin: true
         }
     });
-})
-.controller('BudgetController', function($scope, store, CategoryService, ItemService) {
+});
+
+app.controller('BudgetController', function($scope, store, CategoryService, ItemService) {
     init();
 
     function init() {
@@ -126,13 +127,8 @@ angular.module('app.budget', [])
         if ($scope.item.new_category) {
             CategoryService.addCategory($scope.item.new_category)
             .then(function(response) {
-                CategoryService.getNewCategoryId($scope.item.new_category)
-                .then(function(response) {
-                    $scope.item.category = response.data.objects[0].id
-                    addItem($scope.item);
-                }, function(error) {
-                    $scope.add_item_form.$invalid = true;
-                });
+                $scope.item.category = response.data.id
+                addItem($scope.item);
             }, function(error) {
                 $scope.add_item_form.$invalid = true;
             });
