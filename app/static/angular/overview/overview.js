@@ -1,6 +1,6 @@
-angular.module('app.overview', [])
+var app = angular.module('app.overview', []);
 
-.config(function($stateProvider) {
+app.config(function($stateProvider) {
     $stateProvider.state('overview', {
         url:         '/overview',
         templateUrl: 'angular/overview/overview.html',
@@ -9,8 +9,9 @@ angular.module('app.overview', [])
             requiresLogin: true
         }
     });
-})
-.controller('OverviewController', function($scope, store, CategoryService) {
+});
+
+app.controller('OverviewController', function($scope, store, CategoryService) {
     init();
 
     function init() {
@@ -20,8 +21,7 @@ angular.module('app.overview', [])
     }
     // GET function
     function getCategories() {
-        CategoryService.getCategories()
-        .then(function(response) {
+        CategoryService.getCategories().then(function(response) {
             $scope.category_list = response.data.objects;
 
             var grand_total_estimated   = 0;
