@@ -13,7 +13,6 @@ Web app for accounting home construction projects.
     -Heroku Deployment
     -Heroku Add-ons
     -AWS File Storage
-    -GitHub Private Account
     -Domain Name
     -SSL Certificate
 ```
@@ -38,33 +37,40 @@ Web app for accounting home construction projects.
 + Projects module: <b> Amy Lopes 10/15/2015 </b>
 ```
     -Delete Project ('bulk' delete everything about the project)
+    -Upload File
 ```
 
 + Overview module: <b> Miguel 10/15/2015 </b>
 ```
     -Overview Graph
     -Overview Table
+    -Empty Project Test
 ```
 
 + Budget module: <b> Amy Lopes 10/15/2015 </b>
 ```
-    -Add, Update, Delete items and categories
+    -Update, Delete Items
+    -Update, Delete Category
+    -Empty Project Test
 ```
 
 + Funds module:
 ```
-    -Edit Loan
-    -Edit Draw
+    -Empty Project Test
 ```
 
 + Expenditures module: <b> Miguel 10/15/2015 </b>
 ```
     -Fix table resizing
+    -Fix table shuffling (Add and Editfunctions)
+    -Update Piechart legend
+    -Empty Project Test
 ```
 
 + Subcontractors module: <b> Miguel 10/26/2015 </b>
 ```
     -Add, Edit, and Delete functionality
+    -Empty Project Test
 ```
 
 + Modules to Implement:
