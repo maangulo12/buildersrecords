@@ -10,7 +10,6 @@ var app = angular.module('app', [
 
     'app.directives',
     'app.services',
-    'app.utility',
     'app.home',
     'app.login',
     'app.signup',
