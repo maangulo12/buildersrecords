@@ -44,20 +44,25 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     function drawPieChart() {
         CategoryService.getCategories()
         .then(function(response) {
-            var i      = 0;
-            var data   = [];
-            var colors = [];
+            var i              = 0;
+            var data           = [];
+            var colors         = [];
+            var start_color    = 'mediumspringgreen';
+            var end_color      = 'darkslategray';
+            var gray_color     = '#AAAAAA';
             var num_categories = response.data.objects.length;
 
             if (num_categories == 0) {
                 data.push({
                     value:     0.01,
-                    color:     '#AAAAAA',
-                    highlight: '#AAAAAA',
+                    color:     gray_color,
+                    highlight: gray_color,
                     label:     'No categories'
                 });
+            } else if (num_categories == 1) {
+                colors.push(start_color);
             } else {
-                colors = getColorList(num_categories, 'mediumspringgreen', 'darkslategray');
+                colors = getColorList(num_categories, start_color, end_color);
             }
 
             angular.forEach(response.data.objects, function(category) {
