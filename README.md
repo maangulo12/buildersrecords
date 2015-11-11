@@ -1,5 +1,7 @@
 # [BuildersRecords] (http://www.buildersrecords.com/)
 
+[![Join the chat at https://gitter.im/maangulo12/buildersrecords] (https://badges.gitter.im/Join%20Chat.svg)]
+
 [![Build Status](https://travis-ci.org/maangulo12/buildersrecords.svg)] (https://travis-ci.org/maangulo12/buildersrecords)
 
 Web app for accounting home construction projects.
