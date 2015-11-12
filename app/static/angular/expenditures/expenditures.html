@@ -317,8 +317,75 @@
                                      class="help-block"> This field is required. </div>
                             </div>
                         </div>
-                        <!-- Vendor Field -->
+                        <!-- Question Field -->
                         <div class="form-group"
+                             ng-class="{ 'has-error': add_expenditure_form.question.$dirty &&
+                                                      add_expenditure_form.question.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.question.$invalid,
+                                         'has-feedback': add_expenditure_form.question.$dirty &&
+                                                         add_expenditure_form.question.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.question.$invalid }">
+                            <label class="control-label" for="question"> Is this an invoice from a subcontractor? * </label>
+                            <select class="form-control"
+                                    name="question"
+                                    ng-model="expenditure.question"
+                                    required>
+                                <option value="" disabled selected> Select your options </option>
+                                <option value="1"> Yes </option>
+                                <option value="0"> No </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.question.$dirty &&
+                                         add_expenditure_form.question.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.question.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.question.$error"
+                                 ng-if="add_expenditure_form.question.$dirty &&
+                                        add_expenditure_form.question.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.question.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
+                        <!-- Subcontractor Field -->
+                        <div class="form-group" ng-if="expenditure.question == 1"
+                             ng-class="{ 'has-error': add_expenditure_form.subcontractor.$dirty &&
+                                                      add_expenditure_form.subcontractor.$invalid ||
+                                                      add_expenditure_form.$submitted &&
+                                                      add_expenditure_form.subcontractor.$invalid,
+                                         'has-feedback': add_expenditure_form.subcontractor.$dirty &&
+                                                         add_expenditure_form.subcontractor.$invalid ||
+                                                         add_expenditure_form.$submitted &&
+                                                         add_expenditure_form.subcontractor.$invalid }">
+                            <label class="control-label" for="subcontractor"> Subcontractor * </label>
+                            <select class="form-control"
+                                    name="subcontractor"
+                                    ng-model="expenditure.subcontractor"
+                                    ng-options="subcontractor.name for subcontractor in subcontractor_list track by subcontractor.id"
+                                    required>
+                                <option value="" disabled selected> Select a subcontractor </option>
+                            </select>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_expenditure_form.subcontractor.$dirty &&
+                                         add_expenditure_form.subcontractor.$invalid ||
+                                         add_expenditure_form.$submitted &&
+                                         add_expenditure_form.subcontractor.$invalid">
+                            </span>
+                            <div ng-messages="add_expenditure_form.subcontractor.$error"
+                                 ng-if="add_expenditure_form.subcontractor.$dirty &&
+                                        add_expenditure_form.subcontractor.$invalid ||
+                                        add_expenditure_form.$submitted &&
+                                        add_expenditure_form.subcontractor.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                            </div>
+                        </div>
+                        <!-- Vendor Field -->
+                        <div class="form-group" ng-if="expenditure.question == 0"
                              ng-class="{ 'has-error': add_expenditure_form.vendor.$dirty &&
                                                       add_expenditure_form.vendor.$invalid ||
                                                       add_expenditure_form.$submitted &&
@@ -499,7 +566,7 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-success"
+                        <button type="submit" class="btn btn-success" ng-disabled="addDisabled"
                                 ng-click="add_expenditure_form.$valid && addExpenditure()">
                             <b> Add Expenditure </b>
                         </button>
@@ -544,7 +611,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
-                    <button type="button" class="btn btn-danger" ng-click="deleteExpenditures()">
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteDisabled"
+                            ng-click="deleteExpenditures()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
@@ -587,7 +655,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
-                    <button type="button" class="btn btn-danger" ng-click="deleteSingleExpenditure()">
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteSingleDisabled"
+                            ng-click="deleteSingleExpenditure()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
@@ -838,7 +907,7 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn btn-primary" ng-disabled="updateDisabled"
                                 ng-click="edit_expenditure_form.$valid && updateExpenditure()">
                             <b> Update </b>
                         </button>

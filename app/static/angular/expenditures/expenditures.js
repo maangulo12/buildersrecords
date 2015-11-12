@@ -11,13 +11,14 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('ExpendituresController', function($scope, store, CategoryService, ExpenditureService, ItemService, FundService) {
+app.controller('ExpendituresController', function($scope, store, CategoryService, ExpenditureService, ItemService, FundService, SubcontractorService) {
     init();
 
     function init() {
         $scope.username = store.get('user').username;
         updateProgressBars();
         updateTable();
+        populateSubcontractorsDropdown();
         populateItemsDropdown();
         populateFundsDropdown();
     }
@@ -92,6 +93,14 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
         }
     }
 
+    // POPULATE SUBCONTRACTORS DROPDOWN function
+    function populateSubcontractorsDropdown() {
+        SubcontractorService.getSubcontractors().then(function(response) {
+            $scope.subcontractor_list = response.data.objects;
+        }, function(error) {
+            $scope.error_msg_get = true;
+        });
+    }
 
     // POPULATE ITEMS DROPDOWN function
     function populateItemsDropdown() {
@@ -133,12 +142,17 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
 
     // ADD EXPENDITURE functions
     $scope.showAddExpenditureModal = function() {
+        $scope.addDisabled = false;
         $scope.expenditure = {};
         $scope.expenditure.date = new Date();
         $scope.add_expenditure_form.$setPristine();
         $('#add_expenditure_modal').modal('show');
     }
     $scope.addExpenditure = function() {
+        $scope.addDisabled = true;
+        if ($scope.expenditure.question == 1) {
+            $scope.expenditure.vendor = $scope.expenditure.subcontractor.name;
+        }
         ExpenditureService.addExpenditure($scope.expenditure).then(function(response) {
             $('#add_expenditure_modal').modal('hide');
             updateProgressBars();
@@ -152,17 +166,21 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
 
     // DELETE EXPENDITURES functions
     $scope.showDeleteExpendituresModal = function() {
+        $scope.deleteDisabled = false;
         if (!$('#delete_button').hasClass('disabled')) {
             $scope.error_msg_delete = false;
             $('#delete_expenditures_modal').modal('show');
         }
     }
     $scope.deleteExpenditures = function() {
-        var i = 0;
-        var list_length = $scope.expenditure_list.length;
+        $scope.deleteDisabled = true;
         angular.forEach($scope.expenditure_list, function(expenditure) {
             if (expenditure.selected) {
                 ExpenditureService.deleteExpenditure(expenditure.id).then(function(response) {
+                    $('#delete_expenditures_modal').modal('hide');
+                    $scope.selected = false;
+                    updateProgressBars();
+
                     var index = $scope.expenditure_list.indexOf(expenditure);
                     if (index !== -1) {
                         $scope.expenditure_list.splice(index, 1);
@@ -171,21 +189,17 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
                     $scope.error_msg_delete = true;
                 });
             }
-            if (i == list_length - 1) {
-                $('#delete_expenditures_modal').modal('hide');
-                $scope.selected = false;
-            }
-            i++;
         });
-        updateProgressBars();
     }
 
     // DELETE SINGLE EXPENDITURE functions
     $scope.showSingleDeleteExpenditureModal = function() {
+        $scope.deleteSingleDisabled = false;
         $scope.error_msg_delete_single = false;
         $('#delete_single_expenditure_modal').modal('show');
     }
     $scope.deleteSingleExpenditure = function() {
+        $scope.deleteSingleDisabled = true;
         ExpenditureService.deleteExpenditure(store.get('expenditure').id).then(function(response) {
             $('#delete_single_expenditure_modal').modal('hide');
             updateProgressBars();
@@ -201,6 +215,7 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
 
     // UPDATE EXPENDITURE functions
     $scope.showEditExpenditureModal = function() {
+        $scope.updateDisabled = false;
         $scope.updated_expenditure        = {};
         $scope.updated_expenditure.date   = new Date(store.get('expenditure').date);
         $scope.updated_expenditure.vendor = store.get('expenditure').vendor;
@@ -222,6 +237,7 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
         $('#edit_expenditure_modal').modal('show');
     }
     $scope.updateExpenditure = function() {
+        $scope.updateDisabled = true;
         ExpenditureService.updateExpenditure($scope.updated_expenditure).then(function(response) {
             $('#edit_expenditure_modal').modal('hide');
             updateProgressBars();
