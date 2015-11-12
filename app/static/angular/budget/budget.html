@@ -79,16 +79,14 @@
         <!-- Right Side -->
         <div class="col-md-9">
             <!-- Alert -->
-            <div class="container">
-                <div class="alert alert-danger alert-dismissible text-center" role="alert"
-                     ng-if="error_msg_get">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only"> Error: </span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"> &times; </span>
-                    </button>
-                    <b> Could not load your budget information. Please try to refresh the page. </b>
-                </div>
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button>
+                <b> Could not load your budget information. Please try to refresh the page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
