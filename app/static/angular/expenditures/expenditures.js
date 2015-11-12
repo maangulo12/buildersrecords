@@ -13,7 +13,7 @@ app.config(function($stateProvider) {
 
 app.controller('ExpendituresController', function($scope, store, $state, CategoryService, ExpenditureService, ItemService, FundService) {
     var options = {};
-    var chart = null;
+    var piechart = null;
     init();
 
     function init() {
@@ -46,19 +46,18 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
                         enabled: true,
                         format: '{point.name}',
                         style: {
-                            color:    '#2c3e50',
                             fontSize: '12.5px'
                         }
                     }
                 }
             },
-            credits: {
-                enabled: false
-            },
             series: [{
                 name: 'Categories',
                 data: []
-            }]
+            }],
+            credits: {
+                enabled: false
+            }
         };
 
         piechart = $('#piechart-container').highcharts(options);
