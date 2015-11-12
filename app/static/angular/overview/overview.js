@@ -12,49 +12,94 @@ app.config(function($stateProvider) {
 });
 
 app.controller('OverviewController', function($scope, store, CategoryService) {
+    var options = {};
+    var barchart = null;
     init();
 
     function init() {
         $scope.username = store.get('user').username;
         $scope.project_name = store.get('project').name;
-        drawBarChart();
+        initBarchart();
+        updateBarchart();
         getCategories();
     }
-    function drawBarChart() {
-        $('#barchart-container').highcharts({
+    function initBarchart() {
+        options = {
             chart: {
-                type: 'bar'
+                type: 'column'
             },
             title: {
-                text: '',
-                style: {
-                    display: 'none'
-                }
+                text: ''
             },
-            subtitle: {
-                text: '',
-                style: {
-                    display: 'none'
-                }
+            tooltip: {
+                headerFormat: '<span style="font-size:14px"> {point.key} </span><table>',
+                pointFormat:  '<tr><td style="color: {series.color}"> {series.name}: </td>' +
+                              '<td> <b> ${point.y:.2f} </b> </td></tr>',
+                footerFormat: '</table>',
+                shared:       true,
+                useHTML:      true
             },
             xAxis: {
-                categories: ['Apples', 'Bananas', 'Oranges']
+                categories: [],
+                crosshair: true
             },
             yAxis: {
                 title: {
-                    text: 'Fruit eaten'
+                    text: 'Dollars'
                 }
             },
             series: [{
-                name: 'Jane',
-                data: [1, 0, 4]
+                name: 'Estimated Cost',
+                data: []
             }, {
-                name: 'John',
-                data: [5, 7, 3]
+                name: 'Actual Cost',
+                data: []
+            }, {
+                name: 'Paid',
+                data: []
             }],
             credits: {
                 enabled: false
             }
+        };
+
+        barchart = $('#barchart-container').highcharts(options);
+    }
+    function updateBarchart() {
+        CategoryService.getCategories().then(function(response) {
+            options.xAxis.categories = [];
+            options.series[0].data   = [];
+            options.series[1].data   = [];
+            options.series[2].data   = [];
+
+            if (response.data.objects.length == 0) {
+                options.xAxis.categories.push('No categories');
+                options.series[0].data.push(0.00);
+                options.series[1].data.push(0.00);
+                options.series[2].data.push(0.00);
+            } else {
+                angular.forEach(response.data.objects, function(category) {
+                    var total_estimated   = 0;
+                    var total_actual      = 0;
+                    var total_expenditure = 0;
+
+                    angular.forEach(category.items, function(item) {
+                        total_estimated += item.estimated;
+                        total_actual    += item.actual;
+                    });
+                    angular.forEach(category.expenditures, function(expenditure) {
+                        total_expenditure += expenditure.cost;
+                    });
+                    options.xAxis.categories.push(category.name);
+                    options.series[0].data.push(total_estimated);
+                    options.series[1].data.push(total_actual);
+                    options.series[2].data.push(total_expenditure);
+                });
+            }
+            barchart = new Highcharts.Chart(options);
+
+        }, function(error) {
+            $scope.error_msg_get = true;
         });
     }
     // GET function
@@ -84,7 +129,7 @@ app.controller('OverviewController', function($scope, store, CategoryService) {
                 grand_total_actual         += total_actual;
                 grand_total_expenditure    += total_expenditure;
 
-                if (total_actual === 0 || total_expenditure >= total_actual) {
+                if (total_expenditure >= total_actual) {
                     category.paid   = 100;
                     category.unpaid = 0;
                 } else {
