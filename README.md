@@ -65,8 +65,8 @@ Web app for accounting home construction projects.
 ```
     -Fix table resizing
     -Fix table shuffling (Add and Edit functions)
-    -Update Piechart legend
-    -Empty Project Test
+    -Tooltip currency format piechart
+    -Create new item link
 ```
 
 + Subcontractors module: <b> Miguel 10/26/2015 </b>
