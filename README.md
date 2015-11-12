@@ -44,9 +44,8 @@ Web app for accounting home construction projects.
 
 + Overview module: <b> Miguel 10/15/2015 </b>
 ```
-    -Overview Graph
-    -Overview Table
-    -Empty Project Test
+    -Overview Column chart tooltip
+    -Overview Tables
 ```
 
 + Budget module: <b> Amy Lopes 10/15/2015 </b>
