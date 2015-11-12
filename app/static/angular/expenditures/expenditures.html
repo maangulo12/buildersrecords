@@ -54,15 +54,15 @@
                     <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
                     <b> Overview </b>
                 </a>
-                <!-- Budget -->
-                <a ui-sref="budget" class="list-group-item">
-                    <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
-                    <b> Budget </b>
-                </a>
                 <!-- Funds & Loans -->
                 <a ui-sref="funds" class="list-group-item">
                     <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
                     <b> Funds & Loans </b>
+                </a>
+                <!-- Budget -->
+                <a ui-sref="budget" class="list-group-item">
+                    <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
+                    <b> Budget </b>
                 </a>
                 <!-- Expenditures -->
                 <a ui-sref="expenditures" class="list-group-item active">
@@ -94,8 +94,44 @@
                 <!-- Sub Header -->
                 <h4 class="text-muted"> Breakdown of your expenditures </h4>
             </div>
-            <!-- Piechart -->
-            <div id="piechart-container" class="chart-size"></div>
+            <!-- Progress Bars -->
+            <div ng-repeat="category in category_list">
+
+                <!-- Category -->
+                <div class="row">
+                    <!-- Left Side -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p>
+                            <b> {{ category.name }} </b>
+                            <br>
+                            <b class="text-warning"> {{ category.total_expenditure | currency }} Spent </b>
+                            <span ng-if="category.left">
+                                <b> / </b>
+                                <b class="text-success"> {{ category.left | currency }} Left </b>
+                            </span>
+                            <span ng-if="category.over">
+                                <b> / </b>
+                                <b class="text-danger"> {{ category.over | currency }} Over </b>
+                            </span>
+                        </p>
+                    </div>
+                    <!-- Right Side -->
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <p class="text-right">
+                            <b> Budget </b>
+                            <br>
+                            <b> {{ category.total_actual | currency }} </b>
+                        </p>
+                    </div>
+                </div>
+                <!-- Progress Bar -->
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ category.spent }}%;">
+                        <span class="sr-only"> {{ category.spent }}% Complete </span>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
 </div>
@@ -121,9 +157,7 @@
         <!-- Table Header -->
         <thead>
             <tr>
-                <th style="width: 2%">
-                    <input type="checkbox" ng-model="checkboxAll" ng-click="clickedAllCheckbox()">
-                </th>
+                <th style="width: 2%"></th>
                 <th st-sort="date" style="width: 5%">
                     <a href style="text-decoration: none; color: #fff;"> Date </a>
                 </th>

@@ -11,86 +11,65 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('ExpendituresController', function($scope, store, $state, CategoryService, ExpenditureService, ItemService, FundService) {
-    var options = {};
-    var piechart = null;
+app.controller('ExpendituresController', function($scope, store, CategoryService, ExpenditureService, ItemService, FundService) {
     init();
 
     function init() {
         $scope.username = store.get('user').username;
-        initPiechart();
-        updatePiechart();
-        getExpenditures();
-        getItems();
-        getFunds();
+        updateProgressBars();
+        updateTable();
+        populateItemsDropdown();
+        populateFundsDropdown();
     }
 
-    // PIECHART functions
-    function initPiechart() {
-        options = {
-            chart: {
-                type: 'pie',
-                style: {
-                    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif"
-                }
-            },
-            title: {
-                text: ''
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size: 14px"> {point.key} </span><br>',
-                pointFormat:  "<span style=\"font-size: 14px\"> <b> ${point.y:.2f} </b> <br> <b> {point.percentage:.2f}% </b> </span><br>"
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '{point.name}',
-                        style: {
-                            fontSize: '12.5px'
-                        }
-                    }
-                }
-            },
-            series: [{
-                name: 'Categories',
-                data: []
-            }],
-            credits: {
-                enabled: false
-            }
-        };
-
-        piechart = $('#piechart-container').highcharts(options);
-    }
-    function updatePiechart() {
+    // UPDATE PROGRESS BARS function
+    function updateProgressBars() {
         CategoryService.getCategories().then(function(response) {
-            options.series[0].data = [];
+            $scope.category_list = response.data.objects;
 
-            if (response.data.objects.length == 0) {
-                options.series[0].data.push({ name: 'No Categories', y: 0.01 });
-            } else {
-                angular.forEach(response.data.objects, function(category) {
-                    if (category.expenditures.length != 0) {
-                        var category_total = 0;
+            angular.forEach(response.data.objects, function(category) {
+                var total_expenditure = 0;
+                var total_actual = 0;
 
-                        angular.forEach(category.expenditures, function(expenditure) {
-                            category_total += expenditure.cost;
-                        });
-                        options.series[0].data.push({ name: category.name, y: category_total });
-                    }
+                angular.forEach(category.expenditures, function(expenditure) {
+                    total_expenditure += expenditure.cost;
                 });
-            }
-            piechart = new Highcharts.Chart(options);
+                angular.forEach(category.items, function(item) {
+                    total_actual += item.actual;
+                });
+                category.total_expenditure = total_expenditure;
+                category.total_actual = total_actual;
+
+                if (total_expenditure > total_actual) {
+                    category.over = total_expenditure - total_actual;
+                    category.spent = 100;
+                } else {
+                    category.spent = Math.round(total_expenditure / total_actual * 100);
+                    category.left  = total_actual - total_expenditure;
+                }
+            });
+        }, function(error) {
+            $scope.error_msg_get = true;
+        });
+    }
+
+    // UPDATE TABLE function
+    function updateTable() {
+        ExpenditureService.getExpenditures().then(function(response) {
+            $scope.expenditure_list = response.data.objects;
+
+            var total = 0;
+            angular.forEach(response.data.objects, function(expenditure) {
+                total += expenditure.cost;
+            });
+            $scope.total_cost = total;
 
         }, function(error) {
             $scope.error_msg_get = true;
         });
     }
 
-    // CLICKED EVENTS
+    // CLICKED EVENTS functions
     $scope.clickedExpenditure = function(expenditure) {
         var index = $scope.expenditure_list.indexOf(expenditure);
         if (index !== -1) {
@@ -98,12 +77,6 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
             return true;
         }
         return false;
-    }
-    $scope.clickedAllCheckbox = function() {
-        angular.forEach($scope.expenditure_list, function(expenditure) {
-            expenditure.selected = $scope.checkboxAll;
-            $scope.selected      = expenditure.selected;
-        });
     }
     $scope.clickedSingleCheckbox = function(expenditure) {
         if (expenditure.selected) {
@@ -119,23 +92,9 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
         }
     }
 
-    // GET EXPENDITURES function
-    function getExpenditures() {
-        ExpenditureService.getExpenditures().then(function(response) {
-            $scope.expenditure_list = response.data.objects;
 
-            var total = 0;
-            angular.forEach(response.data.objects, function(expenditure) {
-                total += expenditure.cost;
-            });
-            $scope.total_cost = total;
-
-        }, function(error) {
-            $scope.error_msg_get = true;
-        });
-    }
-    // GET ITEMS function: Dropdown in modals
-    function getItems() {
+    // POPULATE ITEMS DROPDOWN function
+    function populateItemsDropdown() {
         ItemService.getItems().then(function(response) {
             var list = [];
             angular.forEach(response.data.objects, function(item) {
@@ -154,8 +113,9 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
             $scope.error_msg_get = true;
         });
     }
-    // GET FUNDS function: Dropdown in modals
-    function getFunds() {
+
+    // POPULATE FUNDS DROPDOWN function
+    function populateFundsDropdown() {
         FundService.getFunds().then(function(response) {
             var list = [];
             angular.forEach(response.data.objects, function(fund) {
@@ -171,7 +131,7 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
         });
     }
 
-    // ADD EXPENDITURE functions: ADD Modal
+    // ADD EXPENDITURE functions
     $scope.showAddExpenditureModal = function() {
         $scope.expenditure = {};
         $scope.expenditure.date = new Date();
@@ -181,16 +141,16 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
     $scope.addExpenditure = function() {
         ExpenditureService.addExpenditure($scope.expenditure).then(function(response) {
             $('#add_expenditure_modal').modal('hide');
-            updatePiechart();
+            updateProgressBars();
             // This needs re-work
             // Add element to the expenditure list
-            getExpenditures();
+            updateTable();
         }, function(error) {
             $scope.add_expenditure_form.$invalid = true;
         });
     }
 
-    // DELETE EXPENDITURES functions: DELETE Modal
+    // DELETE EXPENDITURES functions
     $scope.showDeleteExpendituresModal = function() {
         if (!$('#delete_button').hasClass('disabled')) {
             $scope.error_msg_delete = false;
@@ -217,10 +177,10 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
             }
             i++;
         });
-        updatePiechart();
+        updateProgressBars();
     }
 
-    // DELETE SINGLE EXPENDITURE functions: DELETE SINGLE Modal
+    // DELETE SINGLE EXPENDITURE functions
     $scope.showSingleDeleteExpenditureModal = function() {
         $scope.error_msg_delete_single = false;
         $('#delete_single_expenditure_modal').modal('show');
@@ -228,7 +188,7 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
     $scope.deleteSingleExpenditure = function() {
         ExpenditureService.deleteExpenditure(store.get('expenditure').id).then(function(response) {
             $('#delete_single_expenditure_modal').modal('hide');
-            updatePiechart();
+            updateProgressBars();
 
             var index = $scope.expenditure_list.indexOf(store.get('expenditure'));
             if (index !== -1) {
@@ -239,7 +199,7 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
         });
     }
 
-    // UPDATE EXPENDITURE functions: UPDATE Modal
+    // UPDATE EXPENDITURE functions
     $scope.showEditExpenditureModal = function() {
         $scope.updated_expenditure        = {};
         $scope.updated_expenditure.date   = new Date(store.get('expenditure').date);
@@ -264,10 +224,10 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
     $scope.updateExpenditure = function() {
         ExpenditureService.updateExpenditure($scope.updated_expenditure).then(function(response) {
             $('#edit_expenditure_modal').modal('hide');
-            updatePiechart();
+            updateProgressBars();
             // This needs re-work
             // Update element in the list
-            getExpenditures();
+            updateTable();
         }, function(error) {
             $scope.edit_expenditure_form.$invalid = true;
         });
