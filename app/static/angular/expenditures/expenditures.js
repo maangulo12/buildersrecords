@@ -29,7 +29,10 @@ app.controller('ExpendituresController', function($scope, store, $state, Categor
     function initPiechart() {
         options = {
             chart: {
-                type: 'pie'
+                type: 'pie',
+                style: {
+                    fontFamily: "Montserrat, 'Helvetica Neue', Helvetica, Arial, sans-serif"
+                }
             },
             title: {
                 text: ''
