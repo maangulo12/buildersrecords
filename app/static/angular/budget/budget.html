@@ -164,13 +164,13 @@
                 <td class="text-left"> {{ item.notes }} </td>
                 <td style="width: 2%">
                     <a href title="Edit" class="text-primary"
-                       ng-click="clickedItem(item) && showEditItemModal()">
+                       ng-click="clickedItem(category, item) && showEditItemModal()">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
                 </td>
                 <td style="width: 2%">
                     <a href title="Delete" class="text-danger"
-                       ng-click="clickedItem(item) && showSingleDeleteItemModal()">
+                       ng-click="clickedItem(category, item) && showSingleDeleteItemModal()">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                     </a>
                 </td>
@@ -486,7 +486,7 @@
                         <!-- Submit -->
                         <button type="submit" class="btn btn-success"
                                 ng-click="add_item_form.$valid && addItem()">
-                            <b> Add a Line Item </b>
+                            <b> Add Item </b>
                         </button>
                     </div>
                 </form>
@@ -518,7 +518,7 @@
                         <span class="sr-only"> Error: </span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true"> &times; </span>
-                        </button> <b> Could not delete your expense(s). Please try again. </b>
+                        </button> <b> Could not delete item(s). Please try again. </b>
                     </div>
                     <p class="text-center">
                         Are you sure you would like to <b> delete </b>?
@@ -561,7 +561,7 @@
                         <span class="sr-only"> Error: </span>
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true"> &times; </span>
-                        </button> <b> Could not delete your item. Please try again. </b>
+                        </button> <b> Could not delete item. Please try again. </b>
                     </div>
                     <p class="text-center">
                         Are you sure you would like to <b> delete </b>?

@@ -12,7 +12,7 @@ app.config(function($stateProvider) {
 });
 
 app.controller('BudgetController', function($scope, store, CategoryService, ItemService) {
-    var options = [];
+    var options = {};
     var piechart = null;
     init();
 
@@ -85,33 +85,9 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
         });
     }
 
-    // CLICKED EVENTS
-    $scope.clickedItem = function(item) {
-        var index = $scope.category.items.indexOf(item);
-        if (index !== -1) {
-            store.set('item', item);
-            return true;
-        }
-        return false;
-    }
-    $scope.clickedSingleCheckbox = function(category, item) {
-        if (item.selected) {
-            $scope.selected = true;
-        } else {
-            var is_selected = false;
-            angular.forEach(category.items, function(e) {
-                if (e.selected) {
-                    is_selected = true;
-                }
-            });
-            $scope.selected = is_selected;
-        }
-    }
-
-    // GET function
+    // UPDATE TABLE function
     function updateTable() {
-        CategoryService.getCategories()
-        .then(function(response) {
+        CategoryService.getCategories().then(function(response) {
             $scope.category_list = response.data.objects;
 
             var grand_total_estimated = 0;
@@ -138,6 +114,29 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
         });
     }
 
+    // CLICKED EVENTS functions
+    $scope.clickedItem = function(category, item) {
+        var index = category.items.indexOf(item);
+        if (index !== -1) {
+            store.set('item', item);
+            return true;
+        }
+        return false;
+    }
+    $scope.clickedSingleCheckbox = function(category, item) {
+        if (item.selected) {
+            $scope.selected = true;
+        } else {
+            var is_selected = false;
+            angular.forEach(category.items, function(e) {
+                if (e.selected) {
+                    is_selected = true;
+                }
+            });
+            $scope.selected = is_selected;
+        }
+    }
+
     // ADD functions
     $scope.showAddItemModal = function() {
         $scope.item = {};
@@ -147,7 +146,7 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     $scope.addItem = function() {
         if ($scope.item.new_category) {
             CategoryService.addCategory($scope.item.new_category).then(function(response) {
-                $scope.item.category = response.data.id
+                $scope.item.category = response.data.id;
                 addItem($scope.item);
             }, function(error) {
                 $scope.add_item_form.$invalid = true;
@@ -157,47 +156,56 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
         }
     }
     function addItem() {
-        ItemService.addItem($scope.item)
-        .then(function(response) {
+        ItemService.addItem($scope.item).then(function(response) {
             $('#add_item_modal').modal('hide');
-            updatePiechart()
+            updatePiechart();
+            // This needs re-work
+            // Add element to item list
             updateTable();
         }, function(error) {
             $scope.add_item_form.$invalid = true;
         });
     }
 
-    // DELETE ITEM functions
+    // DELETE ITEMS functions
     $scope.showDeleteItemsModal = function() {
         if (!$('#delete_button').hasClass('disabled')) {
+            $scope.error_msg_delete = false;
             $('#delete_items_modal').modal('show');
         }
     }
     $scope.deleteItems = function() {
+        var failed = false;
         angular.forEach($scope.category_list, function(category) {
             angular.forEach(category.items, function(item) {
                 if (item.selected) {
                     ItemService.deleteItem(item.id).then(function(response) {
                         $('#delete_items_modal').modal('hide');
                         $scope.selected = false;
+                        updatePiechart();
+                        // This needs re-work
+                        // Delete element from item list
+                        updateTable();
                     }, function(error) {
+                        failed = true;
                         $scope.error_msg_delete = true;
                     });
                 }
             });
         });
-        updatePiechart();
-        updateTable();
     }
 
     // DELETE SINGLE ITEM functions
     $scope.showSingleDeleteItemModal = function() {
+        $scope.error_msg_delete_single = false;
         $('#delete_single_item_modal').modal('show');
     }
     $scope.deleteSingleItem = function() {
         ItemService.deleteItem(store.get('item').id).then(function(response) {
             $('#delete_single_item_modal').modal('hide');
-            updatePiechart()
+            updatePiechart();
+            // This needs re-work
+            // Delete element from item list
             updateTable();
         }, function(error) {
             $scope.error_msg_delete_single = true;
