@@ -36,23 +36,22 @@ Web app for accounting home construction projects.
     -Forgot Password link
 ```
 
-+ Projects module: <b> Amy Lopes 10/15/2015 </b>
++ Projects module:
 ```
     -Delete Project ('bulk' delete everything about the project)
     -Upload File
 ```
 
-+ Overview module: <b> Miguel 10/15/2015 </b>
++ Overview module:
 ```
     -Overview Column chart tooltip
     -Overview Tables
 ```
 
-+ Budget module: <b> Amy Lopes 10/15/2015 </b>
++ Budget module:
 ```
     -Update, Delete Items
     -Update, Delete Category
-    -Empty Project Test
 ```
 
 + Funds module:
@@ -60,15 +59,14 @@ Web app for accounting home construction projects.
     -Empty Project Test
 ```
 
-+ Expenditures module: <b> Miguel 10/15/2015 </b>
++ Expenditures module:
 ```
     -Fix table resizing
     -Fix table shuffling (Add and Edit functions)
-    -Tooltip currency format piechart
     -Create new item link
 ```
 
-+ Subcontractors module: <b> Miguel 10/26/2015 </b>
++ Subcontractors module:
 ```
     -Add, Edit, and Delete functionality
     -Empty Project Test
