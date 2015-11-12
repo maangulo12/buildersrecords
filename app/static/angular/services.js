@@ -143,9 +143,9 @@ app.service('FundService', function($http, store) {
     // PUT Fund
     this.updateFund = function(form) {
         return $http.put(api_funds + '/' + store.get('fund').id, {
-            name      : form.name,
-            loan      : form.loan,
-            amount    : form.amount,
+            name:       form.name,
+            loan:       form.loan,
+            amount:     form.amount,
             project_id: store.get('project').id
         });
     }
@@ -162,16 +162,16 @@ app.service('DrawService', function($http, store) {
     // ADD Draw
     this.addDraw = function(form) {
         return $http.post(api_draws, {
-            date   : form.date,
-            amount : form.amount,
+            date:    form.date,
+            amount:  form.amount,
             fund_id: store.get('fund').id
         });
     }
     // PUT Draw
     this.updateDraw = function(form) {
         return $http.put(api_draws + '/' + store.get('draw').id, {
-            date   : form.date,
-            amount : form.amount,
+            date:    form.date,
+            amount:  form.amount,
             fund_id: store.get('fund').id
         });
     }
@@ -196,27 +196,27 @@ app.service('ExpenditureService', function($http, store, $filter) {
     // ADD Expenditure
     this.addExpenditure = function(form) {
         return $http.post(api_expenditures, {
-            date       : $filter('date')(form.date,'yyyy-MM-dd'),
-            vendor     : form.vendor,
-            notes      : form.notes,
-            cost       : form.cost,
-            fund_id    : form.fund.id,
+            date:        $filter('date')(form.date,'yyyy-MM-dd'),
+            vendor:      form.vendor,
+            notes:       form.notes,
+            cost:        form.cost,
+            fund_id:     form.fund.id,
             category_id: form.item.category.id,
-            item_id    : form.item.id,
-            project_id : store.get('project').id
+            item_id:     form.item.id,
+            project_id:  store.get('project').id
         });
     }
     // PUT Expenditure
     this.updateExpenditure = function(form) {
         return $http.put(api_expenditures + '/' + store.get('expenditure').id, {
-            date       : $filter('date')(form.date,'yyyy-MM-dd'),
-            vendor     : form.vendor,
-            notes      : form.notes,
-            cost       : form.cost,
-            fund_id    : form.fund.id,
+            date:        $filter('date')(form.date,'yyyy-MM-dd'),
+            vendor:      form.vendor,
+            notes:       form.notes,
+            cost:        form.cost,
+            fund_id:     form.fund.id,
             category_id: form.item.category.id,
-            item_id    : form.item.id,
-            project_id : store.get('project').id
+            item_id:     form.item.id,
+            project_id:  store.get('project').id
         });
     }
     // DELETE Expenditure
