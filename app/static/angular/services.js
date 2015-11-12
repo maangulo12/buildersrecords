@@ -13,7 +13,7 @@ app.service('UserService', function($http) {
         return $http.get(api_users + query('username', 'equals', username));
     }
     // GET User by email
-    this.getUserbyEmail= function(email) {
+    this.getUserbyEmail = function(email) {
         return $http.get(api_users + query('email', 'equals', email));
     }
     // ADD User
