@@ -115,11 +115,10 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     }
 
     // CLICKED EVENTS functions
-    $scope.clickedItem = function(category, item) {
-        var index = category.items.indexOf(item);
+    $scope.clickedItem = function(item) {
+        var index = store.get('category').items.indexOf(item);
         if (index !== -1) {
             store.set('item', item);
-            store.set('category', category);
             return true;
         }
         return false;
