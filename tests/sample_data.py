@@ -171,50 +171,50 @@ def populate_db(app):
 
     # Add Subcontractors
     client.post('/api/subcontractors', data=json.dumps({
-        'name':         'John Smith',
-        'company':      '84 Lumber',
-        'contact_info': '210-543-4534',
-        'project_id':   1
+        'name':           'John Smith',
+        'company':        '84 Lumber',
+        'contact_number': '210-543-4534',
+        'project_id':     1
     }),
         headers={
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + token
     })
     client.post('/api/subcontractors', data=json.dumps({
-        'name':         'Shawn Tarver',
-        'company':      'Ez Company',
-        'contact_info': '512-586-6516',
-        'project_id':   1
+        'name':           'Shawn Tarver',
+        'company':        'Ez Company',
+        'contact_number': '512-586-6516',
+        'project_id':     1
     }),
         headers={
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + token
     })
     client.post('/api/subcontractors', data=json.dumps({
-        'name':         'Mike Jones',
-        'company':      'Coca Cola',
-        'contact_info': '210-253-5861',
-        'project_id':   1
+        'name':           'Mike Jones',
+        'company':        'Coca Cola',
+        'contact_number': '210-253-5861',
+        'project_id':     1
     }),
         headers={
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + token
     })
     client.post('/api/subcontractors', data=json.dumps({
-        'name':         'Alex Ramirez',
-        'company':      'Rusty Corp',
-        'contact_info': '256-645-7854',
-        'project_id':   1
+        'name':           'Alex Ramirez',
+        'company':        'Rusty Corp',
+        'contact_number': '256-645-7854',
+        'project_id':     1
     }),
         headers={
         'Content-Type':  'application/json',
         'Authorization': 'Bearer ' + token
     })
     client.post('/api/subcontractors', data=json.dumps({
-        'name':         'Nick Ross',
-        'company':      'AAA Company',
-        'contact_info': '123-454-3443',
-        'project_id':   1
+        'name':           'Nick Ross',
+        'company':        'AAA Company',
+        'contact_number': '123-454-3443',
+        'project_id':     1
     }),
         headers={
         'Content-Type':  'application/json',
