@@ -48,12 +48,6 @@ Web app for accounting home construction projects.
     -Overview Tables
 ```
 
-+ Budget module:
-```
-    -Update Items
-    -Update, Delete Category
-```
-
 + Funds module:
 ```
     -Empty Project Test
