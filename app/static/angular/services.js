@@ -260,6 +260,28 @@ app.service('SubcontractorService', function($http, store) {
     this.getSubcontractors = function() {
         return $http.get(api_subcontractors + query('project_id', 'equals', store.get('project').id));
     }
+    // ADD Subcontractor
+    this.addSubcontractor = function(form) {
+        return $http.post(api_subcontractors, {
+            name:           form.name,
+            company:        form.company,
+            contact_number: form.contact_number,
+            project_id:     store.get('project').id
+        });
+    }
+    // PUT Subcontractor
+    this.updateSubcontractor = function(form) {
+        return $http.put(api_subcontractors + '/' + store.get('subcontractor').id, {
+            name:           form.name,
+            company:        form.company,
+            contact_number: form.contact_number,
+            project_id:     store.get('project').id
+        });
+    }
+    // DELETE Subcontractor
+    this.deleteSubcontractor = function(subcontractor_id) {
+        return $http.delete(api_subcontractors + '/' + subcontractor_id);
+    }
 });
 
 // Functions for /api/auth
