@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('BudgetController', function($scope, store, CategoryService, ItemService) {
+app.controller('BudgetController', function($scope, store, CategoryService, ItemService, ExpenditureService) {
     var options = {};
     var piechart = null;
     init();
@@ -136,14 +136,24 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
             $scope.selected = is_selected;
         }
     }
+    $scope.clickedCategory = function(category) {
+        var index = $scope.category_list.indexOf(category);
+        if (index !== -1) {
+            store.set('category', category);
+            return true;
+        }
+        return false;
+    }
 
     // ADD functions
     $scope.showAddItemModal = function() {
+        $scope.addDisabled = false;
         $scope.item = {};
         $scope.add_item_form.$setPristine();
         $('#add_item_modal').modal('show');
     }
     $scope.addItem = function() {
+        $scope.addDisabled = true;
         if ($scope.item.new_category) {
             CategoryService.addCategory($scope.item.new_category).then(function(response) {
                 $scope.item.category = response.data.id;
@@ -170,11 +180,13 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     // DELETE ITEMS functions
     $scope.showDeleteItemsModal = function() {
         if (!$('#delete_button').hasClass('disabled')) {
+            $scope.deleteDisabled = false;
             $scope.error_msg_delete = false;
             $('#delete_items_modal').modal('show');
         }
     }
     $scope.deleteItems = function() {
+        $scope.deleteDisabled = true;
         var failed = false;
         angular.forEach($scope.category_list, function(category) {
             angular.forEach(category.items, function(item) {
@@ -197,10 +209,12 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
 
     // DELETE SINGLE ITEM functions
     $scope.showSingleDeleteItemModal = function() {
+        $scope.deleteSingleDisabled = false;
         $scope.error_msg_delete_single = false;
         $('#delete_single_item_modal').modal('show');
     }
     $scope.deleteSingleItem = function() {
+        $scope.deleteSingleDisabled = false;
         ItemService.deleteItem(store.get('item').id).then(function(response) {
             $('#delete_single_item_modal').modal('hide');
             updatePiechart();
@@ -209,6 +223,33 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
             updateTable();
         }, function(error) {
             $scope.error_msg_delete_single = true;
+        });
+    }
+
+    // UPDATE ITEM functions
+
+    // DELETE CATEGORY functions
+    $scope.showDeleteCategoryModal = function() {
+        $scope.deleteCategoryDisabled = false;
+        $scope.error_msg_delete_category = false;
+        $('#delete_category_modal').modal('show');
+    }
+    $scope.deleteCategory = function() {
+        $scope.deleteCategoryDisabled = true;
+        ExpenditureService.deleteBulkExpenditures().then(function(response) {
+            ItemService.deleteBulkItems().then(function(response) {
+                CategoryService.deleteCategory().then(function(reponse) {
+                    $('#delete_category_modal').modal('hide');
+                    updatePiechart();
+                    updateTable();
+                }, function(error) {
+                    $scope.error_msg_delete_category = true;
+                });
+            }, function(error) {
+                $scope.error_msg_delete_category = true;
+            });
+        }, function(error) {
+            $scope.error_msg_delete_category = true;
         });
     }
 });
