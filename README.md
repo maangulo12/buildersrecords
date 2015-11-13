@@ -44,13 +44,12 @@ Web app for accounting home construction projects.
 
 + Overview module:
 ```
-    -Overview Column chart tooltip
-    -Overview Tables
+    -Overview Table
 ```
 
 + Funds module:
 ```
-    -Empty Project Test
+    -Bulk delete expenditure
 ```
 
 + Expenditures module:
@@ -75,6 +74,7 @@ Web app for accounting home construction projects.
 + All modules:
 ```
     -Amount directive 'format' needs to allow decimals
+    -Charts tooltips
 ```
 
 + Modules to Consider:
