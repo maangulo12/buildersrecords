@@ -20,6 +20,8 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
         $scope.loan_question = [{ value: true, name: 'Yes' },
                                 { value: false, name: 'No' }];
     }
+
+    // CLICKED EVENT functions
     $scope.clickedFund = function(fund) {
         var index = $scope.fund_list.indexOf(fund);
         if (index !== -1) {
@@ -55,7 +57,8 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             store.get('fund').selected = is_selected;
         }
     }
-    // GET function
+
+    // GET FUNDS function
     function getFunds() {
         FundService.getFunds().then(function(response) {
             $scope.fund_list = response.data.objects;
@@ -84,6 +87,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             $scope.error_msg_get = true;
         });
     }
+
     // ADD FUND functions
     $scope.showAddFundModal = function() {
         $scope.fund = {};
@@ -98,6 +102,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             $scope.add_fund_form.$invalid = true;
         });
     }
+
     // DELETE FUND functions
     $scope.showDeleteFundModal = function() {
         $scope.error_msg_delete = false;
@@ -122,6 +127,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             $scope.error_msg_delete = true;
         });
     }
+
     // UPDATE FUND functions
     $scope.showEditFundModal = function() {
         $scope.updated_fund        = {};
@@ -139,6 +145,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             $scope.edit_fund_form.$invalid = true;
         });
     }
+
     // ADD DRAW functions
     $scope.showAddDrawModal = function() {
         $scope.draw = {};
@@ -154,6 +161,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             $scope.add_draw_form.$invalid = true;
         });
     }
+
     // DELETE DRAWS functions
     $scope.showDeleteDrawsModal = function() {
         if (store.get('fund').selected) {
@@ -174,6 +182,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             }
         });
     }
+    
     // UPDATE DRAW functions
     $scope.showEditDrawModal = function() {
         $scope.updated_draw = {};
