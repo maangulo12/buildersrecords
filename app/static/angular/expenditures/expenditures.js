@@ -166,8 +166,8 @@ app.controller('ExpendituresController', function($scope, store, CategoryService
 
     // DELETE EXPENDITURES functions
     $scope.showDeleteExpendituresModal = function() {
-        $scope.deleteDisabled = false;
         if (!$('#delete_button').hasClass('disabled')) {
+            $scope.deleteDisabled = false;
             $scope.error_msg_delete = false;
             $('#delete_expenditures_modal').modal('show');
         }
