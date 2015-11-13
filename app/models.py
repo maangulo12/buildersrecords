@@ -123,9 +123,9 @@ class Expenditure(db.Model):
 
 
 class Subcontractor(db.Model):
-    __tablename__ = 'subcontractors'
-    id            = db.Column(db.Integer, primary_key=True)
-    name          = db.Column(db.String(50), nullable=False)
-    company       = db.Column(db.String(50), nullable=False)
-    contact_info  = db.Column(db.String(15), nullable=False)
-    project_id    = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
+    __tablename__  = 'subcontractors'
+    id             = db.Column(db.Integer, primary_key=True)
+    name           = db.Column(db.String(50), nullable=False)
+    company        = db.Column(db.String(50), nullable=False)
+    contact_number = db.Column(db.String(15), nullable=False)
+    project_id     = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
