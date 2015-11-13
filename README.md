@@ -38,18 +38,18 @@ Web app for accounting home construction projects.
 
 + Projects module:
 ```
-    -Delete Project ('bulk' delete everything about the project)
-    -Upload File
+    *Delete Project ('bulk' delete everything about the project)
+    *Upload File
 ```
 
 + Overview module:
 ```
-    -Overview Table
+    *Overview Table
 ```
 
 + Funds module:
 ```
-    -Bulk delete expenditure
+    *Bulk delete expenditure
 ```
 
 + Expenditures module:
@@ -61,8 +61,7 @@ Web app for accounting home construction projects.
 
 + Subcontractors module:
 ```
-    -Add, Edit, and Delete functionality
-    -Empty Project Test
+    *Add, Edit, and Delete functionality
 ```
 
 + Modules to Implement:
@@ -74,7 +73,7 @@ Web app for accounting home construction projects.
 + All modules:
 ```
     -Amount directive 'format' needs to allow decimals
-    -Charts tooltips
+    -Charts tooltips currency format
 ```
 
 + Modules to Consider:
