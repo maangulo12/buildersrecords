@@ -119,6 +119,7 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
         var index = category.items.indexOf(item);
         if (index !== -1) {
             store.set('item', item);
+            store.set('category', category);
             return true;
         }
         return false;
@@ -227,6 +228,33 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     }
 
     // UPDATE ITEM functions
+    $scope.showEditItemModal = function() {
+        $scope.updateDisabled = false;
+        $scope.updated_item             = {};
+        $scope.updated_item.category    = {
+            id:   store.get('category').id,
+            name: store.get('category').name
+        };
+        $scope.updated_item.name        = store.get('item').name;
+        $scope.updated_item.description = store.get('item').description;
+        $scope.updated_item.estimated   = store.get('item').estimated;
+        $scope.updated_item.actual      = store.get('item').actual;
+        $scope.updated_item.notes       = store.get('item').notes;
+        $scope.edit_item_form.$setPristine();
+        $('#edit_item_modal').modal('show');
+    }
+    $scope.updateItem = function() {
+        $scope.updateDisabled = true;
+        ItemService.updateItem($scope.updated_item).then(function(response) {
+            $('#edit_item_modal').modal('hide');
+            updatePiechart();
+            // This needs re-work
+            // Update element from item list
+            updateTable();
+        }, function(error) {
+            $scope.edit_item_form.$invalid = true;
+        });
+    }
 
     // DELETE CATEGORY functions
     $scope.showDeleteCategoryModal = function() {
@@ -236,20 +264,82 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
     }
     $scope.deleteCategory = function() {
         $scope.deleteCategoryDisabled = true;
-        ExpenditureService.deleteBulkExpenditures().then(function(response) {
-            ItemService.deleteBulkItems().then(function(response) {
-                CategoryService.deleteCategory().then(function(reponse) {
-                    $('#delete_category_modal').modal('hide');
-                    updatePiechart();
-                    updateTable();
-                }, function(error) {
-                    $scope.error_msg_delete_category = true;
-                });
-            }, function(error) {
-                $scope.error_msg_delete_category = true;
+
+        ExpenditureService.getExpendituresByCategory().then(function(response) {
+            var expenditures = response.data.num_results;
+
+            ItemService.getItemsByCategory().then(function(response) {
+                var items = response.data.num_results;
+
+                if (expenditures == 0 && items == 0) {
+                    CategoryService.deleteCategory().then(function(response) {
+                        $('#delete_category_modal').modal('hide');
+                        updatePiechart();
+                        updateTable();
+                    }, function(error) {
+                        $scope.error_msg_delete_category = true;
+                    });
+                } else if (expenditures != 0 && items != 0) {
+                    ExpenditureService.deleteBulkExpenditures().then(function(response) {
+                        ItemService.deleteBulkItems().then(function(response) {
+                            CategoryService.deleteCategory().then(function(response) {
+                                $('#delete_category_modal').modal('hide');
+                                updatePiechart();
+                                updateTable();
+                            }, function(error) {
+                                $scope.error_msg_delete_category = true;
+                            });
+                        }, function(error) {
+                            $scope.error_msg_delete_category = true;
+                        });
+                    }, function(error) {
+                        $scope.error_msg_delete_category = true;
+                    });
+                } else if (expenditures != 0 && items == 0) {
+                    ExpenditureService.deleteBulkExpenditures().then(function(response) {
+                        CategoryService.deleteCategory().then(function(response) {
+                            $('#delete_category_modal').modal('hide');
+                            updatePiechart();
+                            updateTable();
+                        }, function(error) {
+                            $scope.error_msg_delete_category = true;
+                        });
+                    }, function(error) {
+                        $scope.error_msg_delete_category = true;
+                    });
+                } else {
+                    ItemService.deleteBulkItems().then(function(response) {
+                        CategoryService.deleteCategory().then(function(response) {
+                            $('#delete_category_modal').modal('hide');
+                            updatePiechart();
+                            updateTable();
+                        }, function(error) {
+                            $scope.error_msg_delete_category = true;
+                        });
+                    }, function(error) {
+                        $scope.error_msg_delete_category = true;
+                    });
+                }
             });
+        });
+    }
+
+    // UPDATE CATEGORY functions
+    $scope.showEditCategoryModal = function() {
+        $scope.updateCategoryDisabled = false;
+        $scope.category = {};
+        $scope.category.name = store.get('category').name
+        $scope.edit_category_form.$setPristine();
+        $('#edit_category_modal').modal('show');
+    }
+    $scope.updateCategory = function() {
+        $scope.updateCategoryDisabled = true;
+        CategoryService.updateCategory($scope.category.name).then(function(response) {
+            $('#edit_category_modal').modal('hide');
+            updatePiechart();
+            updateTable();
         }, function(error) {
-            $scope.error_msg_delete_category = true;
+            $scope.add_item_form.$invalid = true;
         });
     }
 });
