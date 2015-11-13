@@ -83,6 +83,13 @@ app.service('CategoryService', function($http, store) {
             project_id: store.get('project').id
         });
     }
+    // PUT Category
+    this.updateCategory = function(category_name) {
+        return $http.put(api_categories + '/' + store.get('category').id, {
+            name:       category_name,
+            project_id: store.get('project').id
+        });
+    }
     // DELETE Category
     this.deleteCategory = function() {
         return $http.delete(api_categories + '/' + store.get('category').id);
@@ -96,6 +103,10 @@ app.service('ItemService', function($http, store) {
     // GET list of Items
     this.getItems = function() {
         return $http.get(api_items + query('project_id', 'equals', store.get('project').id));
+    }
+    // GET list of Items by Category
+    this.getItemsByCategory = function() {
+        return $http.get(api_items + query('category_id', 'equals', store.get('category').id));
     }
     // ADD Item
     this.addItem = function(form) {
@@ -117,7 +128,7 @@ app.service('ItemService', function($http, store) {
             estimated:   form.estimated,
             actual:      form.actual,
             notes:       form.notes,
-            category_id: form.category,
+            category_id: form.category.id,
             project_id:  store.get('project').id
         });
     }
@@ -200,6 +211,10 @@ app.service('ExpenditureService', function($http, store, $filter) {
     // GET list of Expenditures
     this.getExpenditures = function() {
         return $http.get(api_expenditures + query('project_id', 'equals', store.get('project').id));
+    }
+    // GET list of Expenditures by Category
+    this.getExpendituresByCategory = function() {
+        return $http.get(api_expenditures + query('category_id', 'equals', store.get('category').id));
     }
     // ADD Expenditure
     this.addExpenditure = function(form) {
