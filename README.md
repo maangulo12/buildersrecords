@@ -38,7 +38,7 @@ Web app for accounting home construction projects.
 
 + Projects module:
 ```
-    *Delete Project ('bulk' delete everything about the project)
+    -Delete Project ('bulk' delete everything about the project)
     *Upload File
 ```
 
@@ -49,7 +49,7 @@ Web app for accounting home construction projects.
 
 + Funds module:
 ```
-    *Bulk delete expenditure
+    -Bulk delete expenditure
 ```
 
 + Expenditures module:
@@ -57,11 +57,6 @@ Web app for accounting home construction projects.
     -Fix table resizing
     -Fix table shuffling (Add and Edit functions)
     -Create new links
-```
-
-+ Subcontractors module:
-```
-    *Add, Edit, and Delete functionality
 ```
 
 + Modules to Implement:
