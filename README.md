@@ -50,7 +50,7 @@ Web app for accounting home construction projects.
 
 + Budget module:
 ```
-    -Update, Delete Items
+    -Update Items
     -Update, Delete Category
 ```
 
