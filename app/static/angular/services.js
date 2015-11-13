@@ -83,6 +83,10 @@ app.service('CategoryService', function($http, store) {
             project_id: store.get('project').id
         });
     }
+    // DELETE Category
+    this.deleteCategory = function() {
+        return $http.delete(api_categories + '/' + store.get('category').id);
+    }
 });
 
 // Functions for /api/items
@@ -120,6 +124,10 @@ app.service('ItemService', function($http, store) {
     // DELETE Item
     this.deleteItem = function(item_id) {
         return $http.delete(api_items + '/' + item_id);
+    }
+    // DELETE BULK Items
+    this.deleteBulkItems = function() {
+        return $http.delete(api_items + query('category_id', 'equals', store.get('category').id));
     }
 });
 
@@ -222,6 +230,10 @@ app.service('ExpenditureService', function($http, store, $filter) {
     // DELETE Expenditure
     this.deleteExpenditure = function(expenditure_id) {
         return $http.delete(api_expenditures + '/' + expenditure_id);
+    }
+    // DELETE BULK Expenditures
+    this.deleteBulkExpenditures = function() {
+        return $http.delete(api_expenditures + query('category_id', 'equals', store.get('category').id));
     }
 });
 
