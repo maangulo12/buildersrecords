@@ -63,7 +63,7 @@ Web app for accounting home construction projects.
 ```
     -Fix table resizing
     -Fix table shuffling (Add and Edit functions)
-    -Create new item link
+    -Create new links
 ```
 
 + Subcontractors module:
