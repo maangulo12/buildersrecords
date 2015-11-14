@@ -93,10 +93,10 @@
                 <h1> Overview </h1>
                 <!-- Sub Header -->
                 <h4 class="text-muted">
-                    <i> {{ project_name }} </i>
+                    <i> {{ project.name }} </i>
                 </h4>
                 <!-- Home Square Footage -->
-                <h5> <i> Home Square Footage: {{ home_sq }} </i> </h5>
+                <h5 class="text-muted"> <i> Home Square Footage: {{ project.home_sq }} </i> </h5>
             </div>
             <!-- Barchart -->
             <div id="barchart-container" class="chart-size"></div>
@@ -176,7 +176,7 @@
         <tbody >
             <tr ng-if="category_list.length == 0" class="active">
                 <td> </td>
-                <td colspan="9"> No categories to show. </td>
+                <td colspan="9"> <b> No categories to show. </b> </td>
             </tr>
         </tbody>
         <!-- Table Footer -->

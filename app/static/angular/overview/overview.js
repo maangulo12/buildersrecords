@@ -17,9 +17,8 @@ app.controller('OverviewController', function($scope, store, CategoryService) {
     init();
 
     function init() {
-        $scope.username     = store.get('user').username;
-        $scope.project_name = store.get('project').name;
-        $scope.home_sq      = store.get('project').home_sq;
+        $scope.username = store.get('user').username;
+        $scope.project = store.get('project');
         initBarchart();
         updateBarchart();
         getCategories();
