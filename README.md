@@ -49,6 +49,7 @@ Web app for accounting home construction projects.
 + Funds module:
 ```
     -Bulk delete expenditure
+    -Table draws shuffling
 ```
 
 + Expenditures module:
