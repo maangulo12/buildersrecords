@@ -57,7 +57,7 @@
                 <!-- Funds & Loans -->
                 <a ui-sref="funds" class="list-group-item">
                     <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
-                    <b> Funds & Loans </b>
+                    <b> Funds </b>
                 </a>
                 <!-- Budget -->
                 <a ui-sref="budget" class="list-group-item active">
@@ -119,17 +119,18 @@
     <br>
     <br>
     <!-- Table -->
-    <table st-table="category_list" class="table table-striped table-hover table-responsive">
+    <table st-table="category_list"
+           class="table table-condensed table-bordered table-striped table-hover table-responsive">
         <!-- Table Header -->
         <thead>
             <tr>
-                <th style="width: 2%"> </th>
+                <th style="width: 4%"> </th>
                 <th colspan="2" class="text-center"> Cost Category / Detail </th>
                 <th class="text-center"> </th>
                 <th class="text-center"> Estimated </th>
                 <th class="text-center"> Actual </th>
                 <th class="text-center"> Over / Under Budget </th>
-                <th colspan="2"> Action </th>
+                <th colspan="2" style="width: 5%"> Action </th>
             </tr>
         </thead>
         <!-- Table Body -->
@@ -148,7 +149,7 @@
                     <b> {{ category.total_actual - category.total_estimated | currency }} </b>
                 </td>
                 <td>
-                    <a href title="Edit" class="text-info"
+                    <a href title="Edit" class="text-primary"
                        ng-click="clickedCategory(category) && showEditCategoryModal()">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
@@ -175,7 +176,7 @@
                     {{ item.actual - item.estimated | currency }}
                 </td>
                 <td style="width: 2%">
-                    <a href title="Edit" class="text-info"
+                    <a href title="Edit" class="text-primary"
                        ng-click="clickedCategory(category) && clickedItem(item) && showEditItemModal()">
                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
