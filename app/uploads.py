@@ -69,17 +69,17 @@ def ubuildit():
     zipcode      = request.form['zipcode']
     home_sq      = request.form['home_sq']
     project_type = request.form['project_type']
-    username     = request.form['username']
+    user_id      = request.form['user_id']
 
     criterion = [file_obj, name, address, city,
-                 state, zipcode, project_type, username]
+                 state, zipcode, home_sq, project_type, user_id]
 
     if not all(criterion):
         return make_response('Bad request', 400)
 
     aws_criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
     unique_id     = uuid4()
-    full_path     = UPLOAD_PATH + '/' + username + '/' + str(unique_id)
+    full_path     = UPLOAD_PATH + '/' + user_id + '/' + name + '/' + str(unique_id)
 
     if save_file(full_path, file_obj, all(aws_criterion)):
         try:
@@ -102,7 +102,6 @@ def ubuildit():
                                 description=cat_item['description'],
                                 estimated=cat_item['estimated'],
                                 actual=cat_item['actual'],
-                                notes=cat_item['explanations'],
                                 category_id=category.id,
                                 project_id=project.id)
                     db.session.add(item)
