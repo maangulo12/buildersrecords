@@ -77,6 +77,10 @@ Web app for accounting home construction projects.
     -Implement Gallery module
     -Implement Send Feedback
     -Implement Help & Support
+
+    -Initial first time setup
+    -Upload receipts
+    -
 ```
 
 ## Required Software
