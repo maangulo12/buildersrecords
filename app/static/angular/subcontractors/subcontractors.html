@@ -92,7 +92,9 @@
             <div class="page-header">
                 <h1> Subcontractors </h1>
                 <!-- Sub Header -->
-                <h4 class="text-muted"> Contact List </h4>
+                <h4 class="text-muted">
+                    <i> Contact List </i>
+                </h4>
             </div>
             <!-- Button - Add Subcontractor -->
             <button type="button" class="btn btn-success" title="Add a Subcontractor"
@@ -287,7 +289,6 @@
                                    type="text"
                                    placeholder="Contact Number"
                                    ng-model="subcontractor.contact_number"
-                                   required
                                    ng-maxlength=15>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_subcontractor_form.contact_number.$dirty &&
@@ -300,8 +301,6 @@
                                         add_subcontractor_form.contact_number.$invalid ||
                                         add_subcontractor_form.$submitted &&
                                         add_subcontractor_form.contact_number.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 15 characters. </div>
                             </div>
@@ -528,7 +527,6 @@
                                    type="text"
                                    placeholder="Contact Number"
                                    ng-model="updated_subcontractor.contact_number"
-                                   required
                                    ng-maxlength=15>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="edit_subcontractor_form.contact_number.$dirty &&
@@ -541,8 +539,6 @@
                                         edit_subcontractor_form.contact_number.$invalid ||
                                         edit_subcontractor_form.$submitted &&
                                         edit_subcontractor_form.contact_number.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 15 characters. </div>
                             </div>
