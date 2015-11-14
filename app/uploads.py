@@ -45,7 +45,7 @@ def save_file(path, file_obj, aws_flag=False):
             file_data = file_obj.read()
             k.set_contents_from_string(file_data)
         else:
-            file_obj.save(path)
+            file_obj.save('/uploads/spreadsheet.xlsx')
 
         return True
 
