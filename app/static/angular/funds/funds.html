@@ -85,13 +85,15 @@
                 <span class="sr-only"> Error: </span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
-                </button> <b> Could not load your funds/loans. Please try to refresh the page. </b>
+                </button> <b> Could not load your funds or loans. Please try to refresh the page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
                 <h1> Funds & Loans </h1>
                 <!-- Sub Header -->
-                <h4 class="text-muted"> Track your funds and loans </h4>
+                <h4 class="text-muted">
+                    <i> Track your funds and loans </i>
+                </h4>
             </div>
             <!-- Button - Add Fund -->
             <button type="button" class="btn btn-success" title="Add a Fund/Loan"
@@ -106,7 +108,7 @@
             <div ng-if="fund_list.length == 0" class="panel panel-primary">
                 <div class="panel-heading"> <b> No Funds </b> </div>
                 <div class="panel-body">
-                    <p> Get started by adding your funds/loans. </p>
+                    <p> Get started by adding your funds or loans. </p>
                 </div>
             </div>
             <!-- Panels -->
