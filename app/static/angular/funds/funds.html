@@ -108,7 +108,7 @@
             <div ng-if="fund_list.length == 0" class="panel panel-primary">
                 <div class="panel-heading"> <b> No Funds </b> </div>
                 <div class="panel-body">
-                    <p> Get started by adding your funds or loans. </p>
+                    <p> <b> Get started by adding your funds or loans. </b> </p>
                 </div>
             </div>
             <!-- Panels -->
@@ -255,6 +255,24 @@
                                         <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
                                     </tr>
                                 </tbody>
+                                <!-- Totals -->
+                                <tbody ng-if="fund.draws.length != 0">
+                                    <tr class="active">
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Total Draw Amount </b> </td>
+                                        <td class="text-right text-warning" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
+                                    </tr>
+                                    <tr class="active">
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
+                                        <td class="text-right"> <b> {{ fund.amount | currency }} </b> </td>
+                                    </tr>
+                                    <tr class="active">
+                                        <td colspan="3"></td>
+                                        <td class="text-right"> <b> Amount Left </b> </td>
+                                        <td class="text-right text-success"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
+                                    </tr>
+                                </tbody>
                                 <!-- Empty Totals -->
                                 <tbody ng-if="fund.draws.length == 0">
                                     <tr>
@@ -314,7 +332,7 @@
                                                          add_fund_form.name.$invalid }">
                             <label class="control-label" for="name"> Fund/Loan Name * </label>
                             <br>
-                            <span class="text-warning"> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </span>
+                            <p class="text-info"> <b> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </b> </p>
                             <input class="form-control"
                                    name="name"
                                    type="text"
@@ -350,7 +368,7 @@
                                                          add_fund_form.$submitted &&
                                                          add_fund_form.loan.$invalid }">
                             <label class="control-label" for="loan"> Is this a loan? * </label>
-                            <span class="text-warning"> For out of pocket money or savings funds, select "No" </span>
+                            <p class="text-info"> <b> For out of pocket money or savings funds, select "No" </b> </p>
                             <select class="form-control"
                                     name="loan"
                                     ng-model="fund.loan"
@@ -424,7 +442,7 @@
                         <!-- Submit -->
                         <button type="submit" class="btn btn-success" ng-disabled="addDisabled"
                                 ng-click="add_fund_form.$valid && addFund()">
-                            <b> Add </b>
+                            <b> Add Draw </b>
                         </button>
                     </div>
                 </form>
@@ -515,7 +533,7 @@
                                                          edit_fund_form.$submitted &&
                                                          edit_fund_form.name.$invalid }">
                             <label class="control-label" for="name"> Fund/Loan Name * </label>
-                            <p class="text-warning"> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </p>
+                            <p class="text-info"> <b> For out of pocket money or savings funds, type "Savings" or "Out of Pocket" </b> </p>
                             <input class="form-control"
                                    name="name"
                                    type="text"
@@ -551,7 +569,7 @@
                                                          edit_fund_form.$submitted &&
                                                          edit_fund_form.loan.$invalid }">
                             <label class="control-label" for="loan"> Is this a loan? * </label>
-                            <p class="text-warning"> For out of pocket money or savings funds, select "No" </p>
+                            <p class="text-info"> <b> For out of pocket money or savings funds, select "No" </b> </p>
                             <select class="form-control"
                                     name="loan"
                                     ng-model="updated_fund.loan"
@@ -624,7 +642,7 @@
                         <!-- Submit -->
                         <button type="submit" class="btn btn-primary" ng-disabled="updateDisabled"
                                 ng-click="edit_fund_form.$valid && updateFund()">
-                            <b> Update </b>
+                            <b> Update Draw </b>
                         </button>
                     </div>
                 </form>

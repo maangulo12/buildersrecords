@@ -98,9 +98,15 @@
             </div>
             <!-- Panel -->
             <div class="panel panel-primary">
-                <div class="panel-heading"> <b> Categories </b> </div>
+                <!-- Panel Header -->
+                <div class="panel-heading">
+                    <b> Categories </b>
+                </div>
+                <!-- Panel Body -->
                 <div class="panel-body">
-                    <p ng-if="category_list.length == 0"> No categories to show. </p>
+                    <p ng-if="category_list.length == 0">
+                        <b> No categories to show. </b>
+                    </p>
                     <!-- Progress Bars -->
                     <div ng-repeat="category in category_list">
                         <!-- Category -->
@@ -132,7 +138,8 @@
                         </div>
                         <!-- Progress Bar -->
                         <div class="progress">
-                            <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ category.spent }}%;">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped"
+                                 style="width: {{ category.spent }}%;">
                                 <span class="sr-only"> {{ category.spent }}% Complete </span>
                             </div>
                         </div>
@@ -160,7 +167,8 @@
     <br>
     <br>
     <!-- Table -->
-    <table st-table="collection" st-safe-src="expenditure_list" class="table table-striped table-hover table-responsive">
+    <table st-table="collection" st-safe-src="expenditure_list"
+           class="table table-striped table-hover table-responsive">
         <!-- Table Header -->
         <thead>
             <tr>
@@ -243,7 +251,7 @@
             <!-- Empty Project -->
             <tr ng-if="expenditure_list.length == 0" class="active">
                 <td colspan="1"></td>
-                <td colspan="9"> You have not made any expenditures yet. </td>
+                <td colspan="9"> <b> You have not made any expenditures yet. </b> </td>
             </tr>
         </tbody>
         <!-- Table Footer -->

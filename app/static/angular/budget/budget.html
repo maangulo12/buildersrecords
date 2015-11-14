@@ -192,7 +192,7 @@
         <tbody ng-if="category_list.length == 0">
             <tr class="active">
                 <td> </td>
-                <td colspan="7"> No categories to show. </td>
+                <td colspan="7"> <b> No categories to show. </b> </td>
             </tr>
         </tbody>
         <!-- Table Footer -->
@@ -268,7 +268,6 @@
                                 <div ng-message="required"
                                      class="help-block"> This field is required. </div>
                             </div>
-                            <a href ng-click="item.category='new'"> <b> Create a New Category </b> </a>
                         </div>
                         <div ng-if="item.category=='new'">
                             <!-- New Category Field -->
@@ -352,13 +351,12 @@
                                                          add_item_form.description.$invalid ||
                                                          add_item_form.$submitted &&
                                                          add_item_form.description.$invalid }">
-                            <label class="control-label" for="description"> Description * </label>
+                            <label class="control-label" for="description"> Description </label>
                             <input class="form-control"
                                    name="description"
                                    type="text"
                                    placeholder="Description"
                                    ng-model="item.description"
-                                   required
                                    ng-maxlength=80>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="add_item_form.description.$dirty &&
@@ -371,8 +369,6 @@
                                         add_item_form.description.$invalid ||
                                         add_item_form.$submitted &&
                                         add_item_form.description.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
@@ -659,13 +655,12 @@
                                                          edit_item_form.description.$invalid ||
                                                          edit_item_form.$submitted &&
                                                          edit_item_form.description.$invalid }">
-                            <label class="control-label" for="description"> Description * </label>
+                            <label class="control-label" for="description"> Description </label>
                             <input class="form-control"
                                    name="description"
                                    type="text"
                                    placeholder="Description"
                                    ng-model="updated_item.description"
-                                   required
                                    ng-maxlength=80>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
                                   ng-if="edit_item_form.description.$dirty &&
@@ -678,8 +673,6 @@
                                         edit_item_form.description.$invalid ||
                                         edit_item_form.$submitted &&
                                         edit_item_form.description.$invalid">
-                                <div ng-message="required"
-                                     class="help-block"> This field is required. </div>
                                 <div ng-message="maxlength"
                                      class="help-block"> This field cannot be longer than 80 characters. </div>
                             </div>
