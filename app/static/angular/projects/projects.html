@@ -51,7 +51,7 @@
     <div class="page-header">
         <h1> <span class="glyphicon glyphicon-home" aria-hidden="true"></span> My Projects </h1>
         <!-- Sub Header -->
-        <h4 class="text-muted"> Home Construction </h4>
+        <h4 class="text-muted"> <i> Home Construction </i> </h4>
     </div>
 </div>
 <!-- Button -->
@@ -446,7 +446,7 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-success"
+                        <button type="submit" class="btn btn-success" ng-disabled="addDisabled"
                                 ng-click="new_project_form.$valid && createProject()">
                             <b> Create Project </b>
                         </button>
@@ -491,7 +491,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
-                    <button type="button" class="btn btn-danger" ng-click="deleteProject()">
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteDisabled"
+                            ng-click="deleteProject()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
@@ -766,7 +767,8 @@
                                         type="text"
                                         placeholder="Home Square Footage"
                                         ng-model="updated_project.home_sq"
-                                        required>
+                                        required
+                                        format="number">
                                  <div class="input-group-addon"> ft </div>
                              </div>
                              <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -792,7 +794,7 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn btn-primary" ng-disabled="updateDisabled"
                                 ng-click="edit_project_form.$valid && updateProject()">
                             <b> Update Project </b>
                         </button>

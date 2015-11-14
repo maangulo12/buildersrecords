@@ -18,6 +18,8 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
         $scope.username = store.get('user').username;
         getProjects();
     }
+
+    // CLICKED EVENTS function
     $scope.clickedProject = function(project) {
         var index = $scope.project_list.indexOf(project);
         if (index !== -1) {
@@ -26,7 +28,8 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
         }
         return false;
     }
-    // GET function
+
+    // GET PROJECTS function
     function getProjects() {
         ProjectService.getProjects().then(function(response) {
             $scope.project_list = response.data.objects;
@@ -34,13 +37,16 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
             $scope.error_msg_get = true;
         });
     }
-    // ADD functions
+
+    // ADD PROJECT functions
     $scope.showNewProjectModal = function() {
+        $scope.addDisabled = false;
         $scope.project = {};
         $scope.new_project_form.$setPristine();
         $('#new_project_modal').modal('show');
     }
     $scope.createProject = function() {
+        $scope.addDisabled = true;
         if ($('#project_file').length) {
             var file = $('#project_file')[0].files[0];
 
@@ -53,32 +59,32 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
             form.append('zipcode', $scope.project.zipcode);
             form.append('home_sq', $scope.project.home_sq);
             form.append('project_type', $scope.project.type);
-            form.append('username', store.get('user').username);
+            form.append('user_id', store.get('user').id);
 
             UploadService.uploadUbuildit(form).then(function(response) {
                 $('#new_project_modal').modal('hide');
-                addProject();
+                getProjects();
             }, function(error) {
                 $scope.new_project_form.$invalid = true;
             });
         } else {
-            addProject();
+            ProjectService.addProject($scope.project).then(function(response) {
+                $('#new_project_modal').modal('hide');
+                getProjects();
+            }, function(error) {
+                $scope.new_project_form.$invalid = true;
+            });
         }
     }
-    function addProject() {
-        ProjectService.addProject($scope.project).then(function(response) {
-            $('#new_project_modal').modal('hide');
-            getProjects();
-        }, function(error) {
-            $scope.new_project_form.$invalid = true;
-        });
-    }
-    // DELETE functions
+
+    // DELETE PROJECT functions
     $scope.showDeleteProjectModal = function() {
+        $scope.deleteDisabled = false;
         $scope.error_msg_delete = false;
         $('#delete_project_modal').modal('show');
     }
     $scope.deleteProject = function() {
+        $scope.deleteDisabled = true;
         ProjectService.deleteProject().then(function(response) {
             $('#delete_project_modal').modal('hide');
             getProjects();
@@ -86,8 +92,10 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
             $scope.error_msg_delete = true;
         });
     }
-    // UPDATE functions
+
+    // UPDATE PROJECT functions
     $scope.showEditProjectModal = function(project) {
+        $scope.updateDisabled = false;
         $scope.updated_project         = {};
         $scope.updated_project.name    = store.get('project').name;
         $scope.updated_project.address = store.get('project').address;
@@ -99,6 +107,7 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
         $('#edit_project_modal').modal('show');
     }
     $scope.updateProject = function() {
+        $scope.updateDisabled = true;
         ProjectService.updateProject($scope.updated_project).then(function(response) {
             $('#edit_project_modal').modal('hide');
             getProjects();
