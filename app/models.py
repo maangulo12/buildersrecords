@@ -81,7 +81,6 @@ class Item(db.Model):
     description   = db.Column(db.String(80), nullable=False)
     estimated     = db.Column(db.Numeric(12,2), nullable=False)
     actual        = db.Column(db.Numeric(12,2))
-    notes         = db.Column(db.String(80))
     category_id   = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
     project_id    = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
 
@@ -127,5 +126,5 @@ class Subcontractor(db.Model):
     id             = db.Column(db.Integer, primary_key=True)
     name           = db.Column(db.String(50), nullable=False)
     company        = db.Column(db.String(50), nullable=False)
-    contact_number = db.Column(db.String(15), nullable=False)
+    contact_number = db.Column(db.String(15))
     project_id     = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
