@@ -87,7 +87,6 @@ def populate_db(app):
                 'description': item['description'],
                 'estimated':   item['estimated'],
                 'actual':      item['actual'],
-                'notes':       item['explanations'],
                 'category_id': data.index(category) + 1,
                 'project_id':  1
             }),
