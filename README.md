@@ -39,7 +39,6 @@ Web app for accounting home construction projects.
 + Projects module:
 ```
     -Delete Project ('bulk' delete everything about the project)
-    *Upload File
 ```
 
 + Overview module:
