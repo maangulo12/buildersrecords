@@ -151,7 +151,7 @@
                                     <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> <b> Spending </b>
                                     <br>
                                     <span class="text-danger"> <b> {{ fund.total_expenditure | currency }} Spent </b> </span>
-                                    <span ng-if="fund.amount > fund.total_expenditure">
+                                    <span ng-if="fund.amount> fund.total_expenditure">
                                         <b> / </b>
                                         <span class="text-right text-success"> <b> {{ fund.amount - fund.total_expenditure | currency }} Left </b> </span>
                                     </span>
@@ -253,24 +253,6 @@
                                         <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
                                         <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
                                         <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
-                                    </tr>
-                                </tbody>
-                                <!-- Totals -->
-                                <tbody ng-if="fund.draws.length != 0">
-                                    <tr class="active">
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Total Draw Amount </b> </td>
-                                        <td class="text-right text-danger" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
-                                    </tr>
-                                    <tr class="active">
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Total Fund/Loan Amount </b> </td>
-                                        <td class="text-right text-success"> <b> {{ fund.amount | currency }} </b> </td>
-                                    </tr>
-                                    <tr class="active">
-                                        <td colspan="3"></td>
-                                        <td class="text-right"> <b> Amount Left </b> </td>
-                                        <td class="text-right"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
                                     </tr>
                                 </tbody>
                                 <!-- Empty Totals -->
