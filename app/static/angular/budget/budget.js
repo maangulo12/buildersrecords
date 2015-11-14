@@ -238,7 +238,6 @@ app.controller('BudgetController', function($scope, store, CategoryService, Item
         $scope.updated_item.description = store.get('item').description;
         $scope.updated_item.estimated   = store.get('item').estimated;
         $scope.updated_item.actual      = store.get('item').actual;
-        $scope.updated_item.notes       = store.get('item').notes;
         $scope.edit_item_form.$setPristine();
         $('#edit_item_modal').modal('show');
     }
