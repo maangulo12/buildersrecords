@@ -47,9 +47,9 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
     }
     $scope.createProject = function() {
         $scope.addDisabled = true;
-        if ($('#project_file').length) {
-            var file = $('#project_file')[0].files[0];
+        var file = $('#project_file')[0].files[0];
 
+        if ($('#project_file').length && file) {
             var form = new FormData();
             form.append('file', file);
             form.append('name', $scope.project.name);
