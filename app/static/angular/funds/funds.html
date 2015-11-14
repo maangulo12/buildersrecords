@@ -440,9 +440,9 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-success"
+                        <button type="submit" class="btn btn-success" ng-disabled="addDisabled"
                                 ng-click="add_fund_form.$valid && addFund()">
-                            <b> Add Fund/Loan </b>
+                            <b> Add </b>
                         </button>
                     </div>
                 </form>
@@ -485,7 +485,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
-                    <button type="button" class="btn btn-danger" ng-click="deleteFundAndDraws()">
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteDisabled"
+                            ng-click="deleteFundAndDraws()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
@@ -639,9 +640,9 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn btn-primary" ng-disabled="updateDisabled"
                                 ng-click="edit_fund_form.$valid && updateFund()">
-                            <b> Update Fund/Loan </b>
+                            <b> Update </b>
                         </button>
                     </div>
                 </form>
@@ -761,9 +762,9 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-success"
+                        <button type="submit" class="btn btn-success" ng-disabled="addDrawDisabled"
                                 ng-click="add_draw_form.$valid && addDraw()">
-                            <b> Add Draw </b>
+                            <b> Add </b>
                         </button>
                     </div>
                 </form>
@@ -806,7 +807,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
-                    <button type="button" class="btn btn-danger" ng-click="deleteDraws()">
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteDrawDisabled"
+                            ng-click="deleteDraws()">
                         <b> Yes, Delete </b>
                     </button>
                 </div>
@@ -926,9 +928,9 @@
                             <b> Close </b>
                         </button>
                         <!-- Submit -->
-                        <button type="submit" class="btn btn-primary"
+                        <button type="submit" class="btn btn-primary" ng-disabled="updateDrawDisabled"
                                 ng-click="edit_draw_form.$valid && updateDraw()">
-                            <b> Update Draw </b>
+                            <b> Update </b>
                         </button>
                     </div>
                 </form>

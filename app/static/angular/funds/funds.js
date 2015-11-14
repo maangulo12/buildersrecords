@@ -90,11 +90,13 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
     // ADD FUND functions
     $scope.showAddFundModal = function() {
+        $scope.addDisabled = false;
         $scope.fund = {};
         $scope.add_fund_form.$setPristine();
         $('#add_fund_modal').modal('show');
     }
     $scope.addFund = function() {
+        $scope.addDisabled = true;
         FundService.addFund($scope.fund).then(function(response) {
             $('#add_fund_modal').modal('hide');
             getFunds();
@@ -105,10 +107,12 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
     // DELETE FUND functions
     $scope.showDeleteFundModal = function() {
+        $scope.deleteDisabled = false;
         $scope.error_msg_delete = false;
         $('#delete_fund_modal').modal('show');
     }
     $scope.deleteFundAndDraws = function() {
+        $scope.deleteDisabled = true;
         if (store.get('fund').draws == 0) {
             deleteFund();
         } else {
@@ -130,6 +134,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
     // UPDATE FUND functions
     $scope.showEditFundModal = function() {
+        $scope.updateDisabled = false;
         $scope.updated_fund        = {};
         $scope.updated_fund.name   = store.get('fund').name;
         $scope.updated_fund.loan   = store.get('fund').loan;
@@ -138,6 +143,7 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
         $('#edit_fund_modal').modal('show');
     }
     $scope.updateFund = function() {
+        $scope.updateDisabled = true;
         FundService.updateFund($scope.updated_fund).then(function(response) {
             $('#edit_fund_modal').modal('hide');
             getFunds();
@@ -148,12 +154,14 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
     // ADD DRAW functions
     $scope.showAddDrawModal = function() {
+        $scope.addDrawDisabled = false;
         $scope.draw = {};
         $scope.draw.date = new Date();
         $scope.add_draw_form.$setPristine();
         $('#add_draw_modal').modal('show');
     }
     $scope.addDraw = function() {
+        $scope.addDrawDisabled = true;
         DrawService.addDraw($scope.draw).then(function(response) {
             $('#add_draw_modal').modal('hide');
             getFunds();
@@ -164,12 +172,14 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
 
     // DELETE DRAWS functions
     $scope.showDeleteDrawsModal = function() {
+        $scope.deleteDrawDisabled = false;
         if (store.get('fund').selected) {
             $scope.error_msg_delete_draws = false;
             $('#delete_draws_modal').modal('show');
         }
     }
     $scope.deleteDraws = function() {
+        $scope.deleteDrawDisabled = true;
         angular.forEach(store.get('fund').draws, function(draw) {
             if (draw.selected) {
                 DrawService.deleteDraw(draw.id).then(function(response) {
@@ -182,9 +192,10 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
             }
         });
     }
-    
+
     // UPDATE DRAW functions
     $scope.showEditDrawModal = function() {
+        $scope.updateDrawDisabled = false;
         $scope.updated_draw = {};
         $scope.updated_draw.date = new Date(store.get('draw').date);
         $scope.updated_draw.amount = store.get('draw').amount;
@@ -192,7 +203,8 @@ app.controller('FundsController', function($scope, store, FundService, DrawServi
         $('#edit_draw_modal').modal('show');
     }
     $scope.updateDraw = function() {
-        DrawService.updateDraw().then(function(response) {
+        $scope.updateDrawDisabled = true;
+        DrawService.updateDraw($scope.updated_draw).then(function(response) {
             $('#edit_draw_modal').modal('hide');
             getFunds();
         }, function(error) {
