@@ -115,7 +115,6 @@ app.service('ItemService', function($http, store) {
             description: form.description,
             estimated:   form.estimated,
             actual:      form.actual,
-            notes:       form.notes,
             category_id: form.category,
             project_id:  store.get('project').id
         });
@@ -127,7 +126,6 @@ app.service('ItemService', function($http, store) {
             description: form.description,
             estimated:   form.estimated,
             actual:      form.actual,
-            notes:       form.notes,
             category_id: form.category.id,
             project_id:  store.get('project').id
         });
