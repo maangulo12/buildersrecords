@@ -78,7 +78,7 @@ class Item(db.Model):
     __tablename__ = 'items'
     id            = db.Column(db.Integer, primary_key=True)
     name          = db.Column(db.String(50), nullable=False)
-    description   = db.Column(db.String(80), nullable=False)
+    description   = db.Column(db.String(80))
     estimated     = db.Column(db.Numeric(12,2), nullable=False)
     actual        = db.Column(db.Numeric(12,2))
     category_id   = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
