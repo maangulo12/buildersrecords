@@ -3,6 +3,7 @@
     <div class="container">
         <!-- Navigation Bar Header -->
         <div class="navbar-header">
+            <!-- Collapse Button -->
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only"> Toggle navigation </span>
@@ -18,6 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Dropdown -->
                 <li class="dropdown">
+                    <!-- User -->
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -26,8 +28,7 @@
                     </a>
                     <!-- Dropdown Menu -->
                     <ul class="dropdown-menu">
-                        <li><a href="#"> My Account </a></li>
-                        <li role="separator" class="divider"></li>
+                        <!-- Log Out -->
                         <li><a href ui-sref="login"> Log Out </a></li>
                     </ul>
                 </li>
@@ -35,17 +36,22 @@
         </div>
     </div>
 </nav>
-<!-- Grid System -->
+<!-- Container -->
 <div class="container">
     <div class="row">
         <!-- Left Side -->
         <div class="col-md-3">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li><a ui-sref="projects">
-                        <b> My Projects </b>
+                <!-- Projects -->
+                <li>
+                    <a ui-sref="projects">
+                        <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                        <b> Projects </b>
                     </a>
                 </li>
+                <!-- Slash -->
+                <li></li>
             </ol>
             <!-- List Group -->
             <ul class="list-group">
@@ -61,12 +67,12 @@
                 </a>
                 <!-- Budget -->
                 <a ui-sref="budget" class="list-group-item">
-                    <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-th-list glyphicon-padding" aria-hidden="true"></span>
                     <b> Budget </b>
                 </a>
                 <!-- Expenditures -->
                 <a ui-sref="expenditures" class="list-group-item">
-                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
                     <b> Expenditures </b>
                 </a>
                 <!-- Subcontractors -->
@@ -78,7 +84,7 @@
         </div>
         <!-- Right Side -->
         <div class="col-md-9">
-            <!-- Alert -->
+            <!-- Error Alert -->
             <div class="alert alert-danger alert-dismissible text-center" role="alert"
                  ng-if="error_msg_get">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -86,27 +92,27 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
                 </button>
-                <b> Could not load your project information. Please try to refresh your page. </b>
+                <b> Could not access your project's information. Please refresh your page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
+                <!-- Header -->
                 <h1> Overview </h1>
                 <!-- Sub Header -->
                 <h4 class="text-muted">
-                    <i> {{ project.name }} </i>
+                    {{ project.name }}
                 </h4>
-                <!-- Home Square Footage -->
-                <h5 class="text-muted"> <i> Home Square Footage: {{ project.home_sq }} </i> </h5>
             </div>
             <!-- Barchart -->
             <div id="barchart-container" class="chart-size"></div>
+            <!-- Line Break -->
+            <br>
         </div>
     </div>
 </div>
-<!-- Line Break -->
-<br>
-<!-- Table -->
+<!-- Container -->
 <div class="container">
+    <!-- Table -->
     <table st-table="category_list"
            class="table table-condensed table-bordered table-striped table-hover table-responsive">
         <!-- Table Header -->
@@ -117,7 +123,7 @@
                 <th class="text-center"> </th>
                 <th class="text-center"> Estimated </th>
                 <th class="text-center"> Actual </th>
-                <th class="text-center"> Over / Under Budget </th>
+                <th class="text-center"> Over/Under </th>
                 <th class="text-center"> Paid </th>
                 <th class="text-center"> Unpaid </th>
                 <th class="text-center"> Progress </th>
@@ -128,22 +134,31 @@
         <tbody ng-repeat="category in category_list">
             <!-- Categories -->
             <tr>
+                <!-- Expand Button -->
                 <td>
                   <button ng-if="category.expanded" ng-click="category.expanded = false"> - </button>
                   <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
                 </td>
+                <!-- Category -->
                 <td class="text-success"> <b> {{ category.name }} </b> </td>
+                <!-- Empty -->
                 <td> </td>
+                <!-- Estimated -->
                 <td class="text-right"> <b> {{ category.total_estimated | currency }} </b> </td>
+                <!-- Actual -->
                 <td class="text-right"> <b> {{ category.total_actual | currency }} </b> </td>
+                <!-- Over/Under -->
                 <td class="text-right" ng-class="{ 'text-danger': category.total_actual > category.total_estimated }">
                     <b> {{ category.total_actual - category.total_estimated | currency }} </b>
                 </td>
+                <!-- Paid -->
                 <td class="text-right"> <b> {{ category.total_expenditure | currency }} </b> </td>
+                <!-- Unpaid -->
                 <td class="text-right" ng-class="{ 'text-danger': category.unpaid !== 0 }">
                     <b ng-if="category.unpaid"> {{ category.unpaid | currency }} </b>
                     <span ng-if="!category.unpaid" class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
                 </td>
+                <!-- Progress -->
                 <td>
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="{{ category.paid }}"
@@ -154,6 +169,7 @@
                         </div>
                     </div>
                 </td>
+                <!-- Progress Percentage -->
                 <td class="text-right" ng-class="{ 'text-success': category.paid === 100,
                                                    'text-danger': category.paid !== 100 }">
                     <b> {{ category.paid }}% </b>
@@ -161,20 +177,32 @@
             </tr>
             <!-- Items -->
             <tr ng-if="category.expanded" ng-repeat="item in category.items">
+                <!-- Empty -->
                 <td> </td>
+                <!-- Name -->
                 <td> <b> {{ item.name }} </b> </td>
+                <!-- Description -->
                 <td> {{ item.description }} </td>
+                <!-- Estimated -->
                 <td class="text-right"> {{ item.estimated | currency }} </td>
+                <!-- Actual -->
                 <td class="text-right"> {{ item.actual | currency }} </td>
-                <td class="text-right" ng-class="{ 'text-danger': item.actual > item.estiamted }">
+                <!-- Over/Under -->
+                <td class="text-right" ng-class="{ 'text-danger': item.actual > item.estimated }">
                     {{ item.actual - item.estimated | currency }}
                 </td>
+                <!-- Paid -->
                 <td class="text-right"> {{ item.total_expenditure | currency }} </td>
-                <td colspan="3"> </td>
+                <!-- Unpaid -->
+                <td> </td>
+                <!-- Progress -->
+                <td> </td>
+                <!-- Progress Percentage -->
+                <td> </td>
             </tr>
         </tbody>
         <!-- Empty Project -->
-        <tbody >
+        <tbody>
             <tr ng-if="category_list.length == 0" class="active">
                 <td> </td>
                 <td colspan="9"> <b> No categories to show. </b> </td>
@@ -183,18 +211,25 @@
         <!-- Table Footer -->
         <tfoot ng-if="category_list.length != 0">
             <tr class="footer-color">
+                <!-- Empty -->
                 <td colspan="2"> </td>
+                <!-- Grand Total -->
                 <td> <b> Grand Total </b> </td>
+                <!-- Estimated -->
                 <td class="text-right"> <b> {{ grand_total_estimated | currency }} </b> </td>
+                <!-- Actual -->
                 <td class="text-right"> <b> {{ grand_total_actual | currency }} </b> </td>
+                <!-- Over/Under -->
                 <td class="text-right" ng-class="{ 'text-danger': grand_total_actual > grand_total_estimated }">
                     <b> {{ grand_total_actual - grand_total_estimated | currency }} </b>
                 </td>
+                <!-- Paid -->
                 <td class="text-right"> <b> {{ grand_total_expenditure | currency }} </b> </td>
+                <!-- Empty -->
                 <td colspan="3"> </td>
             </tr>
         </tfoot>
     </table>
+    <!-- Line Breaks -->
+    <br><br><br><br>
 </div>
-<!-- Line Breaks -->
-<br><br><br><br>
