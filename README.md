@@ -10,9 +10,15 @@ Web app for accounting home construction projects.
 
 + Priorities:
 ```
+    **Finish expenditures
+    **Finish contractors
     **Add Reports Feature
     **Create development branch
     **Heroku Deployment
+    **Create Plans
+    **Account Settings
+    **Send Feedback
+    **Forgot Password
 
     -Stripe
     -Auth0
@@ -43,11 +49,16 @@ Web app for accounting home construction projects.
 + Projects module:
 ```
     -Delete Project ('bulk' delete everything about the project)
+    -Account Settings Link
+    -Send Feedback Link
 ```
 
 + Overview module:
 ```
     *Overview Table
+    -Tooltip number format
+    -Colors of bar chart
+    -Table scrollable
 ```
 
 + Funds module:
@@ -56,17 +67,17 @@ Web app for accounting home construction projects.
     -Table draws shuffling
 ```
 
++ Budget module:
+```
+    -Tooltip number format
+    -Table scrollable
+```
+
 + Expenditures module:
 ```
     -Fix table resizing
     -Fix table shuffling (Add and Edit functions)
     -Create new links
-```
-
-+ Modules to Implement:
-```
-    -Implement Forgot Password
-    -Implement Account Settings
 ```
 
 + All modules:
@@ -84,7 +95,6 @@ Web app for accounting home construction projects.
 
     -Initial first time setup
     -Upload receipts
-    -
 ```
 
 ## Required Software
