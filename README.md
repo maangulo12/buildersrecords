@@ -10,6 +10,14 @@ Web app for accounting home construction projects.
 
 + Priorities:
 ```
+    **Fix Bug
+    **Add Reports Feature
+    **Signup Modal
+    **Create development branch
+    **Heroku Deployment
+    **AWS report template
+    **Security/Administration
+
     -Stripe
     -Auth0
     -Heroku Deployment
