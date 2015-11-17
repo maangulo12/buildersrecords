@@ -57,7 +57,7 @@
             <ul class="list-group">
                 <!-- Overview -->
                 <a ui-sref="overview" class="list-group-item active">
-                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span>
                     <b> Overview </b>
                 </a>
                 <!-- Funds & Loans -->
@@ -67,12 +67,12 @@
                 </a>
                 <!-- Budget -->
                 <a ui-sref="budget" class="list-group-item">
-                    <span class="glyphicon glyphicon-th-list glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
                     <b> Budget </b>
                 </a>
                 <!-- Expenditures -->
                 <a ui-sref="expenditures" class="list-group-item">
-                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-tasks glyphicon-padding" aria-hidden="true"></span>
                     <b> Expenditures </b>
                 </a>
                 <!-- Subcontractors -->
@@ -92,7 +92,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
                 </button>
-                <b> Could not access your project's information. Please refresh your page. </b>
+                <b> Could not access your project's information. Please refresh the page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
@@ -140,7 +140,7 @@
                   <button ng-if="!category.expanded" ng-click="category.expanded = true"> + </button>
                 </td>
                 <!-- Category -->
-                <td class="text-success"> <b> {{ category.name }} </b> </td>
+                <td> <b> {{ category.name }} </b> </td>
                 <!-- Empty -->
                 <td> </td>
                 <!-- Estimated -->
@@ -180,7 +180,7 @@
                 <!-- Empty -->
                 <td> </td>
                 <!-- Name -->
-                <td> <b> {{ item.name }} </b> </td>
+                <td> {{ item.name }} </td>
                 <!-- Description -->
                 <td> {{ item.description }} </td>
                 <!-- Estimated -->
