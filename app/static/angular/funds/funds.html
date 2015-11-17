@@ -3,6 +3,7 @@
     <div class="container">
         <!-- Navigation Bar Header -->
         <div class="navbar-header">
+            <!-- Collapse Button -->
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only"> Toggle navigation </span>
@@ -18,6 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Dropdown -->
                 <li class="dropdown">
+                    <!-- User -->
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -26,8 +28,7 @@
                     </a>
                     <!-- Dropdown Menu -->
                     <ul class="dropdown-menu">
-                        <li><a href="#"> My Account </a></li>
-                        <li role="separator" class="divider"></li>
+                        <!-- Log Out -->
                         <li><a href ui-sref="login"> Log Out </a></li>
                     </ul>
                 </li>
@@ -35,17 +36,22 @@
         </div>
     </div>
 </nav>
-<!-- Grid System -->
+<!-- Container -->
 <div class="container">
     <div class="row">
         <!-- Left Side -->
-        <div class="col-md-3 col-lg-3">
+        <div class="col-md-3">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li><a ui-sref="projects">
-                        <b> My Projects </b>
+                <!-- Projects -->
+                <li>
+                    <a ui-sref="projects">
+                        <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                        <b> Projects </b>
                     </a>
                 </li>
+                <!-- Slash -->
+                <li></li>
             </ol>
             <!-- List Group -->
             <ul class="list-group">
@@ -61,12 +67,12 @@
                 </a>
                 <!-- Budget -->
                 <a ui-sref="budget" class="list-group-item">
-                    <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-th-list glyphicon-padding" aria-hidden="true"></span>
                     <b> Budget </b>
                 </a>
                 <!-- Expenditures -->
                 <a ui-sref="expenditures" class="list-group-item">
-                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
                     <b> Expenditures </b>
                 </a>
                 <!-- Subcontractors -->
@@ -77,29 +83,30 @@
             </ul>
         </div>
         <!-- Right Side -->
-        <div class="col-md-9 col-lg-9">
-            <!-- Alert - Error -->
+        <div class="col-md-9">
+            <!-- Error Alert -->
             <div class="alert alert-danger alert-dismissible text-center" role="alert"
                  ng-if="error_msg_get">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only"> Error: </span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
-                </button> <b> Could not load your funds or loans. Please try to refresh the page. </b>
+                </button> <b> Could not access your funds. Please refresh the page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
+                <!-- Header -->
                 <h1> Funds </h1>
                 <!-- Sub Header -->
                 <h4 class="text-muted">
-                    <i> Track your out of pocket funds and loans </i>
+                    Track your out of pocket funds and loans
                 </h4>
             </div>
             <!-- Button - Add Fund -->
-            <button type="button" class="btn btn-success" title="Add a Fund/Loan"
+            <button type="button" class="btn btn-success" title="Add Fund"
                     ng-click="showAddFundModal()">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <b> Add </b>
+                <b> Add Fund </b>
             </button>
             <!-- Line Breaks -->
             <br>
@@ -119,21 +126,22 @@
                     <div class="panel-heading">
                         <div class="row">
                             <!-- Left Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <!-- Panel Title -->
                                 <h4 class="panel-title">
                                     <!-- Fund Name -->
                                     <b> {{ fund.name }} </b>
-                                    <!-- Edit Fund -->
-                                    <a href title="Edit" ng-click="clickedFund(fund) && showEditFundModal()">
-                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                                    </a>
                                 </h4>
                             </div>
                             <!-- Right Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <div class="text-right">
                                     <h4 class="panel-title">
+                                        <!-- Edit Fund -->
+                                        <a href title="Edit" ng-click="clickedFund(fund) && showEditFundModal()">
+                                            <span class="glyphicon glyphicon-cog glyphicon-padding"
+                                                  aria-hidden="true"></span>
+                                        </a>
                                         <!-- Delete Fund -->
                                         <a href title="Delete" ng-click="clickedFund(fund) && showDeleteFundModal()">
                                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
@@ -148,18 +156,22 @@
                         <!-- Title -->
                         <div class="row">
                             <!-- Left Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <p> <b> Spending </b>
                                     <br>
-                                    <span class="text-danger"> <b> {{ fund.total_expenditure | currency }} Spent </b> </span>
+                                    <span class="text-danger">
+                                        <b> {{ fund.total_expenditure | currency }} Spent </b>
+                                    </span>
                                     <span ng-if="fund.amount> fund.total_expenditure">
                                         <b> / </b>
-                                        <span class="text-right text-success"> <b> {{ fund.amount - fund.total_expenditure | currency }} Left </b> </span>
+                                        <span class="text-right text-success">
+                                            <b> {{ fund.amount - fund.total_expenditure | currency }} Left </b>
+                                        </span>
                                     </span>
                                 </p>
                             </div>
                             <!-- Right Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <p class="text-right">
                                     <b> Total </b>
                                     <br>
@@ -169,10 +181,12 @@
                         </div>
                         <!-- Progress Bar -->
                         <div class="progress">
-                            <div class="progress-bar progress-bar-danger progress-bar-striped" style="width: {{ fund.spent }}%;">
+                            <div class="progress-bar progress-bar-danger progress-bar-striped"
+                                 style="width: {{ fund.spent }}%;">
                                 <span class="sr-only"> {{ fund.spent }}% Complete </span>
                             </div>
-                            <div class="progress-bar progress-bar-success progress-bar-striped" style="width: {{ fund.left }}%;">
+                            <div class="progress-bar progress-bar-success progress-bar-striped"
+                                 style="width: {{ fund.left }}%;">
                                 <span class="sr-only"> {{ fund.left }}% Complete </span>
                             </div>
                         </div>
@@ -180,18 +194,22 @@
                         <div ng-show="fund.loan">
                             <!-- Title -->
                             <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-xs-6">
                                     <p> <b> Loan Draws </b>
                                         <br>
-                                        <span class="text-warning"> <b> {{ fund.total_draw | currency }} Received </b> </span>
+                                        <span class="text-warning">
+                                            <b> {{ fund.total_draw | currency }} Received </b>
+                                        </span>
                                         <span ng-if="fund.amount > fund.total_expenditure">
                                             <b> / </b>
-                                            <span class="text-right text-success"> <b> {{ fund.amount - fund.total_draw | currency }} Left </b>  </span>
+                                            <span class="text-right text-success">
+                                                <b> {{ fund.amount - fund.total_draw | currency }} Left </b>
+                                            </span>
                                         </span>
                                     </p>
                                 </div>
                                 <!-- Right Side -->
-                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <div class="col-xs-6">
                                     <p class="text-right">
                                         <b> Total </b>
                                         <br>
@@ -201,20 +219,22 @@
                             </div>
                             <!-- Progress Bar -->
                             <div class="progress">
-                                <div class="progress-bar progress-bar-warning progress-bar-striped" style="width: {{ fund.draw_received }}%;">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped"
+                                     style="width: {{ fund.draw_received }}%;">
                                     <span class="sr-only"> {{ fund.draw_received }}% Complete </span>
                                 </div>
-                                <div class="progress-bar progress-bar-success progress-bar-striped" style="width: {{ fund.draw_left }}%;">
+                                <div class="progress-bar progress-bar-success progress-bar-striped"
+                                     style="width: {{ fund.draw_left }}%;">
                                     <span class="sr-only"> {{ fund.draw_left }}% Complete </span>
                                 </div>
                             </div>
                             <!-- Line Break -->
                             <br>
                             <!-- Button - Add Draw -->
-                            <button type="button" class="btn btn-success"
+                            <button type="button" class="btn btn-success" title="Add Draw"
                                     ng-click="clickedFund(fund) && showAddDrawModal()">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                <b> Add a Draw </b>
+                                <b> Add Draw </b>
                             </button>
                             <!-- Button - Delete Draws -->
                             <button type="button" class="btn btn-danger" title="Delete Selected"
@@ -237,18 +257,29 @@
                                         <th class="text-center"> Draw </th>
                                         <th class="text-center"> Date </th>
                                         <th class="text-center"> Amount </th>
-                                        <th class="text-center" style="width: 8%"> </th>
+                                        <th class="text-center" style="width: 8%"></th>
                                     </tr>
                                 </thead>
                                 <!-- Table Body -->
                                 <tbody>
                                     <tr ng-repeat="draw in fund.draws">
+                                        <!-- Checkbox -->
                                         <td><input type="checkbox" class="checkbox" ng-model="draw.selected"
-                                                   ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)"></td>
-
-                                        <td class="text-center" ng-model="draw.index"> #{{ fund.draws.indexOf(draw) + 1 }} </td>
-                                        <td class="text-center" ng-model="draw.date"> {{ draw.date | date: 'MM/dd/yyyy' }} </td>
-                                        <td class="text-right" ng-model="draw.amount"> {{ draw.amount | currency }} </td>
+                                                   ng-click="clickedFund(fund) && clickedSingleCheckbox(draw)">
+                                        </td>
+                                        <!-- Draw Number -->
+                                        <td class="text-center" ng-model="draw.index">
+                                            #{{ fund.draws.indexOf(draw) + 1 }}
+                                        </td>
+                                        <!-- Draw Date -->
+                                        <td class="text-center" ng-model="draw.date">
+                                            {{ draw.date | date: 'MM/dd/yyyy' }}
+                                        </td>
+                                        <!-- Draw Amount -->
+                                        <td class="text-right" ng-model="draw.amount">
+                                            {{ draw.amount | currency }}
+                                        </td>
+                                        <!-- Edit Draw -->
                                         <td class="text-center">
                                             <a class="text-primary" href title="Edit"
                                                ng-click="clickedFund(fund) && clickedDraw(draw) && showEditDrawModal()">
@@ -259,26 +290,41 @@
                                 </tbody>
                                 <!-- Totals -->
                                 <tbody ng-if="fund.draws.length != 0">
+                                    <!-- Total Draw Amount -->
                                     <tr class="active">
                                         <td colspan="2"></td>
-                                        <td class="text-right"> <b> Total Draw Amount </b> </td>
-                                        <td class="text-right text-warning" ng-model="fund.total_draw"> <b> {{ fund.total_draw | currency }} </b> </td>
-                                        <td> </td>
+                                        <td class="text-right">
+                                            <b> Total Draw Amount </b>
+                                        </td>
+                                        <td class="text-right text-warning" ng-model="fund.total_draw">
+                                            <b> {{ fund.total_draw | currency }} </b>
+                                        </td>
+                                        <td></td>
                                     </tr>
+                                    <!-- Total Loan Amount -->
                                     <tr class="active">
                                         <td colspan="2"></td>
-                                        <td class="text-right"> <b> Total Loan Amount </b> </td>
-                                        <td class="text-right"> <b> {{ fund.amount | currency }} </b> </td>
-                                        <td> </td>
+                                        <td class="text-right">
+                                            <b> Total Loan Amount </b>
+                                        </td>
+                                        <td class="text-right">
+                                            <b> {{ fund.amount | currency }} </b>
+                                        </td>
+                                        <td></td>
                                     </tr>
+                                    <!-- Amount Left -->
                                     <tr class="active">
                                         <td colspan="2"></td>
-                                        <td class="text-right"> <b> Amount Left </b> </td>
-                                        <td class="text-right text-success"> <b> {{ fund.amount - fund.total_draw | currency }} </b> </td>
-                                        <td> </td>
+                                        <td class="text-right">
+                                            <b> Amount Left </b>
+                                        </td>
+                                        <td class="text-right text-success">
+                                            <b> {{ fund.amount - fund.total_draw | currency }} </b>
+                                        </td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
-                                <!-- Empty Totals -->
+                                <!-- Empty -->
                                 <tbody ng-if="fund.draws.length == 0">
                                     <tr>
                                         <td></td>
@@ -292,10 +338,9 @@
             </div>
         </div>
     </div>
+    <!-- Line Breaks -->
+    <br><br><br><br>
 </div>
-<!-- Line Breaks -->
-<br><br><br><br>
-<!-- END -->
 
 <!-- MODALS -->
 <!-- Modal - Add Fund -->
@@ -718,7 +763,7 @@
                         <!-- Submit -->
                         <button type="submit" class="btn btn-primary" ng-disabled="updateDisabled"
                                 ng-click="edit_fund_form.$valid && updateFund()">
-                            <b> Update Fund </b>
+                            <b> Save Changes </b>
                         </button>
                     </div>
                 </form>
@@ -738,7 +783,7 @@
                         <span aria-hidden="true"> &times; </span>
                     </button>
                     <h4 class="modal-title">
-                        <b> Add a Draw </b>
+                        <b> Add Draw </b>
                     </h4>
                 </div>
                 <!-- Form -->
@@ -904,7 +949,7 @@
                         <span aria-hidden="true"> &times; </span>
                     </button>
                     <h4 class="modal-title">
-                        <b> Edit a Draw </b>
+                        <b> Edit Draw </b>
                     </h4>
                 </div>
                 <!-- Form -->
@@ -1006,7 +1051,7 @@
                         <!-- Submit -->
                         <button type="submit" class="btn btn-primary" ng-disabled="updateDrawDisabled"
                                 ng-click="edit_draw_form.$valid && updateDraw()">
-                            <b> Update Draw </b>
+                            <b> Save Changes </b>
                         </button>
                     </div>
                 </form>
