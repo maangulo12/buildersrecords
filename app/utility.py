@@ -66,7 +66,7 @@ def parse_ubuildit_file(path, aws_flag=False):
         file_data = k.get_contents_as_string()
         wb        = open_workbook(file_contents=file_data)
     else:
-        wb = open_workbook(filename='/uploads/spreadsheet.xlsx')
+        wb = open_workbook(filename='tests/data/spreadsheet.xlsx')
 
     ws = wb.sheet_by_name('UBI Cost Review')
 
