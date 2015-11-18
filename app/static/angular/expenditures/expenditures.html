@@ -3,6 +3,7 @@
     <div class="container">
         <!-- Navigation Bar Header -->
         <div class="navbar-header">
+            <!-- Collapse Button -->
             <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
                     data-target=".navbar-collapse">
                 <span class="sr-only"> Toggle navigation </span>
@@ -18,6 +19,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Dropdown -->
                 <li class="dropdown">
+                    <!-- User -->
                     <a class="dropdown-toggle" data-toggle="dropdown" role="button"
                        aria-haspopup="true" aria-expanded="false">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -26,8 +28,7 @@
                     </a>
                     <!-- Dropdown Menu -->
                     <ul class="dropdown-menu">
-                        <li><a href="#"> My Account </a></li>
-                        <li role="separator" class="divider"></li>
+                        <!-- Log Out -->
                         <li><a href ui-sref="login"> Log Out </a></li>
                     </ul>
                 </li>
@@ -35,23 +36,28 @@
         </div>
     </div>
 </nav>
-<!-- Grid System -->
+<!-- Container -->
 <div class="container">
     <div class="row">
         <!-- Left Side -->
-        <div class="col-md-3 col-lg-3">
+        <div class="col-md-3">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
-                <li><a ui-sref="projects">
-                        <b> My Projects </b>
+                <!-- Projects -->
+                <li>
+                    <a ui-sref="projects">
+                        <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                        <b> Projects </b>
                     </a>
                 </li>
+                <!-- Slash -->
+                <li></li>
             </ol>
             <!-- List Group -->
             <ul class="list-group">
                 <!-- Overview -->
                 <a ui-sref="overview" class="list-group-item">
-                    <span class="glyphicon glyphicon-dashboard glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span>
                     <b> Overview </b>
                 </a>
                 <!-- Funds & Loans -->
@@ -61,12 +67,12 @@
                 </a>
                 <!-- Budget -->
                 <a ui-sref="budget" class="list-group-item">
-                    <span class="glyphicon glyphicon-briefcase glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
                     <b> Budget </b>
                 </a>
                 <!-- Expenditures -->
                 <a ui-sref="expenditures" class="list-group-item active">
-                    <span class="glyphicon glyphicon-shopping-cart glyphicon-padding" aria-hidden="true"></span>
+                    <span class="glyphicon glyphicon-tasks glyphicon-padding" aria-hidden="true"></span>
                     <b> Expenditures </b>
                 </a>
                 <!-- Subcontractors -->
@@ -75,25 +81,25 @@
                     <b> Subcontractors </b>
                 </a>
             </ul>
-            </ul>
         </div>
         <!-- Right Side -->
-        <div class="col-md-9 col-lg-9">
-            <!-- Alert - Error -->
+        <div class="col-md-9">
+            <!-- Error Alert -->
             <div class="alert alert-danger alert-dismissible text-center" role="alert"
                  ng-if="error_msg_get">
                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 <span class="sr-only"> Error: </span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
-                </button> <b> Could not load your expenditures. Please try to refresh the page. </b>
+                </button> <b> Could not access your expenditures. Please refresh the page. </b>
             </div>
             <!-- Page Header -->
             <div class="page-header">
+                <!-- Header -->
                 <h1> Expenditures </h1>
                 <!-- Sub Header -->
                 <h4 class="text-muted">
-                    <i> Here's how your spending looks so far </i>
+                    Here's how your spending looks so far
                 </h4>
             </div>
             <!-- Panel -->
@@ -112,7 +118,7 @@
                         <!-- Category -->
                         <div class="row">
                             <!-- Left Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <p>
                                     <b> {{ category.name }} </b>
                                     <br>
@@ -128,7 +134,7 @@
                                 </p>
                             </div>
                             <!-- Right Side -->
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-6">
                                 <p class="text-right">
                                     <b> Budget </b>
                                     <br>
@@ -149,13 +155,13 @@
         </div>
     </div>
 </div>
-<!-- Full container -->
+<!--  Container -->
 <div class="container">
     <!-- Button - Add Expenditure -->
-    <button type="button" class="btn btn-success" title="Add an Expenditure"
+    <button type="button" class="btn btn-success" title="Add Expenditure"
             ng-click="showAddExpenditureModal()">
         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-        <b> Add </b>
+        <b> Add Expenditure </b>
     </button>
     <!-- Button - Delete Expenditure -->
     <button id="delete_button" type="button" class="btn btn-danger" title="Delete Selected"
@@ -203,37 +209,47 @@
         <tbody>
             <!-- Expenditures -->
             <tr ng-repeat="expenditure in collection">
+                <!-- Checkbox -->
                 <td style="width: 2%">
                     <input type="checkbox" class="checkbox" ng-model="expenditure.selected"
                            ng-click="clickedSingleCheckbox(expenditure)">
                 </td>
+                <!-- Date -->
                 <td style="width: 5%">
                     {{ expenditure.date | date: 'MM/dd/yyyy' }}
                 </td>
+                <!-- Vendor -->
                 <td style="width: 12%" class="text-success">
                     <b> {{ expenditure.vendor }} </b>
                 </td>
+                <!-- Category -->
                 <td style="width: 15%">
                     <b> {{ expenditure.categories.name }} </b>
                 </td>
+                <!-- Item -->
                 <td style="width: 20%">
                     {{ expenditure.items.name }}
                 </td>
+                <!-- Notes -->
                 <td style="width: 25%">
                     {{ expenditure.notes }}
                 </td>
+                <!-- Cost -->
                 <td style="width: 5%" class="text-right">
                     {{ expenditure.cost | currency }}
                 </td>
+                <!-- Fund -->
                 <td style="width: 7%">
                     <b> {{ expenditure.funds.name }} </b>
                 </td>
+                <!-- Edit -->
                 <td style="width: 2%">
                     <a href class="text-primary" title="Edit"
                        ng-click="clickedExpenditure(expenditure) && showEditExpenditureModal()">
                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                     </a>
                 </td>
+                <!-- Delete -->
                 <td style="width: 2%">
                     <a href class="text-danger" title="Delete"
                        ng-click="clickedExpenditure(expenditure) && showSingleDeleteExpenditureModal()">
@@ -248,7 +264,7 @@
                 <td class="text-right"> <b> {{ total_cost | currency }} </b> </td>
                 <td colspan="4"></td>
             </tr>
-            <!-- Empty Project -->
+            <!-- Empty -->
             <tr ng-if="expenditure_list.length == 0" class="active">
                 <td colspan="1"></td>
                 <td colspan="9"> <b> You have not made any expenditures yet. </b> </td>
@@ -264,10 +280,9 @@
 			</tr>
 		</tfoot>
     </table>
+    <!-- Line Breaks -->
+    <br><br><br><br>
 </div>
-<!-- Line Breaks -->
-<br><br><br><br>
-<!-- END -->
 
 <!-- MODALS -->
 <!-- Modal - Add Expenditure -->
@@ -277,9 +292,11 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
+                    <!-- Close Button -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
                     </button>
+                    <!-- Title -->
                     <h4 class="modal-title">
                         <b> Add an Expenditure </b>
                     </h4>
@@ -288,7 +305,7 @@
                 <form name="add_expenditure_form" novalidate>
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <!-- Alert -->
+                        <!-- Error Alert -->
                         <div class="alert alert-danger alert-dismissible text-center" role="alert"
                              ng-if="add_expenditure_form.$invalid && add_expenditure_form.$submitted">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -602,16 +619,18 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
+                    <!-- Close Button -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
                     </button>
+                    <!-- Title -->
                     <h4 class="modal-title">
                         <b class="text-danger"> Delete Expenditure(s) </b>
                     </h4>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <!-- Alert -->
+                    <!-- Error Alert -->
                     <div class="alert alert-danger alert-dismissible text-center" role="alert"
                          ng-if="error_msg_delete">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -620,15 +639,18 @@
                             <span aria-hidden="true"> &times; </span>
                         </button> <b> Could not delete your expenditure(s). Please try again. </b>
                     </div>
+                    <!-- Message -->
                     <p class="text-center">
                         Are you sure you would like to <b> delete </b>?
                     </p>
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
+                    <!-- Cancel Button -->
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
+                    <!-- Delete Button -->
                     <button type="button" class="btn btn-danger" ng-disabled="deleteDisabled"
                             ng-click="deleteExpenditures()">
                         <b> Yes, Delete </b>
@@ -646,16 +668,18 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
+                    <!-- Close Button -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
                     </button>
+                    <!-- Title -->
                     <h4 class="modal-title">
                         <b class="text-danger"> Delete Expenditure </b>
                     </h4>
                 </div>
                 <!-- Modal Body -->
                 <div class="modal-body">
-                    <!-- Alert -->
+                    <!-- Error Alert -->
                     <div class="alert alert-danger alert-dismissible text-center" role="alert"
                          ng-if="error_msg_delete_single">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
@@ -664,15 +688,18 @@
                             <span aria-hidden="true"> &times; </span>
                         </button> <b> Could not delete your expenditure. Please try again. </b>
                     </div>
+                    <!-- Message -->
                     <p class="text-center">
                         Are you sure you would like to <b> delete </b>?
                     </p>
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
+                    <!-- Cancel Button -->
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <b> No </b>
                     </button>
+                    <!-- Delete Button -->
                     <button type="button" class="btn btn-danger" ng-disabled="deleteSingleDisabled"
                             ng-click="deleteSingleExpenditure()">
                         <b> Yes, Delete </b>
@@ -690,9 +717,11 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
+                    <!-- Close Button -->
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
                     </button>
+                    <!-- Title -->
                     <h4 class="modal-title">
                         <b> Edit an Expenditure </b>
                     </h4>
@@ -701,7 +730,7 @@
                 <form name="edit_expenditure_form" novalidate>
                     <!-- Modal Body -->
                     <div class="modal-body">
-                        <!-- Alert -->
+                        <!-- Error Alert -->
                         <div class="alert alert-danger alert-dismissible text-center" role="alert"
                              ng-if="edit_expenditure_form.$invalid && edit_expenditure_form.$submitted">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
