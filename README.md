@@ -10,15 +10,14 @@ Web app for accounting home construction projects.
 
 + Priorities:
 ```
-    **Finish expenditures
-    **Finish contractors
-    **Add Reports Feature
-    **Create development branch
-    **Heroku Deployment
-    **Create Plans
-    **Account Settings
-    **Send Feedback
-    **Forgot Password
+    ** Create Plans / Stripe
+    ** Account Settings  
+    ** Signup Fields / Migrate Database
+    ** Add Reports Feature
+    ** Create development branch
+    ** Heroku Deployment
+    ** Send Feedback
+    ** Forgot Password
 
     -Stripe
     -Auth0
@@ -27,6 +26,7 @@ Web app for accounting home construction projects.
     -AWS File Storage
     -Domain Name
     -SSL Certificate
+    -Google Analytics
 ```
 
 + Home module:
