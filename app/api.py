@@ -21,14 +21,14 @@
 """
 
 from app import api_manager
-from app.jwt import verify_jwt
+from app.auth import verify_jwt
 from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, Subcontractor
 
 
 # Users: /api/users
 # methods allowed: GET, POST, DELETE, PUT
 # results_per_page: pagination turned off (set to 0)
-# GET_MANY and POST are unprotected (not listed in preprocessors)
+# POST is unprotected (not listed in preprocessors)
 api_manager.create_api(User,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
@@ -36,6 +36,7 @@ api_manager.create_api(User,
                        results_per_page = 0,
                        preprocessors    = dict(
                                           GET_SINGLE    = [verify_jwt],
+                                          GET_MANY      = [verify_jwt],
                                           PUT_SINGLE    = [verify_jwt],
                                           PUT_MANY      = [verify_jwt],
                                           DELETE_SINGLE = [verify_jwt],
