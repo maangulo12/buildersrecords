@@ -16,8 +16,6 @@
         -Funds          : /api/funds
         -Draws          : /api/draws
         -Subcontractors : /api/subcontractors
-
-    *Note: verify_jwt is imported in this module for security.
 """
 
 from app import api_manager
@@ -26,8 +24,6 @@ from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, S
 
 
 # Users: /api/users
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # POST is unprotected (not listed in preprocessors)
 api_manager.create_api(User,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -43,8 +39,6 @@ api_manager.create_api(User,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Projects: /api/projects
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Project,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -61,8 +55,6 @@ api_manager.create_api(Project,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Categories: /api/categories
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Category,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -79,8 +71,6 @@ api_manager.create_api(Category,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Items: /api/items
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Item,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -98,8 +88,6 @@ api_manager.create_api(Item,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Expenditures: /api/expenditures
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Expenditure,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -117,8 +105,6 @@ api_manager.create_api(Expenditure,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Funds: /api/funds
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Fund,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -135,9 +121,6 @@ api_manager.create_api(Fund,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Draws: /api/draws
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
-# allow_delete_many: to allow bulk deletions
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Draw,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
@@ -156,9 +139,6 @@ api_manager.create_api(Draw,
 
 
 # Subcontractors: /api/subcontractors
-# methods allowed: GET, POST, DELETE, PUT
-# results_per_page: pagination turned off (set to 0)
-# allow_delete_many: to allow bulk deletions
 # All methods are protected (all of them are listed in preprocessors)
 api_manager.create_api(Subcontractor,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
