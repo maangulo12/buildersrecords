@@ -14,8 +14,6 @@ Web app for accounting home construction projects.
     ** Account Settings  
     ** Signup Fields / Migrate Database
     ** Add Reports Feature
-    ** Create development branch
-    ** Heroku Deployment
     ** Send Feedback
     ** Forgot Password
 
