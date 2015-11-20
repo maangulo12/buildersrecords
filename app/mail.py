@@ -28,7 +28,6 @@ def registration():
     first_name = data.get('first_name', None)
     last_name  = data.get('last_name', None)
     username   = data.get('username', None)
-
     criterion  = [email, first_name, last_name, username, len(data) == 4]
 
     if not all(criterion):
