@@ -6,7 +6,7 @@
     --------------------
     :copyright: (c) 2015
 
-    To deploy this application, run this module.
+    Run this module to deploy the application.
 
     -How to run it (type the following in the command-line):
         python3 application.py
