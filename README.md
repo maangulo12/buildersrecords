@@ -136,7 +136,7 @@ $ python3 application.py
 
 #### Open [http://localhost:5555] (http://localhost:5555)
 
-## Extras
+## VM
 
 #### Python Interpreter on the VM
 ```
