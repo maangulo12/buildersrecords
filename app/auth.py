@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.jwt
+    app.auth
     ~~~~~~~~~~~
 
     This is the JSON Web Token module. It is used for authenticating users
@@ -40,6 +40,7 @@ def decode_token(token):
 def auth():
     """
     This route is used for authentication.
+    Public API endpoint
 
     POST request needs:
         login    : 'username' or 'email address'
@@ -48,7 +49,6 @@ def auth():
     data      = request.get_json(force=True)
     login     = data.get('login', None)
     password  = data.get('password', None)
-
     criterion = [login, password, len(data) == 2]
 
     if not all(criterion):
@@ -64,6 +64,48 @@ def auth():
         return make_response(jsonify({'token': token.decode('utf-8')}), 200)
     else:
         return make_response('Unauthorized', 401)
+
+
+@app.route('/api/auth/email', methods=['POST'])
+def check_email():
+    """
+    This route is used for validating email address.
+    Public API endpoint
+    """
+    data      = request.get_json(force=True)
+    email     = data.get('email', None)
+    criterion = [email, len(data) == 1]
+
+    if not all(criterion):
+        return make_response('Bad Request', 400)
+
+    user = User.query.filter_by(email=email).first()
+
+    if user is None:
+        return make_response('Valid email', 200)
+    else:
+        return make_response('Email already exists', 400)
+
+
+@app.route('/api/auth/username', methods=['POST'])
+def check_username():
+    """
+    This route is used for validating username.
+    Public API endpoint
+    """
+    data      = request.get_json(force=True)
+    username  = data.get('username', None)
+    criterion = [username, len(data) == 1]
+
+    if not all(criterion):
+        return make_response('Bad Request', 400)
+
+    user = User.query.filter_by(username=username).first()
+
+    if user is None:
+        return make_response('Valid username', 200)
+    else:
+        return make_response('Username already exists', 400)
 
 
 def verify_jwt(*args, **kwargs):
@@ -94,6 +136,3 @@ def verify_jwt(*args, **kwargs):
 
     except jwt.InvalidTokenError:
         raise ProcessingException('Token is invalid', 400)
-
-
-# add decorator function
