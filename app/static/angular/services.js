@@ -8,14 +8,6 @@ function query(name, op, val) {
 app.service('UserService', function($http) {
     // API: Users entry point
     var api_users = '/api/users';
-    // GET User by username
-    this.getUserbyUsername = function(username) {
-        return $http.get(api_users + query('username', 'equals', username));
-    }
-    // GET User by email
-    this.getUserbyEmail = function(email) {
-        return $http.get(api_users + query('email', 'equals', email));
-    }
     // ADD User
     this.addUser = function(form) {
         return $http.post(api_users, {
@@ -286,6 +278,18 @@ app.service('SubcontractorService', function($http, store) {
 app.service('AuthService', function($http, store, jwtHelper) {
     // API: Auth entry point
     var api_auth = '/api/auth';
+    // POST Email Validation
+    this.checkEmail = function(email) {
+        return $http.post(api_auth + '/email', {
+            email: email
+        });
+    }
+    // POST Username Validation
+    this.checkUsername = function(username) {
+        return $http.post(api_auth + '/username', {
+            username: username
+        });
+    }
     // AUTH User
     this.authenticate = function(login, password) {
         return $http.post(api_auth, {
