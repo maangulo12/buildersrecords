@@ -66,6 +66,7 @@ EOF
 apt-get -y install python3-pip
 apt-get -y install libffi-dev
 apt-get -y install libpq-dev
+pip3 install --upgrade pip
 pip3 install -r /vagrant/requirements.txt
 
 # Install Heroku Toolbelt
