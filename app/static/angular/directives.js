@@ -1,22 +1,17 @@
 // Directives of this Angular app
 var app = angular.module('app.directives', []);
 
-// DIRECTIVE: username-availability
-// Checks if an username is available
-app.directive('usernameAvailability', function($q, UserService) {
+// DIRECTIVE: email-availability
+// Checks if an email already exists
+app.directive('emailAvailability', function($q, AuthService) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
-            ctrl.$asyncValidators.usernameAvailability = function(username) {
-                return UserService.getUserbyUsername(username).then(function(response) {
-                    if (response.data.num_results == 0) {
-                        ctrl.$setValidity('usernameAvailability', true);
-                    } else {
-                        ctrl.$setValidity('usernameAvailability', false);
-                        return $q.reject(response);
-                    }
+            ctrl.$asyncValidators.emailAvailability = function(email) {
+                return AuthService.checkEmail(email).then(function(response) {
+                    ctrl.$setValidity('emailAvailability', true);
                 }, function(response) {
-                    ctrl.$setValidity('usernameAvailability', false);
+                    ctrl.$setValidity('emailAvailability', false);
                     return $q.reject(response);
                 });
             }
@@ -24,22 +19,17 @@ app.directive('usernameAvailability', function($q, UserService) {
     }
 });
 
-// DIRECTIVE: email-availability
-// Checks if an email already exists
-app.directive('emailAvailability', function($q, UserService) {
+// DIRECTIVE: username-availability
+// Checks if an username is available
+app.directive('usernameAvailability', function($q, AuthService) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
-            ctrl.$asyncValidators.emailAvailability = function(email) {
-                return UserService.getUserbyEmail(email).then(function(response) {
-                    if (response.data.num_results == 0) {
-                        ctrl.$setValidity('emailAvailability', true);
-                    } else {
-                        ctrl.$setValidity('emailAvailability', false);
-                        return $q.reject(response);
-                    }
+            ctrl.$asyncValidators.usernameAvailability = function(username) {
+                return AuthService.checkUsername(username).then(function(response) {
+                    ctrl.$setValidity('usernameAvailability', true);
                 }, function(response) {
-                    ctrl.$setValidity('emailAvailability', false);
+                    ctrl.$setValidity('usernameAvailability', false);
                     return $q.reject(response);
                 });
             }
