@@ -35,8 +35,8 @@ bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 from app import models
 
-# JWT
-from app import jwt
+# Authentication
+from app import auth
 
 # Flask-Restless
 api_manager = APIManager(app, flask_sqlalchemy_db=db)
