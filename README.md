@@ -12,7 +12,7 @@ Web app for accounting home construction projects.
 ```
     ** Create Plans / Stripe
     ** Account Settings  
-    ** Signup Fields / Migrate Database
+    ** Migrate Database
     ** Add Reports Feature
     ** Send Feedback
     ** Forgot Password
@@ -156,4 +156,26 @@ Port: 5432
 Database: app_db
 Username: postgres
 Password: password
+```
+
+## Database Migrations
+
+#### Read:
+[Flask-Migrate: Documentation] (http://flask-migrate.readthedocs.org/en/latest/)
+[Flask-Migrate: Miguel Grindberg] (http://blog.miguelgrinberg.com/post/flask-migrate-alembic-database-migration-wrapper-for-flask)
+[Alembic Documentation] (http://alembic.readthedocs.org/en/latest/)
+
+#### Commands:
+>
+```bash
+# Creates migrations folder
+$ python3 manage.py db init
+
+# Perform migration
+$ python3 manage.py db migrate
+
+# Review migration script to make sure its accurate!
+
+# Upgrade database
+$ python3 manage.py db upgrade
 ```
