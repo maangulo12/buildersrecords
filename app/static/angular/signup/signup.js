@@ -13,10 +13,10 @@ app.controller('SignupController', function($scope, store, $state, UserService, 
 
     function init() {
         store.remove('jwt');
-        $scope.createDisabled = false;
     }
     $scope.createAccount = function() {
-        $scope.createDisabled = true;
+        var btn = $('#create-account-btn').button('loading');
+
         UserService.addUser($scope.signup).then(function(response) {
             MailService.sendRegistrationEmail($scope.signup);
             AuthService.authenticate($scope.signup.username, $scope.signup.password)
@@ -28,7 +28,7 @@ app.controller('SignupController', function($scope, store, $state, UserService, 
             });
         }, function(error) {
             $scope.signup_form.$invalid = true;
-            $scope.createDisabled = false;
+            btn.button('reset');
         });
     }
 });
