@@ -107,7 +107,8 @@
                     <a href="#"> <b> Forgot Password? </b> </a>
                     <!-- Submit -->
                     <div class="form-group text-right">
-                        <button type="submit" class="btn btn-primary" ng-disabled="loginDisabled"
+                        <button id="sign-in-btn" type="submit" class="btn btn-primary"
+                                data-loading-text="Signing In..."
                                 ng-click="login_form.$valid && logIn()"> <b> Sign In </b>
                         </button>
                     </div>

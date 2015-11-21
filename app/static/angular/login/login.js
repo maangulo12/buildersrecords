@@ -13,10 +13,10 @@ app.controller('LoginController', function($scope, store, $state, AuthService) {
 
     function init() {
         store.remove('jwt');
-        $scope.loginDisabled = false;
     }
     $scope.logIn = function() {
-        $scope.loginDisabled = true;
+        var btn = $('#sign-in-btn').button('loading');
+
         AuthService.authenticate($scope.login.user, $scope.login.password)
         .then(function(response) {
             AuthService.storeToken(response);
@@ -24,8 +24,8 @@ app.controller('LoginController', function($scope, store, $state, AuthService) {
         }, function(error) {
             $scope.login_form.$invalid = true;
             $scope.login_form.$submitted = true;
-            $scope.loginDisabled = false;
             $scope.login.password = '';
+            btn.button('reset');
         });
     }
 });
