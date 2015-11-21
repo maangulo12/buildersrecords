@@ -13,8 +13,6 @@ app.service('UserService', function($http) {
         return $http.post(api_users, {
             username:   form.username,
             password:   form.password,
-            first_name: form.first_name,
-            last_name:  form.last_name,
             email:      form.email
         });
     }
@@ -316,10 +314,8 @@ app.service('MailService', function($http) {
     // SEND EMAIL Registration
     this.sendRegistrationEmail = function(form) {
         return $http.post(api_email + '/registration', {
-            email:      form.email,
-            first_name: form.first_name,
-            last_name:  form.last_name,
-            username:   form.username
+            email:    form.email,
+            username: form.username
         });
     }
 });

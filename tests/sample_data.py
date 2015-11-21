@@ -29,8 +29,6 @@ def populate_db(app):
     client.post('/api/users', data=json.dumps({
         'username':   'test',
         'password':   'test',
-        'first_name': 'test',
-        'last_name':  'test',
         'email':      'test@gmail.com'
     }),
         headers={
