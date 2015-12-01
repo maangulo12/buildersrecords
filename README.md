@@ -12,7 +12,7 @@ Web app for accounting home construction projects.
 ```
     ** Create Plans / Stripe
     ** Account Settings  
-    ** Migrate Database
+    ** Database Migrations
     ** Add Reports Feature
     ** Send Feedback
     ** Forgot Password
