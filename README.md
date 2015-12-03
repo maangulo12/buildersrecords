@@ -4,7 +4,7 @@
 
 [![Build Status] (https://travis-ci.org/maangulo12/buildersrecords.svg)] (https://travis-ci.org/maangulo12/buildersrecords)
 
-Web app for accounting home construction projects.
+Web app for accounting construction projects.
 
 ## To Do List:
 
