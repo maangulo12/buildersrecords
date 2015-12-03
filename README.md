@@ -170,12 +170,12 @@ Password: password
 #### Commands:
 >
 ```bash
-# Creates migrations folder
+# Create migrations folder
 $ python3 manage.py db init
-
+>
 # Perform migration
 $ python3 manage.py db migrate
-
+>
 # Upgrade database
 $ python3 manage.py db upgrade
 ```
