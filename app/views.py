@@ -8,15 +8,15 @@
     This module implements all of the views/routes of this application.
 """
 
-from flask import make_response
+from flask import make_response, render_template
 
 from app import app
 
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path>')
-def index(path):
-    return make_response(open('app/templates/index.html').read())
+@app.route('/', defaults={'url': ''})
+@app.route('/<path:url>')
+def catch_all(url):
+    return render_template('index.html')
 
 
 @app.errorhandler(404)
