@@ -1,0 +1,552 @@
+<!-- Container -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb">
+                <!-- Projects -->
+                <li>
+                    <a ui-sref="projects">
+                        <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                        <b> Projects </b>
+                    </a>
+                </li>
+                <!-- Slash -->
+                <li></li>
+            </ol>
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Overview -->
+                <a ui-sref="overview" class="list-group-item">
+                    <span class="glyphicon glyphicon-stats glyphicon-padding" aria-hidden="true"></span>
+                    <b> Overview </b>
+                </a>
+                <!-- Funds & Loans -->
+                <a ui-sref="funds" class="list-group-item">
+                    <span class="glyphicon glyphicon-piggy-bank glyphicon-padding" aria-hidden="true"></span>
+                    <b> Funds </b>
+                </a>
+                <!-- Budget -->
+                <a ui-sref="budget" class="list-group-item">
+                    <span class="glyphicon glyphicon-usd glyphicon-padding" aria-hidden="true"></span>
+                    <b> Budget </b>
+                </a>
+                <!-- Expenditures -->
+                <a ui-sref="expenditures" class="list-group-item">
+                    <span class="glyphicon glyphicon-tasks glyphicon-padding" aria-hidden="true"></span>
+                    <b> Expenditures </b>
+                </a>
+                <!-- Subcontractors -->
+                <a ui-sref="subcontractors" class="list-group-item active">
+                    <span class="glyphicon glyphicon-link glyphicon-padding" aria-hidden="true"></span>
+                    <b> Subcontractors </b>
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <!-- Alert - Error -->
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Could not access your subcontractor list. Please refresh the page. </b>
+            </div>
+            <!-- Page Header -->
+            <div class="page-header">
+                <!-- Header -->
+                <h1> Subcontractors </h1>
+                <!-- Sub Header -->
+                <h4 class="text-muted">
+                    Contact List
+                </h4>
+            </div>
+            <!-- Button - Add Subcontractor -->
+            <button type="button" class="btn btn-success" title="Add Subcontractor"
+                    ng-click="showAddSubcontractorModal()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                <b> Add </b>
+            </button>
+            <!-- Button - Delete Subcontractors -->
+            <button id="delete_button" type="button" class="btn btn-danger" title="Delete Selected"
+                    ng-class="{ 'disabled': !selected }" ng-click="showDeleteSubcontractorsModal()">
+                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                <b> Delete </b>
+            </button>
+            <!-- Line Breaks -->
+            <br>
+            <br>
+            <!-- Table -->
+            <table st-table="collection" st-safe-src="subcontractor_list"
+                   class="table table-condensed table-bordered table-striped table-hover table-responsive">
+                <!-- Table Header -->
+                <thead>
+                    <tr>
+                        <th style="width: 5%"></th>
+                        <th st-sort="name" style="width: 30%">
+                            <a href style="text-decoration: none; color: #fff;"> Name </a>
+                        </th>
+                        <th st-sort="company" style="width: 30%">
+                            <a href style="text-decoration: none; color: #fff;"> Company </a>
+                        </th>
+                        <th st-sort="contact_info" style="width: 30%">
+                            <a href style="text-decoration: none; color: #fff;"> Contact Info </a>
+                        </th>
+                        <th colspan="2" style="width: 5%">
+                            Action
+                        </th>
+                    <tr>
+                </thead>
+                <!-- Table Body -->
+                <tbody>
+                    <!-- Subcontractors -->
+                    <tr ng-repeat="subcontractor in collection">
+                        <!-- Checkbox -->
+                        <td style="width: 5%">
+                            <input type="checkbox" class="checkbox" ng-model="subcontractor.selected"
+                                   ng-click="clickedSingleCheckbox(subcontractor)">
+                        </td>
+                        <!-- Name -->
+                        <td style="width: 30%">
+                            <b> {{ subcontractor.name }} </b>
+                        </td>
+                        <!-- Company -->
+                        <td style="width: 30%" class="text-success">
+                            <b> {{ subcontractor.company }} </b>
+                        </td>
+                        <td style="width: 30%">
+                            {{ subcontractor.contact_number }}
+                        </td>
+                        <!-- Edit -->
+                        <td style="width: 2.5%">
+                            <a href class="text-primary" title="Edit"
+                               ng-click="clickedSubcontractor(subcontractor) && showEditSubcontractorModal()">
+                                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                            </a>
+                        </td>
+                        <!-- Delete -->
+                        <td style="width: 2.5%">
+                            <a href class="text-danger" title="Delete"
+                               ng-click="clickedSubcontractor(subcontractor) && showSingleDeleteSubcontractorModal()">
+                                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                           </a>
+                        </td>
+                    </tr>
+                    <!-- Empty -->
+                    <tr ng-if="subcontractor_list.length == 0" class="active">
+                        <td colspan="1"></td>
+                        <td colspan="6"> <b> You have not added any subcontractors yet. </b> </td>
+                    </tr>
+                </tbody>
+            </table>
+            <!-- Line Breaks -->
+            <br><br><br><br>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+<!-- Modal - Add Subcontractor -->
+<div class="container">
+    <div class="modal fade" id="add_subcontractor_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Close Button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <!-- Title -->
+                    <h4 class="modal-title">
+                        <b> Add Subcontractor </b>
+                    </h4>
+                </div>
+                <!-- Form -->
+                <form name="add_subcontractor_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Error Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="add_subcontractor_form.$invalid && add_subcontractor_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems adding this subcontractor. </b>
+                        </div>
+                        <!-- Name Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_subcontractor_form.name.$dirty &&
+                                                      add_subcontractor_form.name.$invalid ||
+                                                      add_subcontractor_form.$submitted &&
+                                                      add_subcontractor_form.name.$invalid,
+                                         'has-feedback': add_subcontractor_form.name.$dirty &&
+                                                         add_subcontractor_form.name.$invalid ||
+                                                         add_subcontractor_form.$submitted &&
+                                                         add_subcontractor_form.name.$invalid }">
+                            <label class="control-label" for="name"> Name * </label>
+                            <input class="form-control"
+                                   name="name"
+                                   type="text"
+                                   placeholder="Name"
+                                   ng-model="subcontractor.name"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_subcontractor_form.name.$dirty &&
+                                         add_subcontractor_form.name.$invalid ||
+                                         add_subcontractor_form.$submitted &&
+                                         add_subcontractor_form.name.$invalid">
+                            </span>
+                            <div ng-messages="add_subcontractor_form.name.$error"
+                                 ng-if="add_subcontractor_form.name.$dirty &&
+                                        add_subcontractor_form.name.$invalid ||
+                                        add_subcontractor_form.$submitted &&
+                                        add_subcontractor_form.name.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Company Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_subcontractor_form.company.$dirty &&
+                                                      add_subcontractor_form.company.$invalid ||
+                                                      add_subcontractor_form.$submitted &&
+                                                      add_subcontractor_form.company.$invalid,
+                                         'has-feedback': add_subcontractor_form.company.$dirty &&
+                                                         add_subcontractor_form.company.$invalid ||
+                                                         add_subcontractor_form.$submitted &&
+                                                         add_subcontractor_form.company.$invalid }">
+                            <label class="control-label" for="company"> Company Name * </label>
+                            <input class="form-control"
+                                   name="company"
+                                   type="text"
+                                   placeholder="Company Name"
+                                   ng-model="subcontractor.company"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_subcontractor_form.company.$dirty &&
+                                         add_subcontractor_form.company.$invalid ||
+                                         add_subcontractor_form.$submitted &&
+                                         add_subcontractor_form.company.$invalid">
+                            </span>
+                            <div ng-messages="add_subcontractor_form.company.$error"
+                                 ng-if="add_subcontractor_form.company.$dirty &&
+                                        add_subcontractor_form.company.$invalid ||
+                                        add_subcontractor_form.$submitted &&
+                                        add_subcontractor_form.company.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Contact Number Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': add_subcontractor_form.contact_number.$dirty &&
+                                                      add_subcontractor_form.contact_number.$invalid ||
+                                                      add_subcontractor_form.$submitted &&
+                                                      add_subcontractor_form.contact_number.$invalid,
+                                         'has-feedback': add_subcontractor_form.contact_number.$dirty &&
+                                                         add_subcontractor_form.contact_number.$invalid ||
+                                                         add_subcontractor_form.$submitted &&
+                                                         add_subcontractor_form.contact_number.$invalid }">
+                            <label class="control-label" for="contact_number"> Contact Number </label>
+                            <input class="form-control"
+                                   name="contact_number"
+                                   type="text"
+                                   placeholder="Contact Number"
+                                   ng-model="subcontractor.contact_number"
+                                   ng-maxlength=15>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="add_subcontractor_form.contact_number.$dirty &&
+                                         add_subcontractor_form.contact_number.$invalid ||
+                                         add_subcontractor_form.$submitted &&
+                                         add_subcontractor_form.contact_number.$invalid">
+                            </span>
+                            <div ng-messages="add_subcontractor_form.contact_number.$error"
+                                 ng-if="add_subcontractor_form.contact_number.$dirty &&
+                                        add_subcontractor_form.contact_number.$invalid ||
+                                        add_subcontractor_form.$submitted &&
+                                        add_subcontractor_form.contact_number.$invalid">
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 15 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Required fields -->
+                        <p class="text-danger"> * Required fields </p>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-success" ng-disabled="addDisabled"
+                                ng-click="add_subcontractor_form.$valid && addSubcontractor()">
+                            <b> Add </b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Delete Subcontractor -->
+<div class="container">
+    <div class="modal fade" id="delete_subcontractors_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Close Button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <!-- Title -->
+                    <h4 class="modal-title">
+                        <b class="text-danger"> Delete Subcontractor(s) </b>
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Error Alert -->
+                    <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                         ng-if="error_msg_delete">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only"> Error: </span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button> <b> Could not delete the subcontractor(s). Please try again. </b>
+                    </div>
+                    <!-- Message -->
+                    <p class="text-center">
+                        Are you sure you would like to <b> delete </b>?
+                    </p>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <b> No </b>
+                    </button>
+                    <!-- Delete Button -->
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteDisabled"
+                            ng-click="deleteSubcontractors()">
+                        <b> Yes, Delete </b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Delete Single Subcontractor -->
+<div class="container">
+    <div class="modal fade" id="delete_single_subcontractor_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Close Button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <!-- Title -->
+                    <h4 class="modal-title">
+                        <b class="text-danger"> Delete Subcontractor </b>
+                    </h4>
+                </div>
+                <!-- Modal Body -->
+                <div class="modal-body">
+                    <!-- Alert -->
+                    <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                         ng-if="error_msg_delete_single">
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                        <span class="sr-only"> Error: </span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"> &times; </span>
+                        </button> <b> Could not delete this subcontractor. Please try again. </b>
+                    </div>
+                    <!-- Message -->
+                    <p class="text-center">
+                        Are you sure you would like to <b> delete </b>?
+                    </p>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <!-- Cancel Button -->
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <b> No </b>
+                    </button>
+                    <!-- Delete Button -->
+                    <button type="button" class="btn btn-danger" ng-disabled="deleteSingleDisabled"
+                            ng-click="deleteSingleSubcontractor()">
+                        <b> Yes, Delete </b>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Edit Subcontractor -->
+<div class="container">
+    <div class="modal fade" id="edit_subcontractor_modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Close Button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <!-- Title -->
+                    <h4 class="modal-title">
+                        <b> Edit Subcontractor </b>
+                    </h4>
+                </div>
+                <!-- Form -->
+                <form name="edit_subcontractor_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Error Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="edit_subcontractor_form.$invalid && edit_subcontractor_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems updating this subcontractor. </b>
+                        </div>
+                        <!-- Name Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_subcontractor_form.name.$dirty &&
+                                                      edit_subcontractor_form.name.$invalid ||
+                                                      edit_subcontractor_form.$submitted &&
+                                                      edit_subcontractor_form.name.$invalid,
+                                         'has-feedback': edit_subcontractor_form.name.$dirty &&
+                                                         edit_subcontractor_form.name.$invalid ||
+                                                         edit_subcontractor_form.$submitted &&
+                                                         edit_subcontractor_form.name.$invalid }">
+                            <label class="control-label" for="name"> Name * </label>
+                            <input class="form-control"
+                                   name="name"
+                                   type="text"
+                                   placeholder="Name"
+                                   ng-model="updated_subcontractor.name"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_subcontractor_form.name.$dirty &&
+                                         edit_subcontractor_form.name.$invalid ||
+                                         edit_subcontractor_form.$submitted &&
+                                         edit_subcontractor_form.name.$invalid">
+                            </span>
+                            <div ng-messages="edit_subcontractor_form.name.$error"
+                                 ng-if="edit_subcontractor_form.name.$dirty &&
+                                        edit_subcontractor_form.name.$invalid ||
+                                        edit_subcontractor_form.$submitted &&
+                                        edit_subcontractor_form.name.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Company Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_subcontractor_form.company.$dirty &&
+                                                      edit_subcontractor_form.company.$invalid ||
+                                                      edit_subcontractor_form.$submitted &&
+                                                      edit_subcontractor_form.company.$invalid,
+                                         'has-feedback': edit_subcontractor_form.company.$dirty &&
+                                                         edit_subcontractor_form.company.$invalid ||
+                                                         edit_subcontractor_form.$submitted &&
+                                                         edit_subcontractor_form.company.$invalid }">
+                            <label class="control-label" for="company"> Company Name * </label>
+                            <input class="form-control"
+                                   name="company"
+                                   type="text"
+                                   placeholder="Company Name"
+                                   ng-model="updated_subcontractor.company"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_subcontractor_form.company.$dirty &&
+                                         edit_subcontractor_form.company.$invalid ||
+                                         edit_subcontractor_form.$submitted &&
+                                         edit_subcontractor_form.company.$invalid">
+                            </span>
+                            <div ng-messages="edit_subcontractor_form.company.$error"
+                                 ng-if="edit_subcontractor_form.company.$dirty &&
+                                        edit_subcontractor_form.company.$invalid ||
+                                        edit_subcontractor_form.$submitted &&
+                                        edit_subcontractor_form.company.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Contact Number Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': edit_subcontractor_form.contact_number.$dirty &&
+                                                      edit_subcontractor_form.contact_number.$invalid ||
+                                                      edit_subcontractor_form.$submitted &&
+                                                      edit_subcontractor_form.contact_number.$invalid,
+                                         'has-feedback': edit_subcontractor_form.contact_number.$dirty &&
+                                                         edit_subcontractor_form.contact_number.$invalid ||
+                                                         edit_subcontractor_form.$submitted &&
+                                                         edit_subcontractor_form.contact_number.$invalid }">
+                            <label class="control-label" for="contact_number"> Contact Number </label>
+                            <input class="form-control"
+                                   name="contact_number"
+                                   type="text"
+                                   placeholder="Contact Number"
+                                   ng-model="updated_subcontractor.contact_number"
+                                   ng-maxlength=15>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="edit_subcontractor_form.contact_number.$dirty &&
+                                         edit_subcontractor_form.contact_number.$invalid ||
+                                         edit_subcontractor_form.$submitted &&
+                                         edit_subcontractor_form.contact_number.$invalid">
+                            </span>
+                            <div ng-messages="edit_subcontractor_form.contact_number.$error"
+                                 ng-if="edit_subcontractor_form.contact_number.$dirty &&
+                                        edit_subcontractor_form.contact_number.$invalid ||
+                                        edit_subcontractor_form.$submitted &&
+                                        edit_subcontractor_form.contact_number.$invalid">
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 15 characters. </div>
+                            </div>
+                        </div>
+                        <!-- Required fields -->
+                        <p class="text-danger"> * Required fields </p>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
+                        <!-- Submit -->
+                        <button type="submit" class="btn btn-primary" ng-disabled="editDisabled"
+                                ng-click="edit_subcontractor_form.$valid && updateSubcontractor()">
+                            <b> Save Changes </b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
