@@ -11,42 +11,43 @@
     <!-- Title -->
     <title> BuildersRecords </title>
     <!-- Favicon -->
-    <link href="img/piechart.jpg" rel="icon" />
+    <link href="{{ url_for('static', filename='img/piechart.jpg') }}" rel="icon" />
     <!-- CSS Styles -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/theme.min.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='css/main.min.css') }}" rel="stylesheet" />
     <!-- Vendor JS Scripts -->
-    <script src="vendor/jquery/jquery-1.11.3.min.js"></script>
-    <script src="vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="vendor/angularjs/1.4.5/angular.min.js"></script>
-    <script src="vendor/angularjs/1.4.5/angular-messages.min.js"></script>
-    <script src="vendor/angular-ui/validate.min.js"></script>
-    <script src="vendor/angular-ui/angular-ui-router.min.js"></script>
-    <script src="vendor/angular-jwt/angular-jwt.min.js"></script>
-    <script src="vendor/angular-storage/angular-storage.min.js"></script>
-    <script src="vendor/smart-table/smart-table.min.js"></script>
-    <script src="vendor/chartjs/Chart.min.js"></script>
-    <script src="vendor/rainbowvis/rainbowvis.js"></script>
-    <script src="vendor/highcharts/highcharts.js"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/jquery-1.11.3.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/bootstrap/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angularjs/1.4.5/angular.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angularjs/1.4.5/angular-messages.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular-ui/validate.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular-ui/angular-ui-router.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular-jwt/angular-jwt.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/angular-storage/angular-storage.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/smart-table/smart-table.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/highcharts/highcharts.js') }}"></script>
     <!-- App JS Scripts -->
-    <script src="angular/app.js"></script>
-    <script src="angular/directives.js"></script>
-    <script src="angular/services.js"></script>
-    <script src="angular/home/home.js"></script>
-    <script src="angular/login/login.js"></script>
-    <script src="angular/signup/signup.js"></script>
-    <script src="angular/projects/projects.js"></script>
-    <script src="angular/overview/overview.js"></script>
-    <script src="angular/budget/budget.js"></script>
-    <script src="angular/funds/funds.js"></script>
-    <script src="angular/expenditures/expenditures.js"></script>
-    <script src="angular/subcontractors/subcontractors.js"></script>
+    <script src="{{ url_for('static', filename='angular/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/directives.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/services.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/home/home.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/login/login.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/signup/signup.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/signup/single/single.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/signup/monthly/monthly.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/projects.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/overview/overview.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/budget/budget.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/funds/funds.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/expenditures/expenditures.js') }}"></script>
+    <script src="{{ url_for('static', filename='angular/modules/projects/subcontractors/subcontractors.js') }}"></script>
     <!-- Angular base url (html5Mode) -->
     <base href="/" />
 </head>
 
 <body ng-app="app">
-    <div ui-view></div>
+    <div ui-view="nav"></div>
+    <div ui-view="body"></div>
 </body>
 
 </html>
