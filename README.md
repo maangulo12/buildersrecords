@@ -176,8 +176,6 @@ $ python3 manage.py db init
 # Perform migration
 $ python3 manage.py db migrate
 
-# Review migration script to make sure its accurate!
-
 # Upgrade database
 $ python3 manage.py db upgrade
 ```
