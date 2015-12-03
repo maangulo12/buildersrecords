@@ -10,12 +10,14 @@ Web app for accounting home construction projects.
 
 + Priorities:
 ```
-    ** Create Plans / Stripe
-    ** Account Settings  
+    ** Yearly vs. Monthly Plans
+    ** Stripe Payments
     ** Database Migrations
-    ** Add Reports Feature
+    ** Account Settings  
     ** Send Feedback
     ** Forgot Password
+    ** Add Reports Feature
+    ** Security
 
     -Stripe
     -Auth0
