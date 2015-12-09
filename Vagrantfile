@@ -72,11 +72,6 @@ pip3 install -r /vagrant/requirements.txt
 # Install Heroku Toolbelt
 wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 
-# Create uploads folder
-cd ../../
-mkdir uploads
-chmod 777 uploads
-
 # Create database tables
 cd /vagrant/
 python3 manage.py create
