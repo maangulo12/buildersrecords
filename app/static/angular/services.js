@@ -320,10 +320,10 @@ app.service('MailService', function($http) {
     }
 });
 
-// Functions for /api/upload
+// Functions for /api/uploads
 app.service('UploadService', function($http) {
-    // API: Upload entry point
-    var api_upload = '/api/upload';
+    // API: Uploads entry point
+    var api_upload = '/api/uploads';
     // UPLOAD UBuildIt File
     this.uploadUbuildit = function(form) {
         return $http.post(api_upload + '/ubuildit', form, {
