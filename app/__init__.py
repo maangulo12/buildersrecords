@@ -31,20 +31,23 @@ from app import views
 # Flask-Bcrypt
 bcrypt = Bcrypt(app)
 
-# Flask-SQLAlchemy
+# Models
 db = SQLAlchemy(app)
 from app import models
 
-# Authentication
-from app import auth
+# API Authentication
+from app import api_auth
 
-# Flask-Restless
+# API Models
 api_manager = APIManager(app, flask_sqlalchemy_db=db)
-from app import api
+from app import api_models
 
-# Flask-Mail
-mail_service = Mail(app)
-from app import mail
+# API Email
+email = Mail(app)
+from app import api_email
 
-# Uploads
-from app import uploads
+# API Uploads
+from app import api_uploads
+
+# API Subscriptions
+from app import api_subscriptions
