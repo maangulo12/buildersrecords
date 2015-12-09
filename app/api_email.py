@@ -14,7 +14,7 @@
 from flask import make_response, render_template, request
 from flask_mail import Message
 
-from app import app, mail_service
+from app import app, email
 
 
 API_ENTRY = '/api/email'
@@ -43,5 +43,5 @@ def registration():
 
     msg      = Message("Thank you from BuildersRecords", recipients=[email])
     msg.html = render_template('email/registration.html', username=username)
-    # mail_service.send(msg)
+    # email.send(msg)
     return make_response('Success! Registration email was sent', 201)
