@@ -8,7 +8,7 @@
     This module is used for sending emails to users.
 
     Current APIs:
-        -registration : /api/email/registration (sends registration email)
+        -registration : /api/email/registration (POST)
 """
 
 from flask import make_response, render_template, request

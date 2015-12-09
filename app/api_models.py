@@ -8,14 +8,14 @@
     This module is used for accessing the models.
 
     Current APIs:
-        -Users          : /api/users
-        -Projects       : /api/projects
-        -Categories     : /api/categories
-        -Items          : /api/items
-        -Expenditures   : /api/expenditures
-        -Funds          : /api/funds
-        -Draws          : /api/draws
-        -Subcontractors : /api/subcontractors
+        -Users          : /api/users          (GET, POST, DELETE, PUT)
+        -Projects       : /api/projects       (GET, POST, DELETE, PUT)
+        -Categories     : /api/categories     (GET, POST, DELETE, PUT)
+        -Items          : /api/items          (GET, POST, DELETE, PUT)
+        -Expenditures   : /api/expenditures   (GET, POST, DELETE, PUT)
+        -Funds          : /api/funds          (GET, POST, DELETE, PUT)
+        -Draws          : /api/draws          (GET, POST, DELETE, PUT)
+        -Subcontractors : /api/subcontractors (GET, POST, DELETE, PUT)
 """
 
 from app import api_manager

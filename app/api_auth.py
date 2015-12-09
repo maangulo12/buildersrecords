@@ -8,9 +8,9 @@
     This module is used for authenticating users.
 
     Current APIs:
-        -auth     : /api/auth (authenticates user)
-        -email    : /api/auth/email (checks if email already exists)
-        -username : /api/auth/username (checks if username already exists)
+        -auth     : /api/auth          (POST)
+        -email    : /api/auth/email    (POST)
+        -username : /api/auth/username (POST)
 """
 
 import jwt
