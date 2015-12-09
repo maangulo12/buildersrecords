@@ -2,14 +2,15 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.auth
-    ~~~~~~~~~~~
+    app.api_auth
+    ~~~~~~~~~~~~
 
-    This is the JSON Web Token module. It is used for authenticating users
-    to the API of this application.
+    This module is used for authenticating users.
 
     Current APIs:
-        -auth : /api/auth
+        -auth     : /api/auth (authenticates user)
+        -email    : /api/auth/email (checks if email already exists)
+        -username : /api/auth/username (checks if username already exists)
 """
 
 import jwt
@@ -20,9 +21,12 @@ from app import app
 from app.models import User
 
 
+API_ENTRY = '/api/auth'
+
+
 def encode_token(user):
     """
-    This function is used to create the json web token.
+    Creates JSON web token.
     """
     return jwt.encode({'user_id': user.id, 'username': user.username},
                       current_app.config['AUTH_SECRET'])
@@ -30,21 +34,22 @@ def encode_token(user):
 
 def decode_token(token):
     """
-    This function is used to decode the json web token.
+    Decodes JSON web token.
     """
     return jwt.decode(token, current_app.config['AUTH_SECRET'],
                       options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']})
 
 
-@app.route('/api/auth', methods=['POST'])
+# Needs route security
+@app.route(API_ENTRY, methods=['POST'])
 def auth():
     """
-    This route is used for authentication.
-    Public API endpoint
+    Authenticates user.
 
-    POST request needs:
+    POST: {
         login    : 'username' or 'email address'
         password : 'password'
+    }
     """
     data      = request.get_json(force=True)
     login     = data.get('login', None)
@@ -66,11 +71,15 @@ def auth():
         return make_response('Unauthorized', 401)
 
 
-@app.route('/api/auth/email', methods=['POST'])
+# Needs route security
+@app.route(API_ENTRY + '/email', methods=['POST'])
 def check_email():
     """
-    This route is used for validating email address.
-    Public API endpoint
+    Checks if email address exists.
+
+    POST: {
+        email : 'email address'
+    }
     """
     data      = request.get_json(force=True)
     email     = data.get('email', None)
@@ -87,11 +96,15 @@ def check_email():
         return make_response('Email already exists', 400)
 
 
-@app.route('/api/auth/username', methods=['POST'])
+# Needs route security
+@app.route(API_ENTRY + '/username', methods=['POST'])
 def check_username():
     """
-    This route is used for validating username.
-    Public API endpoint
+    Checks if username exists.
+
+    POST: {
+        username : 'username'
+    }
     """
     data      = request.get_json(force=True)
     username  = data.get('username', None)
@@ -110,7 +123,7 @@ def check_username():
 
 def verify_jwt(*args, **kwargs):
     """
-    This function is used to verify the json web token.
+    Verifies JSON web token.
     """
     auth = request.headers.get('Authorization', None)
 
