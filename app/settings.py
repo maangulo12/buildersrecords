@@ -24,10 +24,13 @@ AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY', None)
 AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY', None)
 S3_BUCKET      = os.environ.get('S3_BUCKET', None)
 
+# Stripe
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', 'sk_test_N625XoY2OXkrQzpDiRg7tt1g')
+
 # Uploads
 UPLOAD_PATH = os.environ.get('UPLOAD_PATH', '/uploads')
 
-# API Auth
+# Auth
 AUTH_HEADER_PREFIX = 'Bearer'
 AUTH_VERIFY_EXP    = False
 AUTH_SECRET        = os.environ.get('AUTH_SECRET', 'secret')
