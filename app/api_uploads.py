@@ -2,63 +2,73 @@
 # -*- coding: utf-8 -*-
 
 """
-    app.uploads
-    ~~~~~~~~~~~~~~
+    app.api_uploads
+    ~~~~~~~~~~~~~~~
 
     This module is used for uploading files.
 
     Current APIs:
-        -ubuildit : /api/upload/ubuildit
+        -ubuildit : /api/upload/ubuildit (POST)
 """
 
-import os
-import sys
 from uuid import uuid4
-from werkzeug import secure_filename
-from flask import make_response, request
+from flask import make_response, request, current_app
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 
 from app import app, db
 from app.models import Project, Category, Item
-from app.settings import UPLOAD_PATH, AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET
 from app.utility import parse_ubuildit_file
 
 
-API_ENTRY = '/api/upload'
+API_ENTRY = '/api/uploads'
 
 
-def save_file(path, file_obj, aws_flag=False):
+def upload_file(key, file_obj):
     """
-    Saves a file to the specified path.
-        :param path: the path to store the file including the filename and
-                     file extension
+    Uploads a file to AWS S3.
+        :param key: AWS bucket key
         :param file_obj: the file as a FileStorage object
-        :param aws_flag: whether to store on AWS S3
-        :return: True if the file is uploaded or saved
+        :return: True if the file is uploaded
     """
     try:
-        if (aws_flag):
-            conn      = S3Connection(AWS_ACCESS_KEY, AWS_SECRET_KEY)
-            bucket    = conn.get_bucket(S3_BUCKET)
-            k         = Key(bucket=bucket, name=path)
-            file_data = file_obj.read()
-            k.set_contents_from_string(file_data)
-        else:
-            file_obj.save('/uploads/spreadsheet.xlsx')
-
+        data = file_obj.read()
+        key.set_contents_from_string(data)
         return True
 
     except:
-        print('Could not upload file', sys.exc_info()[0])
         return False
 
 
-# add route protection
+def get_bucket_key(path):
+    """
+    Gets the AWS Bucket Key.
+        :param path: the path to store the file
+        :return: AWS bucket key
+    """
+    conn   = S3Connection(current_app.config['AWS_ACCESS_KEY'], current_app.config['AWS_SECRET_KEY'])
+    bucket = conn.get_bucket(current_app.config['S3_BUCKET'])
+    key    = Key(bucket=bucket, name=path)
+    return key
+
+
+# Needs route security
 @app.route(API_ENTRY + '/ubuildit', methods=['POST'])
 def ubuildit():
     """
-    This route is used for uploading a UBuildIt Cost Review excel file.
+    Uploads a UBuildIt Cost Review excel file to AWS S3.
+
+    POST: {
+        file         : 'file' (FileStorage object)
+        name         : 'name'
+        address      : 'address'
+        city         : 'city'
+        state        : 'state'
+        zipcode      : 'zipcode'
+        home_sq      : 'home_sq'
+        project_type : 'project_type'
+        user_id      : 'user_id'
+    }
     """
     # get length of request
     file_obj     = request.files['file']
@@ -77,13 +87,16 @@ def ubuildit():
     if not all(criterion):
         return make_response('Bad request', 400)
 
-    aws_criterion = [AWS_ACCESS_KEY, AWS_SECRET_KEY, S3_BUCKET]
-    unique_id     = uuid4()
-    full_path     = UPLOAD_PATH + '/' + user_id + '/' + name + '/' + str(unique_id)
+    path = current_app.config['UPLOAD_PATH'] + '/' + user_id + '/' + name + '/' + str(uuid4())
+    key  = get_bucket_key(path)
+    data = file_obj.read()
 
-    if save_file(full_path, file_obj, all(aws_criterion)):
+    if key is None:
+        return make_response('Could not get AWS bucket key', 400)
+
+    if upload_file(key, file_obj):
         try:
-            category_list = parse_ubuildit_file(full_path, all(aws_criterion))
+            category_list = parse_ubuildit_file(data)
 
             project = Project(name=name, address=address, city=city,
                               state=state, zipcode=zipcode, home_sq=home_sq,
@@ -107,9 +120,9 @@ def ubuildit():
                     db.session.add(item)
                     db.session.commit()
 
-            return make_response('File was successfully uploaded', 201)
+            return make_response('Success! The file was uploaded', 201)
 
         except:
-            return make_response('Excel file could not be read', 400)
+            return make_response('The file could not be read', 400)
     else:
-        return make_response('Failed to upload file', 400)
+        return make_response('Could not upload file', 400)
