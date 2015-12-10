@@ -16,8 +16,6 @@ from app import app
 
 API_ENTRY = '/api/subscriptions'
 
-stripe.api_key = current_app.config['STRIPE_API_KEY']
-
 
 # Needs route security
 @app.route(API_ENTRY, methods=['POST'])
@@ -29,11 +27,12 @@ def subscriptions():
 
     }
     """
+    stripe.api_key = current_app.config['STRIPE_API_KEY']
     # Get JSON data
 
     # Create Customer
     stripe.Customer.create(
-        email=""
+        email="",
         description="Customer for test@example.com",
         source="tok_17EE2cD49oGyKMoCirkykocN" # obtained with Stripe.js
     )
