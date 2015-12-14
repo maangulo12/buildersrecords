@@ -14,8 +14,6 @@
 
 from datetime import date
 from xlrd import open_workbook, xldate_as_tuple
-from boto.s3.connection import S3Connection
-from boto.s3.key import Key
 
 
 def parse_invoice_file(path):
