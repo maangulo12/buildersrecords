@@ -3,7 +3,7 @@
 
 """
     app.api_subscriptions
-    ~~~~~~~~~~~
+    ~~~~~~~~~~~~~~~~~~~~~
 
     This module is used for subscriptions.
 """
@@ -24,17 +24,31 @@ def subscriptions():
     Creates a customer and a subscription for the customer.
 
     POST: {
+        email:
+        card:
 
     }
     """
-    stripe.api_key = current_app.config['STRIPE_API_KEY']
     # Get JSON data
+    data       = request.get_json(force=True)
+    email      = data.get('email', None)
+    card       = data.get('card', None)
+    expiration = data.get('expiration', None)
+    cvc        = data.get('cvc', None)
+    criterion  = [email, username, len(data) == 4]
 
-    # Create Customer
-    stripe.Customer.create(
-        email="",
-        description="Customer for test@example.com",
-        source="tok_17EE2cD49oGyKMoCirkykocN" # obtained with Stripe.js
+    if not all(criterion):
+        return make_response('Bad Request', 400)
+
+    # API Key
+    stripe.api_key = current_app.config['STRIPE_API_KEY']
+    # Amount in cents
+    amount = 25000
+    # Create customer
+    customer = stripe.Customer.create(
+        email='customer@example.com',
+        plan='monthly',
+        source=''
     )
-
-    # Subscribe Customer
+    # Store customer id
+    return make_response('Customer successfully subscribed!', 201)
