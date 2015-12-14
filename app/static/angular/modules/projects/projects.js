@@ -18,7 +18,7 @@ app.config(function($stateProvider) {
         data: {
             requiresLogin: true
         }
-    });        
+    });
 });
 
 app.controller('ProjectsController', function($scope, store, ProjectService, UploadService) {
@@ -45,12 +45,14 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
 
     // ADD PROJECT functions
     $scope.showNewProjectModal = function() {
+        var btn = $('#create-project-btn').button('reset');
         $scope.project = {};
         $scope.new_project_form.$setPristine();
         $('#new_project_modal').modal('show');
     }
     $scope.createProject = function() {
         var btn = $('#create-project-btn').button('loading');
+
         if ($('#project_file').length && $('#project_file')[0].files[0]) {
             var form = new FormData();
             form.append('file', $('#project_file')[0].files[0]);
