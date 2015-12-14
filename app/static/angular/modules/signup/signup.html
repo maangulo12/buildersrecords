@@ -2,35 +2,221 @@
 <div class="container">
     <!-- Page Header -->
     <div class="page-header text-center">
-        <h1> Select a Plan </h1>
+        <h1> Sign Up </h1>
         <p class="text-muted"> <b> Already have an account? </b>
             <a ui-sref="login"> <b> Log in </b> </a>
         </p>
     </div>
-    <!-- Panels - Plans -->
+    <!-- Well -->
     <div class="row">
-        <!-- Monthly Plan -->
-        <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
-            <div class="panel panel-warning">
-                <!-- Panel Header -->
-                <div class="panel-heading text-center">
-                    <b> Monthly Plan </b>
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+            <div class="well">
+                <!-- Alert -->
+                <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                     ng-if="signup_form.$invalid && signup_form.$submitted">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only"> Error: </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button> <b> There were problems creating your account. </b>
                 </div>
-                <!-- Panel Body -->
-                <div class="panel-body">
-                    <h1 class="text-center"> <b> $25 </b><sub> / Month </sub> </h1>
-                    <!-- Line Break -->
-                    <br>
-                    <!-- List Description -->
-                    <ul>
-                        <li> <b> Unlimited Projects </b> </li>
-                        <li> <b> Unlimited Data Entries </b> </li>
-                    </ul>
-                    <!-- Sign Up Button -->
-                    <button ui-sref="monthly" type="button" class="btn btn-warning btn-block">
-                        <b> Sign Up </b>
-                    </button>
-                </div>
+                <!-- Form -->
+                <form name="signup_form" novalidate>
+                    <!-- Email Field -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error': (signup_form.email.$dirty ||
+                                                  signup_form.$submitted) &&
+                                                  signup_form.email.$invalid,
+                                     'has-feedback': (signup_form.email.$dirty ||
+                                                     signup_form.$submitted) &&
+                                                     signup_form.email.$invalid }">
+                        <label class="control-label" for="email"> Email Address * </label>
+                        <input class="form-control"
+                               name="email"
+                               type="email"
+                               placeholder="Email Address"
+                               ng-model="signup.email"
+                               required
+                               ng-maxlength=50
+                               ng-model-options="{ debounce: 500 }"
+                               email-availability>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-if="(signup_form.email.$dirty ||
+                                     signup_form.$submitted) &&
+                                     signup_form.email.$invalid">
+                        </span>
+                        <div ng-messages="signup_form.email.$error"
+                             ng-if="(signup_form.email.$dirty ||
+                                    signup_form.$submitted) &&
+                                    signup_form.email.$invalid">
+                            <div ng-message="required"
+                                 class="help-block"> This field is required. </div>
+                            <div ng-message="maxlength"
+                                 class="help-block"> This field cannot be longer than 50 characters. </div>
+                            <div ng-message="emailAvailability"
+                                 class="help-block"> This email is already registered. </div>
+                        </div>
+                        <div ng-if="signup_form.email.$pending">
+                            <span class="help-block">
+                                Checking Email...
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Username Field -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error': (signup_form.username.$dirty ||
+                                                  signup_form.$submitted) &&
+                                                  signup_form.username.$invalid,
+                                     'has-feedback': (signup_form.username.$dirty ||
+                                                     signup_form.$submitted) &&
+                                                     signup_form.username.$invalid }">
+                        <label class="control-label" for="username"> Username * </label>
+                        <input class="form-control"
+                               name="username"
+                               type="text"
+                               placeholder="Username"
+                               ng-model="signup.username"
+                               required
+                               ng-minlength=5
+                               ng-maxlength=25
+                               ng-model-options="{ debounce: 500 }"
+                               username-availability>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-if="(signup_form.username.$dirty ||
+                                     signup_form.$submitted) &&
+                                     signup_form.username.$invalid">
+                        </span>
+                        <div ng-messages="signup_form.username.$error"
+                             ng-if="(signup_form.username.$dirty ||
+                                    signup_form.$submitted) &&
+                                    signup_form.username.$invalid">
+                            <div ng-message="required"
+                                 class="help-block"> This field is required. </div>
+                            <div ng-message="minlength"
+                                 class="help-block"> This field cannot be shorter than 5 characters. </div>
+                            <div ng-message="maxlength"
+                                 class="help-block"> This field cannot be longer than 25 characters. </div>
+                            <div ng-message="usernameAvailability"
+                                 class="help-block"> This username is not available. </div>
+                        </div>
+                        <div ng-if="signup_form.username.$pending">
+                            <span class="help-block">
+                                Checking Username...
+                            </span>
+                        </div>
+                    </div>
+                    <!-- Password Fields -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- Password Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (signup_form.password.$dirty ||
+                                                          signup_form.$submitted) &&
+                                                          signup_form.password.$invalid,
+                                             'has-feedback': (signup_form.password.$dirty ||
+                                                             signup_form.$submitted) &&
+                                                             signup_form.password.$invalid }">
+                                <label class="control-label" for="password"> Password * </label>
+                                <input class="form-control"
+                                       name="password"
+                                       type="password"
+                                       placeholder="Password"
+                                       ng-model="signup.password"
+                                       required
+                                       ng-maxlength=40>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"
+                                      ng-if="(signup_form.password.$dirty ||
+                                             signup_form.$submitted) &&
+                                             signup_form.password.$invalid">
+                                </span>
+                                <div ng-messages="signup_form.password.$error"
+                                     ng-if="(signup_form.password.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.password.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block"> This field is required. </div>
+                                    <div ng-message="maxlength"
+                                         class="help-block"> This field cannot be longer than 40 characters. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- Confirm Password Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (signup_form.confirm_password.$dirty ||
+                                                          signup_form.$submitted) &&
+                                                          signup_form.confirm_password.$invalid,
+                                             'has-feedback': (signup_form.confirm_password.$dirty ||
+                                                             signup_form.$submitted) &&
+                                                             signup_form.confirm_password.$invalid }">
+                                <label class="control-label" for="confirm_password"> Confirm Password * </label>
+                                <input class="form-control"
+                                       name="confirm_password"
+                                       type="password"
+                                       placeholder="Confirm Password"
+                                       ng-model="signup.confirm_password"
+                                       required
+                                       ng-maxlength=40
+                                       ui-validate="'$value==signup.password'"
+                                       ui-validate-watch="'signup.password'">
+                                <span class="glyphicon glyphicon-remove form-control-feedback"
+                                      ng-if="(signup_form.confirm_password.$dirty ||
+                                             signup_form.$submitted) &&
+                                             signup_form.confirm_password.$invalid">
+                                </span>
+                                <div ng-messages="signup_form.confirm_password.$error"
+                                     ng-if="(signup_form.confirm_password.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.confirm_password.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block"> This field is required. </div>
+                                    <div ng-message="maxlength"
+                                         class="help-block"> This field cannot be longer than 40 characters. </div>
+                                    <div ng-message="validator"
+                                         class="help-block"> Passwords do not match. </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Pricing -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error': signup_form.subscription_monthly.$invalid,
+                                     'has-feedback': signup_form.subscription_monthly.$invalid }">
+                        <label class="control-label" for="subscription_monthly"> Pricing * </label>
+                        <br>
+                        <input type="radio" name="subscription_monthly" ng-model="signup.subscription_monthly">
+                        <b> $25 / month </b>
+                    </div>
+                    <!-- Credit Card -->
+                    
+                    <!-- Agreement Checkbox -->
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"
+                                       name="agreement"
+                                       ng-model="signup.agreement"
+                                       required> I agree to the
+                                <a href="#"><b> Terms of Service </b></a> and the
+                                <a href="#"><b> Privacy Policy</b></a>.
+                                <div ng-messages="signup_form.agreement.$error"
+                                     ng-if="(signup_form.agreement.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.agreement.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block text-danger"> This is required. </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Submit -->
+                    <div class="form-group text-right">
+                        <button id="create-account-btn" type="submit" class="btn btn-success btn-block"
+                                data-loading-text="Creating..."
+                                ng-click="signup_form.$valid && createAccount()"> <b> Sign Up </b>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
