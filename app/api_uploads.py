@@ -57,6 +57,7 @@ def ubuildit():
         return make_response('Bad request', 400)
 
     try:
+        # Check for invalid file
         data = file_obj.read()
         category_list = parse_ubuildit_file(data)
 
