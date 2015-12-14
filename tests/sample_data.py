@@ -65,7 +65,9 @@ def populate_db(app):
     })
 
     # Start parsing UBUILDIT file here
-    data = parse_ubuildit_file(FILE_PATH, aws=False)
+    f = open(FILE_PATH, 'rb')
+    contents = f.read()
+    data = parse_ubuildit_file(contents)
 
     for category in data:
         # Add Category
