@@ -30,7 +30,7 @@
                                      'has-feedback': (signup_form.email.$dirty ||
                                                      signup_form.$submitted) &&
                                                      signup_form.email.$invalid }">
-                        <label class="control-label" for="email"> Email Address * </label>
+                        <label class="control-label" for="email"> Email Address </label>
                         <input class="form-control"
                                name="email"
                                type="email"
@@ -70,7 +70,7 @@
                                      'has-feedback': (signup_form.username.$dirty ||
                                                      signup_form.$submitted) &&
                                                      signup_form.username.$invalid }">
-                        <label class="control-label" for="username"> Username * </label>
+                        <label class="control-label" for="username"> Username </label>
                         <input class="form-control"
                                name="username"
                                type="text"
@@ -116,7 +116,7 @@
                                              'has-feedback': (signup_form.password.$dirty ||
                                                              signup_form.$submitted) &&
                                                              signup_form.password.$invalid }">
-                                <label class="control-label" for="password"> Password * </label>
+                                <label class="control-label" for="password"> Password </label>
                                 <input class="form-control"
                                        name="password"
                                        type="password"
@@ -149,7 +149,7 @@
                                              'has-feedback': (signup_form.confirm_password.$dirty ||
                                                              signup_form.$submitted) &&
                                                              signup_form.confirm_password.$invalid }">
-                                <label class="control-label" for="confirm_password"> Confirm Password * </label>
+                                <label class="control-label" for="confirm_password"> Confirm Password </label>
                                 <input class="form-control"
                                        name="confirm_password"
                                        type="password"
@@ -178,14 +178,14 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Pricing -->
+                    <!-- Pricing Choice -->
                     <div class="form-group"
-                         ng-class="{ 'has-error': signup_form.subscription_monthly.$invalid,
-                                     'has-feedback': signup_form.subscription_monthly.$invalid }">
-                        <label class="control-label" for="subscription_monthly"> Pricing * </label>
+                         ng-class="{ 'has-error': signup_form.subscription.$invalid,
+                                     'has-feedback': signup_form.subscription.$invalid }">
+                        <label class="control-label" for="subscription"> Pricing Choice </label>
                         <br>
-                        <input type="radio" name="subscription_monthly" ng-model="signup.subscription_monthly">
-                        <b> $25 / month </b>
+                        <input type="radio" name="subscription" ng-model="signup.subscription">
+                        $25 / month
                     </div>
                     <!-- Cardholder Name -->
                     <div class="form-group"
@@ -195,12 +195,12 @@
                                      'has-feedback': (signup_form.card_name.$dirty ||
                                                      signup_form.$submitted) &&
                                                      signup_form.card_name.$invalid }">
-                        <label class="control-label" for="card_name"> Name on Card * </label>
+                        <label class="control-label" for="card_name"> Name on Card </label>
                         <input class="form-control"
-                               name="name"
+                               name="card_name"
                                type="text"
                                placeholder="Cardholder Name"
-                               ng-model="signup_form.card_name"
+                               ng-model="signup.card_name"
                                required
                                ng-minlength=2
                                ng-maxlength=50>
@@ -221,7 +221,7 @@
                                  class="help-block"> This field cannot be longer than 50 characters. </div>
                         </div>
                     </div>
-                    <!-- Credit Card -->
+                    <!-- Card Number -->
                     <div class="form-group"
                          ng-class="{ 'has-error': (signup_form.card_number.$dirty ||
                                                   signup_form.$submitted) &&
@@ -229,12 +229,12 @@
                                      'has-feedback': (signup_form.card_number.$dirty ||
                                                      signup_form.$submitted) &&
                                                      signup_form.card_number.$invalid }">
-                        <label class="control-label" for="card_number"> Card Number * </label>
+                        <label class="control-label" for="card_number"> Card Number </label>
                         <input class="form-control"
-                               name="card"
+                               name="card_number"
                                type="text"
                                placeholder="16-digit Card Number"
-                               ng-model="signup_form.card_number"
+                               ng-model="signup.card_number"
                                required
                                ng-minlength=16
                                ng-maxlength=16>
@@ -251,41 +251,43 @@
                                  class="help-block"> This field is required. </div>
                             <div ng-message="minlength"
                                  class="help-block"> A 16 digit card number required. </div>
+                            <div ng-message="maxlength"
+                                 class="help-block"> This field cannot be longer than 16 digits. </div>
                         </div>
                     </div>
-                    <!-- Credit Card Security -->
+                    <!-- CVC / Expiration Date -->
                     <div class="row">
                         <div class="col-sm-6">
-                            <!-- CVV -->
+                            <!-- CVC -->
                             <div class="form-group"
-                                 ng-class="{ 'has-error': (signup_form.cvv.$dirty ||
+                                 ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
                                                           signup_form.$submitted) &&
-                                                          signup_form.cvv.$invalid,
-                                             'has-feedback': (signup_form.cvv.$dirty ||
+                                                          signup_form.cvc.$invalid,
+                                             'has-feedback': (signup_form.cvc.$dirty ||
                                                              signup_form.$submitted) &&
-                                                             signup_form.cvv.$invalid }">
-                                <label class="control-label" for="cvv"> CVV * </label>
+                                                             signup_form.cvc.$invalid }">
+                                <label class="control-label" for="cvc"> CVC </label>
                                 <input class="form-control"
-                                       name="cvv_number"
+                                       name="cvc"
                                        type="text"
-                                       placeholder=""
-                                       ng-model="signup_form.cvv"
+                                       placeholder="Card Security Code"
+                                       ng-model="signup.cvc"
                                        required
                                        ng-minlength=3
                                        ng-maxlength=4>
                                 <span class="glyphicon glyphicon-remove form-control-feedback"
-                                      ng-if="(signup_form.cvv.$dirty ||
+                                      ng-if="(signup_form.cvc.$dirty ||
                                              signup_form.$submitted) &&
-                                             signup_form.cvv.$invalid">
+                                             signup_form.cvc.$invalid">
                                 </span>
-                                <div ng-messages="signup_form.cvv.$error"
-                                     ng-if="(signup_form.cvv.$dirty ||
+                                <div ng-messages="signup_form.cvc.$error"
+                                     ng-if="(signup_form.cvc.$dirty ||
                                             signup_form.$submitted) &&
-                                            signup_form.cvv.$invalid">
+                                            signup_form.cvc.$invalid">
                                     <div ng-message="required"
                                          class="help-block"> This field is required. </div>
                                     <div ng-message="maxlength"
-                                         class="help-block"> This field cannot be longer than 4 characters. </div>
+                                         class="help-block"> This field cannot be longer than 4 digits. </div>
                                 </div>
                             </div>
                         </div>
@@ -298,10 +300,10 @@
                                              'has-feedback': (signup_form.expiration_date.$dirty ||
                                                              signup_form.$submitted) &&
                                                              signup_form.expiration_date.$invalid }">
-                                <label class="control-label" for="expiration_date"> Expiration Date * </label>
+                                <label class="control-label" for="expiration_date"> Expiration Date </label>
                                 <select class="form-control"
                                         name="expiration_date"
-                                        ng-model="signup_form.expiration_date"
+                                        ng-model="signup.expiration_date"
                                         required>
                                     <option value="" disabled selected> Select Month </option>
                                     <option value="January"> 1-January </option>
