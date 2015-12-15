@@ -10,10 +10,9 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** Yearly vs. Monthly Plans
-    ** Stripe Payments
+    ** Stripe Payments - Amy
+    ** Account Settings - Miguel
     ** Database Migrations
-    ** Account Settings  
     ** Send Feedback
     ** Forgot Password
     ** Add Reports Feature
@@ -31,6 +30,8 @@ Web app for accounting construction projects.
 
 + Home module:
 ```
+    -Update jumbotron message
+    -Update jumbotron picture
     -About Us
 ```
 
@@ -88,7 +89,6 @@ Web app for accounting construction projects.
 
 + Modules to Consider:
 ```
-    -Implement Reports features
     -Implement Gallery module
     -Implement Send Feedback
     -Implement Help & Support
@@ -163,9 +163,9 @@ Password: password
 ## Database Migrations
 
 #### Read:
-[Flask-Migrate: Documentation] (http://flask-migrate.readthedocs.org/en/latest/)
-[Flask-Migrate: Miguel Grindberg] (http://blog.miguelgrinberg.com/post/flask-migrate-alembic-database-migration-wrapper-for-flask)
-[Alembic Documentation] (http://alembic.readthedocs.org/en/latest/)
++ [Flask-Migrate: Documentation] (http://flask-migrate.readthedocs.org/en/latest/)
++ [Flask-Migrate: Miguel Grindberg] (http://blog.miguelgrinberg.com/post/flask-migrate-alembic-database-migration-wrapper-for-flask)
++ [Alembic Documentation] (http://alembic.readthedocs.org/en/latest/)
 
 #### Commands:
 >
