@@ -10,13 +10,13 @@
                     <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
                     <b> Projects </b>
                 </a>
-                <!-- Account Settings -->
+                <!-- Manage Account -->
                 <a ui-sref="account" class="list-group-item active">
                     <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
-                    <b> Account Settings </b>
+                    <b> Manage Account </b>
                 </a>
                 <!-- Send Feedback -->
-                <a ui-sref="" class="list-group-item">
+                <a ui-sref="feedback" class="list-group-item">
                     <span class="glyphicon glyphicon-comment glyphicon-padding" aria-hidden="true"></span>
                     <b> Send Feedback </b>
                 </a>
@@ -31,24 +31,223 @@
                 <span class="sr-only"> Error: </span>
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"> &times; </span>
-                </button> <b> Could not access your account. Please refresh your page. </b>
+                </button> <b> Could not access your account information. Please refresh your page. </b>
             </div>
             <!-- Page Header -->
-            <div class="row">
-                <!-- Left Side -->
-                <div class="col-xs-6">
+            <div class="page-header">
+                <h1> Manage Account </h1>
+            </div>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#user" data-toggle="tab">
+                        <span class="glyphicon glyphicon-user glyphicon-padding" aria-hidden="true"></span>
+                        Account
+                    </a>
+                </li>
+                <li>
+                    <a href="#billing" data-toggle="tab">
+                        <span class="glyphicon glyphicon-credit-card glyphicon-padding" aria-hidden="true"></span>
+                        Billing
+                    </a>
+                </li>
+            </ul>
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="user">
                     <!-- Header -->
                     <div class="page-header">
-                        <h1> Account </h1>
-                        <!-- Sub Header -->
-                        <h4 class="text-muted"> Account Information </h4>
+                        <h3> User Info </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal" novalidate>
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="email"> Email Address </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="email"
+                                           type="email"
+                                           placeholder="Email Address"
+                                           ng-model="user.email">
+                                </div>
+                            </div>
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="username"> Username </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="username"
+                                           type="text"
+                                           placeholder="Username"
+                                           ng-model="user.username">
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Save Changes </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Change Password </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Current Password Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="current_password"> Current Password </label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" name="current_password" placeholder="Current Password">
+                                </div>
+                            </div>
+                            <!-- New Password Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="new_password"> New Password </label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" name="new_password" placeholder="New Password">
+                                </div>
+                            </div>
+                            <!-- Confirm New Password Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="confirm_new_password"> Confirm New Password </label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" name="confirm_new_password" placeholder="Confirm New Password">
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Update Password </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Close Account </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Close Account -->
+                            <div class="form-group">
+                                <div class="col-sm-3 control-label">
+                                    <label class="text-danger"> Close Account </label>
+                                    <p class="help-block"> Warning: Closing your account is irreversible. </p>
+                                </div>
+                                <!-- Close Button -->
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-danger"> <b> Close Account </b> </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <!-- Right Side -->
-                <div class="col-xs-6">
-
+                <div class="tab-pane fade" id="billing">
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Payment Details </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Cardholder Name Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="card_name"> Name on Card </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="card_name" placeholder="Cardholder Name">
+                                </div>
+                            </div>
+                            <!-- Card Number Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="card_number"> Card Number </label>
+                                <div class="col-sm-9">
+                                    <input type="email" class="form-control" name="card_number" placeholder="16-Digit Card Number">
+                                </div>
+                            </div>
+                            <!-- Expiration Date Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="expiration_date"> Expiration Date </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="expiration_date" placeholder="Expiration Date">
+                                </div>
+                            </div>
+                            <!-- CVC Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="cvc"> CVC </label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="cvc" placeholder="Card Security Code" select>
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Update Card </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Subscription </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Plan Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="plan"> Plan </label>
+                                <div class="col-sm-9">
+                                    <div class="radio-inline">
+                                        <input type="radio" name="plan"> Monthly - $25
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Update Plan </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Payment History </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="receipts"> Receipts go here </label>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<br><br><br><br><br>

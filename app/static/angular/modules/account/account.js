@@ -21,6 +21,16 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('AccountController', function() {
+app.controller('AccountController', function($scope, store, UserService) {
+    init();
 
+    function init() {
+        UserService.getUserById().then(function(response) {
+            $scope.user = {};
+            $scope.user.email = response.data.email;
+            $scope.user.username = store.get('user').username;
+        }, function(error) {
+            $scope.error_msg = true;
+        });
+    }
 });
