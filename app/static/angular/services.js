@@ -5,12 +5,16 @@ function query(name, op, val) {
 }
 
 // Functions for /api/users
-app.service('UserService', function($http) {
+app.service('UserService', function($http, store) {
     // API: Users entry point
-    var api_users = '/api/users';
+    var api_entry = '/api/users';
+    // GET User by Id
+    this.getUserById = function() {
+        return $http.get(api_entry + '/' + store.get('user').id);
+    }
     // ADD User
     this.addUser = function(form) {
-        return $http.post(api_users, {
+        return $http.post(api_entry, {
             username:   form.username,
             password:   form.password,
             email:      form.email
@@ -21,14 +25,14 @@ app.service('UserService', function($http) {
 // Functions for /api/projects
 app.service('ProjectService', function($http, store) {
     // API: Projects entry point
-    var api_projects = '/api/projects';
+    var api_entry = '/api/projects';
     // GET list of Projects
     this.getProjects = function() {
-        return $http.get(api_projects + query('user_id', 'equals', store.get('user').id));
+        return $http.get(api_entry + query('user_id', 'equals', store.get('user').id));
     }
     // ADD Project
     this.addProject = function(form) {
-        return $http.post(api_projects, {
+        return $http.post(api_entry, {
             name:         form.name,
             address:      form.address,
             city:         form.city,
@@ -41,7 +45,7 @@ app.service('ProjectService', function($http, store) {
     }
     // PUT Project
     this.updateProject = function(form) {
-        return $http.put(api_projects + '/' + store.get('project').id, {
+        return $http.put(api_entry + '/' + store.get('project').id, {
             name:         form.name,
             address:      form.address,
             city:         form.city,
@@ -54,53 +58,53 @@ app.service('ProjectService', function($http, store) {
     }
     // DELETE Project
     this.deleteProject = function() {
-        return $http.delete(api_projects + '/' + store.get('project').id);
+        return $http.delete(api_entry + '/' + store.get('project').id);
     }
 });
 
 // Functions for /api/categories
 app.service('CategoryService', function($http, store) {
     // API: Categories entry point
-    var api_categories = '/api/categories';
+    var api_entry = '/api/categories';
     // GET list of Categories
     this.getCategories = function() {
-        return $http.get(api_categories + query('project_id', 'equals', store.get('project').id));
+        return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
     // ADD Category
     this.addCategory = function(category_name) {
-        return $http.post(api_categories, {
+        return $http.post(api_entry, {
             name:       category_name,
             project_id: store.get('project').id
         });
     }
     // PUT Category
     this.updateCategory = function(category_name) {
-        return $http.put(api_categories + '/' + store.get('category').id, {
+        return $http.put(api_entry + '/' + store.get('category').id, {
             name:       category_name,
             project_id: store.get('project').id
         });
     }
     // DELETE Category
     this.deleteCategory = function() {
-        return $http.delete(api_categories + '/' + store.get('category').id);
+        return $http.delete(api_entry + '/' + store.get('category').id);
     }
 });
 
 // Functions for /api/items
 app.service('ItemService', function($http, store) {
     // API: Items entry point
-    var api_items = '/api/items';
+    var api_entry = '/api/items';
     // GET list of Items
     this.getItems = function() {
-        return $http.get(api_items + query('project_id', 'equals', store.get('project').id));
+        return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
     // GET list of Items by Category
     this.getItemsByCategory = function() {
-        return $http.get(api_items + query('category_id', 'equals', store.get('category').id));
+        return $http.get(api_entry + query('category_id', 'equals', store.get('category').id));
     }
     // ADD Item
     this.addItem = function(form) {
-        return $http.post(api_items, {
+        return $http.post(api_entry, {
             name:        form.name,
             description: form.description,
             estimated:   form.estimated,
@@ -111,7 +115,7 @@ app.service('ItemService', function($http, store) {
     }
     // PUT Item
     this.updateItem = function(form) {
-        return $http.put(api_items + '/' + store.get('item').id, {
+        return $http.put(api_entry + '/' + store.get('item').id, {
             name:        form.name,
             description: form.description,
             estimated:   form.estimated,
@@ -122,25 +126,25 @@ app.service('ItemService', function($http, store) {
     }
     // DELETE Item
     this.deleteItem = function(item_id) {
-        return $http.delete(api_items + '/' + item_id);
+        return $http.delete(api_entry + '/' + item_id);
     }
     // DELETE BULK Items
     this.deleteBulkItems = function() {
-        return $http.delete(api_items + query('category_id', 'equals', store.get('category').id));
+        return $http.delete(api_entry + query('category_id', 'equals', store.get('category').id));
     }
 });
 
 // Functions for /api/funds
 app.service('FundService', function($http, store) {
     // API: Funds entry point
-    var api_funds = '/api/funds';
+    var api_entry = '/api/funds';
     // GET list of Funds
     this.getFunds = function() {
-        return $http.get(api_funds + query('project_id', 'equals', store.get('project').id));
+        return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
     // ADD Fund
     this.addFund = function(form) {
-        return $http.post(api_funds, {
+        return $http.post(api_entry, {
             name:       form.name,
             loan:       form.loan,
             amount:     form.amount,
@@ -149,7 +153,7 @@ app.service('FundService', function($http, store) {
     }
     // PUT Fund
     this.updateFund = function(form) {
-        return $http.put(api_funds + '/' + store.get('fund').id, {
+        return $http.put(api_entry + '/' + store.get('fund').id, {
             name:       form.name,
             loan:       form.loan,
             amount:     form.amount,
@@ -158,17 +162,17 @@ app.service('FundService', function($http, store) {
     }
     // DELETE Fund
     this.deleteFund = function() {
-        return $http.delete(api_funds + '/' + store.get('fund').id);
+        return $http.delete(api_entry + '/' + store.get('fund').id);
     }
 });
 
 // Functions for /api/draws
 app.service('DrawService', function($http, store) {
     // API: Draws entry point
-    var api_draws = '/api/draws';
+    var api_entry = '/api/draws';
     // ADD Draw
     this.addDraw = function(form) {
-        return $http.post(api_draws, {
+        return $http.post(api_entry, {
             date:    form.date,
             amount:  form.amount,
             fund_id: store.get('fund').id
@@ -176,7 +180,7 @@ app.service('DrawService', function($http, store) {
     }
     // PUT Draw
     this.updateDraw = function(form) {
-        return $http.put(api_draws + '/' + store.get('draw').id, {
+        return $http.put(api_entry + '/' + store.get('draw').id, {
             date:    form.date,
             amount:  form.amount,
             fund_id: store.get('fund').id
@@ -184,29 +188,29 @@ app.service('DrawService', function($http, store) {
     }
     // DELETE Draw
     this.deleteDraw = function(draw_id) {
-        return $http.delete(api_draws + '/' + draw_id);
+        return $http.delete(api_entry + '/' + draw_id);
     }
     // DELETE BULK Draws
     this.deleteBulkDraws = function() {
-        return $http.delete(api_draws + query('fund_id', 'equals', store.get('fund').id));
+        return $http.delete(api_entry + query('fund_id', 'equals', store.get('fund').id));
     }
 });
 
 // Functions for /api/expenditures
 app.service('ExpenditureService', function($http, store, $filter) {
     // API: Expenditures entry point
-    var api_expenditures = '/api/expenditures';
+    var api_entry = '/api/expenditures';
     // GET list of Expenditures
     this.getExpenditures = function() {
-        return $http.get(api_expenditures + query('project_id', 'equals', store.get('project').id));
+        return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
     // GET list of Expenditures by Category
     this.getExpendituresByCategory = function() {
-        return $http.get(api_expenditures + query('category_id', 'equals', store.get('category').id));
+        return $http.get(api_entry + query('category_id', 'equals', store.get('category').id));
     }
     // ADD Expenditure
     this.addExpenditure = function(form) {
-        return $http.post(api_expenditures, {
+        return $http.post(api_entry, {
             date:        $filter('date')(form.date,'yyyy-MM-dd'),
             vendor:      form.vendor,
             notes:       form.notes,
@@ -219,7 +223,7 @@ app.service('ExpenditureService', function($http, store, $filter) {
     }
     // PUT Expenditure
     this.updateExpenditure = function(form) {
-        return $http.put(api_expenditures + '/' + store.get('expenditure').id, {
+        return $http.put(api_entry + '/' + store.get('expenditure').id, {
             date:        $filter('date')(form.date,'yyyy-MM-dd'),
             vendor:      form.vendor,
             notes:       form.notes,
@@ -232,25 +236,25 @@ app.service('ExpenditureService', function($http, store, $filter) {
     }
     // DELETE Expenditure
     this.deleteExpenditure = function(expenditure_id) {
-        return $http.delete(api_expenditures + '/' + expenditure_id);
+        return $http.delete(api_entry + '/' + expenditure_id);
     }
     // DELETE BULK Expenditures
     this.deleteBulkExpenditures = function() {
-        return $http.delete(api_expenditures + query('category_id', 'equals', store.get('category').id));
+        return $http.delete(api_entry + query('category_id', 'equals', store.get('category').id));
     }
 });
 
 // Functions for /api/subcontractors
 app.service('SubcontractorService', function($http, store) {
     // API: Subcontractors entry point
-    var api_subcontractors = '/api/subcontractors';
+    var api_entry = '/api/subcontractors';
     // GET list of Subcontractors
     this.getSubcontractors = function() {
-        return $http.get(api_subcontractors + query('project_id', 'equals', store.get('project').id));
+        return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
     // ADD Subcontractor
     this.addSubcontractor = function(form) {
-        return $http.post(api_subcontractors, {
+        return $http.post(api_entry, {
             name:           form.name,
             company:        form.company,
             contact_number: form.contact_number,
@@ -259,7 +263,7 @@ app.service('SubcontractorService', function($http, store) {
     }
     // PUT Subcontractor
     this.updateSubcontractor = function(form) {
-        return $http.put(api_subcontractors + '/' + store.get('subcontractor').id, {
+        return $http.put(api_entry + '/' + store.get('subcontractor').id, {
             name:           form.name,
             company:        form.company,
             contact_number: form.contact_number,
@@ -268,29 +272,29 @@ app.service('SubcontractorService', function($http, store) {
     }
     // DELETE Subcontractor
     this.deleteSubcontractor = function(subcontractor_id) {
-        return $http.delete(api_subcontractors + '/' + subcontractor_id);
+        return $http.delete(api_entry + '/' + subcontractor_id);
     }
 });
 
 // Functions for /api/auth
 app.service('AuthService', function($http, store, jwtHelper) {
     // API: Auth entry point
-    var api_auth = '/api/auth';
+    var api_entry = '/api/auth';
     // POST Email Validation
     this.checkEmail = function(email) {
-        return $http.post(api_auth + '/email', {
+        return $http.post(api_entry + '/email', {
             email: email
         });
     }
     // POST Username Validation
     this.checkUsername = function(username) {
-        return $http.post(api_auth + '/username', {
+        return $http.post(api_entry + '/username', {
             username: username
         });
     }
     // AUTH User
     this.authenticate = function(login, password) {
-        return $http.post(api_auth, {
+        return $http.post(api_entry, {
             login:    login,
             password: password
         });
@@ -310,10 +314,10 @@ app.service('AuthService', function($http, store, jwtHelper) {
 // Functions for /api/email
 app.service('MailService', function($http) {
     // API: Email entry point
-    var api_email = '/api/email';
+    var api_entry = '/api/email';
     // SEND EMAIL Registration
     this.sendRegistrationEmail = function(form) {
-        return $http.post(api_email + '/registration', {
+        return $http.post(api_entry + '/registration', {
             email:    form.email,
             username: form.username
         });
@@ -323,10 +327,10 @@ app.service('MailService', function($http) {
 // Functions for /api/uploads
 app.service('UploadService', function($http) {
     // API: Uploads entry point
-    var api_upload = '/api/uploads';
+    var api_entry = '/api/uploads';
     // UPLOAD UBuildIt File
     this.uploadUbuildit = function(form) {
-        return $http.post(api_upload + '/ubuildit', form, {
+        return $http.post(api_entry + '/ubuildit', form, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         });
