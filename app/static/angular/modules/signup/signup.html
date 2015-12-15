@@ -257,41 +257,7 @@
                     </div>
                     <!-- CVC / Expiration Date Fields -->
                     <div class="row">
-                        <div class="col-sm-6">
-                            <!-- CVC Field -->
-                            <div class="form-group"
-                                 ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
-                                                          signup_form.$submitted) &&
-                                                          signup_form.cvc.$invalid,
-                                             'has-feedback': (signup_form.cvc.$dirty ||
-                                                             signup_form.$submitted) &&
-                                                             signup_form.cvc.$invalid }">
-                                <label class="control-label" for="cvc"> CVC </label>
-                                <input class="form-control"
-                                       name="cvc"
-                                       type="text"
-                                       placeholder="Card Security Code"
-                                       ng-model="signup.cvc"
-                                       required
-                                       ng-minlength=3
-                                       ng-maxlength=4>
-                                <span class="glyphicon glyphicon-remove form-control-feedback"
-                                      ng-if="(signup_form.cvc.$dirty ||
-                                             signup_form.$submitted) &&
-                                             signup_form.cvc.$invalid">
-                                </span>
-                                <div ng-messages="signup_form.cvc.$error"
-                                     ng-if="(signup_form.cvc.$dirty ||
-                                            signup_form.$submitted) &&
-                                            signup_form.cvc.$invalid">
-                                    <div ng-message="required"
-                                         class="help-block"> This field is required. </div>
-                                    <div ng-message="maxlength"
-                                         class="help-block"> This field cannot be longer than 4 digits. </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <!-- Expiration Date Field -->
                             <div class="form-group"
                                  ng-class="{ 'has-error': (signup_form.expiration_date.$dirty ||
@@ -333,6 +299,40 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-5">
+                            <!-- CVC Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
+                                                          signup_form.$submitted) &&
+                                                          signup_form.cvc.$invalid,
+                                             'has-feedback': (signup_form.cvc.$dirty ||
+                                                             signup_form.$submitted) &&
+                                                             signup_form.cvc.$invalid }">
+                                <label class="control-label" for="cvc"> CVC </label>
+                                <input class="form-control"
+                                       name="cvc"
+                                       type="text"
+                                       placeholder="Card Security Code"
+                                       ng-model="signup.cvc"
+                                       required
+                                       ng-minlength=3
+                                       ng-maxlength=4>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"
+                                      ng-if="(signup_form.cvc.$dirty ||
+                                             signup_form.$submitted) &&
+                                             signup_form.cvc.$invalid">
+                                </span>
+                                <div ng-messages="signup_form.cvc.$error"
+                                     ng-if="(signup_form.cvc.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.cvc.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block"> This field is required. </div>
+                                    <div ng-message="maxlength"
+                                         class="help-block"> This field cannot be longer than 4 digits. </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- Agreement Checkbox -->
                     <div class="form-group">
@@ -349,7 +349,7 @@
                                             signup_form.$submitted) &&
                                             signup_form.agreement.$invalid">
                                     <div ng-message="required"
-                                         class="help-block text-danger"> This is required. </div>
+                                         class="help-block text-danger"> Agreement is required. </div>
                                 </div>
                             </label>
                         </div>

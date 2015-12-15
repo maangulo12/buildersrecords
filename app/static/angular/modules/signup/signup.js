@@ -20,6 +20,9 @@ app.controller('SignupController', function($scope, store, $state, UserService, 
 
     $scope.createAccount = function() {
         var btn = $('#create-account-btn').button('loading');
+
+        // call SubscriptionService
+
         UserService.addUser($scope.signup).then(function(response) {
             MailService.sendRegistrationEmail($scope.signup);
             AuthService.authenticate($scope.signup.username, $scope.signup.password)
