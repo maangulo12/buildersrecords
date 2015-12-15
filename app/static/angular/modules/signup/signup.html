@@ -187,8 +187,149 @@
                         <input type="radio" name="subscription_monthly" ng-model="signup.subscription_monthly">
                         <b> $25 / month </b>
                     </div>
+                    <!-- Cardholder Name -->
+                    <div class="form-group"
+                         ng-class="{ 'has-error': (signup_form.card_name.$dirty ||
+                                                  signup_form.$submitted) &&
+                                                  signup_form.card_name.$invalid,
+                                     'has-feedback': (signup_form.card_name.$dirty ||
+                                                     signup_form.$submitted) &&
+                                                     signup_form.card_name.$invalid }">
+                        <label class="control-label" for="card_name"> Name on Card * </label>
+                        <input class="form-control"
+                               name="name"
+                               type="text"
+                               placeholder="Cardholder Name"
+                               ng-model="signup_form.card_name"
+                               required
+                               ng-minlength=2
+                               ng-maxlength=50>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-if="(signup_form.card_name.$dirty ||
+                                     signup_form.$submitted) &&
+                                     signup_form.card_name.$invalid">
+                        </span>
+                        <div ng-messages="signup_form.card_name.$error"
+                             ng-if="(signup_form.card_name.$dirty ||
+                                    signup_form.$submitted) &&
+                                    signup_form.card_name.$invalid">
+                            <div ng-message="required"
+                                 class="help-block"> This field is required. </div>
+                            <div ng-message="minlength"
+                                 class="help-block"> This field cannot be shorter than 2 characters. </div>
+                            <div ng-message="maxlength"
+                                 class="help-block"> This field cannot be longer than 50 characters. </div>
+                        </div>
+                    </div>
                     <!-- Credit Card -->
-                    
+                    <div class="form-group"
+                         ng-class="{ 'has-error': (signup_form.card_number.$dirty ||
+                                                  signup_form.$submitted) &&
+                                                  signup_form.card_number.$invalid,
+                                     'has-feedback': (signup_form.card_number.$dirty ||
+                                                     signup_form.$submitted) &&
+                                                     signup_form.card_number.$invalid }">
+                        <label class="control-label" for="card_number"> Card Number * </label>
+                        <input class="form-control"
+                               name="card"
+                               type="text"
+                               placeholder="16-digit Card Number"
+                               ng-model="signup_form.card_number"
+                               required
+                               ng-minlength=16
+                               ng-maxlength=16>
+                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                              ng-if="(signup_form.card_number.$dirty ||
+                                     signup_form.$submitted) &&
+                                     signup_form.card_number.$invalid">
+                        </span>
+                        <div ng-messages="signup_form.card_number.$error"
+                             ng-if="(signup_form.card_number.$dirty ||
+                                    signup_form.$submitted) &&
+                                    signup_form.card_number.$invalid">
+                            <div ng-message="required"
+                                 class="help-block"> This field is required. </div>
+                            <div ng-message="minlength"
+                                 class="help-block"> A 16 digit card number required. </div>
+                        </div>
+                    </div>
+                    <!-- Credit Card Security -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <!-- CVV -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (signup_form.cvv.$dirty ||
+                                                          signup_form.$submitted) &&
+                                                          signup_form.cvv.$invalid,
+                                             'has-feedback': (signup_form.cvv.$dirty ||
+                                                             signup_form.$submitted) &&
+                                                             signup_form.cvv.$invalid }">
+                                <label class="control-label" for="cvv"> CVV * </label>
+                                <input class="form-control"
+                                       name="cvv_number"
+                                       type="text"
+                                       placeholder=""
+                                       ng-model="signup_form.cvv"
+                                       required
+                                       ng-minlength=3
+                                       ng-maxlength=4>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"
+                                      ng-if="(signup_form.cvv.$dirty ||
+                                             signup_form.$submitted) &&
+                                             signup_form.cvv.$invalid">
+                                </span>
+                                <div ng-messages="signup_form.cvv.$error"
+                                     ng-if="(signup_form.cvv.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.cvv.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block"> This field is required. </div>
+                                    <div ng-message="maxlength"
+                                         class="help-block"> This field cannot be longer than 4 characters. </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <!-- Expiration Date -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (signup_form.expiration_date.$dirty ||
+                                                          signup_form.$submitted) &&
+                                                          signup_form.expiration_date.$invalid,
+                                             'has-feedback': (signup_form.expiration_date.$dirty ||
+                                                             signup_form.$submitted) &&
+                                                             signup_form.expiration_date.$invalid }">
+                                <label class="control-label" for="expiration_date"> Expiration Date * </label>
+                                <select class="form-control"
+                                        name="expiration_date"
+                                        ng-model="signup_form.expiration_date"
+                                        required>
+                                    <option value="" disabled selected> Select Month </option>
+                                    <option value="January"> 1-January </option>
+                                    <option value="February"> 2-February </option>
+                                    <option value="March"> 3-March </option>
+                                    <option value="April"> 4-April </option>
+                                    <option value="May"> 5-May </option>
+                                    <option value="June"> 6-June </option>
+                                    <option value="July"> 7-July </option>
+                                    <option value="August"> 8-August </option>
+                                    <option value="September"> 9-September </option>
+                                    <option value="October"> 10-October </option>
+                                    <option value="November"> 11-November </option>
+                                    <option value="December"> 12-December </option>
+                                </select>
+                                <span class="glyphicon glyphicon-remove form-control-feedback"
+                                      ng-if="(signup_form.expiration_date.$dirty ||
+                                             signup_form.$submitted) &&
+                                             signup_form.expiration_date.$invalid">
+                                </span>
+                                <div ng-messages="signup_form.expiration_date.$error"
+                                     ng-if="(signup_form.expiration_date.$dirty ||
+                                            signup_form.$submitted) &&
+                                            signup_form.expiration_date.$invalid">3
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <!-- Agreement Checkbox -->
                     <div class="form-group">
                         <div class="checkbox">
