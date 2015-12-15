@@ -12,6 +12,7 @@ Web app for accounting construction projects.
 ```
     ** Stripe Payments - Amy
     ** Account Settings - Miguel
+    ** Receipts
     ** Database Migrations
     ** Send Feedback
     ** Forgot Password
@@ -31,6 +32,7 @@ Web app for accounting construction projects.
 + Home module:
 ```
     -Update jumbotron message
+    -Update features section
     -Update jumbotron picture
     -About Us
 ```
