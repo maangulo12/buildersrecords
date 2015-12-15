@@ -336,3 +336,5 @@ app.service('UploadService', function($http) {
         });
     }
 });
+
+// Create SubscriptionService
