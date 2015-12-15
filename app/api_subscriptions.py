@@ -21,34 +21,47 @@ API_ENTRY = '/api/subscriptions'
 @app.route(API_ENTRY, methods=['POST'])
 def subscriptions():
     """
-    Creates a customer and a subscription for the customer.
+    Creates a subscription for the customer.
 
     POST: {
-        email:
-        card:
-
+        email       : 'email address'
+        username    : 'username'
+        password    : 'password'
+        sub_plan    : 'subscription plan'
+        card_name   : 'cardholder name'
+        card_number : 'credit or debit card number'
+        exp_date    : 'expiration date'
+        cvc         : 'cvc'
     }
     """
-    # Get JSON data
-    data       = request.get_json(force=True)
-    email      = data.get('email', None)
-    card       = data.get('card', None)
-    expiration = data.get('expiration', None)
-    cvc        = data.get('cvc', None)
-    criterion  = [email, username, len(data) == 4]
+    data = request.get_json(force=True)
+    email       = data.get('email', None)
+    username    = data.get('username', None)
+    password    = data.get('password', None)
+    sub_plan    = data.get('sub_plan', None)
+    card_name   = data.get('card_name', None)
+    card_number = data.get('card_number', None)
+    exp_date    = data.get('exp_date', None)
+    cvc         = data.get('cvc', None)
+    criterion = [email, username, password, sub_plan, card_name, card_number,
+                 exp_date, cvc, len(data) == 8]
 
     if not all(criterion):
         return make_response('Bad Request', 400)
 
+    # Enroll customer to a subscription with Stripe
     # API Key
     stripe.api_key = current_app.config['STRIPE_API_KEY']
     # Amount in cents
     amount = 25000
     # Create customer
     customer = stripe.Customer.create(
-        email='customer@example.com',
+        email=email,
         plan='monthly',
         source=''
     )
-    # Store customer id
+
+    # Store email, username, password, sub_plan, card_name, card_number,
+    #       exp_date, cvc, customer_id
+
     return make_response('Customer successfully subscribed!', 201)
