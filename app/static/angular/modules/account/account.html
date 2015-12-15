@@ -1,0 +1,54 @@
+<!-- Container -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Projects -->
+                <a ui-sref="projects" class="list-group-item">
+                    <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                    <b> Projects </b>
+                </a>
+                <!-- Account Settings -->
+                <a ui-sref="account" class="list-group-item active">
+                    <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
+                    <b> Account Settings </b>
+                </a>
+                <!-- Send Feedback -->
+                <a ui-sref="" class="list-group-item">
+                    <span class="glyphicon glyphicon-comment glyphicon-padding" aria-hidden="true"></span>
+                    <b> Send Feedback </b>
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <!-- Error Alert -->
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Could not access your account. Please refresh your page. </b>
+            </div>
+            <!-- Page Header -->
+            <div class="row">
+                <!-- Left Side -->
+                <div class="col-xs-6">
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h1> Account </h1>
+                        <!-- Sub Header -->
+                        <h4 class="text-muted"> Account Information </h4>
+                    </div>
+                </div>
+                <!-- Right Side -->
+                <div class="col-xs-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
