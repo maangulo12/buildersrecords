@@ -187,7 +187,7 @@
                         <input type="radio" name="subscription" ng-model="signup.subscription">
                         $25 / month
                     </div>
-                    <!-- Cardholder Name -->
+                    <!-- Cardholder Name Field -->
                     <div class="form-group"
                          ng-class="{ 'has-error': (signup_form.card_name.$dirty ||
                                                   signup_form.$submitted) &&
@@ -221,7 +221,7 @@
                                  class="help-block"> This field cannot be longer than 50 characters. </div>
                         </div>
                     </div>
-                    <!-- Card Number -->
+                    <!-- Card Number Field -->
                     <div class="form-group"
                          ng-class="{ 'has-error': (signup_form.card_number.$dirty ||
                                                   signup_form.$submitted) &&
@@ -233,7 +233,7 @@
                         <input class="form-control"
                                name="card_number"
                                type="text"
-                               placeholder="16-digit Card Number"
+                               placeholder="16-Digit Card Number"
                                ng-model="signup.card_number"
                                required
                                ng-minlength=16
@@ -255,10 +255,10 @@
                                  class="help-block"> This field cannot be longer than 16 digits. </div>
                         </div>
                     </div>
-                    <!-- CVC / Expiration Date -->
+                    <!-- CVC / Expiration Date Fields -->
                     <div class="row">
                         <div class="col-sm-6">
-                            <!-- CVC -->
+                            <!-- CVC Field -->
                             <div class="form-group"
                                  ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
                                                           signup_form.$submitted) &&
@@ -292,7 +292,7 @@
                             </div>
                         </div>
                         <div class="col-sm-6">
-                            <!-- Expiration Date -->
+                            <!-- Expiration Date Field -->
                             <div class="form-group"
                                  ng-class="{ 'has-error': (signup_form.expiration_date.$dirty ||
                                                           signup_form.$submitted) &&
@@ -327,7 +327,9 @@
                                 <div ng-messages="signup_form.expiration_date.$error"
                                      ng-if="(signup_form.expiration_date.$dirty ||
                                             signup_form.$submitted) &&
-                                            signup_form.expiration_date.$invalid">3
+                                            signup_form.expiration_date.$invalid">
+                                    <div ng-message="required"
+                                         class="help-block"> This field is required. </div>
                                 </div>
                             </div>
                         </div>
