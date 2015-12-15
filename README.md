@@ -11,8 +11,9 @@ Web app for accounting construction projects.
 + Priorities:
 ```
     ** Stripe Payments - Amy
-    ** Account Settings - Miguel
+    ** Manage Account - Miguel
     ** Receipts
+    ** Integrate Jasmine    
     ** Database Migrations
     ** Send Feedback
     ** Forgot Password
@@ -24,6 +25,7 @@ Web app for accounting construction projects.
     -Heroku Deployment
     -Heroku Add-ons
     -AWS File Storage
+    -Travis CLI
     -Domain Name
     -SSL Certificate
     -Google Analytics
