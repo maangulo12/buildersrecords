@@ -45,7 +45,7 @@ def subscriptions():
     exp_year    = data.get('exp_year', None)
     cvc         = data.get('cvc', None)
     criterion = [email, username, password, sub_plan, card_name, card_number,
-                 exp_date, cvc, len(data) == 8]
+                 exp_month, exp_year, cvc, len(data) == 9]
 
     if not all(criterion):
         return make_response('Bad Request', 400)
