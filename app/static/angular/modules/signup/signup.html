@@ -49,12 +49,15 @@
                              ng-if="(signup_form.email.$dirty ||
                                     signup_form.$submitted) &&
                                     signup_form.email.$invalid">
-                            <div ng-message="required"
-                                 class="help-block"> This field is required. </div>
-                            <div ng-message="maxlength"
-                                 class="help-block"> This field cannot be longer than 50 characters. </div>
-                            <div ng-message="emailAvailability"
-                                 class="help-block"> This email is already registered. </div>
+                            <div ng-message="required" class="help-block">
+                                This field is required.
+                            </div>
+                            <div ng-message="maxlength" class="help-block">
+                                This field cannot be longer than 50 characters.
+                            </div>
+                            <div ng-message="emailAvailability" class="help-block">
+                                This email is already registered.
+                            </div>
                         </div>
                         <div ng-if="signup_form.email.$pending">
                             <span class="help-block">
@@ -90,14 +93,18 @@
                              ng-if="(signup_form.username.$dirty ||
                                     signup_form.$submitted) &&
                                     signup_form.username.$invalid">
-                            <div ng-message="required"
-                                 class="help-block"> This field is required. </div>
-                            <div ng-message="minlength"
-                                 class="help-block"> This field cannot be shorter than 5 characters. </div>
-                            <div ng-message="maxlength"
-                                 class="help-block"> This field cannot be longer than 25 characters. </div>
-                            <div ng-message="usernameAvailability"
-                                 class="help-block"> This username is not available. </div>
+                            <div ng-message="required" class="help-block">
+                                This field is required.
+                            </div>
+                            <div ng-message="minlength" class="help-block">
+                                This field cannot be shorter than 5 characters.
+                            </div>
+                            <div ng-message="maxlength" class="help-block">
+                                This field cannot be longer than 25 characters.
+                            </div>
+                            <div ng-message="usernameAvailability" class="help-block">
+                                This username is not available.
+                            </div>
                         </div>
                         <div ng-if="signup_form.username.$pending">
                             <span class="help-block">
@@ -133,10 +140,12 @@
                                      ng-if="(signup_form.password.$dirty ||
                                             signup_form.$submitted) &&
                                             signup_form.password.$invalid">
-                                    <div ng-message="required"
-                                         class="help-block"> This field is required. </div>
-                                    <div ng-message="maxlength"
-                                         class="help-block"> This field cannot be longer than 40 characters. </div>
+                                    <div ng-message="required" class="help-block">
+                                        This field is required.
+                                    </div>
+                                    <div ng-message="maxlength" class="help-block">
+                                        This field cannot be longer than 40 characters.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -168,12 +177,15 @@
                                      ng-if="(signup_form.confirm_password.$dirty ||
                                             signup_form.$submitted) &&
                                             signup_form.confirm_password.$invalid">
-                                    <div ng-message="required"
-                                         class="help-block"> This field is required. </div>
-                                    <div ng-message="maxlength"
-                                         class="help-block"> This field cannot be longer than 40 characters. </div>
-                                    <div ng-message="validator"
-                                         class="help-block"> Passwords do not match. </div>
+                                    <div ng-message="required" class="help-block">
+                                        This field is required.
+                                    </div>
+                                    <div ng-message="maxlength" class="help-block">
+                                        This field cannot be longer than 40 characters.
+                                    </div>
+                                    <div ng-message="validator" class="help-block">
+                                        Passwords do not match.
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -213,12 +225,15 @@
                              ng-if="(signup_form.card_name.$dirty ||
                                     signup_form.$submitted) &&
                                     signup_form.card_name.$invalid">
-                            <div ng-message="required"
-                                 class="help-block"> This field is required. </div>
-                            <div ng-message="minlength"
-                                 class="help-block"> This field cannot be shorter than 2 characters. </div>
-                            <div ng-message="maxlength"
-                                 class="help-block"> This field cannot be longer than 50 characters. </div>
+                            <div ng-message="required" class="help-block">
+                                This field is required.
+                            </div>
+                            <div ng-message="minlength" class="help-block">
+                                This field cannot be shorter than 2 characters.
+                            </div>
+                            <div ng-message="maxlength" class="help-block">
+                                This field cannot be longer than 50 characters.
+                            </div>
                         </div>
                     </div>
                     <!-- Card Number Field -->
@@ -247,46 +262,49 @@
                              ng-if="(signup_form.card_number.$dirty ||
                                     signup_form.$submitted) &&
                                     signup_form.card_number.$invalid">
-                            <div ng-message="required"
-                                 class="help-block"> This field is required. </div>
-                            <div ng-message="minlength"
-                                 class="help-block"> A 16 digit card number required. </div>
-                            <div ng-message="maxlength"
-                                 class="help-block"> This field cannot be longer than 16 digits. </div>
+                            <div ng-message="required" class="help-block">
+                                This field is required.
+                            </div>
+                            <div ng-message="minlength" class="help-block">
+                                A 16 digit card number required.
+                            </div>
+                            <div ng-message="maxlength" class="help-block">
+                                This field cannot be longer than 16 digits.
+                            </div>
                         </div>
                     </div>
-                    <!-- CVC / Expiration Date Fields -->
+                    <!-- Expiration / CVC Fields -->
                     <div class="row">
                         <div class="col-sm-7">
-
-                          <div class="row">
-                              <div class="col-sm-8">
-                                  <!-- Expiration Date Field -->
-                                  <div class="form-group"
-                                        ng-class="{ 'has-error': (signup_form.exp_month.$dirty ||
-                                                              signup_form.$submitted) &&
-                                                              signup_form.exp_month.$invalid,
-                                                 'has-feedback': (signup_form.exp_month.$dirty ||
-                                                                 signup_form.$submitted) &&
-                                                                 signup_form.exp_month.$invalid }">
+                            <!-- Expiration Month & Year -->
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <!-- Expiration Month Field -->
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': (signup_form.exp_month.$dirty ||
+                                                                  signup_form.$submitted) &&
+                                                                  signup_form.exp_month.$invalid,
+                                                     'has-feedback': (signup_form.exp_month.$dirty ||
+                                                                     signup_form.$submitted) &&
+                                                                     signup_form.exp_month.$invalid }">
                                         <label class="control-label" for="exp_month"> Expiration Month </label>
                                         <select class="form-control"
-                                            name="exp_month"
-                                            ng-model="signup.exp_month"
-                                            required>
-                                        <option value="" disabled selected> Select Month </option>
-                                        <option value="January"> 1-January </option>
-                                        <option value="February"> 2-February </option>
-                                        <option value="March"> 3-March </option>
-                                        <option value="April"> 4-April </option>
-                                        <option value="May"> 5-May </option>
-                                        <option value="June"> 6-June </option>
-                                        <option value="July"> 7-July </option>
-                                        <option value="August"> 8-August </option>
-                                        <option value="September"> 9-September </option>
-                                        <option value="October"> 10-October </option>
-                                        <option value="November"> 11-November </option>
-                                        <option value="December"> 12-December </option>
+                                                name="exp_month"
+                                                ng-model="signup.exp_month"
+                                                required>
+                                            <option value="" disabled selected> Select Month </option>
+                                            <option value="January"> 1-January </option>
+                                            <option value="February"> 2-February </option>
+                                            <option value="March"> 3-March </option>
+                                            <option value="April"> 4-April </option>
+                                            <option value="May"> 5-May </option>
+                                            <option value="June"> 6-June </option>
+                                            <option value="July"> 7-July </option>
+                                            <option value="August"> 8-August </option>
+                                            <option value="September"> 9-September </option>
+                                            <option value="October"> 10-October </option>
+                                            <option value="November"> 11-November </option>
+                                            <option value="December"> 12-December </option>
                                         </select>
                                         <span class="glyphicon glyphicon-remove form-control-feedback"
                                               ng-if="(signup_form.exp_month.$dirty ||
@@ -297,52 +315,55 @@
                                              ng-if="(signup_form.exp_month.$dirty ||
                                                     signup_form.$submitted) &&
                                                     signup_form.exp_month.$invalid">
-                                            <div ng-message="required"
-                                                 class="help-block"> This field is required. </div>
+                                            <div ng-message="required" class="help-block">
+                                                This field is required.
+                                            </div>
                                         </div>
                                     </div>
-                              </div>
-                              <div class="col-sm-4">
-                                <div class="form-group"
-                                     ng-class="{ 'has-error': (signup_form.exp_year.$dirty ||
-                                                              signup_form.$submitted) &&
-                                                              signup_form.exp_year.$invalid,
-                                                 'has-feedback': (signup_form.exp_year.$dirty ||
-                                                                 signup_form.$submitted) &&
-                                                                 signup_form.exp_year.$invalid }">
-                                    <label class="control-label" for="exp_year"> Year </label>
-                                    <select class="form-control"
-                                            name="exp_year"
-                                            ng-model="signup.exp_year"
-                                            required>
-                                        <option value="" disabled selected> Year </option>
-                                        <option value="2016"> 2016 </option>
-                                        <option value="2017"> 2017 </option>
-                                        <option value="2018"> 2018 </option>
-                                        <option value="2019"> 2019 </option>
-                                        <option value="2020"> 2020 </option>
-                                        <option value="2021"> 2021 </option>
-                                        <option value="2022"> 2022 </option>
-                                        <option value="2023"> 2023 </option>
-                                        <option value="2024"> 2024 </option>
-                                        <option value="2025"> 2025 </option>
-                                        <option value="2026"> 2026 </option>
-                                    </select>
-                                    <span class="glyphicon glyphicon-remove form-control-feedback"
-                                          ng-if="(signup_form.exp_year.$dirty ||
-                                                 signup_form.$submitted) &&
-                                                 signup_form.exp_year.$invalid">
-                                    </span>
-                                    <div ng-messages="signup_form.exp_year.$error"
-                                         ng-if="(signup_form.exp_year.$dirty ||
-                                                signup_form.$submitted) &&
-                                                signup_form.exp_year.$invalid">
-                                        <div ng-message="required"
-                                             class="help-block"> This field is required. </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- Expiration Year Field -->
+                                    <div class="form-group"
+                                         ng-class="{ 'has-error': (signup_form.exp_year.$dirty ||
+                                                                  signup_form.$submitted) &&
+                                                                  signup_form.exp_year.$invalid,
+                                                     'has-feedback': (signup_form.exp_year.$dirty ||
+                                                                     signup_form.$submitted) &&
+                                                                     signup_form.exp_year.$invalid }">
+                                        <label class="control-label" for="exp_year"> Year </label>
+                                        <select class="form-control"
+                                                name="exp_year"
+                                                ng-model="signup.exp_year"
+                                                required>
+                                            <option value="" disabled selected> Year </option>
+                                            <option value="2016"> 2016 </option>
+                                            <option value="2017"> 2017 </option>
+                                            <option value="2018"> 2018 </option>
+                                            <option value="2019"> 2019 </option>
+                                            <option value="2020"> 2020 </option>
+                                            <option value="2021"> 2021 </option>
+                                            <option value="2022"> 2022 </option>
+                                            <option value="2023"> 2023 </option>
+                                            <option value="2024"> 2024 </option>
+                                            <option value="2025"> 2025 </option>
+                                            <option value="2026"> 2026 </option>
+                                        </select>
+                                        <span class="glyphicon glyphicon-remove form-control-feedback"
+                                              ng-if="(signup_form.exp_year.$dirty ||
+                                                     signup_form.$submitted) &&
+                                                     signup_form.exp_year.$invalid">
+                                        </span>
+                                        <div ng-messages="signup_form.exp_year.$error"
+                                             ng-if="(signup_form.exp_year.$dirty ||
+                                                    signup_form.$submitted) &&
+                                                    signup_form.exp_year.$invalid">
+                                            <div ng-message="required" class="help-block">
+                                                This field is required.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                              </div>
-                          </div>
+                            </div>
                         </div>
                         <div class="col-sm-5">
                             <!-- CVC Field -->
@@ -371,10 +392,15 @@
                                      ng-if="(signup_form.cvc.$dirty ||
                                             signup_form.$submitted) &&
                                             signup_form.cvc.$invalid">
-                                    <div ng-message="required"
-                                         class="help-block"> This field is required. </div>
-                                    <div ng-message="maxlength"
-                                         class="help-block"> This field cannot be longer than 4 digits. </div>
+                                    <div ng-message="required" class="help-block">
+                                        This field is required.
+                                    </div>
+                                    <div ng-message="minlength" class="help-block">
+                                        This field cannot be shorter than 3 digits.
+                                    </div>
+                                    <div ng-message="maxlength" class="help-block">
+                                        This field cannot be longer than 4 digits.
+                                    </div>
                                 </div>
                             </div>
                         </div>
