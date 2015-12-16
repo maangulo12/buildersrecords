@@ -275,10 +275,10 @@
                     </div>
                     <!-- Expiration / CVC Fields -->
                     <div class="row">
-                        <div class="col-sm-7">
+                        <div class="col-sm-8">
                             <!-- Expiration Month & Year -->
                             <div class="row">
-                                <div class="col-sm-8">
+                                <div class="col-sm-7">
                                     <!-- Expiration Month Field -->
                                     <div class="form-group"
                                          ng-class="{ 'has-error': (signup_form.exp_month.$dirty ||
@@ -292,7 +292,7 @@
                                                 name="exp_month"
                                                 ng-model="signup.exp_month"
                                                 required>
-                                            <option value="" disabled selected> Select Month </option>
+                                            <option value="" disabled selected> Month </option>
                                             <option value="January"> 1-January </option>
                                             <option value="February"> 2-February </option>
                                             <option value="March"> 3-March </option>
@@ -321,7 +321,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-5">
                                     <!-- Expiration Year Field -->
                                     <div class="form-group"
                                          ng-class="{ 'has-error': (signup_form.exp_year.$dirty ||
@@ -365,7 +365,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <!-- CVC Field -->
                             <div class="form-group"
                                  ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
@@ -378,7 +378,7 @@
                                 <input class="form-control"
                                        name="cvc"
                                        type="text"
-                                       placeholder="Card Security Code"
+                                       placeholder="Security Code"
                                        ng-model="signup.cvc"
                                        required
                                        ng-minlength=3
