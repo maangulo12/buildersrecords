@@ -12,14 +12,6 @@ app.service('UserService', function($http, store) {
     this.getUserById = function() {
         return $http.get(api_entry + '/' + store.get('user').id);
     }
-    // ADD User
-    this.addUser = function(form) {
-        return $http.post(api_entry, {
-            username:   form.username,
-            password:   form.password,
-            email:      form.email
-        });
-    }
 });
 
 // Functions for /api/projects
@@ -337,22 +329,22 @@ app.service('UploadService', function($http) {
     }
 });
 
-// Create SubscriptionService
+// Functions for /api/subscriptions
 app.service('SubscriptionService', function($http) {
     // API: Subscription entry point
     var api_entry = '/api/subscriptions';
-    // Subscription
-    this.sendSubscription = function(form) {
+    // SUBSCRIBE USER
+    this.subscribeUser = function(form) {
         return $http.post(api_entry, {
-            email:    form.email,
-            username: form.username,
-            password: form.password,
-            sub_plan: form.sub_plan,
-            card_name: form.card_name,
+            email:       form.email,
+            username:    form.username,
+            password:    form.password,
+            sub_plan:    form.sub_plan,
+            card_name:   form.card_name,
             card_number: form.card_number,
-            exp_month: form.exp_month,
-            exp_year: form.exp_year,
-            cvc: form.cvc
-        } );
+            exp_month:   form.exp_month,
+            exp_year:    form.exp_year,
+            cvc:         form.cvc
+        });
     }
 });
