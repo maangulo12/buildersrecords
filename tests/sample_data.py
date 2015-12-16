@@ -27,9 +27,10 @@ def populate_db(app):
 
     # Create User
     client.post('/api/users', data=json.dumps({
-        'username':   'test',
-        'password':   'test',
-        'email':      'test@gmail.com'
+        'email':     'test@gmail.com',
+        'username':  'test',
+        'password':  'test',
+        'stripe_id': 'test'
     }),
         headers={
         'Content-Type': 'application/json'

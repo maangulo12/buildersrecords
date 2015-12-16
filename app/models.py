@@ -18,23 +18,28 @@
         -Subcontractor : subcontractors
 """
 
+from datetime import datetime
+
 from app import db, bcrypt
 
 
 class User(db.Model):
     __tablename__ = 'users'
     id            = db.Column(db.Integer, primary_key=True)
+    email         = db.Column(db.String(50), nullable=False, unique=True)
     username      = db.Column(db.String(25), nullable=False, unique=True)
     password      = db.Column(db.String(60), nullable=False)
-    email         = db.Column(db.String(50), nullable=False, unique=True)
-    # timestamp
+    stripe_id     = db.Column(db.String(60), nullable=False)
+    date          = db.Column(db.TIMESTAMP, nullable=False)
 
     projects = db.relationship('Project', backref='users')
 
-    def __init__(self, username, password, email):
-        self.username = username
-        self.password = bcrypt.generate_password_hash(password)
-        self.email    = email
+    def __init__(self, email, username, password, stripe_id):
+        self.email     = email
+        self.username  = username
+        self.password  = bcrypt.generate_password_hash(password)
+        self.stripe_id = stripe_id
+        self.date      = datetime.now()
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
