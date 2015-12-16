@@ -338,3 +338,21 @@ app.service('UploadService', function($http) {
 });
 
 // Create SubscriptionService
+app.service('SubscriptionService', function($http) {
+    // API: Subscription entry point
+    var api_entry = '/api/subscriptions';
+    // Subscription
+    this.sendSubscription = function(form) {
+        return $http.post(api_entry, {
+            email:    form.email,
+            username: form.username,
+            password: form.password,
+            sub_plan: form.sub_plan,
+            card_name: form.card_name,
+            card_number: form.card_number,
+            exp_month: form.exp_month,
+            exp_year: form.exp_year,
+            cvc: form.cvc
+        } );
+    }
+});

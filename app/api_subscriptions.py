@@ -41,7 +41,8 @@ def subscriptions():
     sub_plan    = data.get('sub_plan', None)
     card_name   = data.get('card_name', None)
     card_number = data.get('card_number', None)
-    exp_date    = data.get('exp_date', None)
+    exp_month   = data.get('exp_month', None)
+    exp_year    = data.get('exp_year', None)
     cvc         = data.get('cvc', None)
     criterion = [email, username, password, sub_plan, card_name, card_number,
                  exp_date, cvc, len(data) == 8]
