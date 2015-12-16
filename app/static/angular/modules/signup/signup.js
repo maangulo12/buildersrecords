@@ -15,14 +15,12 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('SignupController', function($scope, store, $state, UserService, MailService, AuthService, SubscriptionService) {
+app.controller('SignupController', function($scope, store, $state, SubscriptionService, MailService, AuthService) {
     store.remove('jwt');
 
-    $scope.createAccount = function() {
-        var btn = $('#create-account-btn').button('loading');
-
-        // call SubscriptionService
-        SubscriptionService.sendSubscription($scope.signup).then(function(response) {
+    $scope.signUp = function() {
+        var btn = $('#sign-up-btn').button('loading');
+        SubscriptionService.subscribeUser($scope.signup).then(function(response) {
             MailService.sendRegistrationEmail($scope.signup);
             AuthService.authenticate($scope.signup.username, $scope.signup.password)
             .then(function(response) {
