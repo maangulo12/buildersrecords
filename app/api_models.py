@@ -24,13 +24,13 @@ from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, S
 
 
 # Users: /api/users
-# POST is unprotected (not listed in preprocessors)
 api_manager.create_api(User,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
                        collection_name  = 'users',
                        results_per_page = 0,
                        preprocessors    = dict(
+                                          POST          = [verify_jwt],
                                           GET_SINGLE    = [verify_jwt],
                                           GET_MANY      = [verify_jwt],
                                           PUT_SINGLE    = [verify_jwt],
