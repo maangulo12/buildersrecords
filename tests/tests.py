@@ -21,6 +21,7 @@ class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         print('Setting up...')
+        app.testing = True
         self.app = app
         self.app_context = self.app.app_context()
         self.app_context.push()
