@@ -16,7 +16,14 @@ app.config(function($stateProvider) {
 });
 
 app.controller('SignupController', function($scope, store, $state, SubscriptionService, MailService, AuthService) {
-    store.remove('jwt');
+    init();
+
+    function init() {
+        store.remove('jwt');
+        $scope.signup = {
+            sub_plan: 'monthly'
+        };
+    }
 
     $scope.signUp = function() {
         var btn = $('#sign-up-btn').button('loading');

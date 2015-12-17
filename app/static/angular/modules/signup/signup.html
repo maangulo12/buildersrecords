@@ -195,9 +195,26 @@
                          ng-class="{ 'has-error': signup_form.sub_plan.$invalid,
                                      'has-feedback': signup_form.sub_plan.$invalid }">
                         <label class="control-label" for="sub_plan"> Pricing Choice </label>
-                        <br>
-                        <input type="radio" name="sub_plan" ng-model="signup.sub_plan">
-                        $25 / month
+                        <div class="row">
+                            <div class="col-xs-6 text-center">
+                                <input name="sub_plan"
+                                       type="radio"
+                                       value="monthly"
+                                       ng-model="signup.sub_plan">
+                                <br>
+                                <span> <b> $25 / month </b> <span>
+                            </div>
+                            <div class="col-xs-6 text-center">
+                                <input name="sub_plan"
+                                       type="radio"
+                                       value="yearly"
+                                       ng-model="signup.sub_plan">
+                                <br>
+                                <span> <b> $267 / year </b> <span>
+                                <br>
+                                <span class="text-success"> <b> Save $33 </b> <span>
+                            </div>
+                        </div>
                     </div>
                     <!-- Cardholder Name Field -->
                     <div class="form-group"
@@ -275,10 +292,10 @@
                     </div>
                     <!-- Expiration / CVC Fields -->
                     <div class="row">
-                        <div class="col-sm-7">
+                        <div class="col-md-8">
                             <!-- Expiration Month & Year -->
                             <div class="row">
-                                <div class="col-sm-7">
+                                <div class="col-md-7">
                                     <!-- Expiration Month Field -->
                                     <div class="form-group"
                                          ng-class="{ 'has-error': (signup_form.exp_month.$dirty ||
@@ -293,18 +310,18 @@
                                                 ng-model="signup.exp_month"
                                                 required>
                                             <option value="" disabled selected> Month </option>
-                                            <option value="January"> 1-January </option>
-                                            <option value="February"> 2-February </option>
-                                            <option value="March"> 3-March </option>
-                                            <option value="April"> 4-April </option>
-                                            <option value="May"> 5-May </option>
-                                            <option value="June"> 6-June </option>
-                                            <option value="July"> 7-July </option>
-                                            <option value="August"> 8-August </option>
-                                            <option value="September"> 9-September </option>
-                                            <option value="October"> 10-October </option>
-                                            <option value="November"> 11-November </option>
-                                            <option value="December"> 12-December </option>
+                                            <option value="1"> 1-January </option>
+                                            <option value="2"> 2-February </option>
+                                            <option value="3"> 3-March </option>
+                                            <option value="4"> 4-April </option>
+                                            <option value="5"> 5-May </option>
+                                            <option value="6"> 6-June </option>
+                                            <option value="7"> 7-July </option>
+                                            <option value="8"> 8-August </option>
+                                            <option value="9"> 9-September </option>
+                                            <option value="10"> 10-October </option>
+                                            <option value="11"> 11-November </option>
+                                            <option value="12"> 12-December </option>
                                         </select>
                                         <span class="glyphicon glyphicon-remove form-control-feedback"
                                               ng-if="(signup_form.exp_month.$dirty ||
@@ -321,7 +338,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-5">
+                                <div class="col-md-5">
                                     <!-- Expiration Year Field -->
                                     <div class="form-group"
                                          ng-class="{ 'has-error': (signup_form.exp_year.$dirty ||
@@ -365,7 +382,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-5">
+                        <div class="col-md-4">
                             <!-- CVC Field -->
                             <div class="form-group"
                                  ng-class="{ 'has-error': (signup_form.cvc.$dirty ||
@@ -428,7 +445,7 @@
                     <!-- Submit -->
                     <div class="form-group text-right">
                         <button id="sign-up-btn" type="submit" class="btn btn-success btn-block"
-                                data-loading-text="Creating..."
+                                data-loading-text="Processing..."
                                 ng-click="signup_form.$valid && signUp()"> <b> Sign Up </b>
                         </button>
                     </div>
