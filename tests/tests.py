@@ -11,9 +11,8 @@
         python3 manage.py runtests
 """
 
-import json
 import unittest
-from flask import current_app
+from flask import current_app, json
 
 from app import app, db
 
@@ -21,6 +20,7 @@ from app import app, db
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
+        print('Setting up...')
         self.app = app
         self.app_context = self.app.app_context()
         self.app_context.push()
@@ -28,64 +28,102 @@ class AppTestCase(unittest.TestCase):
         db.create_all()
 
     def tearDown(self):
+        print('Tearing down...')
         db.session.remove()
         db.drop_all()
         self.app_context.pop()
 
     def test_app_exists(self):
+        print('TEST: test_app_exists')
+        print(current_app)
         self.assertFalse(current_app is None)
 
-    def test_404(self):
-        response = self.client.get('/wrong_url/bad')
-        self.assertFalse(response.status_code is 404)
-
     def test_home_page(self):
+        print('TEST: test_home_page')
         response = self.client.get('/')
-        self.assertTrue(response.status_code is 200)
+        print(response.status_code)
+        self.assertTrue(response.status_code == 200)
 
     def test_api(self):
-        # GET /api/users (list)
-        response = self.client.get('/api/users')
-        self.assertTrue(response.status_code is 200)
+        print('TEST: test_api')
 
-        # POST /api/users (new user)
-        response = self.client.post('/api/users', data=json.dumps({
-            'username':   'user',
-            'password':   'password',
-            'first_name': 'first',
-            'last_name':  'last',
-            'email':      'email@gmail.com'
-        }), headers={'Content-Type': 'application/json'})
-        self.assertTrue(response.status_code is 201)
+        print('POST /api/auth/email')
+        response = self.client.post(
+            '/api/auth/email',
+            data=json.dumps(dict(email='test@gmail.com'))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 200)
 
-        # Authenticate User
-        response = self.client.post('/api/auth', data=json.dumps({
-            'login':    'user',
-            'password': 'password'
-        }), headers={'Content-Type': 'application/json'})
+        print('POST /api/auth/username')
+        response = self.client.post(
+            '/api/auth/username',
+            data=json.dumps(dict(username='test'))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 200)
 
-        # Auth Token
+        print('POST /api/subscriptions')
+        response = self.client.post(
+            '/api/subscriptions',
+            data=json.dumps(dict(
+                email='test@gmail.com',
+                username='test',
+                password='test',
+                sub_plan='monthly',
+                card_name='TEST NAME',
+                card_number=4242424242424242,
+                exp_month=1,
+                exp_year=2025,
+                cvc=333
+            ))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 201)
+
+        print('POST /api/auth/email (test 2)')
+        response = self.client.post(
+            '/api/auth/email',
+            data=json.dumps(dict(email='test@gmail.com'))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 400)
+
+        print('POST /api/auth/username (test 2)')
+        response = self.client.post(
+            '/api/auth/username',
+            data=json.dumps(dict(username='test'))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 400)
+
+        # NEED MORE subscriptions tests
+
+        print('POST /api/auth (authentication)')
+        response = self.client.post(
+            '/api/auth',
+            data=json.dumps(dict(
+                login='test',
+                password='test'
+            ))
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 200)
+
+
+        print('STORE Json Web Token')
         data = json.loads(response.data.decode('utf-8'))
         token = data['token']
+        print(token)
 
-        # GET /api/users/<int: id> (id = 1)
-        response = self.client.get('/api/users/1', headers={
-            'Authorization': 'Bearer ' + token
-        })
-        self.assertTrue(response.status_code is 200)
 
-        # PUT /api/users/<int: id> (id = 1)
-        response = self.client.put('/api/users/1', data=json.dumps({
-            'username':   'user1',
-            'password':   'password1',
-            'first_name': 'first1',
-            'last_name':  'last1',
-            'email':      'email1@gmail.com'
-        }), headers={
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        })
-        self.assertTrue(response.status_code is 200)
+        print('GET /api/users/1')
+        response = self.client.get(
+            '/api/users/1',
+            headers=dict(Authorization='Bearer ' + token)
+        )
+        print(response.status_code)
+        self.assertTrue(response.status_code == 200)
 
 
 if __name__ == '__main__':
