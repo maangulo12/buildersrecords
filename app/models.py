@@ -30,16 +30,19 @@ class User(db.Model):
     username      = db.Column(db.String(25), nullable=False, unique=True)
     password      = db.Column(db.String(60), nullable=False)
     stripe_id     = db.Column(db.String(60), nullable=False)
-    date          = db.Column(db.TIMESTAMP, nullable=False)
+    date_created  = db.Column(db.TIMESTAMP, nullable=False)
+    active_until  = db.Column(db.TIMESTAMP, nullable=False)
 
     projects = db.relationship('Project', backref='users')
 
     def __init__(self, email, username, password, stripe_id):
-        self.email     = email
-        self.username  = username
-        self.password  = bcrypt.generate_password_hash(password)
-        self.stripe_id = stripe_id
-        self.date      = datetime.now()
+        self.email        = email
+        self.username     = username
+        self.password     = bcrypt.generate_password_hash(password)
+        self.stripe_id    = stripe_id
+        self.date_created = datetime.now()
+        # Needs work - get date a month from today
+        self.active_until = datetime.now()
 
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
