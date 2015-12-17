@@ -9,9 +9,10 @@
 """
 
 import stripe
-from flask import current_app
+from flask import current_app, request, make_response, jsonify
 
-from app import app
+from app import app, db
+from app.models import User
 
 
 API_ENTRY = '/api/subscriptions'
@@ -19,7 +20,7 @@ API_ENTRY = '/api/subscriptions'
 
 # Needs route security
 @app.route(API_ENTRY, methods=['POST'])
-def subscriptions():
+def subscribe_customer():
     """
     Creates a subscription for the customer.
 
@@ -50,19 +51,45 @@ def subscriptions():
     if not all(criterion):
         return make_response('Bad Request', 400)
 
-    # Enroll customer to a subscription with Stripe
-    # API Key
+    # Try catch VALIDATION needed
     stripe.api_key = current_app.config['STRIPE_API_KEY']
-    # Amount in cents
-    amount = 25000
-    # Create customer
+    card = {
+        'object':    'card',
+        'number':    card_number,
+        'exp_month': exp_month,
+        'exp_year':  exp_year,
+        'cvc':       cvc,
+        'name':      card_name
+    }
     customer = stripe.Customer.create(
         email=email,
-        plan='monthly',
-        source=''
+        description=card_name,
+        plan=sub_plan,
+        source=card
     )
 
-    # Store email, username, password, sub_plan, card_name, card_number,
-    #       exp_date, cvc, customer_id
+    if customer is None:
+        return make_response('Customer could not be subscribed', 400)
 
-    return make_response('Customer successfully subscribed!', 201)
+    user = User(email=email, username=username, password=password,
+                stripe_id=customer.id)
+    db.session.add(user)
+    db.session.commit()
+    
+    return make_response('Customer succesfully subscribed', 201)
+
+
+# Needs route security
+@app.route(API_ENTRY + '/<stripe_id>', methods=['GET'])
+def get_customer(stripe_id):
+    """
+    Get customer data from stripe_id.
+    """
+    stripe.api_key = current_app.config['STRIPE_API_KEY']
+    # Retrieve customer
+    customer = stripe.Customer.retrieve(stripe_id)
+
+    if customer is None:
+        return make_response('Could not retrieve customer', 400)
+
+    return make_response(jsonify(customer), 200)
