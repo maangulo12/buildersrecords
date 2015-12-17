@@ -26,10 +26,10 @@ app.controller('AccountController', function($scope, store, UserService) {
 
     function init() {
         UserService.getUserById().then(function(response) {
-            $scope.user          = {};
-            $scope.user.date     = response.data.date;
-            $scope.user.email    = response.data.email;
-            $scope.user.username = store.get('user').username;
+            $scope.user              = {};
+            $scope.user.date_created = response.data.date_created;
+            $scope.user.email        = response.data.email;
+            $scope.user.username     = store.get('user').username;
         }, function(error) {
             $scope.error_msg = true;
         });
