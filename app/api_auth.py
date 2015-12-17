@@ -24,22 +24,6 @@ from app.models import User
 API_ENTRY = '/api/auth'
 
 
-def encode_token(user):
-    """
-    Creates JSON web token.
-    """
-    return jwt.encode({'user_id': user.id, 'username': user.username},
-                      current_app.config['AUTH_SECRET'])
-
-
-def decode_token(token):
-    """
-    Decodes JSON web token.
-    """
-    return jwt.decode(token, current_app.config['AUTH_SECRET'],
-                      options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']})
-
-
 # Needs route security
 @app.route(API_ENTRY, methods=['POST'])
 def auth():
@@ -64,8 +48,17 @@ def auth():
     if user is None:
         user = User.query.filter_by(email=login).first()
 
+    # Check if account is active (active_until)
+
     if user and user.check_password(password):
-        token = encode_token(user)
+        token = jwt.encode({
+            'user_id':      user.id,
+            'username':     user.username,
+            'stripe_id':    user.stripe_id,
+            'date_created': user.date_created,
+            'active_until': user.active_until
+            }, current_app.config['AUTH_SECRET']
+        )
         return make_response(jsonify({'token': token.decode('utf-8')}), 200)
     else:
         return make_response('Unauthorized', 401)
@@ -140,7 +133,11 @@ def verify_jwt(*args, **kwargs):
         raise ProcessingException('Token contains spaces', 400)
 
     try:
-        payload = decode_token(parts[1])
+        payload = jwt.decode(
+            parts[1],
+            current_app.config['AUTH_SECRET'],
+            options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']}
+        )
         user = User.query.filter_by(id=payload['user_id'],
                                     username=payload['username']).first()
 

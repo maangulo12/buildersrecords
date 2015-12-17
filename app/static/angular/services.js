@@ -4,6 +4,7 @@ function query(name, op, val) {
     return '?q={"filters":[{"name":"' + name + '","op":"' + op + '","val":"' + val + '"}]}';
 }
 
+// ******************** ACCESSING MODELS ********************
 // Functions for /api/users
 app.service('UserService', function($http, store) {
     // API: Users entry point
@@ -267,6 +268,7 @@ app.service('SubcontractorService', function($http, store) {
         return $http.delete(api_entry + '/' + subcontractor_id);
     }
 });
+// ******************** END ********************
 
 // Functions for /api/auth
 app.service('AuthService', function($http, store, jwtHelper) {
@@ -296,8 +298,11 @@ app.service('AuthService', function($http, store, jwtHelper) {
         store.set('jwt', response.data.token);
         var tokenPayload = jwtHelper.decodeToken(response.data.token);
         var user = {
-            id:       tokenPayload.user_id,
-            username: tokenPayload.username
+            id:           tokenPayload.user_id,
+            username:     tokenPayload.username,
+            stripe_id:    tokenPayload.stripe_id,
+            date_created: tokenPayload.date_created,
+            active_until: tokenPayload.active_until
         }
         store.set('user', user);
     }
