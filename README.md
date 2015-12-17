@@ -10,15 +10,12 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** Stripe Payments
     ** Manage Account
-    ** Set Up Yearly Plan
-    ** Restrict Access
+    ** Restrict Access (active_until field & webhooks)
     ** Expired Account Page
-    ** Stripe testing
+    ****** Stripe Full Testing
     ** Close Account
-    ** Stripe Payment History / Receipts
-    ** Integrate Jasmine    
+    ** Integrate Jasmine Front-End Testing   
     ** Database Migrations
     ** Send Feedback
     ** Forgot Password
