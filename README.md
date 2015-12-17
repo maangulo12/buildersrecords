@@ -10,9 +10,14 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** Stripe Payments - Amy
-    ** Manage Account - Miguel
-    ** Receipts
+    ** Stripe Payments
+    ** Manage Account
+    ** Set Up Yearly Plan
+    ** Restrict Access
+    ** Expired Account Page
+    ** Stripe testing
+    ** Close Account
+    ** Stripe Payment History / Receipts
     ** Integrate Jasmine    
     ** Database Migrations
     ** Send Feedback
