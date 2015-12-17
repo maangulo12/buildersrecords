@@ -61,25 +61,36 @@ def ubuildit():
         data = file_obj.read()
         category_list = parse_ubuildit_file(data)
 
-        project = Project(name=name, address=address, city=city,
-                          state=state, zipcode=zipcode, home_sq=home_sq,
-                          project_type=project_type, user_id=user_id)
+        project = Project(
+            name=name,
+            address=address,
+            city=city,
+            state=state,
+            zipcode=zipcode,
+            home_sq=home_sq,
+            project_type=project_type,
+            user_id=user_id
+        )
         db.session.add(project)
         db.session.commit()
 
         for cat in category_list:
-            category = Category(name=cat['category_name'],
-                                project_id=project.id)
+            category = Category(
+                name=cat['category_name'],
+                project_id=project.id
+            )
             db.session.add(category)
             db.session.commit()
 
             for cat_item in cat['item_list']:
-                item = Item(name=cat_item['cost_category'],
-                            description=cat_item['description'],
-                            estimated=cat_item['estimated'],
-                            actual=cat_item['actual'],
-                            category_id=category.id,
-                            project_id=project.id)
+                item = Item(
+                    name=cat_item['cost_category'],
+                    description=cat_item['description'],
+                    estimated=cat_item['estimated'],
+                    actual=cat_item['actual'],
+                    category_id=category.id,
+                    project_id=project.id
+                )
                 db.session.add(item)
                 db.session.commit()
 
