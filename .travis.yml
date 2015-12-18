@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.4"
+  - "3.5.1"
 before_install:
   - sudo apt-get -y install libffi-dev
   - sudo apt-get -y install libpq-dev
