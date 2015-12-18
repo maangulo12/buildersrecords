@@ -3,7 +3,7 @@
 
 """
     sample_data.py
-    ---------------
+    --------------
 
     This module is used for adding sample data to the database.
 
@@ -12,7 +12,7 @@
 """
 
 import random
-import simplejson as json
+from flask import json
 
 from app.utility import parse_ubuildit_file, parse_invoice_file
 
@@ -21,202 +21,179 @@ FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
 
 def populate_db(app):
-    # Client test
     app.testing = True
     client = app.test_client()
 
-    # Create User
-    client.post('/api/users', data=json.dumps({
-        'email':     'test@gmail.com',
-        'username':  'test',
-        'password':  'test',
-        'stripe_id': 'test'
-    }),
-        headers={
-        'Content-Type': 'application/json'
-    })
+    client.post(
+        '/api/subscriptions',
+        data=json.dumps(dict(
+            email='test@gmail.com',
+            username='test',
+            password='test',
+            sub_plan='monthly',
+            card_name='TEST NAME',
+            card_number=4242424242424242,
+            exp_month=1,
+            exp_year=2025,
+            cvc=333
+        ))
+    )
 
-    # Authenticate User
-    response = client.post('/api/auth', data=json.dumps({
-        'login':    'test',
-        'password': 'test'
-    }),
-        headers={
-        'Content-Type': 'application/json'
-    })
+    response = client.post(
+        '/api/auth',
+        data=json.dumps(dict(
+            login='test',
+            password='test'
+        ))
+    )
 
-    # Auth Token
     data = json.loads(response.data.decode('utf-8'))
-    token = data['token']
+    headers = {
+        'authorization': 'Bearer ' + data['token'],
+        'content-type':  'application/json'
+    }
 
-    # Create Project
-    client.post('/api/projects', data=json.dumps({
-        'name':         'UBuildIt - Tim & Maritza Messer',
-        'address':      '251 Wizard Way',
-        'city':         'Spring Branch',
-        'state':        'TX',
-        'zipcode':      '78070',
-        'home_sq':      '2000',
-        'project_type': 'ubuildit',
-        'user_id':      1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
+    client.post(
+        '/api/projects',
+        data=json.dumps(dict(
+            name='UBuildIt - Tim & Maritza Messer',
+            address='251 Wizard Way',
+            city='Spring Branch',
+            state='TX',
+            zipcode='78070',
+            home_sq='2000',
+            project_type='ubuildit',
+            user_id=1
+        )),
+        headers=headers
+    )
 
-    # Start parsing UBUILDIT file here
     f = open(FILE_PATH, 'rb')
     contents = f.read()
     data = parse_ubuildit_file(contents)
 
     for category in data:
-        # Add Category
-        client.post('/api/categories', data=json.dumps({
-            'name':       category['category_name'],
-            'project_id': 1
-        }),
-            headers={
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + token
-        })
+        client.post(
+            '/api/categories',
+            data=json.dumps(dict(
+                name=category['category_name'],
+                project_id=1
+            )),
+            headers=headers
+        )
 
         for item in category['item_list']:
-            # Add Item
-            client.post('/api/items', data=json.dumps({
-                'name':        item['cost_category'],
-                'description': item['description'],
-                'estimated':   item['estimated'],
-                'actual':      item['actual'],
-                'category_id': data.index(category) + 1,
-                'project_id':  1
-            }),
-                headers={
-                'Content-Type':  'application/json',
-                'Authorization': 'Bearer ' + token
-            })
+            client.post(
+                '/api/items',
+                data=json.dumps(dict(
+                    name=item['cost_category'],
+                    description=item['description'],
+                    estimated=item['estimated'],
+                    actual=item['actual'],
+                    category_id=data.index(category) + 1,
+                    project_id=1
+                )),
+                headers=headers
+            )
 
-    # Add Funds/Loans
-    client.post('/api/funds', data=json.dumps({
-        'name':       'Messer',
-        'loan':       False,
-        'amount':     100000.00,
-        'project_id': 1
-    }, use_decimal=True),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/funds', data=json.dumps({
-        'name':       'Blanco Loan',
-        'loan':       True,
-        'amount':     330000.00,
-        'project_id': 1
-    }, use_decimal=True),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
 
-    # Add Draws
-    client.post('/api/draws', data=json.dumps({
-        'date':    '09/24/2015',
-        'amount':  25000.00,
-        'fund_id': 2
-    }, use_decimal=True),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/draws', data=json.dumps({
-        'date':    '10/01/2015',
-        'amount':  5000.00,
-        'fund_id': 2
-    }, use_decimal=True),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/draws', data=json.dumps({
-        'date':    '10/03/2015',
-        'amount':  7500.00,
-        'fund_id': 2
-    }, use_decimal=True),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
+    client.post(
+        '/api/funds',
+        data=json.dumps(dict(
+            name='Messer',
+            loan=False,
+            amount=100000.00,
+            project_id=1
+        ), use_decimal=True),
+        headers=headers
+    )
+    client.post(
+        '/api/funds',
+        data=json.dumps(dict(
+            name='Blanco Loan',
+            loan=True,
+            amount=330000.00,
+            project_id=1
+        ), use_decimal=True),
+        headers=headers
+    )
 
-    # Start parsing INVOICE file here
+    client.post(
+        '/api/draws',
+        data=json.dumps(dict(
+            date='09/24/2015',
+            amount=25000.00,
+            fund_id=2
+        ), use_decimal=True),
+        headers=headers
+    )
+    client.post(
+        '/api/draws',
+        data=json.dumps(dict(
+            date='10/01/2015',
+            amount=5000.00,
+            fund_id=2
+        ), use_decimal=True),
+        headers=headers
+    )
+    client.post(
+        '/api/draws',
+        data=json.dumps(dict(
+            date='10/03/2015',
+            amount=7500.00,
+            fund_id=2
+        ), use_decimal=True),
+        headers=headers
+    )
+
     data = parse_invoice_file(FILE_PATH)
     for expenditure in data:
         fund_id = 1
         if expenditure['notes'] == 'Blanco':
             fund_id = 2
 
-        client.post('/api/expenditures', data=json.dumps({
-            'date':        expenditure['date'],
-            'vendor':      expenditure['vendor'],
-            'notes':       expenditure['description'],
-            'cost':        expenditure['cost'],
-            'category_id': random.randint(1, 8),
-            'item_id':     random.randint(1, 110),
-            'fund_id':     fund_id,
-            'project_id':  1
-        }, use_decimal=True),
-            headers={
-            'Content-Type':  'application/json',
-            'Authorization': 'Bearer ' + token
-        })
+        client.post(
+            '/api/expenditures',
+            data=json.dumps(dict(
+                date=expenditure['date'],
+                vendor=expenditure['vendor'],
+                notes=expenditure['description'],
+                cost=expenditure['cost'],
+                category_id=random.randint(1, 8),
+                item_id=random.randint(1, 110),
+                fund_id=fund_id,
+                project_id=1
+            ), use_decimal=True),
+            headers=headers
+        )
 
-    # Add Subcontractors
-    client.post('/api/subcontractors', data=json.dumps({
-        'name':           'John Smith',
-        'company':        '84 Lumber',
-        'contact_number': '210-543-4534',
-        'project_id':     1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/subcontractors', data=json.dumps({
-        'name':           'Shawn Tarver',
-        'company':        'Ez Company',
-        'contact_number': '512-586-6516',
-        'project_id':     1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/subcontractors', data=json.dumps({
-        'name':           'Mike Jones',
-        'company':        'Coca Cola',
-        'contact_number': '210-253-5861',
-        'project_id':     1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/subcontractors', data=json.dumps({
-        'name':           'Alex Ramirez',
-        'company':        'Rusty Corp',
-        'contact_number': '256-645-7854',
-        'project_id':     1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
-    client.post('/api/subcontractors', data=json.dumps({
-        'name':           'Nick Ross',
-        'company':        'AAA Company',
-        'contact_number': '123-454-3443',
-        'project_id':     1
-    }),
-        headers={
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + token
-    })
+    client.post(
+        '/api/subcontractors',
+        data=json.dumps(dict(
+            name='John Smith',
+            company='84 Lumber',
+            contact_number='210-543-4534',
+            project_id=1
+        )),
+        headers=headers
+    )
+    client.post(
+        '/api/subcontractors',
+        data=json.dumps(dict(
+            name='Shawn Tarver',
+            company='Ez Company',
+            contact_number='512-586-6516',
+            project_id=1
+        )),
+        headers=headers
+    )
+    client.post(
+        '/api/subcontractors',
+        data=json.dumps(dict(
+            name='Mike Jones',
+            company='Coca Cola',
+            contact_number='210-253-5861',
+            project_id=1
+        )),
+        headers=headers
+    )
