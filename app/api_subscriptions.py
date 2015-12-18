@@ -18,7 +18,6 @@ from app.models import User
 API_ENTRY = '/api/subscriptions'
 
 
-# Needs route security
 @app.route(API_ENTRY, methods=['POST'])
 def subscribe_customer():
     """
@@ -31,7 +30,8 @@ def subscribe_customer():
         sub_plan    : 'subscription plan'
         card_name   : 'cardholder name'
         card_number : 'credit or debit card number'
-        exp_date    : 'expiration date'
+        exp_month   : 'expiration month'
+        exp_year    : 'expiration year'
         cvc         : 'cvc'
     }
     """
@@ -51,7 +51,6 @@ def subscribe_customer():
     if not all(criterion):
         return make_response('Bad Request', 400)
 
-    # Try catch VALIDATION needed
     stripe.api_key = current_app.config['STRIPE_API_KEY']
     card = {
         'object':    'card',
@@ -71,11 +70,15 @@ def subscribe_customer():
     if customer is None:
         return make_response('Customer could not be subscribed', 400)
 
-    user = User(email=email, username=username, password=password,
-                stripe_id=customer.id)
+    user = User(
+        email=email,
+        username=username,
+        password=password,
+        stripe_id=customer.id
+    )
     db.session.add(user)
     db.session.commit()
-    
+
     return make_response('Customer succesfully subscribed', 201)
 
 
@@ -86,10 +89,10 @@ def get_customer(stripe_id):
     Get customer data from stripe_id.
     """
     stripe.api_key = current_app.config['STRIPE_API_KEY']
-    # Retrieve customer
     customer = stripe.Customer.retrieve(stripe_id)
 
     if customer is None:
         return make_response('Could not retrieve customer', 400)
 
+    # NEEDS WORK - cannot return customer
     return make_response(jsonify(customer), 200)
