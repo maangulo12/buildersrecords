@@ -11,10 +11,18 @@ Web app for accounting construction projects.
 + Priorities:
 ```
     ** Manage Account
+    ** Billing
+    ** Change Password    
+    ** Close Account
+
     ** Restrict Access (active_until field & webhooks)
     ** Expired Account Page
     ****** Stripe Full Testing
-    ** Close Account
+
+    ** Testing on other browsers (Safari, Firefox, Chrome, Edge, Opera)
+    ** Demo Videos
+    ** Support / FAQs
+
     ** Integrate Jasmine Front-End Testing   
     ** Database Migrations
     ** Send Feedback
@@ -30,6 +38,7 @@ Web app for accounting construction projects.
     -Travis CLI
     -Domain Name
     -SSL Certificate
+    -GitHub
     -Google Analytics
 ```
 
