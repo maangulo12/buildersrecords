@@ -14,7 +14,7 @@
 """
 
 import jwt
-from flask import request, jsonify, make_response, current_app
+from flask import request, jsonify, make_response, current_app, json
 from flask.ext.restless import ProcessingException
 
 from app import app
@@ -24,7 +24,6 @@ from app.models import User
 API_ENTRY = '/api/auth'
 
 
-# Needs route security
 @app.route(API_ENTRY, methods=['POST'])
 def auth():
     """
@@ -51,20 +50,21 @@ def auth():
     # Check if account is active (active_until)
 
     if user and user.check_password(password):
-        token = jwt.encode({
-            'user_id':      user.id,
-            'username':     user.username,
-            'stripe_id':    user.stripe_id,
-            'date_created': user.date_created,
-            'active_until': user.active_until
-            }, current_app.config['AUTH_SECRET']
+        token = jwt.encode(dict(
+            user_id=user.id,
+            username=user.username,
+            email=user.email,
+            stripe_id=user.stripe_id,
+            date_created=json.dumps(user.date_created),
+            active_until=json.dumps(user.active_until)
+            ),
+            current_app.config['AUTH_SECRET']
         )
-        return make_response(jsonify({'token': token.decode('utf-8')}), 200)
+        return make_response(jsonify(token=token.decode('utf-8')), 200)
     else:
         return make_response('Unauthorized', 401)
 
 
-# Needs route security
 @app.route(API_ENTRY + '/email', methods=['POST'])
 def check_email():
     """
@@ -89,7 +89,6 @@ def check_email():
         return make_response('Email already exists', 400)
 
 
-# Needs route security
 @app.route(API_ENTRY + '/username', methods=['POST'])
 def check_username():
     """
@@ -136,13 +135,17 @@ def verify_jwt(*args, **kwargs):
         payload = jwt.decode(
             parts[1],
             current_app.config['AUTH_SECRET'],
-            options={'verify_exp': current_app.config['AUTH_VERIFY_EXP']}
+            options=dict(verify_exp=current_app.config['AUTH_VERIFY_EXP'])
         )
-        user = User.query.filter_by(id=payload['user_id'],
-                                    username=payload['username']).first()
+        user = User.query.filter_by(
+            id=payload['user_id'],
+            username=payload['username']
+        ).first()
 
         if user is None:
             raise ProcessingException('User does not exist', 401)
 
     except jwt.InvalidTokenError:
         raise ProcessingException('Token is invalid', 400)
+
+# NEED verify decorator
