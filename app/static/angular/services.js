@@ -300,6 +300,7 @@ app.service('AuthService', function($http, store, jwtHelper) {
         var user = {
             id:           tokenPayload.user_id,
             username:     tokenPayload.username,
+            email:        tokenPayload.email,
             stripe_id:    tokenPayload.stripe_id,
             date_created: tokenPayload.date_created,
             active_until: tokenPayload.active_until
