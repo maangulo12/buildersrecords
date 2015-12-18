@@ -100,7 +100,7 @@ class Fund(db.Model):
     project_id    = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
 
     expenditures = db.relationship('Expenditure', backref='funds')
-    draws = db.relationship('Draw', backref='funds')
+    draws        = db.relationship('Draw', backref='funds')
 
 
 class Draw(db.Model):
