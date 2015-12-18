@@ -26,6 +26,7 @@ class AppTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         self.client = self.app.test_client()
+        db.drop_all()
         db.create_all()
 
     def tearDown(self):
@@ -111,17 +112,17 @@ class AppTestCase(unittest.TestCase):
         print(response.status_code)
         self.assertTrue(response.status_code == 200)
 
-
         print('STORE Json Web Token')
         data = json.loads(response.data.decode('utf-8'))
-        token = data['token']
-        print(token)
-
+        headers = {
+            'authorization': 'Bearer ' + data['token'],
+            'content-type':  'application/json'
+        }
 
         print('GET /api/users/1')
         response = self.client.get(
             '/api/users/1',
-            headers=dict(Authorization='Bearer ' + token)
+            headers=headers
         )
         print(response.status_code)
         self.assertTrue(response.status_code == 200)
