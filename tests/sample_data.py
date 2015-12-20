@@ -57,7 +57,7 @@ def populate_db(app):
             email='test@gmail.com',
             username='test',
             password='test',
-            sub_plan='monthly',
+            plan='monthly',
             token_id=token['id']
         ))
     )

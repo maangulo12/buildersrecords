@@ -346,11 +346,11 @@ app.service('SubscriptionService', function($http, store) {
     // POST Subscription
     this.addSubscription = function(form, token_id) {
         return $http.post(api_entry, {
-            email:       form.email,
-            username:    form.username,
-            password:    form.password,
-            sub_plan:    form.sub_plan,
-            token_id:    token_id,
+            email:    form.email,
+            username: form.username,
+            password: form.password,
+            plan:     form.plan,
+            token_id: token_id,
         });
     }
 });

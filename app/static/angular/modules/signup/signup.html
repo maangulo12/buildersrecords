@@ -80,8 +80,8 @@
                                placeholder="Username"
                                ng-model="signup.username"
                                required
-                               ng-minlength=5
-                               ng-maxlength=25
+                               ng-minlength=4
+                               ng-maxlength=30
                                ng-model-options="{ debounce: 500 }"
                                username-availability>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -97,10 +97,10 @@
                                 This field is required.
                             </div>
                             <div ng-message="minlength" class="help-block">
-                                This field cannot be shorter than 5 characters.
+                                This field cannot be shorter than 4 characters.
                             </div>
                             <div ng-message="maxlength" class="help-block">
-                                This field cannot be longer than 25 characters.
+                                This field cannot be longer than 30 characters.
                             </div>
                             <div ng-message="usernameAvailability" class="help-block">
                                 This username is not available.
@@ -129,8 +129,7 @@
                                        type="password"
                                        placeholder="Password"
                                        ng-model="signup.password"
-                                       required
-                                       ng-maxlength=40>
+                                       required>
                                 <span class="glyphicon glyphicon-remove form-control-feedback"
                                       ng-if="(signup_form.password.$dirty ||
                                              signup_form.$submitted) &&
@@ -142,9 +141,6 @@
                                             signup_form.password.$invalid">
                                     <div ng-message="required" class="help-block">
                                         This field is required.
-                                    </div>
-                                    <div ng-message="maxlength" class="help-block">
-                                        This field cannot be longer than 40 characters.
                                     </div>
                                 </div>
                             </div>
@@ -165,7 +161,6 @@
                                        placeholder="Confirm Password"
                                        ng-model="signup.confirm_password"
                                        required
-                                       ng-maxlength=40
                                        ui-validate="'$value==signup.password'"
                                        ui-validate-watch="'signup.password'">
                                 <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -180,9 +175,6 @@
                                     <div ng-message="required" class="help-block">
                                         This field is required.
                                     </div>
-                                    <div ng-message="maxlength" class="help-block">
-                                        This field cannot be longer than 40 characters.
-                                    </div>
                                     <div ng-message="validator" class="help-block">
                                         Passwords do not match.
                                     </div>
@@ -192,25 +184,25 @@
                     </div>
                     <!-- Pricing Choice -->
                     <div class="form-group"
-                         ng-class="{ 'has-error': signup_form.sub_plan.$invalid,
-                                     'has-feedback': signup_form.sub_plan.$invalid }">
-                        <label class="control-label" for="sub_plan"> Pricing Choice </label>
+                         ng-class="{ 'has-error': signup_form.plan.$invalid,
+                                     'has-feedback': signup_form.plan.$invalid }">
+                        <label class="control-label" for="plan"> Pricing Choice </label>
                         <div class="row">
                             <!-- Monthly -->
                             <div class="col-xs-6 text-center">
-                                <input name="sub_plan"
+                                <input name="plan"
                                        type="radio"
                                        value="monthly"
-                                       ng-model="signup.sub_plan">
+                                       ng-model="signup.plan">
                                 <br>
                                 <span> <b> $25 / month </b> <span>
                             </div>
                             <!-- Yearly -->
                             <div class="col-xs-6 text-center">
-                                <input name="sub_plan"
+                                <input name="plan"
                                        type="radio"
                                        value="yearly"
-                                       ng-model="signup.sub_plan">
+                                       ng-model="signup.plan">
                                 <br>
                                 <span> <b> $267 / year </b> <span>
                                 <br>

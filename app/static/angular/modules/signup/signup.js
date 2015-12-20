@@ -20,7 +20,7 @@ app.controller('SignupController', function($scope, store, $state, SubscriptionS
 
     function init() {
         store.remove('jwt');
-        $scope.signup = { sub_plan: 'monthly' };
+        $scope.signup = { plan: 'monthly' };
     }
 
     $scope.signUp = function() {

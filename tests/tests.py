@@ -85,7 +85,7 @@ class AppTestCase(unittest.TestCase):
                 email='test@gmail.com',
                 username='test',
                 password='test',
-                sub_plan='monthly',
+                plan='monthly',
                 token_id=token['id']
             ))
         )
