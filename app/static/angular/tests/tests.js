@@ -1,7 +1,21 @@
-describe('sorting the list of users', function() {
-    it('sorts in descending order by default', function() {
-        var users = ['jack', 'igor', 'jeff'];
-        var sorted = sortUsers(users);
-        expect(sorted).toEqual(['jeff', 'jack', 'igor']);
+describe('myController function', function() {
+
+    describe('myController', function() {
+        var $scope;
+
+        beforeEach(module('myApp'));
+
+        beforeEach(inject(function($rootScope, $controller) {
+            $scope = $rootScope.$new();
+            $controller('MyController', {$scope: $scope});
+        }));
+
+        it('should create "spices" model with 3 spices', function() {
+            expect($scope.spices.length).toBe(3);
+        });
+
+        it('should set the default value of spice', function() {
+            expect($scope.spice).toBe('habanero');
+        });
     });
 });
