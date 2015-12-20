@@ -169,32 +169,24 @@
                     <div class="well">
                         <!-- Form -->
                         <form class="form-horizontal">
-                            <!-- Cardholder Name Field -->
+                            <!-- Card Details -->
                             <div class="form-group">
-                                <label class="col-sm-3 control-label" for="card_name"> Name on Card </label>
+                                <label class="col-sm-3 control-label"> This account is billed to </label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="card_name" placeholder="Cardholder Name">
-                                </div>
-                            </div>
-                            <!-- Card Number Field -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="card_number"> Card Number </label>
-                                <div class="col-sm-9">
-                                    <input type="email" class="form-control" name="card_number" placeholder="16-Digit Card Number">
-                                </div>
-                            </div>
-                            <!-- Expiration Date Field -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="expiration_date"> Expiration Date </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="expiration_date" placeholder="Expiration Date">
-                                </div>
-                            </div>
-                            <!-- CVC Field -->
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label" for="cvc"> CVC </label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cvc" placeholder="Card Security Code" select>
+                                    <!-- Cardholder Name -->
+                                    <input class="form-control"
+                                           name="last4"
+                                           type="text"
+                                           value="{{ user.card.name }}"
+                                           readonly>
+                                    <!-- Line Break -->
+                                    <br>
+                                    <!-- Card Last 4 Digits -->
+                                    <input class="form-control"
+                                           name="last4"
+                                           type="text"
+                                           value="Card ending in {{ user.card.last4 }} ({{ user.card.brand }})"
+                                           readonly>
                                 </div>
                             </div>
                             <!-- Update Button -->
@@ -219,8 +211,21 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="plan"> Plan </label>
                                 <div class="col-sm-9">
+                                    <!-- Monthly Plan -->
                                     <div class="radio-inline">
-                                        <input type="radio" name="plan"> Monthly - $25
+                                        <input name="sub_plan"
+                                               type="radio"
+                                               value="monthly"
+                                               ng-model="user.sub_plan"> Monthly - $25
+                                    </div>
+                                    <!-- Line Break -->
+                                    <br>
+                                    <!-- Yearly Plan -->
+                                    <div class="radio-inline">
+                                        <input name="sub_plan"
+                                               type="radio"
+                                               value="yearly"
+                                               ng-model="user.sub_plan"> Yearly - $267
                                     </div>
                                 </div>
                             </div>
