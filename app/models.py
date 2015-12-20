@@ -16,6 +16,10 @@
         -Fund          : funds
         -Draw          : draws
         -Subcontractor : subcontractors
+
+    More Info:
+        -Flask-SQLAlchemy : http://flask-sqlalchemy.pocoo.org/2.1/api/
+        -SQLAlchemy       : http://docs.sqlalchemy.org/en/latest/
 """
 
 from datetime import datetime
@@ -27,9 +31,9 @@ class User(db.Model):
     __tablename__ = 'users'
     id            = db.Column(db.Integer, primary_key=True)
     email         = db.Column(db.String(50), nullable=False, unique=True)
-    username      = db.Column(db.String(25), nullable=False, unique=True)
-    password      = db.Column(db.String(60), nullable=False)
-    stripe_id     = db.Column(db.String(60), nullable=False)
+    username      = db.Column(db.String(30), nullable=False, unique=True)
+    password      = db.Column(db.String, nullable=False)
+    stripe_id     = db.Column(db.String, nullable=False)
     date_created  = db.Column(db.TIMESTAMP, nullable=False)
     active_until  = db.Column(db.TIMESTAMP, nullable=False)
 
