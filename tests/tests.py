@@ -11,6 +11,7 @@
         python3 manage.py runtests
 """
 
+import stripe
 import unittest
 from flask import current_app, json
 
@@ -65,6 +66,18 @@ class AppTestCase(unittest.TestCase):
         print(response.status_code)
         self.assertTrue(response.status_code == 200)
 
+        print('Stripe Token')
+        token = stripe.Token.create(
+            card=dict(
+                number=4242424242424242,
+                exp_month=1,
+                exp_year=2025,
+                cvc=333,
+                name='TEST NAME'
+            )
+        )
+        print('Token ID:' + token.id)
+
         print('POST /api/subscriptions')
         response = self.client.post(
             '/api/subscriptions',
@@ -73,11 +86,7 @@ class AppTestCase(unittest.TestCase):
                 username='test',
                 password='test',
                 sub_plan='monthly',
-                card_name='TEST NAME',
-                card_number=4242424242424242,
-                exp_month=1,
-                exp_year=2025,
-                cvc=333
+                token_id=token['id']
             ))
         )
         print(response.status_code)

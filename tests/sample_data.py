@@ -12,6 +12,7 @@
 """
 
 import random
+import stripe
 from flask import json
 
 from app.utility import parse_ubuildit_file, parse_invoice_file
@@ -24,18 +25,40 @@ def populate_db(app):
     app.testing = True
     client = app.test_client()
 
-    client.post(
+    # Check if plans exist
+    # stripe.Plan.create(
+    #     amount=2500,
+    #     interval='month',
+    #     name='Monthly Plan',
+    #     currency='usd',
+    #     id='monthly'
+    # )
+    # stripe.Plan.create(
+    #     amount=26700,
+    #     interval='year',
+    #     name='Yearly Plan',
+    #     currency='usd',
+    #     id='yearly'
+    # )
+
+    token = stripe.Token.create(
+        card=dict(
+            number=4242424242424242,
+            exp_month=1,
+            exp_year=2025,
+            cvc=333,
+            name='TEST NAME'
+        )
+    )
+
+    response = client.post(
         '/api/subscriptions',
         data=json.dumps(dict(
             email='test@gmail.com',
             username='test',
             password='test',
             sub_plan='monthly',
-            card_name='TEST NAME',
-            card_number=4242424242424242,
-            exp_month=1,
-            exp_year=2025,
-            cvc=333
+            token_id=token['id']
         ))
     )
 

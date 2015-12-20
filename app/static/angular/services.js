@@ -23,7 +23,7 @@ app.service('ProjectService', function($http, store) {
     this.getProjects = function() {
         return $http.get(api_entry + query('user_id', 'equals', store.get('user').id));
     }
-    // ADD Project
+    // POST Project
     this.addProject = function(form) {
         return $http.post(api_entry, {
             name:         form.name,
@@ -63,7 +63,7 @@ app.service('CategoryService', function($http, store) {
     this.getCategories = function() {
         return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
-    // ADD Category
+    // POST Category
     this.addCategory = function(category_name) {
         return $http.post(api_entry, {
             name:       category_name,
@@ -95,7 +95,7 @@ app.service('ItemService', function($http, store) {
     this.getItemsByCategory = function() {
         return $http.get(api_entry + query('category_id', 'equals', store.get('category').id));
     }
-    // ADD Item
+    // POST Item
     this.addItem = function(form) {
         return $http.post(api_entry, {
             name:        form.name,
@@ -135,7 +135,7 @@ app.service('FundService', function($http, store) {
     this.getFunds = function() {
         return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
-    // ADD Fund
+    // POST Fund
     this.addFund = function(form) {
         return $http.post(api_entry, {
             name:       form.name,
@@ -163,7 +163,7 @@ app.service('FundService', function($http, store) {
 app.service('DrawService', function($http, store) {
     // API: Draws entry point
     var api_entry = '/api/draws';
-    // ADD Draw
+    // POST Draw
     this.addDraw = function(form) {
         return $http.post(api_entry, {
             date:    form.date,
@@ -201,7 +201,7 @@ app.service('ExpenditureService', function($http, store, $filter) {
     this.getExpendituresByCategory = function() {
         return $http.get(api_entry + query('category_id', 'equals', store.get('category').id));
     }
-    // ADD Expenditure
+    // POST Expenditure
     this.addExpenditure = function(form) {
         return $http.post(api_entry, {
             date:        $filter('date')(form.date,'yyyy-MM-dd'),
@@ -245,7 +245,7 @@ app.service('SubcontractorService', function($http, store) {
     this.getSubcontractors = function() {
         return $http.get(api_entry + query('project_id', 'equals', store.get('project').id));
     }
-    // ADD Subcontractor
+    // POST Subcontractor
     this.addSubcontractor = function(form) {
         return $http.post(api_entry, {
             name:           form.name,
@@ -293,7 +293,7 @@ app.service('AuthService', function($http, store, jwtHelper) {
             password: password
         });
     }
-    // TOKEN Storage
+    // STORE Token
     this.storeToken = function(response) {
         store.set('jwt', response.data.token);
         var tokenPayload = jwtHelper.decodeToken(response.data.token);
@@ -336,21 +336,21 @@ app.service('UploadService', function($http) {
 });
 
 // Functions for /api/subscriptions
-app.service('SubscriptionService', function($http) {
+app.service('SubscriptionService', function($http, store) {
     // API: Subscription entry point
     var api_entry = '/api/subscriptions';
-    // SUBSCRIBE USER
-    this.subscribeUser = function(form) {
+    // GET Subscription
+    this.getSubscription = function() {
+        return $http.get(api_entry + '/' + store.get('user').stripe_id);
+    }
+    // POST Subscription
+    this.addSubscription = function(form, token_id) {
         return $http.post(api_entry, {
             email:       form.email,
             username:    form.username,
             password:    form.password,
             sub_plan:    form.sub_plan,
-            card_name:   form.card_name,
-            card_number: form.card_number,
-            exp_month:   form.exp_month,
-            exp_year:    form.exp_year,
-            cvc:         form.cvc
+            token_id:    token_id,
         });
     }
 });

@@ -14,8 +14,10 @@
         -Flask-SQLAlchemy : http://pythonhosted.org/Flask-SQLAlchemy/
         -Flask-Restless   : http://flask-restless.readthedocs.org/en/latest/
         -Flask-Mail       : http://pythonhosted.org/Flask-Mail/
+        -Stripe           : https://stripe.com/docs/api/python#customer_object
 """
 
+import stripe
 from flask import Flask
 from flask.ext.bcrypt import Bcrypt
 from flask.ext.sqlalchemy import SQLAlchemy
@@ -27,6 +29,9 @@ from flask_mail import Mail
 app = Flask(__name__)
 app.config.from_pyfile('settings.py')
 from app import views
+
+# Stripe
+stripe.api_key = app.config['STRIPE_API_KEY']
 
 # Flask-Bcrypt
 bcrypt = Bcrypt(app)
