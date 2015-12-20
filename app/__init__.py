@@ -26,7 +26,7 @@ from flask_mail import Mail
 
 
 # Flask application
-app = Flask(__name__)
+app = Flask('app')
 app.config.from_pyfile('settings.py')
 from app import views
 
