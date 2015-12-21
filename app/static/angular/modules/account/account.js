@@ -21,7 +21,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('AccountController', function($scope, store, SubscriptionService) {
+app.controller('AccountController', function($scope, store, SubscriptionService, UserService) {
     init();
 
     function init() {
@@ -30,7 +30,8 @@ app.controller('AccountController', function($scope, store, SubscriptionService)
         $scope.user.email        = store.get('user').email;
         $scope.user.username     = store.get('user').username;
 
-        SubscriptionService.getSubscription().then(function(response) {
+        SubscriptionService.getSubscription()
+        .then(function(response) {
             $scope.user.card       = {};
             $scope.user.card.name  = response.data.sources.data[0].name;
             $scope.user.card.last4 = response.data.sources.data[0].last4;
@@ -40,11 +41,21 @@ app.controller('AccountController', function($scope, store, SubscriptionService)
             $scope.error_msg = true;
         });
     }
+
     // Changing email should update Stripe
 
     $scope.updatePassword = function() {
         var btn = $('#update-password-btn').button('loading');
-
-        // Needs work     
+        UserService.updatePassword($scope.user.new_password)
+        .then(function(response) {
+            alert('Password updated');
+            $scope.update_password_success = true;
+            btn.button('reset');
+        }, function(error) {
+            alert('Password could not be updated');
+            $scope.update_password_failure = true;
+            $scope.password_form.$invalid = true;
+            btn.button('reset');
+        });
     }
 });
