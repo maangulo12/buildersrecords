@@ -28,11 +28,9 @@ app.controller('SignupController', function($scope, store, $state, SubscriptionS
 
         // Remember to change to live key
         Stripe.setPublishableKey('pk_test_KY3H8e295UxwoHrrqHBobKRC');
-
         //var valid_card = Stripe.card.validateCardNumber($scope.signup.card_number);
         //var valid_exp  = Stripe.card.validateExpiry($scope.signup.exp_month, $scope.signup.exp_year);
         //var valid_cvc  = Stripe.card.validateExpiry($scope.signup.cvc);
-
         Stripe.card.createToken({
             number:    $scope.signup.card_number,
             cvc:       $scope.signup.cvc,
@@ -43,7 +41,8 @@ app.controller('SignupController', function($scope, store, $state, SubscriptionS
 
         function stripeResponseHandler(status, response) {
             if (response.error) {
-                error();
+                $scope.signup_form.$invalid = true;
+                btn.button('reset');
             } else {
                 SubscriptionService.addSubscription($scope.signup, response.id)
                 .then(function(response) {
@@ -56,13 +55,10 @@ app.controller('SignupController', function($scope, store, $state, SubscriptionS
                         $state.go('login');
                     });
                 }, function(error) {
-                    error();
+                    $scope.signup_form.$invalid = true;
+                    btn.button('reset');
                 });
             }
-        }
-        function error() {
-            $scope.signup_form.$invalid = true;
-            btn.button('reset');
         }
     }
 });
