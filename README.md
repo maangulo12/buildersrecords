@@ -10,17 +10,18 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
+    ** Change Password
+    ** Close Account
+
     ** Manage Account
     ** Billing
-    ** Change Password    
-    ** Close Account
+    ** Create a popup after signing up
 
     ** Restrict Access (active_until field & webhooks)
     ** Expired Account Page
-    ****** Stripe Full Testing
 
     ** Testing on other browsers (Safari, Firefox, Chrome, Edge, Opera)
-    ** Demo Videos
+    ** Testing on mobile devices (iPad, iPhone, Android, Windows)
     ** Support / FAQs
 
     ** Integrate Jasmine Front-End Testing   
@@ -29,6 +30,8 @@ Web app for accounting construction projects.
     ** Forgot Password
     ** Add Reports Feature
     ** Security
+
+    ** Demo Videos
 
     -Stripe
     -Auth0
