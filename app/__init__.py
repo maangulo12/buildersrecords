@@ -14,7 +14,7 @@
         -Flask-SQLAlchemy : http://pythonhosted.org/Flask-SQLAlchemy/
         -Flask-Restless   : http://flask-restless.readthedocs.org/en/latest/
         -Flask-Mail       : http://pythonhosted.org/Flask-Mail/
-        -Stripe           : https://stripe.com/docs/api/python#customer_object
+        -Stripe           : https://stripe.com/docs/api/python
 """
 
 import stripe
