@@ -53,7 +53,7 @@ class AppTestCase(unittest.TestCase):
         print('POST /api/auth/email')
         response = self.client.post(
             '/api/auth/email',
-            data=json.dumps(dict(email='test@gmail.com'))
+            data=json.dumps(dict(email='runtests@gmail.com'))
         )
         print(response.status_code)
         self.assertTrue(response.status_code == 200)
@@ -61,7 +61,7 @@ class AppTestCase(unittest.TestCase):
         print('POST /api/auth/username')
         response = self.client.post(
             '/api/auth/username',
-            data=json.dumps(dict(username='test'))
+            data=json.dumps(dict(username='runtests'))
         )
         print(response.status_code)
         self.assertTrue(response.status_code == 200)
@@ -73,7 +73,7 @@ class AppTestCase(unittest.TestCase):
                 exp_month=1,
                 exp_year=2025,
                 cvc=333,
-                name='TEST NAME'
+                name='RUNTESTS'
             )
         )
         print('Token ID:' + token.id)
@@ -82,9 +82,9 @@ class AppTestCase(unittest.TestCase):
         response = self.client.post(
             '/api/subscriptions',
             data=json.dumps(dict(
-                email='test@gmail.com',
-                username='test',
-                password='test',
+                email='runtests@gmail.com',
+                username='runtests',
+                password='runtests',
                 plan='monthly',
                 token_id=token['id']
             ))
@@ -95,7 +95,7 @@ class AppTestCase(unittest.TestCase):
         print('POST /api/auth/email (test 2)')
         response = self.client.post(
             '/api/auth/email',
-            data=json.dumps(dict(email='test@gmail.com'))
+            data=json.dumps(dict(email='runtests@gmail.com'))
         )
         print(response.status_code)
         self.assertTrue(response.status_code == 400)
@@ -103,7 +103,7 @@ class AppTestCase(unittest.TestCase):
         print('POST /api/auth/username (test 2)')
         response = self.client.post(
             '/api/auth/username',
-            data=json.dumps(dict(username='test'))
+            data=json.dumps(dict(username='runtests'))
         )
         print(response.status_code)
         self.assertTrue(response.status_code == 400)
@@ -114,8 +114,8 @@ class AppTestCase(unittest.TestCase):
         response = self.client.post(
             '/api/auth',
             data=json.dumps(dict(
-                login='test',
-                password='test'
+                login='runtests',
+                password='runtests'
             ))
         )
         print(response.status_code)
