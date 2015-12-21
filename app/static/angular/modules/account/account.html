@@ -104,33 +104,120 @@
                     </div>
                     <!-- Well -->
                     <div class="well">
-                        <!-- Form -->
-                        <form class="form-horizontal">
+                        <!-- Form - Password -->
+                        <form class="form-horizontal" name="password_form" novalidate>
                             <!-- Current Password Field -->
-                            <div class="form-group">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.current_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.current_password.$invalid,
+                                             'has-feedback': (password_form.current_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.current_password.$invalid }">
                                 <label class="col-sm-3 control-label" for="current_password"> Current Password </label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="current_password" placeholder="Current Password">
+                                    <input class="form-control"
+                                           name="current_password"
+                                           type="password"
+                                           placeholder="Current Password"
+                                           ng-model="user.current_password"
+                                           required>
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.current_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.current_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.current_password.$error"
+                                         ng-if="(password_form.current_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.current_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- New Password Field -->
-                            <div class="form-group">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.new_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.new_password.$invalid,
+                                             'has-feedback': (password_form.new_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.new_password.$invalid }">
                                 <label class="col-sm-3 control-label" for="new_password"> New Password </label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="new_password" placeholder="New Password">
+                                    <input class="form-control"
+                                           name="new_password"
+                                           type="password"
+                                           placeholder="New Password"
+                                           ng-model="user.new_password"
+                                           required>
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.new_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.new_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.new_password.$error"
+                                         ng-if="(password_form.new_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.new_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <!-- Confirm New Password Field -->
-                            <div class="form-group">
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.confirm_new_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.confirm_new_password.$invalid,
+                                             'has-feedback': (password_form.confirm_new_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.confirm_new_password.$invalid }">
                                 <label class="col-sm-3 control-label" for="confirm_new_password"> Confirm New Password </label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control" name="confirm_new_password" placeholder="Confirm New Password">
+                                    <input class="form-control"
+                                           name="confirm_new_password"
+                                           type="password"
+                                           placeholder="Confirm New Password"
+                                           ng-model="user.confirm_new_password"
+                                           required
+                                           ui-validate="'$value==user.new_password'"
+                                           ui-validate-watch="'user.new_password'">
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.confirm_new_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.confirm_new_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.confirm_new_password.$error"
+                                         ng-if="(password_form.confirm_new_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.confirm_new_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                        <div ng-message="validator" class="help-block">
+                                            Passwords do not match.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Forgot Password -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <a ui-sref="forgot_password" href> <b> Forgot Password </b> </a>
                                 </div>
                             </div>
                             <!-- Update Button -->
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-9">
-                                    <button type="submit" class="btn btn-primary"> <b> Update Password </b> </button>
+                                    <button id="update-password-btn" type="submit" class="btn btn-primary"
+                                            data-loading-text="Updating..."
+                                            ng-click="password_form.$valid && updatePassword()">
+                                        <b> Update Password </b>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -148,7 +235,7 @@
                             <div class="form-group">
                                 <div class="col-sm-3 control-label">
                                     <label class="text-danger"> Close Account </label>
-                                    <p class="help-block"> Warning: Closing your account is irreversible. </p>
+                                    <p class="help-block"> Closing your account will stop charges. </p>
                                 </div>
                                 <!-- Close Button -->
                                 <div class="col-sm-9">
