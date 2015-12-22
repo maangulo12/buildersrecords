@@ -44,6 +44,13 @@ app.controller('AccountController', function($scope, store, SubscriptionService,
 
     // Changing email should update Stripe
 
+    $scope.showUpdateCardModal = function() {
+        var btn = $('#create-project-btn').button('reset');
+        $scope.project = {};
+        $scope.new_project_form.$setPristine();
+        $('#new_project_modal').modal('show');
+    }
+
     $scope.updatePassword = function() {
         var btn = $('#update-password-btn').button('loading');
         UserService.updatePassword($scope.user.new_password)
