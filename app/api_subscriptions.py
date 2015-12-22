@@ -107,3 +107,15 @@ def get_customer(stripe_id):
         return make_response('Could not retrieve customer', 400)
 
     return make_response(jsonify(customer), 200)
+
+
+# Needs route security
+@app.route(API_ENTRY + '/<stripe_id>', methods=['PUT'])
+def update_customer(stripe_id):
+    """
+    Update customer data in Stripe.
+    """
+    if customer is None:
+        return make_response('Could not retrieve customer', 400)
+
+    return make_response(jsonify(customer), 200)
