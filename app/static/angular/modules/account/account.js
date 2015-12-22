@@ -46,9 +46,9 @@ app.controller('AccountController', function($scope, store, SubscriptionService,
 
     $scope.showUpdateCardModal = function() {
         var btn = $('#create-project-btn').button('reset');
-        $scope.project = {};
-        $scope.new_project_form.$setPristine();
-        $('#new_project_modal').modal('show');
+        // $scope.project = {};
+        // $scope.new_project_form.$setPristine();
+        $('#update_card').modal('show');
     }
 
     $scope.updatePassword = function() {
