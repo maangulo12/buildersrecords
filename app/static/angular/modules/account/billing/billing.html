@@ -1,0 +1,634 @@
+<!-- Container -->
+<div class="container">
+    <div class="row">
+        <!-- Left Side -->
+        <div class="col-md-3">
+            <!-- List Group -->
+            <ul class="list-group">
+                <!-- Projects -->
+                <a ui-sref="projects" class="list-group-item">
+                    <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
+                    <b> Projects </b>
+                </a>
+                <!-- Manage Account -->
+                <a ui-sref="account" class="list-group-item active">
+                    <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
+                    <b> Manage Account </b>
+                </a>
+                <!-- Send Feedback -->
+                <a ui-sref="feedback" class="list-group-item">
+                    <span class="glyphicon glyphicon-comment glyphicon-padding" aria-hidden="true"></span>
+                    <b> Send Feedback </b>
+                </a>
+            </ul>
+        </div>
+        <!-- Right Side -->
+        <div class="col-md-9">
+            <!-- Error Alert -->
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Could not access your account information. Please refresh your page. </b>
+            </div>
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1> Manage Account </h1>
+            </div>
+            <!-- Tabs -->
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#user" data-toggle="tab">
+                        <span class="glyphicon glyphicon-user glyphicon-padding" aria-hidden="true"></span>
+                        Account
+                    </a>
+                </li>
+                <li>
+                    <a href="#billing" data-toggle="tab">
+                        <span class="glyphicon glyphicon-credit-card glyphicon-padding" aria-hidden="true"></span>
+                        Billing
+                    </a>
+                </li>
+            </ul>
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="user">
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Account </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal" novalidate>
+                            <!-- Email Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="email"> Email Address </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="email"
+                                           type="email"
+                                           placeholder="Email Address"
+                                           ng-model="user.email">
+                                </div>
+                            </div>
+                            <!-- Username Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="username"> Username </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="username"
+                                           type="text"
+                                           placeholder="Username"
+                                           ng-model="user.username">
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Save Changes </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Change Password </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form - Password -->
+                        <form class="form-horizontal" name="password_form" novalidate>
+                            <!-- Current Password Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.current_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.current_password.$invalid,
+                                             'has-feedback': (password_form.current_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.current_password.$invalid }">
+                                <label class="col-sm-3 control-label" for="current_password"> Current Password </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="current_password"
+                                           type="password"
+                                           placeholder="Current Password"
+                                           ng-model="user.current_password"
+                                           required>
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.current_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.current_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.current_password.$error"
+                                         ng-if="(password_form.current_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.current_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- New Password Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.new_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.new_password.$invalid,
+                                             'has-feedback': (password_form.new_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.new_password.$invalid }">
+                                <label class="col-sm-3 control-label" for="new_password"> New Password </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="new_password"
+                                           type="password"
+                                           placeholder="New Password"
+                                           ng-model="user.new_password"
+                                           required>
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.new_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.new_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.new_password.$error"
+                                         ng-if="(password_form.new_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.new_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Confirm New Password Field -->
+                            <div class="form-group"
+                                 ng-class="{ 'has-error': (password_form.confirm_new_password.$dirty ||
+                                                          password_form.$submitted) &&
+                                                          password_form.confirm_new_password.$invalid,
+                                             'has-feedback': (password_form.confirm_new_password.$dirty ||
+                                                             password_form.$submitted) &&
+                                                             password_form.confirm_new_password.$invalid }">
+                                <label class="col-sm-3 control-label" for="confirm_new_password"> Confirm New Password </label>
+                                <div class="col-sm-9">
+                                    <input class="form-control"
+                                           name="confirm_new_password"
+                                           type="password"
+                                           placeholder="Confirm New Password"
+                                           ng-model="user.confirm_new_password"
+                                           required
+                                           ui-validate="'$value==user.new_password'"
+                                           ui-validate-watch="'user.new_password'">
+                                    <span class="glyphicon glyphicon-remove form-control-feedback"
+                                          ng-if="(password_form.confirm_new_password.$dirty ||
+                                                 password_form.$submitted) &&
+                                                 password_form.confirm_new_password.$invalid">
+                                    </span>
+                                    <div ng-messages="password_form.confirm_new_password.$error"
+                                         ng-if="(password_form.confirm_new_password.$dirty ||
+                                                password_form.$submitted) &&
+                                                password_form.confirm_new_password.$invalid">
+                                        <div ng-message="required" class="help-block">
+                                            This field is required.
+                                        </div>
+                                        <div ng-message="validator" class="help-block">
+                                            Passwords do not match.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Forgot Password -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <a ui-sref="forgot_password" href> <b> Forgot Password </b> </a>
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button id="update-password-btn" type="submit" class="btn btn-primary"
+                                            data-loading-text="Updating..."
+                                            ng-click="password_form.$valid && updatePassword()">
+                                        <b> Update Password </b>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Close Account </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Close Account -->
+                            <div class="form-group">
+                                <div class="col-sm-3 control-label">
+                                    <label class="text-danger"> Close Account </label>
+                                    <p class="help-block"> Closing your account will stop charges. </p>
+                                </div>
+                                <!-- Close Button -->
+                                <div class="col-sm-9">
+                                    <button type="submit" class="btn btn-danger"> <b> Close Account </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="billing">
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Payment Details </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Card Details -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"> This account is billed to </label>
+                                <div class="col-sm-9">
+                                    <!-- Cardholder Name -->
+                                    <input class="form-control"
+                                           name="last4"
+                                           type="text"
+                                           value="{{ user.card.name }}"
+                                           readonly>
+                                    <!-- Line Break -->
+                                    <br>
+                                    <!-- Card Last 4 Digits -->
+                                    <input class="form-control"
+                                           name="last4"
+                                           type="text"
+                                           value="Card ending in {{ user.card.last4 }} ({{ user.card.brand }})"
+                                           readonly>
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary" title="Update Card"
+                                            ng-click="showUpdateCardModal()"> <b> Update Card </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Subscription </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <!-- Plan Field -->
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="plan"> Plan </label>
+                                <div class="col-sm-9">
+                                    <!-- Monthly Plan -->
+                                    <div class="radio-inline">
+                                        <input name="sub_plan"
+                                               type="radio"
+                                               value="monthly"
+                                               ng-model="user.sub_plan"> Monthly - $25
+                                    </div>
+                                    <!-- Line Break -->
+                                    <br>
+                                    <!-- Yearly Plan -->
+                                    <div class="radio-inline">
+                                        <input name="sub_plan"
+                                               type="radio"
+                                               value="yearly"
+                                               ng-model="user.sub_plan"> Yearly - $267
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Update Button -->
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary"> <b> Update Plan </b> </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Header -->
+                    <div class="page-header">
+                        <h3> Payment History </h3>
+                        <!-- Horizontal Rule -->
+                        <hr>
+                    </div>
+                    <!-- Well -->
+                    <div class="well">
+                        <!-- Form -->
+                        <form class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="receipts"> Receipts go here </label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Line Breaks -->
+<br><br><br><br><br>
+<!-- END -->
+
+<!-- MODALS -->
+<!-- Modal - Update Card -->
+<div class="container">
+    <div class="modal fade" id="update_card" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <!-- Close Button -->
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button>
+                    <!-- Title -->
+                    <h4 class="modal-title">
+                        <b> Edit Project </b>
+                    </h4>
+                </div>
+                <!-- Form -->
+                <form name="edit_project_form" novalidate>
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+                        <!-- Alert -->
+                        <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                             ng-if="edit_project_form.$invalid && edit_project_form.$submitted">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                            <span class="sr-only"> Error: </span>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true"> &times; </span>
+                            </button> <b> There were problems updating your project. </b>
+                        </div>
+                        <!-- Project Name Field -->
+                        <div class="form-group"
+                             ng-class="{ 'has-error': (edit_project_form.name.$dirty ||
+                                                      edit_project_form.$submitted) &&
+                                                      edit_project_form.name.$invalid,
+                                         'has-feedback': (edit_project_form.name.$dirty ||
+                                                         edit_project_form.$submitted) &&
+                                                         edit_project_form.name.$invalid }">
+                            <label class="control-label" for="name"> Project Name </label>
+                            <input class="form-control"
+                                   name="name"
+                                   type="text"
+                                   placeholder="Project Name"
+                                   ng-model="updated_project.name"
+                                   required
+                                   ng-maxlength=50>
+                            <span class="glyphicon glyphicon-remove form-control-feedback"
+                                  ng-if="(edit_project_form.name.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.name.$invalid">
+                            </span>
+                            <div ng-messages="edit_project_form.name.$error"
+                                 ng-if="(edit_project_form.name.$dirty ||
+                                        edit_project_form.$submitted) &&
+                                        edit_project_form.name.$invalid">
+                                <div ng-message="required"
+                                     class="help-block"> This field is required. </div>
+                                <div ng-message="maxlength"
+                                     class="help-block"> This field cannot be longer than 50 characters. </div>
+                             </div>
+                         </div>
+                         <!-- Address Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': (edit_project_form.address.$dirty ||
+                                                       edit_project_form.$submitted) &&
+                                                       edit_project_form.address.$invalid,
+                                          'has-feedback': (edit_project_form.address.$dirty ||
+                                                          edit_project_form.$submitted) &&
+                                                          edit_project_form.address.$invalid }">
+                             <label class="control-label" for="address"> Street Address * </label>
+                             <input class="form-control"
+                                    name="address"
+                                    type="text"
+                                    placeholder="Street Address"
+                                    ng-model="updated_project.address"
+                                    required
+                                    ng-maxlength=80>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="(edit_project_form.address.$dirty ||
+                                          edit_project_form.$submitted) &&
+                                          edit_project_form.address.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.address.$error"
+                                  ng-if="(edit_project_form.address.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.address.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
+                                 <div ng-message="maxlength"
+                                      class="help-block"> This field cannot be longer than 80 characters. </div>
+                             </div>
+                         </div>
+                         <!-- City Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': (edit_project_form.city.$dirty ||
+                                                       edit_project_form.$submitted) &&
+                                                       edit_project_form.city.$invalid,
+                                          'has-feedback': (edit_project_form.city.$dirty ||
+                                                          edit_project_form.$submitted) &&
+                                                          edit_project_form.city.$invalid }">
+                             <label class="control-label" for="city"> City * </label>
+                             <input class="form-control"
+                                    name="city"
+                                    type="text"
+                                    placeholder="City"
+                                    ng-model="updated_project.city"
+                                    required
+                                    ng-maxlength=30>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="(edit_project_form.city.$dirty ||
+                                          edit_project_form.$submitted) &&
+                                          edit_project_form.city.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.city.$error"
+                                  ng-if="(edit_project_form.city.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.city.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
+                                 <div ng-message="maxlength"
+                                      class="help-block"> This field cannot be longer than 30 characters. </div>
+                             </div>
+                         </div>
+                         <!-- State Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': (edit_project_form.state.$dirty ||
+                                                       edit_project_form.$submitted) &&
+                                                       edit_project_form.state.$invalid,
+                                          'has-feedback': (edit_project_form.state.$dirty ||
+                                                          edit_project_form.$submitted) &&
+                                                          edit_project_form.state.$invalid }">
+                             <label class="control-label" for="state"> State * </label>
+                             <select class="form-control"
+                                     name="state"
+                                     ng-model="updated_project.state"
+                                     required>
+                                 <option value="" disabled selected> Select your state </option>
+                                 <option value="AL"> Alabama </option>
+                                 <option value="AK"> Alaska </option>
+                                 <option value="AZ"> Arizona </option>
+                                 <option value="AR"> Arkansas </option>
+                                 <option value="CA"> California </option>
+                                 <option value="CO"> Colorado </option>
+                                 <option value="CT"> Connecticut </option>
+                                 <option value="DE"> Delaware </option>
+                                 <option value="FL"> Florida </option>
+                                 <option value="GA"> Georgia </option>
+                                 <option value="HI"> Hawaii </option>
+                                 <option value="ID"> Idaho </option>
+                                 <option value="IL"> Illinois </option>
+                                 <option value="IN"> Indiana </option>
+                                 <option value="IA"> Iowa </option>
+                                 <option value="KS"> Kansas </option>
+                                 <option value="KY"> Kentucky </option>
+                                 <option value="LA"> Louisiana </option>
+                                 <option value="ME"> Maine </option>
+                                 <option value="MD"> Maryland </option>
+                                 <option value="MA"> Massachusetts </option>
+                                 <option value="MI"> Michigan </option>
+                                 <option value="MN"> Minnesota </option>
+                                 <option value="MS"> Mississippi </option>
+                                 <option value="MO"> Missouri </option>
+                                 <option value="MT"> Montana </option>
+                                 <option value="NE"> Nebraska </option>
+                                 <option value="NV"> Nevada </option>
+                                 <option value="NH"> New Hampshire </option>
+                                 <option value="NJ"> New Jersey </option>
+                                 <option value="NM"> New Mexico </option>
+                                 <option value="NY"> New York </option>
+                                 <option value="NC"> North Carolina </option>
+                                 <option value="ND"> North Dakota </option>
+                                 <option value="OH"> Ohio </option>
+                                 <option value="OK"> Oklahoma </option>
+                                 <option value="OR"> Oregon </option>
+                                 <option value="PA"> Pennsylvania </option>
+                                 <option value="RI"> Rhode Island </option>
+                                 <option value="SC"> South Carolina </option>
+                                 <option value="SD"> South Dakota </option>
+                                 <option value="TN"> Tennessee </option>
+                                 <option value="TX"> Texas </option>
+                                 <option value="UT"> Utah </option>
+                                 <option value="VT"> Vermont </option>
+                                 <option value="VA"> Virginia </option>
+                                 <option value="WA"> Washington </option>
+                                 <option value="WV"> West Virginia </option>
+                                 <option value="WI"> Wisconsin </option>
+                                 <option value="WY"> Wyoming </option>
+                             </select>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="(edit_project_form.state.$dirty ||
+                                          edit_project_form.$submitted) &&
+                                          edit_project_form.state.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.state.$error"
+                                  ng-if="(edit_project_form.state.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.state.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
+                             </div>
+                         </div>
+                         <!-- Zipcode Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': (edit_project_form.zipcode.$dirty ||
+                                                       edit_project_form.$submitted) &&
+                                                       edit_project_form.zipcode.$invalid,
+                                          'has-feedback': (edit_project_form.zipcode.$dirty ||
+                                                          edit_project_form.$submitted) &&
+                                                          edit_project_form.zipcode.$invalid }">
+                             <label class="control-label" for="zipcode"> Zipcode * </label>
+                             <input class="form-control"
+                                    name="zipcode"
+                                    type="text"
+                                    placeholder="Zipcode"
+                                    ng-model="updated_project.zipcode"
+                                    required
+                                    ng-maxlength=10>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="(edit_project_form.zipcode.$dirty ||
+                                          edit_project_form.$submitted) &&
+                                          edit_project_form.zipcode.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.zipcode.$error"
+                                  ng-if="(edit_project_form.zipcode.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.zipcode.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
+                                 <div ng-message="maxlength"
+                                      class="help-block"> This field cannot be longer than 10 characters. </div>
+                             </div>
+                         </div>
+                         <!-- Home Square Footage Field -->
+                         <div class="form-group"
+                              ng-class="{ 'has-error': (edit_project_form.home_sq.$dirty ||
+                                                       edit_project_form.$submitted) &&
+                                                       edit_project_form.home_sq.$invalid,
+                                          'has-feedback': (edit_project_form.home_sq.$dirty ||
+                                                          edit_project_form.$submitted) &&
+                                                          edit_project_form.home_sq.$invalid }">
+                             <label class="control-label" for="home_sq"> Home Square Footage * </label>
+                             <div class="input-group">
+                                 <input class="form-control"
+                                        name="home_sq"
+                                        type="text"
+                                        placeholder="Home Square Footage"
+                                        ng-model="updated_project.home_sq"
+                                        required
+                                        format="number">
+                                 <div class="input-group-addon"> <b> ft<sup>2</sup> </b> </div>
+                             </div>
+                             <span class="glyphicon glyphicon-remove form-control-feedback"
+                                   ng-if="(edit_project_form.home_sq.$dirty ||
+                                          edit_project_form.$submitted) &&
+                                          edit_project_form.home_sq.$invalid">
+                             </span>
+                             <div ng-messages="edit_project_form.home_sq.$error"
+                                  ng-if="(edit_project_form.home_sq.$dirty ||
+                                         edit_project_form.$submitted) &&
+                                         edit_project_form.home_sq.$invalid">
+                                 <div ng-message="required"
+                                      class="help-block"> This field is required. </div>
+                             </div>
+                         </div>
+                         <!-- Required fields -->
+                         <p class="text-danger"> * Required fields </p>
+                    </div>
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <!-- Close Button -->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <b> Close </b>
+                        </button>
+                        <!-- Submit Button -->
+                        <button id="update-project-btn" type="submit" class="btn btn-primary"
+                                data-loading-text="Savings..."
+                                ng-click="edit_project_form.$valid && updateProject()">
+                            <b> Save Changes </b>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
