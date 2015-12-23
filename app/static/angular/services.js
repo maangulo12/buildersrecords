@@ -4,7 +4,7 @@ function query(name, op, val) {
     return '?q={"filters":[{"name":"' + name + '","op":"' + op + '","val":"' + val + '"}]}';
 }
 
-// ******************** ACCESSING MODELS ********************
+// ******************** ACCESSING MODELS API ********************
 // Functions for /api/users
 app.service('UserService', function($http, store) {
     // API: Users entry point
@@ -13,7 +13,7 @@ app.service('UserService', function($http, store) {
     this.getUserById = function() {
         return $http.get(api_entry + '/' + store.get('user').id);
     }
-    // PUT update User password
+    // PUT User password
     this.updatePassword = function(password) {
         return $http.put(api_entry + '/' + store.get('user').id, {
             password: password
