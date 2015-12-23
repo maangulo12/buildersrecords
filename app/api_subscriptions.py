@@ -66,31 +66,31 @@ def subscribe_customer():
         db.session.commit()
         return make_response('Customer succesfully subscribed', 201)
 
-    except (stripe.error.CardError, e):
+    except stripe.error.CardError:
         print('ERROR 404: Card declined')
         return make_response('Card declined', 400)
 
-    except (stripe.error.RateLimitError, e):
+    except stripe.error.RateLimitError:
         print('ERROR 404: Too many requests made to Stripe')
         return make_response('Too many requests made to Stripe', 400)
 
-    except (stripe.error.InvalidRequestError, e):
+    except stripe.error.InvalidRequestError:
         print('ERROR 404: Invalid parameters were supplied to Stripe')
         return make_response('Invalid parameters were supplied to Stripe', 400)
 
-    except (stripe.error.AuthenticationError, e):
+    except stripe.error.AuthenticationError:
         print('ERROR 404: Authentication with Stripe failed')
         return make_response('Authentication with Stripe failed', 400)
 
-    except (stripe.error.APIConnectionError, e):
+    except stripe.error.APIConnectionError:
         print('ERROR 404: Network communication with Stripe failed')
         return make_response('Network communication with Stripe failed', 400)
 
-    except (stripe.error.StripeError, e):
+    except stripe.error.StripeError:
         print('ERROR 404: Stripe Error')
         return make_response('Stripe Error', 400)
 
-    except (Exception, e):
+    except Exception:
         print('ERROR 404: Error')
         return make_response('Error', 400)
 
