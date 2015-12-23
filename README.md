@@ -10,11 +10,8 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** Change Password
-    ** Close Account
-
-    ** Manage Account
-    ** Billing
+    ** Finish Account Page
+    ** Finish Billing Page
     ** Create a popup after signing up
 
     ** Restrict Access (active_until field & webhooks)
@@ -29,7 +26,6 @@ Web app for accounting construction projects.
     ** Send Feedback
     ** Forgot Password
     ** Add Reports Feature
-    ** Security
 
     ** Demo Videos
 
