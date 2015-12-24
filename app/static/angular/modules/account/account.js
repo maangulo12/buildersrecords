@@ -3,11 +3,21 @@ var app = angular.module('app.account', []);
 app.config(function($stateProvider) {
     $stateProvider.state('account', {
         url: '/account',
+        resolve: {
+            User: function(UserService, store) {
+                return UserService.getUser(store.get('user').id)
+                .then(function(response) {
+                    return response.data;
+                }, function(error) {
+                    return 'username';
+                });
+            }
+        },
         views: {
             'nav': {
                 templateUrl: 'static/angular/components/navs/nav2.html',
-                controller: function($scope, store) {
-                    $scope.username = store.get('user').username;
+                controller: function($scope, User) {
+                    $scope.username = User.username;
                 }
             },
             'body': {
@@ -21,13 +31,13 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('AccountController', function($scope, store, UserService, UtilityService) {
+app.controller('AccountController', function($scope, User, UserService) {
     init();
 
     function init() {
         $scope.user          = {};
-        $scope.user.email    = store.get('user').email;
-        $scope.user.username = store.get('user').username;
+        $scope.user.email    = User.email;
+        $scope.user.username = User.username;
     }
 
     $scope.updateEmail = function() {
@@ -46,7 +56,18 @@ app.controller('AccountController', function($scope, store, UserService, Utility
     }
 
     $scope.updateUsername = function() {
-
+        $scope.update_username_success = false;
+        $scope.update_username_error = false;
+        var btn = $('#update_username_btn').button('loading');
+        UserService.updateUsername($scope.user.username)
+        .then(function(response) {
+            $scope.update_username_success = true;
+            btn.button('reset');
+        }, function(error) {
+            $scope.username_form.$invalid = true;
+            $scope.update_username_error = true;
+            btn.button('reset');
+        });
     }
 
     $scope.updatePassword = function() {
@@ -60,5 +81,10 @@ app.controller('AccountController', function($scope, store, UserService, Utility
             $scope.password_form.$invalid = true;
             btn.button('reset');
         });
+    }
+
+    $scope.closeAccount = function() {
+        // Close the account with stripe
+        // Set active_until the day it was closed
     }
 });
