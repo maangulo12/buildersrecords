@@ -52,11 +52,7 @@ def auth():
     if user and user.check_password(password):
         token = jwt.encode(dict(
             user_id=user.id,
-            username=user.username,
-            email=user.email,
-            stripe_id=user.stripe_id,
-            date_created=json.dumps(user.date_created),
-            active_until=json.dumps(user.active_until)
+            stripe_id=user.stripe_id
             ),
             current_app.config['AUTH_SECRET']
         )
@@ -139,7 +135,7 @@ def verify_jwt(*args, **kwargs):
         )
         user = User.query.filter_by(
             id=payload['user_id'],
-            username=payload['username']
+            stripe_id=payload['stripe_id']
         ).first()
 
         if user is None:
