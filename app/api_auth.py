@@ -86,7 +86,7 @@ def check_email():
     if user is None:
         return make_response('Valid email', 200)
     else:
-        return make_response('Email already exists', 400)
+        return make_response('Email already exists', 302)
 
 
 @app.route(API_ENTRY + '/username', methods=['POST'])
@@ -110,7 +110,7 @@ def check_username():
     if user is None:
         return make_response('Valid username', 200)
     else:
-        return make_response('Username already exists', 400)
+        return make_response('Username already exists', 302)
 
 
 def verify_jwt(*args, **kwargs):
