@@ -9,14 +9,20 @@ function query(name, op, val) {
 app.service('UserService', function($http, store) {
     // API: Users entry point
     var api_entry = '/api/users';
-    // GET User by Id
-    this.getUserById = function() {
+    // GET User
+    this.getUser = function() {
         return $http.get(api_entry + '/' + store.get('user').id);
     }
     // PUT User email
     this.updateEmail = function(email) {
         return $http.put(api_entry + '/' + store.get('user').id, {
             email: email
+        });
+    }
+    // PUT User username
+    this.updateUsername = function(username) {
+        return $http.put(api_entry + '/' + store.get('user').id, {
+            username: username
         });
     }
     // PUT User password
@@ -311,11 +317,7 @@ app.service('AuthService', function($http, store, jwtHelper) {
         var tokenPayload = jwtHelper.decodeToken(response.data.token);
         var user = {
             id:           tokenPayload.user_id,
-            username:     tokenPayload.username,
-            email:        tokenPayload.email,
-            stripe_id:    tokenPayload.stripe_id,
-            date_created: tokenPayload.date_created,
-            active_until: tokenPayload.active_until
+            stripe_id:    tokenPayload.stripe_id
         }
         store.set('user', user);
     }
