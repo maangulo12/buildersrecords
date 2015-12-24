@@ -13,6 +13,12 @@ app.service('UserService', function($http, store) {
     this.getUserById = function() {
         return $http.get(api_entry + '/' + store.get('user').id);
     }
+    // PUT User email
+    this.updateEmail = function(email) {
+        return $http.put(api_entry + '/' + store.get('user').id, {
+            email: email
+        });
+    }
     // PUT User password
     this.updatePassword = function(password) {
         return $http.put(api_entry + '/' + store.get('user').id, {
