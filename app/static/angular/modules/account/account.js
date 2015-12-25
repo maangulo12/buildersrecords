@@ -9,7 +9,7 @@ app.config(function($stateProvider) {
                 .then(function(response) {
                     return response.data;
                 }, function(error) {
-                    return 'username';
+                    return 'error';
                 });
             }
         },
@@ -81,10 +81,5 @@ app.controller('AccountController', function($scope, User, UserService) {
             $scope.password_form.$invalid = true;
             btn.button('reset');
         });
-    }
-
-    $scope.closeAccount = function() {
-        // Close the account with stripe
-        // Set active_until the day it was closed
     }
 });
