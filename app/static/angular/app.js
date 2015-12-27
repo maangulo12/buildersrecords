@@ -12,6 +12,7 @@ var app = angular.module('app', [
     'app.login',
     'app.signup',
     'app.account',
+    'app.account.billing',
     'app.projects',
     'app.projects.overview',
     'app.projects.budget',
