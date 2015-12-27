@@ -10,9 +10,12 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** Store email address
+    ** Close account
+    ** Update card details
+    ** Change subscription
+    ** Change password
+    ** Nested states and views
 
-    ** Finish Account Page
     ** Finish Billing Page
     ** Create a popup after signing up
 
