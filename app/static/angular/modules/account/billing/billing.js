@@ -1,18 +1,36 @@
-var app = angular.module('app.account', []);
+var app = angular.module('app.account.billing', []);
 
 app.config(function($stateProvider) {
-    $stateProvider.state('account', {
-        url: '/account',
+    $stateProvider.state('billing', {
+        url: '/account/billing',
+        resolve: {
+            User: function(UserService, store) {
+                return UserService.getUser(store.get('user').id)
+                .then(function(response) {
+                    return response.data;
+                }, function(error) {
+                    return 'error';
+                });
+            },
+            Subscription: function(SubscriptionService, store) {
+                return SubscriptionService.getSubscription()
+                .then(function(response) {
+                    return response.data;
+                }, function(error) {
+                    return 'error';
+                });
+            }
+        },
         views: {
             'nav': {
                 templateUrl: 'static/angular/components/navs/nav2.html',
-                controller: function($scope, store) {
-                    $scope.username = store.get('user').username;
+                controller: function($scope, User) {
+                    $scope.username = User.username;
                 }
             },
             'body': {
-                templateUrl: 'static/angular/modules/account/account.html',
-                controller: 'AccountController'
+                templateUrl: 'static/angular/modules/account/billing/billing.html',
+                controller: 'BillingController'
             }
         },
         data: {
@@ -21,48 +39,21 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('AccountController', function($scope, store, SubscriptionService, UserService) {
+app.controller('BillingController', function($scope, Subscription) {
     init();
 
     function init() {
         $scope.user = {};
-        $scope.user.date_created = store.get('user').date_created;
-        $scope.user.email        = store.get('user').email;
-        $scope.user.username     = store.get('user').username;
-
-        SubscriptionService.getSubscription()
-        .then(function(response) {
-            $scope.user.card       = {};
-            $scope.user.card.name  = response.data.sources.data[0].name;
-            $scope.user.card.last4 = response.data.sources.data[0].last4;
-            $scope.user.card.brand = response.data.sources.data[0].brand;
-            $scope.user.sub_plan   = response.data.subscriptions.data[0].plan.id;
-        }, function(error) {
-            $scope.error_msg = true;
-        });
+        $scope.user.card       = {};
+        $scope.user.card.name  = Subscription.sources.data[0].name;
+        $scope.user.card.last4 = Subscription.sources.data[0].last4;
+        $scope.user.card.brand = Subscription.sources.data[0].brand;
+        $scope.user.plan       = Subscription.subscriptions.data[0].plan.id;
     }
-
-    // Changing email should update Stripe
 
     $scope.showUpdateCardModal = function() {
-        var btn = $('#create-project-btn').button('reset');
         // $scope.project = {};
         // $scope.new_project_form.$setPristine();
-        $('#update_card').modal('show');
-    }
-
-    $scope.updatePassword = function() {
-        var btn = $('#update-password-btn').button('loading');
-        UserService.updatePassword($scope.user.new_password)
-        .then(function(response) {
-            alert('Password updated');
-            $scope.update_password_success = true;
-            btn.button('reset');
-        }, function(error) {
-            alert('Password could not be updated');
-            $scope.update_password_failure = true;
-            $scope.password_form.$invalid = true;
-            btn.button('reset');
-        });
+        $('#update_card_modal').modal('show');
     }
 });
