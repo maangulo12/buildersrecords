@@ -18,7 +18,8 @@ var app = angular.module('app', [
     'app.projects.budget',
     'app.projects.funds',
     'app.projects.expenditures',
-    'app.projects.subcontractors'
+    'app.projects.subcontractors',
+    'app.tutorial'
 ]);
 
 app.config(function($urlRouterProvider, $locationProvider, jwtInterceptorProvider, $httpProvider) {
