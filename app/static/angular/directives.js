@@ -7,11 +7,12 @@ app.directive('emailAvailability', function($q, AuthService) {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
-                return AuthService.checkEmail(email).then(function(response) {
+                return AuthService.checkEmail(email)
+                .then(function(response) {
                     ctrl.$setValidity('emailAvailability', true);
-                }, function(response) {
+                }, function(error) {
                     ctrl.$setValidity('emailAvailability', false);
-                    return $q.reject(response);
+                    return $q.reject(error);
                 });
             }
         }
@@ -25,11 +26,12 @@ app.directive('usernameAvailability', function($q, AuthService) {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
-                return AuthService.checkUsername(username).then(function(response) {
+                return AuthService.checkUsername(username)
+                .then(function(response) {
                     ctrl.$setValidity('usernameAvailability', true);
-                }, function(response) {
+                }, function(error) {
                     ctrl.$setValidity('usernameAvailability', false);
-                    return $q.reject(response);
+                    return $q.reject(error);
                 });
             }
         }
