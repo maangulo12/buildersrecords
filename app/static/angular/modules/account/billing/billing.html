@@ -45,6 +45,15 @@
                     </a>
                 </li>
             </ul>
+            <!-- Error Alert -->
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Could not access your billing information. Please refresh your page. </b>
+            </div>
             <!-- Header -->
             <div class="page-header">
                 <h3> Payment Details </h3>
@@ -136,9 +145,34 @@
                 <!-- Form -->
                 <form class="form-horizontal">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="receipts"> Receipts go here </label>
+                        <label class="col-sm-3 control-label" for="receipts"> Receipts go receipts </label>
                     </div>
                 </form>
+            </div>
+            <!-- Header -->
+            <div class="page-header">
+                <h3> Cancel Subscription </h3>
+                <!-- Horizontal Rule -->
+                <hr>
+            </div>
+            <!-- Well -->
+            <div class="well">
+                <!-- Form -->
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            <label class="text-danger"> Cancel Subscription </label>
+                            <div class="help-block">
+                                The subscription will remain active until the end of the period,
+                                at which point it will be canceled and not renewed.
+                            </div>
+                        </div>
+                        <!-- Cancel Button -->
+                        <div class="col-sm-9">
+                            <button type="submit" class="btn btn-danger"> <b> Cancel Subscription </b> </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,9 +182,9 @@
 <!-- END -->
 
 <!-- MODALS -->
-<!-- Modal - Update Credit Card -->
+<!-- Modal - Update Card -->
 <div class="container">
-    <div class="modal fade" id="update_card_modal" aria-hidden="true">
+    <div id="update_card_modal" class="modal fade" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -165,44 +199,44 @@
                     </h4>
                 </div>
                 <!-- Form -->
-                <form name="update_card_form" novalidate>
+                <form name="updated_card_form" novalidate>
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Alert -->
                         <div class="alert alert-danger alert-dismissible text-center" role="alert"
-                             ng-if="update_card_form.$invalid && update_card_form.$submitted">
+                             ng-if="updated_card_form.$invalid && updated_card_form.$submitted">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                             <span class="sr-only"> Error: </span>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true"> &times; </span>
-                            </button> <b> There were problems updating your credit card. </b>
+                            </button> <b> There were problems with your credit card. </b>
                         </div>
                         <!-- Cardholder Name Field -->
                         <div class="form-group"
-                             ng-class="{ 'has-error': (update_card_form.card_name.$dirty ||
-                                                      update_card_form.$submitted) &&
-                                                      update_card_form.card_name.$invalid,
-                                         'has-feedback': (update_card_form.card_name.$dirty ||
-                                                         update_card_form.$submitted) &&
-                                                         update_card_form.card_name.$invalid }">
+                             ng-class="{ 'has-error': (updated_card_form.card_name.$dirty ||
+                                                      updated_card_form.$submitted) &&
+                                                      updated_card_form.card_name.$invalid,
+                                         'has-feedback': (updated_card_form.card_name.$dirty ||
+                                                         updated_card_form.$submitted) &&
+                                                         updated_card_form.card_name.$invalid }">
                             <label class="control-label" for="card_name"> Name on Card </label>
                             <input class="form-control"
                                    name="card_name"
                                    type="text"
                                    placeholder="Cardholder Name"
-                                   ng-model="user.card_name"
+                                   ng-model="updated_card.card_name"
                                    required
                                    ng-minlength=2
                                    ng-maxlength=50>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="(update_card_form.card_name.$dirty ||
-                                         update_card_form.$submitted) &&
-                                         update_card_form.card_name.$invalid">
+                                  ng-if="(updated_card_form.card_name.$dirty ||
+                                         updated_card_form.$submitted) &&
+                                         updated_card_form.card_name.$invalid">
                             </span>
-                            <div ng-messages="update_card_form.card_name.$error"
-                                 ng-if="(update_card_form.card_name.$dirty ||
-                                        update_card_form.$submitted) &&
-                                        update_card_form.card_name.$invalid">
+                            <div ng-messages="updated_card_form.card_name.$error"
+                                 ng-if="(updated_card_form.card_name.$dirty ||
+                                        updated_card_form.$submitted) &&
+                                        updated_card_form.card_name.$invalid">
                                 <div ng-message="required" class="help-block">
                                     This field is required.
                                 </div>
@@ -216,30 +250,30 @@
                         </div>
                         <!-- Card Number Field -->
                         <div class="form-group"
-                             ng-class="{ 'has-error': (update_card_form.card_number.$dirty ||
-                                                      update_card_form.$submitted) &&
-                                                      update_card_form.card_number.$invalid,
-                                         'has-feedback': (update_card_form.card_number.$dirty ||
-                                                         update_card_form.$submitted) &&
-                                                         update_card_form.card_number.$invalid }">
+                             ng-class="{ 'has-error': (updated_card_form.card_number.$dirty ||
+                                                      updated_card_form.$submitted) &&
+                                                      updated_card_form.card_number.$invalid,
+                                         'has-feedback': (updated_card_form.card_number.$dirty ||
+                                                         updated_card_form.$submitted) &&
+                                                         updated_card_form.card_number.$invalid }">
                             <label class="control-label" for="card_number"> Card Number </label>
                             <input class="form-control"
                                    name="card_number"
                                    type="text"
                                    placeholder="16-Digit Card Number"
-                                   ng-model="user.card_number"
+                                   ng-model="updated_card.card_number"
                                    required
                                    ng-minlength=16
                                    ng-maxlength=16>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="(update_card_form.card_number.$dirty ||
-                                         update_card_form.$submitted) &&
-                                         update_card_form.card_number.$invalid">
+                                  ng-if="(updated_card_form.card_number.$dirty ||
+                                         updated_card_form.$submitted) &&
+                                         updated_card_form.card_number.$invalid">
                             </span>
-                            <div ng-messages="update_card_form.card_number.$error"
-                                 ng-if="(update_card_form.card_number.$dirty ||
-                                        update_card_form.$submitted) &&
-                                        update_card_form.card_number.$invalid">
+                            <div ng-messages="updated_card_form.card_number.$error"
+                                 ng-if="(updated_card_form.card_number.$dirty ||
+                                        updated_card_form.$submitted) &&
+                                        updated_card_form.card_number.$invalid">
                                 <div ng-message="required" class="help-block">
                                     This field is required.
                                 </div>
@@ -259,16 +293,16 @@
                                     <div class="col-md-7">
                                         <!-- Expiration Month Field -->
                                         <div class="form-group"
-                                             ng-class="{ 'has-error': (update_card_form.exp_month.$dirty ||
-                                                                      update_card_form.$submitted) &&
-                                                                      update_card_form.exp_month.$invalid,
-                                                         'has-feedback': (update_card_form.exp_month.$dirty ||
-                                                                         update_card_form.$submitted) &&
-                                                                         update_card_form.exp_month.$invalid }">
+                                             ng-class="{ 'has-error': (updated_card_form.exp_month.$dirty ||
+                                                                      updated_card_form.$submitted) &&
+                                                                      updated_card_form.exp_month.$invalid,
+                                                         'has-feedback': (updated_card_form.exp_month.$dirty ||
+                                                                         updated_card_form.$submitted) &&
+                                                                         updated_card_form.exp_month.$invalid }">
                                             <label class="control-label" for="exp_month"> Expiration Month </label>
                                             <select class="form-control"
                                                     name="exp_month"
-                                                    ng-model="user.exp_month"
+                                                    ng-model="updated_card.exp_month"
                                                     required>
                                                 <option value="" disabled selected> Month </option>
                                                 <option value="1"> 1-January </option>
@@ -285,14 +319,14 @@
                                                 <option value="12"> 12-December </option>
                                             </select>
                                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                                  ng-if="(update_card_form.exp_month.$dirty ||
-                                                         update_card_form.$submitted) &&
-                                                         update_card_form.exp_month.$invalid">
+                                                  ng-if="(updated_card_form.exp_month.$dirty ||
+                                                         updated_card_form.$submitted) &&
+                                                         updated_card_form.exp_month.$invalid">
                                             </span>
-                                            <div ng-messages="update_card_form.exp_month.$error"
-                                                 ng-if="(update_card_form.exp_month.$dirty ||
-                                                        update_card_form.$submitted) &&
-                                                        update_card_form.exp_month.$invalid">
+                                            <div ng-messages="updated_card_form.exp_month.$error"
+                                                 ng-if="(updated_card_form.exp_month.$dirty ||
+                                                        updated_card_form.$submitted) &&
+                                                        updated_card_form.exp_month.$invalid">
                                                 <div ng-message="required" class="help-block">
                                                     This field is required.
                                                 </div>
@@ -302,16 +336,16 @@
                                     <div class="col-md-5">
                                         <!-- Expiration Year Field -->
                                         <div class="form-group"
-                                             ng-class="{ 'has-error': (update_card_form.exp_year.$dirty ||
-                                                                      update_card_form.$submitted) &&
-                                                                      update_card_form.exp_year.$invalid,
-                                                         'has-feedback': (update_card_form.exp_year.$dirty ||
-                                                                         update_card_form.$submitted) &&
-                                                                         update_card_form.exp_year.$invalid }">
+                                             ng-class="{ 'has-error': (updated_card_form.exp_year.$dirty ||
+                                                                      updated_card_form.$submitted) &&
+                                                                      updated_card_form.exp_year.$invalid,
+                                                         'has-feedback': (updated_card_form.exp_year.$dirty ||
+                                                                         updated_card_form.$submitted) &&
+                                                                         updated_card_form.exp_year.$invalid }">
                                             <label class="control-label" for="exp_year"> Year </label>
                                             <select class="form-control"
                                                     name="exp_year"
-                                                    ng-model="user.exp_year"
+                                                    ng-model="updated_card.exp_year"
                                                     required>
                                                 <option value="" disabled selected> Year </option>
                                                 <option value="2016"> 2016 </option>
@@ -327,14 +361,14 @@
                                                 <option value="2026"> 2026 </option>
                                             </select>
                                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                                  ng-if="(update_card_form.exp_year.$dirty ||
-                                                         update_card_form.$submitted) &&
-                                                         update_card_form.exp_year.$invalid">
+                                                  ng-if="(updated_card_form.exp_year.$dirty ||
+                                                         updated_card_form.$submitted) &&
+                                                         updated_card_form.exp_year.$invalid">
                                             </span>
-                                            <div ng-messages="update_card_form.exp_year.$error"
-                                                 ng-if="(update_card_form.exp_year.$dirty ||
-                                                        update_card_form.$submitted) &&
-                                                        update_card_form.exp_year.$invalid">
+                                            <div ng-messages="updated_card_form.exp_year.$error"
+                                                 ng-if="(updated_card_form.exp_year.$dirty ||
+                                                        updated_card_form.$submitted) &&
+                                                        updated_card_form.exp_year.$invalid">
                                                 <div ng-message="required" class="help-block">
                                                     This field is required.
                                                 </div>
@@ -346,30 +380,30 @@
                             <div class="col-md-4">
                                 <!-- CVC Field -->
                                 <div class="form-group"
-                                     ng-class="{ 'has-error': (update_card_form.cvc.$dirty ||
-                                                              update_card_form.$submitted) &&
-                                                              update_card_form.cvc.$invalid,
-                                                 'has-feedback': (update_card_form.cvc.$dirty ||
-                                                                 update_card_form.$submitted) &&
-                                                                 update_card_form.cvc.$invalid }">
+                                     ng-class="{ 'has-error': (updated_card_form.cvc.$dirty ||
+                                                              updated_card_form.$submitted) &&
+                                                              updated_card_form.cvc.$invalid,
+                                                 'has-feedback': (updated_card_form.cvc.$dirty ||
+                                                                 updated_card_form.$submitted) &&
+                                                                 updated_card_form.cvc.$invalid }">
                                     <label class="control-label" for="cvc"> CVC </label>
                                     <input class="form-control"
                                            name="cvc"
                                            type="text"
                                            placeholder="Verification Code"
-                                           ng-model="user.cvc"
+                                           ng-model="updated_card.cvc"
                                            required
                                            ng-minlength=3
                                            ng-maxlength=4>
                                     <span class="glyphicon glyphicon-remove form-control-feedback"
-                                          ng-if="(update_card_form.cvc.$dirty ||
-                                                 update_card_form.$submitted) &&
-                                                 update_card_form.cvc.$invalid">
+                                          ng-if="(updated_card_form.cvc.$dirty ||
+                                                 updated_card_form.$submitted) &&
+                                                 updated_card_form.cvc.$invalid">
                                     </span>
-                                    <div ng-messages="update_card_form.cvc.$error"
-                                         ng-if="(update_card_form.cvc.$dirty ||
-                                                update_card_form.$submitted) &&
-                                                update_card_form.cvc.$invalid">
+                                    <div ng-messages="updated_card_form.cvc.$error"
+                                         ng-if="(updated_card_form.cvc.$dirty ||
+                                                updated_card_form.$submitted) &&
+                                                updated_card_form.cvc.$invalid">
                                         <div ng-message="required" class="help-block">
                                             This field is required.
                                         </div>
@@ -392,8 +426,8 @@
                         </button>
                         <!-- Submit Button -->
                         <button id="update_card_button" type="submit" class="btn btn-primary"
-                                data-loading-text="Updating..."
-                                ng-click="update_card_form.$valid && updateCard()">
+                                data-loading-text="Processing..."
+                                ng-click="updated_card_form.$valid && updateCard()">
                             <b> Save Changes </b>
                         </button>
                     </div>
