@@ -19,7 +19,7 @@ API_ENTRY = '/api/subscriptions'
 
 
 @app.route(API_ENTRY, methods=['POST'])
-def subscribe_customer():
+def post_subscription():
     """
     Creates a subscription for the customer.
 
@@ -28,7 +28,7 @@ def subscribe_customer():
         username : 'username'
         password : 'password'
         plan     : 'subscription plan'
-        token_id : 'stripe token id'
+        token_id : 'stripe card token id'
     }
     """
     data = request.get_json(force=True)
@@ -67,37 +67,37 @@ def subscribe_customer():
         return make_response('Customer succesfully subscribed', 201)
 
     except stripe.error.CardError:
-        print('ERROR 404: Card declined')
+        print('ERROR: Card declined')
         return make_response('Card declined', 400)
 
     except stripe.error.RateLimitError:
-        print('ERROR 404: Too many requests made to Stripe')
+        print('ERROR: Too many requests made to Stripe')
         return make_response('Too many requests made to Stripe', 400)
 
     except stripe.error.InvalidRequestError:
-        print('ERROR 404: Invalid parameters were supplied to Stripe')
+        print('ERROR: Invalid parameters were supplied to Stripe')
         return make_response('Invalid parameters were supplied to Stripe', 400)
 
     except stripe.error.AuthenticationError:
-        print('ERROR 404: Authentication with Stripe failed')
+        print('ERROR: Authentication with Stripe failed')
         return make_response('Authentication with Stripe failed', 400)
 
     except stripe.error.APIConnectionError:
-        print('ERROR 404: Network communication with Stripe failed')
+        print('ERROR: Network communication with Stripe failed')
         return make_response('Network communication with Stripe failed', 400)
 
     except stripe.error.StripeError:
-        print('ERROR 404: Stripe Error')
+        print('ERROR: Stripe Error')
         return make_response('Stripe Error', 400)
 
     except Exception:
-        print('ERROR 404: Error')
+        print('ERROR: Error')
         return make_response('Error', 400)
 
 
 # Needs route security
 @app.route(API_ENTRY + '/<stripe_id>', methods=['GET'])
-def get_customer(stripe_id):
+def get_subscription(stripe_id):
     """
     Get customer data from Stripe.
     """
@@ -111,11 +111,58 @@ def get_customer(stripe_id):
 
 # Needs route security
 @app.route(API_ENTRY + '/<stripe_id>', methods=['PUT'])
-def update_customer(stripe_id):
+def put_subscription(stripe_id):
     """
     Update customer data in Stripe.
-    """
-    if customer is None:
-        return make_response('Could not retrieve customer', 400)
 
-    return make_response(jsonify(customer), 200)
+    PUT: {
+        stripe_id : 'stripe customer id'
+        token_id  : 'stripe card token id'
+    }
+    """
+    data = request.get_json(force=True)
+    stripe_id = data.get('stripe_id', None)
+    token_id  = data.get('token_id', None)
+    criterion = [stripe_id, token_id, len(data) == 2]
+
+    if not all(criterion):
+        print('ERROR 404: Bad request')
+        return make_response('Bad request', 400)
+
+    try:
+        customer = stripe.Customer.retrieve(stripe_id)
+
+        if customer is None:
+            return make_response('Could not retrieve customer', 400)
+
+        customer.source = token_id
+        customer.save()
+        return make_response(jsonify(customer), 200)
+
+    except stripe.error.CardError:
+        print('ERROR: Card declined')
+        return make_response('Card declined', 400)
+
+    except stripe.error.RateLimitError:
+        print('ERROR: Too many requests made to Stripe')
+        return make_response('Too many requests made to Stripe', 400)
+
+    except stripe.error.InvalidRequestError:
+        print('ERROR: Invalid parameters were supplied to Stripe')
+        return make_response('Invalid parameters were supplied to Stripe', 400)
+
+    except stripe.error.AuthenticationError:
+        print('ERROR: Authentication with Stripe failed')
+        return make_response('Authentication with Stripe failed', 400)
+
+    except stripe.error.APIConnectionError:
+        print('ERROR: Network communication with Stripe failed')
+        return make_response('Network communication with Stripe failed', 400)
+
+    except stripe.error.StripeError:
+        print('ERROR: Stripe Error')
+        return make_response('Stripe Error', 400)
+
+    except Exception:
+        print('ERROR 404: Error')
+        return make_response('Error', 400)
