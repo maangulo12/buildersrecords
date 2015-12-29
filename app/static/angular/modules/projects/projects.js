@@ -3,11 +3,22 @@ var app = angular.module('app.projects', []);
 app.config(function($stateProvider) {
     $stateProvider.state('projects', {
         url: '/projects',
+        resolve: {
+            UserObj: function(User, $q) {
+                return User.retrieve().then(responseHandler, errorHandler);
+                function responseHandler(response) {
+                    return response.data;
+                }
+                function errorHandler(response) {
+                    return $q.reject(response.data);
+                }
+            }
+        },
         views: {
             'nav': {
                 templateUrl: 'static/angular/components/navs/nav2.html',
-                controller: function($scope, store) {
-                    $scope.username = store.get('user').username;
+                controller: function($scope, UserObj) {
+                    $scope.username = UserObj.username;
                 }
             },
             'body': {
@@ -24,17 +35,6 @@ app.config(function($stateProvider) {
 app.controller('ProjectsController', function($scope, store, ProjectService, UploadService) {
     getProjects();
 
-    // CLICKED EVENTS function
-    $scope.clickedProject = function(project) {
-        var index = $scope.project_list.indexOf(project);
-        if (index !== -1) {
-            store.set('project', project);
-            return true;
-        }
-        return false;
-    }
-
-    // GET PROJECTS function
     function getProjects() {
         ProjectService.getProjects().then(function(response) {
             $scope.project_list = response.data.objects;
@@ -42,6 +42,15 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
             $scope.error_msg_get = true;
         });
     }
+
+    $scope.clickedProject = function(project) {
+        var index = $scope.project_list.indexOf(project);
+        if (index !== -1) {
+            store.set('project', project);
+            return true;
+        }
+        return false;
+    }    
 
     // ADD PROJECT functions
     $scope.showNewProjectModal = function() {
