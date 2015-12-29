@@ -15,50 +15,60 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('SignupController', function($scope, store, $state, SubscriptionService, MailService, AuthService) {
+app.controller('SignupController', function($scope, store, $state, Subscription, Mail, Auth, Utility) {
     init();
 
     function init() {
         store.remove('jwt');
-        $scope.signup = { plan: 'monthly' };
+        $scope.signup = {
+            plan: 'monthly'
+        };
     }
 
     $scope.signUp = function() {
-        var btn = $('#sign-up-btn').button('loading');
+        var btn = $('#signup_button').button('loading');
+        var val_card = Stripe.card.validateCardNumber($scope.signup.card_number);
+        var val_exp  = Stripe.card.validateExpiry($scope.signup.exp_month, $scope.signup.exp_year);
+        var val_cvc  = Stripe.card.validateExpiry($scope.signup.cvc);
 
-        // Remember to change to live key
-        Stripe.setPublishableKey('pk_test_KY3H8e295UxwoHrrqHBobKRC');
-        //var valid_card = Stripe.card.validateCardNumber($scope.signup.card_number);
-        //var valid_exp  = Stripe.card.validateExpiry($scope.signup.exp_month, $scope.signup.exp_year);
-        //var valid_cvc  = Stripe.card.validateExpiry($scope.signup.cvc);
-        Stripe.card.createToken({
-            number:    $scope.signup.card_number,
-            cvc:       $scope.signup.cvc,
-            exp_month: $scope.signup.exp_month,
-            exp_year:  $scope.signup.exp_year,
-            name:      $scope.signup.card_name
-        }, stripeResponseHandler);
-
+        if (val_card && val_exp && val_cvc) {
+            var data = {
+                number:    $scope.signup.card_number,
+                cvc:       $scope.signup.cvc,
+                exp_month: $scope.signup.exp_month,
+                exp_year:  $scope.signup.exp_year,
+                name:      $scope.signup.card_name
+            };
+            // Remember to change this to live key
+            Stripe.setPublishableKey('pk_test_KY3H8e295UxwoHrrqHBobKRC');
+            Stripe.card.createToken(data, stripeResponseHandler);
+        } else {
+            error();
+        }
         function stripeResponseHandler(status, response) {
             if (response.error) {
-                $scope.signup_form.$invalid = true;
-                btn.button('reset');
+                error();
             } else {
-                SubscriptionService.addSubscription($scope.signup, response.id)
-                .then(function(response) {
-                    MailService.sendRegistrationEmail($scope.signup);
-                    AuthService.authenticate($scope.signup.username, $scope.signup.password)
-                    .then(function(response) {
-                        AuthService.storeToken(response);
-                        $state.go('projects');
-                    }, function(error) {
-                        $state.go('login');
-                    });
-                }, function(error) {
-                    $scope.signup_form.$invalid = true;
-                    btn.button('reset');
-                });
+                Subscription.create($scope.signup, response.id).then(responseHandler1, errorHandler1);
             }
+        }
+        function responseHandler1(response) {
+            Mail.sendRegistrationEmail($scope.signup);
+            Auth.authenticate($scope.signup).then(responseHandle2, errorHandler2);
+        }
+        function errorHandler1(response) {
+            error();
+        }
+        function responseHandle2(response) {
+            Utility.storeToken(response);
+            $state.go('projects');
+        }
+        function errorHandler2(response) {
+            $state.go('login');
+        }
+        function error() {
+            $scope.signup_form.$invalid = true;
+            btn.button('reset');
         }
     }
 });
