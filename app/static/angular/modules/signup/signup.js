@@ -1,4 +1,4 @@
- var app = angular.module('app.signup', []);
+var app = angular.module('app.signup', []);
 
 app.config(function($stateProvider) {
     $stateProvider.state('signup', {
