@@ -29,7 +29,7 @@ app.controller('SignupController', function($scope, store, $state, Subscription,
         var btn = $('#signup_button').button('loading');
         var val_card = Stripe.card.validateCardNumber($scope.signup.card_number);
         var val_exp  = Stripe.card.validateExpiry($scope.signup.exp_month, $scope.signup.exp_year);
-        var val_cvc  = Stripe.card.validateExpiry($scope.signup.cvc);
+        var val_cvc  = Stripe.card.validateCVC($scope.signup.cvc);
 
         if (val_card && val_exp && val_cvc) {
             var data = {
