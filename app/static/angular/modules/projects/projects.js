@@ -50,7 +50,7 @@ app.controller('ProjectsController', function($scope, store, ProjectService, Upl
             return true;
         }
         return false;
-    }    
+    }
 
     // ADD PROJECT functions
     $scope.showNewProjectModal = function() {
