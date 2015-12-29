@@ -20,8 +20,7 @@ app.controller('LoginController', function($scope, store, $state, Auth, Utility)
 
     $scope.logIn = function() {
         var btn = $('#login_button').button('loading');
-        Auth.authenticate($scope.login.user, $scope.login.password)
-        .then(responseHandler, errorHandler);
+        Auth.authenticate($scope.login).then(responseHandler, errorHandler);
         function responseHandler(response) {
             Utility.storeToken(response);
             $state.go('projects');

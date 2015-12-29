@@ -22,25 +22,25 @@
                 </div>
                 <!-- Form -->
                 <form name="login_form" novalidate>
-                    <!-- User Field -->
+                    <!-- Username Field -->
                     <div class="form-group"
-                         ng-class="{ 'has-error': (login_form.user.$dirty ||
+                         ng-class="{ 'has-error': (login_form.username.$dirty ||
                                                   login_form.$submitted) &&
-                                                  login_form.user.$invalid,
-                                     'has-feedback': (login_form.user.$dirty ||
+                                                  login_form.username.$invalid,
+                                     'has-feedback': (login_form.username.$dirty ||
                                                      login_form.$submitted) &&
-                                                     login_form.user.$invalid }">
-                        <label class="control-label" for="user"> Username or Email Address </label>
+                                                     login_form.username.$invalid }">
+                        <label class="control-label" for="username"> Username or Email Address </label>
                         <input class="form-control"
-                               name="user"
+                               name="username"
                                type="text"
                                placeholder="Username or Email Address"
-                               ng-model="login.user"
+                               ng-model="login.username"
                                required>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
-                              ng-if="(login_form.user.$dirty ||
+                              ng-if="(login_form.username.$dirty ||
                                      login_form.$submitted) &&
-                                     login_form.user.$invalid">
+                                     login_form.username.$invalid">
                         </span>
                     </div>
                     <!-- Password Field -->
