@@ -59,7 +59,7 @@ app.controller('BillingController', function($scope, Subscription) {
         var btn = $('#update_card_button').button('loading');
         var val_card = Stripe.card.validateCardNumber($scope.updated_card.card_number);
         var val_exp  = Stripe.card.validateExpiry($scope.updated_card.exp_month, $scope.updated_card.exp_year);
-        var val_cvc  = Stripe.card.validateExpiry($scope.updated_card.cvc);
+        var val_cvc  = Stripe.card.validateCVC($scope.updated_card.cvc);
 
         if (val_card && val_exp && val_cvc) {
             var data = {
