@@ -4,20 +4,21 @@ app.config(function($stateProvider) {
     $stateProvider.state('account', {
         url: '/account',
         resolve: {
-            User: function(UserService, store) {
-                return UserService.getUser(store.get('user').id)
-                .then(function(response) {
+            UserObj: function(User, $q) {
+                return User.retrieve().then(responseHandler, errorHandler);
+                function responseHandler(response) {
                     return response.data;
-                }, function(error) {
-                    return 'error';
-                });
+                }
+                function errorHandler(response) {
+                    return $q.reject(response.data);
+                }
             }
         },
         views: {
             'nav': {
                 templateUrl: 'static/angular/components/navs/nav2.html',
-                controller: function($scope, User) {
-                    $scope.username = User.username;
+                controller: function($scope, UserObj) {
+                    $scope.username = UserObj.username;
                 }
             },
             'body': {
@@ -31,55 +32,57 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('AccountController', function($scope, User, UserService) {
+app.controller('AccountController', function($scope, User, UserObj) {
     init();
 
     function init() {
         $scope.user          = {};
-        $scope.user.email    = User.email;
-        $scope.user.username = User.username;
+        $scope.user.email    = UserObj.email;
+        $scope.user.username = UserObj.username;
     }
 
     $scope.updateEmail = function() {
-        $scope.update_email_success = false;
-        $scope.update_email_error = false;
-        var btn = $('#update_email_btn').button('loading');
-        UserService.updateEmail($scope.user.email)
-        .then(function(response) {
+        var btn = $('#update_email_button').button('loading');
+        User.updateEmail($scope.user.email).then(responseHandler, errorHandler);
+        function responseHandler(response) {
             $scope.update_email_success = true;
             btn.button('reset');
-        }, function(error) {
+        }
+        function errorHandler(response) {
             $scope.email_form.$invalid = true;
             $scope.update_email_error = true;
             btn.button('reset');
-        });
+        }
     }
 
     $scope.updateUsername = function() {
-        $scope.update_username_success = false;
-        $scope.update_username_error = false;
-        var btn = $('#update_username_btn').button('loading');
-        UserService.updateUsername($scope.user.username)
-        .then(function(response) {
+        var btn = $('#update_username_button').button('loading');
+        User.updateUsername($scope.user.username).then(responseHandler, errorHandler);
+        function responseHandler(response) {
             $scope.update_username_success = true;
             btn.button('reset');
-        }, function(error) {
+        }
+        function errorHandler(response) {
             $scope.username_form.$invalid = true;
             $scope.update_username_error = true;
             btn.button('reset');
-        });
+        }
     }
 
+    // Needs work
     $scope.updatePassword = function() {
         // Check if current password matches
         // Hash new password in the backend
         var btn = $('#update-password-btn').button('loading');
-        UserService.updatePassword($scope.user.new_password)
-        .then(function(response) {
+        User.updatePassword($scope.user.new_password).then(responseHandler, errorHandler);
+        function responseHandler(response) {
+            // $scope.update_password_success = true;
             btn.button('reset');
-        }, function(error) {
+        }
+        function errorHandler(response) {
             $scope.password_form.$invalid = true;
+            // $scope.update_password_error = true;
             btn.button('reset');
-        });
+        }
     }
 });

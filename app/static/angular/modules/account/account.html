@@ -45,6 +45,15 @@
                     </a>
                 </li>
             </ul>
+            <!-- Error Alert -->
+            <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                 ng-if="error_msg_get">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"> Error: </span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"> &times; </span>
+                </button> <b> Could not access your account information. Please refresh your page. </b>
+            </div>
             <!-- Header -->
             <div class="page-header">
                 <h3> Change Email Address </h3>
@@ -121,7 +130,7 @@
                     <!-- Update Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button id="update_email_btn" type="submit"
+                            <button id="update_email_button" type="submit"
                                     class="btn btn-primary"
                                     data-loading-text="Updating..."
                                     ng-click="email_form.$valid && updateEmail()"> <b> Save Changes </b>
@@ -210,7 +219,7 @@
                     <!-- Update Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button id="update_username_btn" type="submit"
+                            <button id="update_username_button" type="submit"
                                     class="btn btn-primary"
                                     data-loading-text="Updating..."
                                     ng-click="username_form.$valid && updateUsername()"> <b> Save Changes </b>
@@ -348,5 +357,3 @@
         </div>
     </div>
 </div>
-<!-- Line Breaks -->
-<br><br><br><br><br>
