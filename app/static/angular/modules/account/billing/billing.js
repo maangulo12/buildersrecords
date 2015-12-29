@@ -33,9 +33,9 @@ app.config(function($stateProvider) {
 });
 
 app.controller('BillingController', function($scope, Subscription) {
-    update();
+    getSubscription();
 
-    function update() {
+    function getSubscription() {
         Subscription.retrieve().then(responseHandler, errorHandler);
         function responseHandler(response) {
             $scope.user = {};
@@ -84,7 +84,7 @@ app.controller('BillingController', function($scope, Subscription) {
         }
         function responseHandler(response) {
             $('#update_card_modal').modal('hide');
-            update();
+            getSubscription();
         }
         function errorHandler(response) {
             error();
