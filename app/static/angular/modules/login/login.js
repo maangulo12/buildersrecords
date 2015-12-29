@@ -15,20 +15,22 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('LoginController', function($scope, store, $state, AuthService) {
+app.controller('LoginController', function($scope, store, $state, Auth, Utility) {
     store.remove('jwt');
 
     $scope.logIn = function() {
-        var btn = $('#log-in-btn').button('loading');
-        AuthService.authenticate($scope.login.user, $scope.login.password)
-        .then(function(response) {
-            AuthService.storeToken(response);
+        var btn = $('#login_button').button('loading');
+        Auth.authenticate($scope.login.user, $scope.login.password)
+        .then(responseHandler, errorHandler);
+        function responseHandler(response) {
+            Utility.storeToken(response);
             $state.go('projects');
-        }, function(error) {
+        }
+        function errorHandler(response) {
             $scope.login_form.$invalid = true;
             $scope.login_form.$submitted = true;
             $scope.login.password = '';
             btn.button('reset');
-        });
+        }
     }
 });
