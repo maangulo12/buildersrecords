@@ -2,12 +2,12 @@ var app = angular.module('app.directives', []);
 
 // DIRECTIVE: email-availability
 // Checks if an email already exists
-app.directive('emailAvailability', function($q, AuthService) {
+app.directive('emailAvailability', function($q, Auth) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.emailAvailability = function(email) {
-                return AuthService.checkEmail(email)
+                return Auth.checkEmail(email)
                 .then(function(response) {
                     ctrl.$setValidity('emailAvailability', true);
                 }, function(error) {
@@ -21,12 +21,12 @@ app.directive('emailAvailability', function($q, AuthService) {
 
 // DIRECTIVE: username-availability
 // Checks if an username is available
-app.directive('usernameAvailability', function($q, AuthService) {
+app.directive('usernameAvailability', function($q, Auth) {
     return {
         require: 'ngModel',
         link: function(scope, element, attrs, ctrl) {
             ctrl.$asyncValidators.usernameAvailability = function(username) {
-                return AuthService.checkUsername(username)
+                return Auth.checkUsername(username)
                 .then(function(response) {
                     ctrl.$setValidity('usernameAvailability', true);
                 }, function(error) {
