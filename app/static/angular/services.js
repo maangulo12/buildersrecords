@@ -4,30 +4,30 @@ function query(name, op, val) {
     return '?q={"filters":[{"name":"' + name + '","op":"' + op + '","val":"' + val + '"}]}';
 }
 
-// ******************** ACCESSING MODELS API ********************
-// Functions for /api/users
-app.service('UserService', function($http, store) {
-    // API: Users entry point
-    var api_entry = '/api/users';
-    // GET User
-    this.getUser = function() {
-        return $http.get(api_entry + '/' + store.get('user').id);
+/*
+    Functions for User service:
+*/
+app.service('User', function($http, store) {
+    var url_prefix = '/api/users';
+    // GET /api/users/<id>
+    this.retrieve = function() {
+        return $http.get(url_prefix + '/' + store.get('user').id);
     }
-    // PUT User email
+    // PUT User email /api/users/<id>
     this.updateEmail = function(email) {
-        return $http.put(api_entry + '/' + store.get('user').id, {
+        return $http.put(url_prefix + '/' + store.get('user').id, {
             email: email
         });
     }
-    // PUT User username
+    // PUT User username /api/users/<id>
     this.updateUsername = function(username) {
-        return $http.put(api_entry + '/' + store.get('user').id, {
+        return $http.put(url_prefix + '/' + store.get('user').id, {
             username: username
         });
     }
-    // PUT User password
+    // PUT User password /api/users/<id>
     this.updatePassword = function(password) {
-        return $http.put(api_entry + '/' + store.get('user').id, {
+        return $http.put(url_prefix + '/' + store.get('user').id, {
             password: password
         });
     }
@@ -288,48 +288,47 @@ app.service('SubcontractorService', function($http, store) {
 });
 // ******************** END ********************
 
-// Functions for /api/auth
-app.service('AuthService', function($http, store, jwtHelper) {
-    // API: Auth entry point
-    var api_entry = '/api/auth';
-    // POST Email Validation
+/*
+    Functions for Auth service:
+    -POST /api/auth/<email>    (checks if email already exists)
+    -POST /api/auth/<username> (checks if username already exists)
+    -POST /api/auth            (authenticates user)
+*/
+app.service('Auth', function($http) {
+    var url_prefix = '/api/auth';
+    // POST /api/auth/<email> (checks if email already exists)
     this.checkEmail = function(email) {
-        return $http.post(api_entry + '/email', {
+        var data = {
             email: email
-        });
+        };
+        return $http.post(url_prefix + '/email', data);
     }
-    // POST Username Validation
+    // POST /api/auth/<username> (checks if username already exists)
     this.checkUsername = function(username) {
-        return $http.post(api_entry + '/username', {
+        var data = {
             username: username
-        });
+        };
+        return $http.post(url_prefix + '/username', data);
     }
-    // AUTH User
-    this.authenticate = function(login, password) {
-        return $http.post(api_entry, {
-            login:    login,
-            password: password
-        });
-    }
-    // STORE Token
-    this.storeToken = function(response) {
-        store.set('jwt', response.data.token);
-        var tokenPayload = jwtHelper.decodeToken(response.data.token);
-        var user = {
-            id:           tokenPayload.user_id,
-            stripe_id:    tokenPayload.stripe_id
-        }
-        store.set('user', user);
+    // POST /api/auth (authenticates user)
+    this.authenticate = function(form) {
+        var data = {
+            login:    form.username,
+            password: form.password
+        };
+        return $http.post(url_prefix, data);
     }
 });
 
-// Functions for /api/email
-app.service('MailService', function($http) {
-    // API: Email entry point
-    var api_entry = '/api/email';
-    // SEND EMAIL Registration
+/*
+    Functions for Mail service:
+    -POST /api/email/registration (sends registration email)
+*/
+app.service('Mail', function($http) {
+    var url_prefix = '/api/email';
+    // POST /api/email/registration (sends registration email)
     this.sendRegistrationEmail = function(form) {
-        return $http.post(api_entry + '/registration', {
+        return $http.post(url_prefix + '/registration', {
             email:    form.email,
             username: form.username
         });
@@ -349,22 +348,54 @@ app.service('UploadService', function($http) {
     }
 });
 
-// Functions for /api/subscriptions
-app.service('SubscriptionService', function($http, store) {
-    // API: Subscription entry point
-    var api_entry = '/api/subscriptions';
-    // GET Subscription
-    this.getSubscription = function() {
-        return $http.get(api_entry + '/' + store.get('user').stripe_id);
+/*
+    Functions for /api/subscriptions
+    -GET  /api/subscriptions/<id> (retrieves a subscription)
+    -POST /api/subscriptions      (creates a subscription)
+    -PUT  /api/subscriptions/<id> (updates a subscription)
+*/
+app.service('Subscription', function($http, store) {
+    var url_prefix = '/api/subscriptions';
+    // GET /api/subscriptions/<id> (retrieves a subscription)
+    this.retrieve = function() {
+        return $http.get(url_prefix + '/' + store.get('user').stripe_id);
     }
-    // POST Subscription
-    this.addSubscription = function(form, token_id) {
-        return $http.post(api_entry, {
+    // POST /api/subscriptions (creates a subscription)
+    this.create = function(form, token_id) {
+        var data = {
             email:    form.email,
             username: form.username,
             password: form.password,
             plan:     form.plan,
-            token_id: token_id,
-        });
+            token_id: token_id
+        };
+        return $http.post(url_prefix, data);
+    }
+    // PUT /api/subscriptions/<id> (updates a subscription)
+    this.update = function(token_id) {
+        var data = {
+            stripe_id: store.get('user').stripe_id,
+            token_id:  token_id
+        };
+        return $http.put(url_prefix + '/' + store.get('user').stripe_id, data);
+    }
+});
+
+// *************************** UTILITY ***************************
+
+/*
+    Functions for Utility service:
+    -storeToken(response) (stores a jwt and current user)
+*/
+app.service('Utility', function(store, jwtHelper) {
+    // Stores token
+    this.storeToken = function(response) {
+        store.set('jwt', response.data.token);
+        var tokenPayload = jwtHelper.decodeToken(response.data.token);
+        var user = {
+            id:           tokenPayload.user_id,
+            stripe_id:    tokenPayload.stripe_id
+        }
+        store.set('user', user);
     }
 });
