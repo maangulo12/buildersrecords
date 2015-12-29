@@ -10,10 +10,13 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
+    ** fix(account): update password
+
+    ** chore(home page): update the page, show stats
+
     ** Close account
     ** Update card details
     ** Change subscription
-    ** Change password
     ** Nested states and views
 
     ** Finish Billing Page
