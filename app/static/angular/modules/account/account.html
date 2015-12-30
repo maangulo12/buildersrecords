@@ -15,10 +15,10 @@
                     <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
                     <b> Projects </b>
                 </a>
-                <!-- Manage Account -->
+                <!-- Account Settings -->
                 <a ui-sref="account" class="list-group-item active">
                     <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
-                    <b> Manage Account </b>
+                    <b> Account Settings </b>
                 </a>
                 <!-- Send Feedback -->
                 <a ui-sref="feedback" class="list-group-item">
@@ -31,7 +31,7 @@
         <div class="col-md-9">
             <!-- Page Header -->
             <div class="page-header">
-                <h1> Manage Account </h1>
+                <h1> Account Settings </h1>
             </div>
             <!-- Tabs -->
             <ul class="nav nav-tabs">
@@ -61,60 +61,60 @@
             </div>
             <!-- Header -->
             <div class="page-header">
-                <h3> Change Email Address </h3>
+                <h3> Account Information </h3>
                 <!-- Horizontal Rule -->
                 <hr>
             </div>
             <!-- Well -->
             <div class="well">
-                <!-- Alert - Error -->
-                <div id="update_email_error_alert" class="alert alert-danger alert-dismissible text-center"
-                     role="alert" ng-if="update_email_error">
+                <!-- Error Alert -->
+                <div class="alert alert-danger alert-dismissible text-center" role="alert"
+                     ng-if="update_account_error">
                     <span class="glyphicon glyphicon-exclamation-sign glyphicon-padding" aria-hidden="true"></span>
                     <span class="sr-only"> Error: </span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
-                    </button> <b> Could not update your email address. </b>
+                    </button> <b> Could not update your account information. </b>
                 </div>
-                <!-- Alert - Success -->
-                <div id="update_email_success_alert" class="alert alert-success alert-dismissible text-center"
-                     role="alert" ng-if="update_email_success">
+                <!-- Success Alert -->
+                <div class="alert alert-success alert-dismissible text-center" role="alert"
+                     ng-if="update_account_success">
                     <span class="glyphicon glyphicon-ok glyphicon-padding" aria-hidden="true"></span>
                     <span class="sr-only"> Error: </span>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true"> &times; </span>
-                    </button> <b> Successfully updated your email address. </b>
+                    </button> <b> Successfully updated your account information. </b>
                 </div>
                 <!-- Form - Email -->
-                <form class="form-horizontal" name="email_form" novalidate>
+                <form class="form-horizontal" name="account_form" novalidate>
                     <!-- Email Field -->
                     <div class="form-group"
-                         ng-class="{ 'has-error': (email_form.email.$dirty ||
-                                                  email_form.$submitted) &&
-                                                  email_form.email.$invalid,
-                                     'has-feedback': (email_form.email.$dirty ||
-                                                     email_form.$submitted) &&
-                                                     email_form.email.$invalid }">
+                         ng-class="{ 'has-error': (account_form.email.$dirty ||
+                                                  account_form.$submitted) &&
+                                                  account_form.email.$invalid,
+                                     'has-feedback': (account_form.email.$dirty ||
+                                                     account_form.$submitted) &&
+                                                     account_form.email.$invalid }">
                         <label class="col-sm-3 control-label" for="email"> Email Address </label>
                         <div class="col-sm-9">
                             <input class="form-control"
                                    name="email"
                                    type="email"
                                    placeholder="Email Address"
-                                   ng-model="user.email"
+                                   ng-model="account.email"
                                    required
                                    ng-maxlength=50
                                    ng-model-options="{ debounce: 500 }"
                                    email-availability>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="(email_form.email.$dirty ||
-                                         email_form.$submitted) &&
-                                         email_form.email.$invalid">
+                                  ng-if="(account_form.email.$dirty ||
+                                         account_form.$submitted) &&
+                                         account_form.email.$invalid">
                             </span>
-                            <div ng-messages="email_form.email.$error"
-                                 ng-if="(email_form.email.$dirty ||
-                                        email_form.$submitted) &&
-                                        email_form.email.$invalid">
+                            <div ng-messages="account_form.email.$error"
+                                 ng-if="(account_form.email.$dirty ||
+                                        account_form.$submitted) &&
+                                        account_form.email.$invalid">
                                 <div ng-message="required" class="help-block">
                                     This field is required.
                                 </div>
@@ -125,82 +125,42 @@
                                     This email address is already registered.
                                 </div>
                             </div>
-                            <div ng-if="email_form.email.$pending">
+                            <div ng-if="account_form.email.$pending">
                                 <span class="help-block">
                                     Checking Email...
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <!-- Update Button -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <button id="update_email_button" type="submit"
-                                    class="btn btn-primary"
-                                    data-loading-text="Updating..."
-                                    ng-click="email_form.$valid && updateEmail()"> <b> Save Changes </b>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <!-- Header -->
-            <div class="page-header">
-                <h3> Change Username </h3>
-                <!-- Horizontal Rule -->
-                <hr>
-            </div>
-            <!-- Well -->
-            <div class="well">
-                <!-- Alert - Error -->
-                <div id="update_username_error_alert" class="alert alert-danger alert-dismissible text-center"
-                     role="alert" ng-if="update_username_error">
-                    <span class="glyphicon glyphicon-exclamation-sign glyphicon-padding" aria-hidden="true"></span>
-                    <span class="sr-only"> Error: </span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"> &times; </span>
-                    </button> <b> Could not update your username. </b>
-                </div>
-                <!-- Alert - Success -->
-                <div id="update_username_success_alert" class="alert alert-success alert-dismissible text-center"
-                     role="alert" ng-if="update_username_success">
-                    <span class="glyphicon glyphicon-ok glyphicon-padding" aria-hidden="true"></span>
-                    <span class="sr-only"> Error: </span>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true"> &times; </span>
-                    </button> <b> Successfully updated your username. </b>
-                </div>
-                <!-- Form - Username -->
-                <form class="form-horizontal" name="username_form" novalidate>
                     <!-- Username Field -->
                     <div class="form-group"
-                         ng-class="{ 'has-error': (username_form.username.$dirty ||
-                                                  username_form.$submitted) &&
-                                                  username_form.username.$invalid,
-                                     'has-feedback': (username_form.username.$dirty ||
-                                                     username_form.$submitted) &&
-                                                     username_form.username.$invalid }">
+                         ng-class="{ 'has-error': (account_form.username.$dirty ||
+                                                  account_form.$submitted) &&
+                                                  account_form.username.$invalid,
+                                     'has-feedback': (account_form.username.$dirty ||
+                                                     account_form.$submitted) &&
+                                                     account_form.username.$invalid }">
                         <label class="col-sm-3 control-label" for="username"> Username </label>
                         <div class="col-sm-9">
                             <input class="form-control"
                                    name="username"
                                    type="text"
                                    placeholder="Username"
-                                   ng-model="user.username"
+                                   ng-model="account.username"
                                    required
                                    ng-minlength=4
                                    ng-maxlength=30
                                    ng-model-options="{ debounce: 500 }"
                                    username-availability>
                             <span class="glyphicon glyphicon-remove form-control-feedback"
-                                  ng-if="(username_form.username.$dirty ||
-                                         username_form.$submitted) &&
-                                         username_form.username.$invalid">
+                                  ng-if="(account_form.username.$dirty ||
+                                         account_form.$submitted) &&
+                                         account_form.username.$invalid">
                             </span>
-                            <div ng-messages="username_form.username.$error"
-                                 ng-if="(username_form.username.$dirty ||
-                                        username_form.$submitted) &&
-                                        username_form.username.$invalid">
+                            <div ng-messages="account_form.username.$error"
+                                 ng-if="(account_form.username.$dirty ||
+                                        account_form.$submitted) &&
+                                        account_form.username.$invalid">
                                 <div ng-message="required" class="help-block">
                                     This field is required.
                                 </div>
@@ -214,7 +174,7 @@
                                     This username is not available.
                                 </div>
                             </div>
-                            <div ng-if="username_form.username.$pending">
+                            <div ng-if="account_form.username.$pending">
                                 <span class="help-block">
                                     Checking Username...
                                 </span>
@@ -224,10 +184,10 @@
                     <!-- Update Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button id="update_username_button" type="submit"
+                            <button id="update_account_button" type="submit"
                                     class="btn btn-primary"
                                     data-loading-text="Updating..."
-                                    ng-click="username_form.$valid && updateUsername()"> <b> Save Changes </b>
+                                    ng-click="account_form.$valid && updateAccount()"> <b> Save Changes </b>
                             </button>
                         </div>
                     </div>
@@ -235,7 +195,7 @@
             </div>
             <!-- Header -->
             <div class="page-header">
-                <h3> Change Password </h3>
+                <h3> Change your password </h3>
                 <!-- Horizontal Rule -->
                 <hr>
             </div>
@@ -362,3 +322,5 @@
         </div>
     </div>
 </div>
+<!-- Line Breaks -->
+<br><br><br><br><br>

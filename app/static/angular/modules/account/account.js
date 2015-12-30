@@ -36,35 +36,21 @@ app.controller('AccountController', function($scope, User, UserObj) {
     init();
 
     function init() {
-        $scope.user          = {};
-        $scope.user.email    = UserObj.email;
-        $scope.user.username = UserObj.username;
+        $scope.account          = {};
+        $scope.account.email    = UserObj.email;
+        $scope.account.username = UserObj.username;
     }
 
-    $scope.updateEmail = function() {
-        var btn = $('#update_email_button').button('loading');
-        User.updateEmail($scope.user.email).then(responseHandler, errorHandler);
+    $scope.updateAccount = function() {
+        var btn = $('#update_account_button').button('loading');
+        User.update($scope.account).then(responseHandler, errorHandler);
         function responseHandler(response) {
-            $scope.update_email_success = true;
+            $scope.update_account_success = true;
             btn.button('reset');
         }
         function errorHandler(response) {
-            $scope.email_form.$invalid = true;
-            $scope.update_email_error = true;
-            btn.button('reset');
-        }
-    }
-
-    $scope.updateUsername = function() {
-        var btn = $('#update_username_button').button('loading');
-        User.updateUsername($scope.user.username).then(responseHandler, errorHandler);
-        function responseHandler(response) {
-            $scope.update_username_success = true;
-            btn.button('reset');
-        }
-        function errorHandler(response) {
-            $scope.username_form.$invalid = true;
-            $scope.update_username_error = true;
+            $scope.account_form.$invalid = true;
+            $scope.update_account_error = true;
             btn.button('reset');
         }
     }
