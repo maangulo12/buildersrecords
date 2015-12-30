@@ -15,10 +15,10 @@
                     <span class="glyphicon glyphicon-folder-open glyphicon-padding" aria-hidden="true"></span>
                     <b> Projects </b>
                 </a>
-                <!-- Manage Account -->
+                <!-- Account Settings -->
                 <a ui-sref="account" class="list-group-item active">
                     <span class="glyphicon glyphicon-cog glyphicon-padding" aria-hidden="true"></span>
-                    <b> Manage Account </b>
+                    <b> Account Settings </b>
                 </a>
                 <!-- Send Feedback -->
                 <a ui-sref="feedback" class="list-group-item">
@@ -31,7 +31,7 @@
         <div class="col-md-9">
             <!-- Page Header -->
             <div class="page-header">
-                <h1> Manage Account </h1>
+                <h1> Account Settings </h1>
             </div>
             <!-- Tabs -->
             <ul class="nav nav-tabs">
@@ -61,7 +61,7 @@
             </div>
             <!-- Header -->
             <div class="page-header">
-                <h3> Payment Details </h3>
+                <h3> Billing Information  </h3>
                 <!-- Horizontal Rule -->
                 <hr>
             </div>
@@ -138,10 +138,27 @@
                         </div>
                     </div>
                 </form>
+                <!-- Form -->
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            <label class="text-danger"> Cancel Subscription </label>
+                        </div>
+                        <!-- Cancel Button -->
+                        <div class="col-sm-9">
+                            <div class="help-block">
+                                The subscription will remain active until the end of the period,
+                                at which point it will be canceled and not renewed.
+                                This will end future billings.
+                            </div>
+                            <button type="submit" class="btn btn-danger"> <b> Cancel Subscription </b> </button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!-- Header -->
             <div class="page-header">
-                <h3> Payment History </h3>
+                <h3> Previous Invoices </h3>
                 <!-- Horizontal Rule -->
                 <hr>
             </div>
@@ -153,31 +170,6 @@
                         <label class="col-sm-3 control-label" for="receipts"> Receipts go receipts </label>
                     </div>
                 </form>
-            </div>
-            <!-- Header -->
-            <div class="page-header">
-                <h3> Cancel Subscription </h3>
-                <!-- Horizontal Rule -->
-                <hr>
-            </div>
-            <!-- Well -->
-            <div class="well">
-                <!-- Form -->
-                <div class="form-horizontal">
-                    <div class="form-group">
-                        <div class="col-sm-3 control-label">
-                            <label class="text-danger"> Cancel Subscription </label>
-                            <div class="help-block">
-                                The subscription will remain active until the end of the period,
-                                at which point it will be canceled and not renewed.
-                            </div>
-                        </div>
-                        <!-- Cancel Button -->
-                        <div class="col-sm-9">
-                            <button type="submit" class="btn btn-danger"> <b> Cancel Subscription </b> </button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -395,7 +387,7 @@
                                     <input class="form-control"
                                            name="cvc"
                                            type="text"
-                                           placeholder="Verification Code"
+                                           placeholder="Security Code"
                                            ng-model="updated_card.cvc"
                                            required
                                            ng-minlength=3
