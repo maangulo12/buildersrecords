@@ -61,7 +61,7 @@ app.controller('SignupController', function($scope, store, $state, Subscription,
         }
         function responseHandle2(response) {
             Utility.storeToken(response);
-            $state.go('projects');
+            $state.go('tutorial');
         }
         function errorHandler2(response) {
             $state.go('login');
