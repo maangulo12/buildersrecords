@@ -35,7 +35,7 @@ app.directive('usernameAvailability', function($q, Auth) {
                 }
                 function errorHandler(response) {
                     ctrl.$setValidity('usernameAvailability', false);
-                    return $q.reject(error);
+                    return $q.reject(response);
                 }
             }
         }
