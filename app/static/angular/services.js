@@ -13,16 +13,11 @@ app.service('User', function($http, store) {
     this.retrieve = function() {
         return $http.get(url_prefix + '/' + store.get('user').id);
     }
-    // PUT User email /api/users/<id>
-    this.updateEmail = function(email) {
+    // PUT /api/users/<id>
+    this.update = function(form) {
         return $http.put(url_prefix + '/' + store.get('user').id, {
-            email: email
-        });
-    }
-    // PUT User username /api/users/<id>
-    this.updateUsername = function(username) {
-        return $http.put(url_prefix + '/' + store.get('user').id, {
-            username: username
+            email:    form.email,
+            username: form.username
         });
     }
     // PUT User password /api/users/<id>
