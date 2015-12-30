@@ -10,6 +10,7 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
+    ** fix(account): update account
     ** fix(account): update password
 
     ** chore(home page): update the page, show stats
@@ -21,6 +22,8 @@ Web app for accounting construction projects.
 
     ** Finish Billing Page
     ** Create a popup after signing up
+
+    ** Get started videos
 
     ** Restrict Access (active_until field & webhooks)
     ** Expired Account Page
