@@ -5,7 +5,7 @@ Vagrantfile
 Vagrant is a tool that creates and configures virtual
 development environments. It is a higher-level wrapper around
 virtualization software such as VirtualBox and VMware, and around
-configuration management software such as Ansible, Chef and Puppet.
+configuration management software such as Ansible, Chef, and Puppet.
 
 For more info about Vagrant visit:
 https://www.vagrantup.com/
@@ -15,11 +15,11 @@ https://www.virtualbox.org/wiki/Downloads
 
 DOC
 
-# This is the name of this VM
+# This is the name of this virtual machine (VM)
 $environ = 'buildersrecords'
 
 Vagrant.configure(2) do |config|
-    # Download Ubuntu for this virtual machine (VM)
+    # Download Ubuntu for this VM
     config.vm.box = 'ubuntu/trusty64'
     # Set the hostname of this VM to 'buildersrecords'
     config.vm.hostname = $environ
@@ -30,10 +30,10 @@ Vagrant.configure(2) do |config|
     # Run this shell script
     config.vm.provision :shell, inline: $shell
     # Open 5432 port of this VM to communicate with 5432 port of my local PC
-    # 5432 port = PostgreSQL port
+    # PostgreSQL (database) port
     config.vm.network :forwarded_port, guest: 5432, host: 5432
     # Open 5555 port of this VM to communicate with 5555 port of my local PC
-    # 5555 port = Flask port
+    # Flask (application) port
     config.vm.network :forwarded_port, guest: 5555, host: 5555
 end
 
