@@ -10,7 +10,7 @@ Web app for accounting construction projects.
 
 + Priorities:
 ```
-    ** fix(account): update account
+    ** fix(account): update account information
     ** fix(account): update password
 
     ** chore(home page): update the page, show stats
