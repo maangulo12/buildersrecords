@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     sample_data.py
     --------------
 
-    This module is used for adding sample data to the database.
-
-    -How to use it (type the following in the command-line):
-        python3 manage.py populate
+    This module is used for populating the database with sample data.
 """
 
 import random
 import stripe
 from flask import json
 
+from app import create_app
 from app.utility import parse_ubuildit_file, parse_invoice_file
 
 
 FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
 
-def populate_db(app):
+def populate_db():
+    app = create_app()
     app.testing = True
     client = app.test_client()
 
@@ -41,6 +39,7 @@ def populate_db(app):
     #     id='yearly'
     # )
 
+    #
     token = stripe.Token.create(
         card=dict(
             number=4242424242424242,

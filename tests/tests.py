@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     tests.py
     ---------------
@@ -15,13 +14,14 @@ import stripe
 import unittest
 from flask import current_app, json
 
-from app import app, db
+from app import create_app, db
 
 
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         print('Setting up...')
+        app = create_app()
         app.testing = True
         self.app = app
         self.app_context = self.app.app_context()
