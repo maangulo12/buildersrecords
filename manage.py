@@ -1,18 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     manage.py
     ---------------
 
-    This module is used for performing quick commands in this application.
+    This module is used for doing quick commands in this application.
+
+    Extensions:
+        -Flask-Script : http://flask-script.readthedocs.org/en/latest/
 
     -Commands:
         create    : Creates all of the tables in the database.
         drop      : Drops all of the tables from the database.
         populate  : Populates the database with sample data.
         recreate  : Drops, recreates, and populates the tables in the database.
-        runserver : Runs this Flask application.
         runtests  : Runs tests to this application using nose.
         db        : Performs database migrations.
         shell     : Runs a Python shell using IPython.
@@ -26,16 +27,18 @@
 """
 
 import os
-from flask import current_app
-from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
+from flask.ext.migrate import MigrateCommand
 
-from app import app, db
+from app import create_app, db
 from tests.sample_data import populate_db
 
 
-migrate = Migrate(app, db)
+# Create the application
+app = create_app()
+# Create the Manager object
 manager = Manager(app)
+# Add db command for database migrations
 manager.add_command('db', MigrateCommand)
 
 
@@ -66,14 +69,6 @@ def recreate():
     drop()
     create()
     populate()
-
-
-@manager.command
-def runserver():
-    "Runs this Flask application."
-    app.run(host=current_app.config['SERVER_HOST'],
-            port=current_app.config['SERVER_PORT'],
-            debug=current_app.config['SERVER_DEBUG'])
 
 
 @manager.command
