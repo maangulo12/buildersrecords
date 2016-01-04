@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    tests.py
-    ---------------
+    tests
+    ~~~~~~~~~
 
     This module is used for testing the backend of this application.
 
@@ -21,9 +21,7 @@ class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         print('Setting up...')
-        app = create_app()
-        app.testing = True
-        self.app = app
+        self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()
         self.client = self.app.test_client()
@@ -76,7 +74,7 @@ class AppTestCase(unittest.TestCase):
                 name='RUNTESTS'
             )
         )
-        print('Token ID:' + token.id)
+        print('Token ID: ' + token.id)
 
         print('POST /api/subscriptions')
         response = self.client.post(
@@ -98,7 +96,7 @@ class AppTestCase(unittest.TestCase):
             data=json.dumps(dict(email='runtests@gmail.com'))
         )
         print(response.status_code)
-        self.assertTrue(response.status_code == 400)
+        self.assertTrue(response.status_code == 302)
 
         print('POST /api/auth/username (test 2)')
         response = self.client.post(
@@ -106,7 +104,7 @@ class AppTestCase(unittest.TestCase):
             data=json.dumps(dict(username='runtests'))
         )
         print(response.status_code)
-        self.assertTrue(response.status_code == 400)
+        self.assertTrue(response.status_code == 302)
 
         # NEED MORE subscriptions tests
 
