@@ -59,7 +59,7 @@ def drop():
 @manager.command
 def populate():
     "Populates the database with sample data."
-    populate_db(app)
+    populate_db()
     print('Populated the database with sample data.')
 
 
