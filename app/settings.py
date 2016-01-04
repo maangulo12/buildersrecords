@@ -25,7 +25,8 @@ AWS_SECRET_KEY = os.environ.get('AWS_SECRET_KEY', None)
 S3_BUCKET      = os.environ.get('S3_BUCKET', None)
 
 # Stripe
-STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY', 'sk_test_N625XoY2OXkrQzpDiRg7tt1g')
+STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY',
+    'sk_test_N625XoY2OXkrQzpDiRg7tt1g')
 
 # Uploads
 UPLOAD_PATH = os.environ.get('UPLOAD_PATH', '/uploads')
@@ -44,19 +45,6 @@ MAIL_USERNAME       = os.environ.get('MAIL_USERNAME', 'email@gmail.com')
 MAIL_PASSWORD       = os.environ.get('MAIL_PASSWORD' 'password')
 MAIL_DEFAULT_SENDER = ('BuildersRecords', MAIL_USERNAME)
 
-# Local DB
-DB_ENGINE   = 'postgresql'
-DB_USERNAME = 'postgres'
-DB_PASSWORD = 'password'
-DB_SERVER   = 'localhost'
-DB_PORT     = '5432'
-DB_NAME     = 'app_db'
-
-# Production DB
+# Database
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL',
-                                         DB_ENGINE + '://' +
-                                         DB_USERNAME + ':' +
-                                         DB_PASSWORD + '@' +
-                                         DB_SERVER + ':' +
-                                         DB_PORT + '/' +
-                                         DB_NAME)
+    'postgresql://postgres:password@localhost:5432/app_db')
