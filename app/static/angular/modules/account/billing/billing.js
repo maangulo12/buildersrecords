@@ -67,7 +67,7 @@ app.controller('BillingController', function($scope, Subscription) {
                 cvc:       $scope.updated_card.cvc,
                 exp_month: $scope.updated_card.exp_month,
                 exp_year:  $scope.updated_card.exp_year,
-                name:      $scope.updated_card.card_name
+                name:      $scope.updated_card.card_name.toUpperCase()
             };
             // Remember to change this to live key
             Stripe.setPublishableKey('pk_test_KY3H8e295UxwoHrrqHBobKRC');
