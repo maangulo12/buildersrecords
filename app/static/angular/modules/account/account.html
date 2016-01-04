@@ -51,13 +51,17 @@
                 </li>
             </ul>
             <!-- Error Alert -->
-            <div class="alert alert-danger alert-dismissible text-center" role="alert"
-                 ng-if="error_msg_get">
-                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                <span class="sr-only"> Error: </span>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true"> &times; </span>
-                </button> <b> Could not access your account information. Please refresh your page. </b>
+            <div ng-if="error_msg_get">
+                <!-- Line Break -->
+                <br>
+                <!-- Alert -->
+                <div class="alert alert-danger alert-dismissible text-center" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign glyphicon-padding" aria-hidden="true"></span>
+                    <span class="sr-only"> Error: </span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true"> &times; </span>
+                    </button> <b> Could not access your account information. Please refresh your page. </b>
+                </div>
             </div>
             <!-- Header -->
             <div class="page-header">
@@ -85,7 +89,7 @@
                         <span aria-hidden="true"> &times; </span>
                     </button> <b> Successfully updated your account information. </b>
                 </div>
-                <!-- Form - Email -->
+                <!-- Form -->
                 <form class="form-horizontal" name="account_form" novalidate>
                     <!-- Email Field -->
                     <div class="form-group"

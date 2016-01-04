@@ -42,6 +42,7 @@ app.controller('AccountController', function($scope, User, UserObj) {
     }
 
     $scope.updateAccount = function() {
+        // Change email has to change stripe
         var btn = $('#update_account_button').button('loading');
         User.update($scope.account).then(responseHandler, errorHandler);
         function responseHandler(response) {
