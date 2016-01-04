@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.models
     ~~~~~~~~~~~~~~~~~~
 
-    This module implements all of the database models of this application.
+    This module implements the database models of this application.
 
     Current Models     Table Name
         -User          : users
