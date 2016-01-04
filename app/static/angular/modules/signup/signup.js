@@ -37,7 +37,7 @@ app.controller('SignupController', function($scope, store, $state, Subscription,
                 cvc:       $scope.signup.cvc,
                 exp_month: $scope.signup.exp_month,
                 exp_year:  $scope.signup.exp_year,
-                name:      $scope.signup.card_name
+                name:      $scope.signup.card_name.toUpperCase()
             };
             // Remember to change this to live key
             Stripe.setPublishableKey('pk_test_KY3H8e295UxwoHrrqHBobKRC');
