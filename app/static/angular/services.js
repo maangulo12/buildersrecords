@@ -320,8 +320,8 @@ app.service('Auth', function($http) {
     -POST /api/email/registration (sends registration email)
 */
 app.service('Mail', function($http) {
-    var url_prefix = '/api/email';
-    // POST /api/email/registration (sends registration email)
+    var url_prefix = '/api/mail';
+    // POST /api/mail/registration (sends registration email)
     this.sendRegistrationEmail = function(form) {
         return $http.post(url_prefix + '/registration', {
             email:    form.email,
