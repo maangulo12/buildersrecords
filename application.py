@@ -12,7 +12,7 @@
 """
 
 from app import create_app
-from app.settings import SERVER_HOST
+from app.settings import SERVER_HOST, SERVER_PORT
 
 
 def run_app():
@@ -22,7 +22,7 @@ def run_app():
     # Create the application
     app = create_app()
     # Run the application
-    app.run(host=SERVER_HOST)
+    app.run(host=SERVER_HOST, port=SERVER_PORT)
 
 
 if __name__ == '__main__':
