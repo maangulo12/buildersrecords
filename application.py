@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     BuildersRecords
-    --------------------
+    ~~~~~~~~~~~~~~~
     :copyright: (c) 2016
 
     Run this module to deploy the application.
