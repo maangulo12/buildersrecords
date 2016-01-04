@@ -1,27 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.api_email
-    ~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~~
 
     This module is used for sending emails to users.
 
     Current APIs:
-        -registration : /api/email/registration (POST)
+        -registration : /api/mail/registration (POST)
 """
 
-from flask import make_response, render_template, request
+from flask import Blueprint, make_response, render_template, request
 from flask_mail import Message
 
-from app import app, email
+from app import mail
 
 
-API_ENTRY = '/api/email'
+bp = Blueprint('mail', __name__, url_prefix='/api')
 
 
 # Needs route security
-@app.route(API_ENTRY + '/registration', methods=['POST'])
+@bp.route('/mail/registration', methods=['POST'])
 def registration():
     """
     Sends registration email to user.
@@ -43,5 +42,5 @@ def registration():
 
     msg      = Message("Thank you from BuildersRecords", recipients=[email])
     msg.html = render_template('email/registration.html', username=username)
-    # email.send(msg)
+    # mail.send(msg)
     return make_response('Success! Registration email was sent', 201)

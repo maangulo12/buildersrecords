@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.api_auth
     ~~~~~~~~~~~~
@@ -14,17 +13,16 @@
 """
 
 import jwt
-from flask import request, jsonify, make_response, current_app, json
+from flask import Blueprint, request, jsonify, make_response, current_app
 from flask.ext.restless import ProcessingException
 
-from app import app
 from app.models import User
 
 
-API_ENTRY = '/api/auth'
+bp = Blueprint('auth', __name__, url_prefix='/api')
 
 
-@app.route(API_ENTRY, methods=['POST'])
+@bp.route('/auth', methods=['POST'])
 def auth():
     """
     Authenticates user.
@@ -61,7 +59,7 @@ def auth():
         return make_response('Unauthorized', 401)
 
 
-@app.route(API_ENTRY + '/email', methods=['POST'])
+@bp.route('/auth/email', methods=['POST'])
 def check_email():
     """
     Checks if email address exists.
@@ -85,7 +83,7 @@ def check_email():
         return make_response('Email already exists', 302)
 
 
-@app.route(API_ENTRY + '/username', methods=['POST'])
+@bp.route('/auth/username', methods=['POST'])
 def check_username():
     """
     Checks if username exists.

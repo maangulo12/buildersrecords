@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.api_uploads
     ~~~~~~~~~~~~~~~
@@ -11,18 +10,18 @@
         -ubuildit : /api/upload/ubuildit (POST)
 """
 
-from flask import make_response, request
+from flask import Blueprint, make_response, request
 
-from app import app, db
+from app import db
 from app.models import Project, Category, Item
 from app.utility import parse_ubuildit_file
 
 
-API_ENTRY = '/api/uploads'
+bp = Blueprint('uploads', __name__, url_prefix='/api')
 
 
 # Needs route security
-@app.route(API_ENTRY + '/ubuildit', methods=['POST'])
+@bp.route('/uploads/ubuildit', methods=['POST'])
 def ubuildit():
     """
     Uploads a UBuildIt Cost Review excel file to AWS S3.

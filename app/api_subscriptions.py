@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.api_subscriptions
     ~~~~~~~~~~~~~~~~~~~~~
@@ -9,16 +8,16 @@
 """
 
 import stripe
-from flask import request, make_response, jsonify
+from flask import Blueprint, request, make_response, jsonify
 
-from app import app, db
+from app import db
 from app.models import User
 
 
-API_ENTRY = '/api/subscriptions'
+bp = Blueprint('subscriptions', __name__, url_prefix='/api')
 
 
-@app.route(API_ENTRY, methods=['POST'])
+@bp.route('/subscriptions', methods=['POST'])
 def post_subscription():
     """
     Creates a subscription for the customer.
@@ -96,7 +95,7 @@ def post_subscription():
 
 
 # Needs route security
-@app.route(API_ENTRY + '/<stripe_id>', methods=['GET'])
+@bp.route('/subscriptions/<stripe_id>', methods=['GET'])
 def get_subscription(stripe_id):
     """
     Get customer data from Stripe.
@@ -110,10 +109,10 @@ def get_subscription(stripe_id):
 
 
 # Needs route security
-@app.route(API_ENTRY + '/<stripe_id>', methods=['PUT'])
+@bp.route('/subscriptions/<stripe_id>', methods=['PUT'])
 def put_subscription(stripe_id):
     """
-    Update customer data in Stripe.
+    Update customer billing information in Stripe.
 
     PUT: {
         stripe_id : 'stripe customer id'
