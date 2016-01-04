@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 """
     app.settings
-    ~~~~~~~~~~~~~~~~~~~~
+    ~~~~~~~~~~~~
 
-    This module contains all of the config variables of this application.
+    This module contains the config variables of this application.
 """
 
 import os
@@ -15,9 +14,10 @@ import os
 SECRET_KEY = os.environ.get('SECRET_KEY', 'secret_key')
 
 # WSGI server
-SERVER_HOST  = os.environ.get('SERVER_HOST', '0.0.0.0')
-SERVER_PORT  = int(os.environ.get('SERVER_PORT', 5555))
-SERVER_DEBUG = os.environ.get('SERVER_DEBUG', True)
+SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
+SERVER_PORT = os.environ.get('SERVER_PORT', 5555)
+DEBUG       = os.environ.get('DEBUG', True)
+TESTING     = os.environ.get('TESTING', True)
 
 # AWS
 AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY', None)
