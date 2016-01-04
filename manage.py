@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     manage.py
-    ---------------
+    ~~~~~~~~~
 
     This module is used for doing quick commands in this application.
 
