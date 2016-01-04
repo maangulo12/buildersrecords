@@ -17,13 +17,13 @@
         -Subcontractors : /api/subcontractors (GET, POST, DELETE, PUT)
 """
 
-from app import api_manager
+from app import restless
 from app.api_auth import verify_jwt
 from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, Subcontractor
 
 
 # Users: /api/users
-api_manager.create_api(User,
+restless.create_api(User,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
                        collection_name  = 'users',
@@ -38,7 +38,7 @@ api_manager.create_api(User,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Projects: /api/projects
-api_manager.create_api(Project,
+restless.create_api(Project,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
                        collection_name  = 'projects',
@@ -53,7 +53,7 @@ api_manager.create_api(Project,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Categories: /api/categories
-api_manager.create_api(Category,
+restless.create_api(Category,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
                        collection_name  = 'categories',
@@ -68,7 +68,7 @@ api_manager.create_api(Category,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Items: /api/items
-api_manager.create_api(Item,
+restless.create_api(Item,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix        = '/api',
                        collection_name   = 'items',
@@ -84,7 +84,7 @@ api_manager.create_api(Item,
                                            DELETE_MANY   = [verify_jwt]))
 
 # Expenditures: /api/expenditures
-api_manager.create_api(Expenditure,
+restless.create_api(Expenditure,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix        = '/api',
                        collection_name   = 'expenditures',
@@ -100,7 +100,7 @@ api_manager.create_api(Expenditure,
                                            DELETE_MANY   = [verify_jwt]))
 
 # Funds: /api/funds
-api_manager.create_api(Fund,
+restless.create_api(Fund,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix       = '/api',
                        collection_name  = 'funds',
@@ -115,7 +115,7 @@ api_manager.create_api(Fund,
                                           DELETE_MANY   = [verify_jwt]))
 
 # Draws: /api/draws
-api_manager.create_api(Draw,
+restless.create_api(Draw,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix        = '/api',
                        collection_name   = 'draws',
@@ -132,7 +132,7 @@ api_manager.create_api(Draw,
 
 
 # Subcontractors: /api/subcontractors
-api_manager.create_api(Subcontractor,
+restless.create_api(Subcontractor,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
                        url_prefix        = '/api',
                        collection_name   = 'subcontractors',
