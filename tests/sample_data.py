@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    sample_data.py
-    --------------
+    sample_data
+    ~~~~~~~~~~~
 
     This module is used for populating the database with sample data.
 """
@@ -20,7 +20,6 @@ FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
 def populate_db():
     app = create_app()
-    app.testing = True
     client = app.test_client()
 
     # Check if plans exist
