@@ -11,18 +11,7 @@
         python3 application.py
 """
 
-from app import create_app
-from app.settings import SERVER_HOST, SERVER_PORT
-
-
-def run_app():
-    """
-        Runs the Flask application.
-    """
-    # Create the application
-    app = create_app()
-    # Run the application
-    app.run(host=SERVER_HOST, port=SERVER_PORT)
+from app import run_app
 
 
 if __name__ == '__main__':
