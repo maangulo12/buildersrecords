@@ -6,9 +6,6 @@
 
     This module is used for doing quick commands in this application.
 
-    Extensions:
-        -Flask-Script : http://flask-script.readthedocs.org/en/latest/
-
     -Commands:
         create    : Creates all of the tables in the database.
         drop      : Drops all of the tables from the database.
@@ -27,17 +24,12 @@
 """
 
 import os
-from flask.ext.script import Manager
 from flask.ext.migrate import MigrateCommand
 
-from app import create_app, db
+from app import manager, db
 from tests.sample_data import populate_db
 
 
-# Create the application
-app = create_app()
-# Create the Manager object
-manager = Manager(app)
 # Add db command for database migrations
 manager.add_command('db', MigrateCommand)
 

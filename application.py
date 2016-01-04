@@ -11,8 +11,8 @@
         python3 application.py
 """
 
-from app import run_app
+from app import app
 
 
 if __name__ == '__main__':
-    run_app()
+    app.run(host=app.config['SERVER_HOST'], port=app.config['SERVER_PORT'])

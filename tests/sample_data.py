@@ -11,7 +11,7 @@ import random
 import stripe
 from flask import json
 
-from app import create_app
+from app import app
 from app.utility import parse_ubuildit_file, parse_invoice_file
 
 
@@ -19,7 +19,6 @@ FILE_PATH = 'tests/data/spreadsheet.xlsx'
 
 
 def populate_db():
-    app = create_app()
     client = app.test_client()
 
     # Check if plans exist

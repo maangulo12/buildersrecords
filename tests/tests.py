@@ -14,17 +14,16 @@ import stripe
 import unittest
 from flask import current_app, json
 
-from app import create_app, db
+from app import app, db
 
 
 class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         print('Setting up...')
-        self.app = create_app()
-        self.app_context = self.app.app_context()
+        self.app_context = app.app_context()
         self.app_context.push()
-        self.client = self.app.test_client()
+        self.client = app.test_client()
         db.drop_all()
         db.create_all()
 
