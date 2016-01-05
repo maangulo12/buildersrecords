@@ -16,6 +16,7 @@
         -Flask-Migrate    : http://flask-migrate.readthedocs.org/en/latest/
         -Flask-Script     : http://flask-script.readthedocs.org/en/latest/
         -Flask-Admin      : https://flask-admin.readthedocs.org/en/latest/
+        -Flask-Assets     : http://flask-assets.readthedocs.org/en/latest/
         -Stripe           : https://stripe.com/docs/api/python
 """
 
@@ -28,6 +29,7 @@ from flask_mail import Mail
 from flask.ext.migrate import Migrate
 from flask.ext.script import Manager
 from flask_admin import Admin
+from flask.ext.assets import Environment
 
 
 # Create Flask application
@@ -47,17 +49,21 @@ mail     = Mail(app)
 migrate  = Migrate(app, db)
 manager  = Manager(app)
 admin    = Admin(app, template_mode='bootstrap3')
+assets   = Environment(app)
 
 # Models
 from app import models
 
 # Views
 from app import views
-from app import api_auth
-from app import api_email
-from app import api_subscriptions
-from app import api_uploads
 app.register_blueprint(views.bp)
+
+# API
+from app.api import api_auth
+from app.api import api_email
+from app.api import api_subscriptions
+from app.api import api_uploads
+from app.api import api_models
 app.register_blueprint(api_auth.bp)
 app.register_blueprint(api_email.bp)
 app.register_blueprint(api_subscriptions.bp)
@@ -65,6 +71,3 @@ app.register_blueprint(api_uploads.bp)
 
 # Admin
 from app import admin
-
-# Restless
-from app import api_models
