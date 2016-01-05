@@ -18,7 +18,7 @@
 """
 
 from app import restless
-from app.api_auth import verify_jwt
+from app.auth import verify_jwt
 from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, Subcontractor
 
 
