@@ -56,7 +56,6 @@ from app import models
 
 # Views
 from app import views
-app.register_blueprint(views.bp)
 
 # API
 from app.api import api_auth
@@ -64,10 +63,6 @@ from app.api import api_email
 from app.api import api_subscriptions
 from app.api import api_uploads
 from app.api import api_models
-app.register_blueprint(api_auth.bp)
-app.register_blueprint(api_email.bp)
-app.register_blueprint(api_subscriptions.bp)
-app.register_blueprint(api_uploads.bp)
 
 # Admin
 from app import admin

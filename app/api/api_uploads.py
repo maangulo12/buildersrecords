@@ -12,7 +12,7 @@
 
 from flask import Blueprint, make_response, request
 
-from app import db
+from app import app, db
 from app.models import Project, Category, Item
 from app.utility import parse_ubuildit_file
 
@@ -97,3 +97,6 @@ def ubuildit():
 
     except:
         return make_response('The file could not be read', 400)
+
+
+app.register_blueprint(bp)

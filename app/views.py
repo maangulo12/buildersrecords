@@ -8,7 +8,7 @@
 """
 
 from flask import Blueprint, make_response, render_template
-
+from app import app
 
 bp = Blueprint('views', __name__)
 
@@ -22,3 +22,6 @@ def catch_all(url):
 @bp.errorhandler(404)
 def page_not_found(e):
     return make_response(open('app/templates/error/404_error.html').read())
+
+
+app.register_blueprint(bp)

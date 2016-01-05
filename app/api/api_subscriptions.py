@@ -10,7 +10,7 @@
 import stripe
 from flask import Blueprint, request, make_response, jsonify
 
-from app import db
+from app import app, db
 from app.models import User
 
 
@@ -165,3 +165,6 @@ def put_subscription(stripe_id):
     except Exception:
         print('ERROR 404: Error')
         return make_response('Error', 400)
+
+
+app.register_blueprint(bp)

@@ -15,6 +15,7 @@
 import jwt
 from flask import Blueprint, request, jsonify, make_response, current_app
 
+from app import app
 from app.models import User
 
 
@@ -104,3 +105,6 @@ def check_username():
         return make_response('Valid username', 200)
     else:
         return make_response('Username already exists', 302)
+
+
+app.register_blueprint(bp)

@@ -13,6 +13,7 @@
 from flask import Blueprint, make_response, render_template, request
 from flask_mail import Message
 
+from app import app
 from app import mail
 
 
@@ -44,3 +45,6 @@ def registration():
     msg.html = render_template('email/registration.html', username=username)
     # mail.send(msg)
     return make_response('Success! Registration email was sent', 201)
+
+
+app.register_blueprint(bp)
