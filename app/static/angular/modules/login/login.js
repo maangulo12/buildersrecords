@@ -1,35 +1,46 @@
-var app = angular.module('app.login', []);
+(function() {
+    'use strict';
 
-app.config(function($stateProvider) {
-    $stateProvider.state('login', {
-        url: '/login',
-        views: {
-            'nav': {
-                templateUrl: 'static/angular/components/navs/nav1.html'
-            },
-            'body': {
-                templateUrl: 'static/angular/modules/login/login.html',
-                controller: 'LoginController'
+    angular
+        .module('app.login', [])
+        .config(config);
+
+    function config($stateProvider) {
+        $stateProvider
+            .state('login', {
+                url: '/login',
+                views: {
+                    'nav': {
+                        templateUrl: 'static/angular/components/navs/nav1.html'
+                    },
+                    'body': {
+                        templateUrl: 'static/angular/modules/login/login.html',
+                        controller: Login
+                    }
+                }
+            });
+    }
+
+    Login.$inject = ['$scope', 'store', '$state', 'Auth', 'Utility'];
+
+    function Login($scope, store, $state, Auth, Utility) {
+        store.remove('jwt');
+
+        $scope.logIn = function() {
+            var btn = $('#login_button').button('loading');
+            Auth.authenticate($scope.login)
+                .then(responseHandler)
+                .catch(errorHandler);
+            function responseHandler(response) {
+                Utility.storeToken(response);
+                $state.go('projects');
+            }
+            function errorHandler(response) {
+                $scope.login_form.$invalid = true;
+                $scope.login_form.$submitted = true;
+                $scope.login.password = '';
+                btn.button('reset');
             }
         }
-    });
-});
-
-app.controller('LoginController', function($scope, store, $state, Auth, Utility) {
-    store.remove('jwt');
-
-    $scope.logIn = function() {
-        var btn = $('#login_button').button('loading');
-        Auth.authenticate($scope.login).then(responseHandler, errorHandler);
-        function responseHandler(response) {
-            Utility.storeToken(response);
-            $state.go('projects');
-        }
-        function errorHandler(response) {
-            $scope.login_form.$invalid = true;
-            $scope.login_form.$submitted = true;
-            $scope.login.password = '';
-            btn.button('reset');
-        }
     }
-});
+})();

@@ -36,7 +36,8 @@
                                type="text"
                                placeholder="Username or Email Address"
                                ng-model="login.username"
-                               required>
+                               required
+                               autofocus>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
                               ng-if="(login_form.username.$dirty ||
                                      login_form.$submitted) &&
