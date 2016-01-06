@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app.login', [])
+        .module('app.login')
         .config(config);
 
     function config($stateProvider) {
@@ -17,6 +17,6 @@
                     controller: 'LoginController'
                 }
             }
-        });            
+        });
     }
 })();
