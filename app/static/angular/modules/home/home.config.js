@@ -10,11 +10,12 @@
             url: '/',
             views: {
                 'nav': {
-                    templateUrl: 'static/angular/components/navs/nav1.html'
+                    templateUrl: 'static/angular/partials/navs/nav1.html'
                 },
                 'body': {
                     templateUrl: 'static/angular/modules/home/home.html',
-                    controller: 'HomeController'
+                    controller: 'HomeController',
+                    controllerAs: 'vm'
                 }
             }
         });

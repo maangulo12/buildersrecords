@@ -8,6 +8,7 @@
     HomeController.$inject = ['store'];
 
     function HomeController(store) {
+        var vm = this;
         store.remove('jwt');
     }
 })();
