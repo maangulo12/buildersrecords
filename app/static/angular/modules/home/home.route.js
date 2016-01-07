@@ -3,9 +3,9 @@
 
     angular
         .module('app.home')
-        .config(config);
+        .config(route);
 
-    function config($stateProvider) {
+    function route($stateProvider) {
         $stateProvider.state('home', {
             url: '/',
             views: {
@@ -13,8 +13,8 @@
                     templateUrl: 'static/angular/partials/navs/nav1.html'
                 },
                 'body': {
-                    templateUrl: 'static/angular/modules/home/home.html',
-                    controller: 'HomeController',
+                    templateUrl:  'static/angular/modules/home/home.html',
+                    controller:   'HomeController',
                     controllerAs: 'vm'
                 }
             }
