@@ -35,7 +35,7 @@
                                name="username"
                                type="text"
                                placeholder="Username or Email Address"
-                               ng-model="login.username"
+                               ng-model="vm.username"
                                required
                                autofocus>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -57,7 +57,7 @@
                                name="password"
                                type="password"
                                placeholder="Password"
-                               ng-model="login.password"
+                               ng-model="vm.password"
                                required>
                         <span class="glyphicon glyphicon-remove form-control-feedback"
                               ng-if="(login_form.password.$dirty ||
