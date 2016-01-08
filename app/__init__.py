@@ -58,7 +58,7 @@ from app import models
 from app import views
 
 # API
-from app.api import api_auth
+from app.api import auth
 from app.api import api_email
 from app.api import api_subscriptions
 from app.api import api_uploads

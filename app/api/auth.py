@@ -1,33 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    app.api.api_auth
-    ~~~~~~~~~~~~~~~~
+    app.api.auth
+    ~~~~~~~~~~~~
 
-    This API is used for authenticating users.
+    This API is used for authentication.
 
-    Current APIs:
+    Current endpoints:
         -auth     : /api/auth          (POST)
         -email    : /api/auth/email    (POST)
         -username : /api/auth/username (POST)
 """
 
 import jwt
-from flask import Blueprint, request, jsonify, make_response, current_app
+from flask import request, jsonify, make_response
 
 from app import app
 from app.models import User
 
 
-bp = Blueprint('auth', __name__, url_prefix='/api')
+URL = '/api/auth'
 
 
-@bp.route('/auth', methods=['POST'])
-def auth():
+@app.route(URL, methods=['POST'])
+def authentication():
     """
-    Authenticates user.
+    Authenticates a user and sends a token.
 
-    POST: {
+    Request Example:
+    POST
+    {
         login    : 'username' or 'email address'
         password : 'password'
     }
@@ -52,19 +54,21 @@ def auth():
             user_id=user.id,
             stripe_id=user.stripe_id
             ),
-            current_app.config['AUTH_SECRET']
+            app.config['AUTH_SECRET']
         )
-        return make_response(jsonify(token=token.decode('utf-8')), 200)
+        return make_response(jsonify(token=token), 200)
     else:
-        return make_response('Unauthorized', 401)
+        return make_response('Unathenticated', 401)
 
 
-@bp.route('/auth/email', methods=['POST'])
-def check_email():
+@app.route(URL + '/email', methods=['POST'])
+def verify_email():
     """
-    Checks if email address exists.
+    Verifies if email address already exists.
 
-    POST: {
+    Request Example:
+    POST
+    {
         email : 'email address'
     }
     """
@@ -78,17 +82,19 @@ def check_email():
     user = User.query.filter_by(email=email).first()
 
     if user is None:
-        return make_response('Valid email', 200)
+        return make_response('Valid email address', 200)
     else:
-        return make_response('Email already exists', 302)
+        return make_response('Email address already exists', 302)
 
 
-@bp.route('/auth/username', methods=['POST'])
-def check_username():
+@app.route(URL + '/username', methods=['POST'])
+def verify_username():
     """
-    Checks if username exists.
+    Verifies if username already exists.
 
-    POST: {
+    Request Example:
+    POST
+    {
         username : 'username'
     }
     """
@@ -105,6 +111,3 @@ def check_username():
         return make_response('Valid username', 200)
     else:
         return make_response('Username already exists', 302)
-
-
-app.register_blueprint(bp)
