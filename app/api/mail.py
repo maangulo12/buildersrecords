@@ -17,11 +17,11 @@ from app import app, mail
 from app.models import User
 
 
-url = '/api/mail'
+URL = '/api/mail'
 
 
 # Needs route security
-@app.route(url + '/registration', methods=['POST'])
+@app.route(URL + '/registration', methods=['POST'])
 def registration():
     """
     Sends registration email to user.
