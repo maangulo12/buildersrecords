@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    app.api_models
+    app.api.models
     ~~~~~~~~~~~~~~
 
     This module is used for accessing the models.
