@@ -22,13 +22,13 @@ from app.auth import verify_jwt
 from app.models import User, Project, Category, Item, Expenditure, Fund, Draw, Subcontractor
 
 
-url = '/api'
+URL = '/api'
 
 
 # Users: /api/users
 restless.create_api(User,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix       = url,
+                       url_prefix       = URL,
                        collection_name  = 'users',
                        results_per_page = 0,
                        preprocessors    = dict(
@@ -43,7 +43,7 @@ restless.create_api(User,
 # Projects: /api/projects
 restless.create_api(Project,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix       = url,
+                       url_prefix       = URL,
                        collection_name  = 'projects',
                        results_per_page = 0,
                        preprocessors    = dict(
@@ -58,7 +58,7 @@ restless.create_api(Project,
 # Categories: /api/categories
 restless.create_api(Category,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix       = url,
+                       url_prefix       = URL,
                        collection_name  = 'categories',
                        results_per_page = 0,
                        preprocessors    = dict(
@@ -73,7 +73,7 @@ restless.create_api(Category,
 # Items: /api/items
 restless.create_api(Item,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix        = url,
+                       url_prefix        = URL,
                        collection_name   = 'items',
                        results_per_page  = 0,
                        allow_delete_many = True,
@@ -89,7 +89,7 @@ restless.create_api(Item,
 # Expenditures: /api/expenditures
 restless.create_api(Expenditure,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix        = url,
+                       url_prefix        = URL,
                        collection_name   = 'expenditures',
                        results_per_page  = 0,
                        allow_delete_many = True,
@@ -105,7 +105,7 @@ restless.create_api(Expenditure,
 # Funds: /api/funds
 restless.create_api(Fund,
                        methods          = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix       = url,
+                       url_prefix       = URL,
                        collection_name  = 'funds',
                        results_per_page = 0,
                        preprocessors    = dict(
@@ -120,7 +120,7 @@ restless.create_api(Fund,
 # Draws: /api/draws
 restless.create_api(Draw,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix        = url,
+                       url_prefix        = URL,
                        collection_name   = 'draws',
                        results_per_page  = 0,
                        allow_delete_many = True,
