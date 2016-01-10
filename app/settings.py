@@ -17,7 +17,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'secret_key')
 SERVER_HOST = os.environ.get('SERVER_HOST', '0.0.0.0')
 SERVER_PORT = os.environ.get('SERVER_PORT', 5555)
 DEBUG       = os.environ.get('DEBUG', True)
-TESTING     = os.environ.get('TESTING', True)
+TESTING     = os.environ.get('TESTING', False) # Change this for mail testing
 
 # AWS
 AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY', None)
@@ -40,9 +40,8 @@ AUTH_SECRET        = os.environ.get('AUTH_SECRET', 'secret')
 MAIL_SERVER         = 'smtp.gmail.com'
 MAIL_PORT           = 465
 MAIL_USE_SSL        = True
-MAIL_DEBUG          = True
-MAIL_USERNAME       = os.environ.get('MAIL_USERNAME', 'email@gmail.com')
-MAIL_PASSWORD       = os.environ.get('MAIL_PASSWORD' 'password')
+MAIL_USERNAME       = os.environ.get('MAIL_USERNAME', 'buildersrecords.app@gmail.com') # change this for mail testing
+MAIL_PASSWORD       = os.environ.get('MAIL_PASSWORD' 'buildersrecords123') # change this for mail testing
 MAIL_DEFAULT_SENDER = ('BuildersRecords', MAIL_USERNAME)
 
 # Database
