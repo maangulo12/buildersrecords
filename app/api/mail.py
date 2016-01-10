@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
     app.api.mail
-    ~~~~~~~~~~~~~
+    ~~~~~~~~~~~~
 
     This API is used for sending emails.
 
