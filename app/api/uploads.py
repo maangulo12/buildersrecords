@@ -1,32 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    app.api_uploads
+    app.api.uploads
     ~~~~~~~~~~~~~~~
 
-    This module is used for uploading files.
+    This API is used for uploading files.
 
     Current APIs:
         -ubuildit : /api/upload/ubuildit (POST)
 """
 
-from flask import Blueprint, make_response, request
+from flask import request, make_response
 
 from app import app, db
 from app.models import Project, Category, Item
 from app.utility import parse_ubuildit_file
 
 
-bp = Blueprint('uploads', __name__, url_prefix='/api')
+URL = '/api/uploads'
 
 
 # Needs route security
-@bp.route('/uploads/ubuildit', methods=['POST'])
+@app.route(URL + '/ubuildit', methods=['POST'])
 def ubuildit():
     """
-    Uploads a UBuildIt Cost Review excel file to AWS S3.
+    Uploads a UBuildIt Cost Review excel file.
 
-    POST: {
+    Request Example:
+    POST
+    {
         file         : 'file' (FileStorage object)
         name         : 'name'
         address      : 'address'
@@ -93,10 +95,6 @@ def ubuildit():
                 db.session.add(item)
                 db.session.commit()
 
-        return make_response('Success! The file was uploaded', 201)
-
+        return make_response('The file was successfully uploaded', 201)
     except:
         return make_response('The file could not be read', 400)
-
-
-app.register_blueprint(bp)
