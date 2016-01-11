@@ -1,28 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-    app.api_subscriptions
+    app.api.subscriptions
     ~~~~~~~~~~~~~~~~~~~~~
 
-    This module is used for subscriptions.
+    This API is used for subscriptions.
 """
 
 import stripe
-from flask import Blueprint, request, make_response, jsonify
+from flask import request, make_response, jsonify
 
 from app import app, db
 from app.models import User
 
 
-bp = Blueprint('subscriptions', __name__, url_prefix='/api')
+URL = '/api/subscriptions'
 
 
-@bp.route('/subscriptions', methods=['POST'])
+@app.route(URL, methods=['POST'])
 def post_subscription():
     """
-    Creates a subscription for the customer.
+    Creates a subscription for the user.
 
-    POST: {
+    Example Request:
+    POST
+    {
         email    : 'email address'
         username : 'username'
         password : 'password'
@@ -30,7 +32,7 @@ def post_subscription():
         token_id : 'stripe card token id'
     }
     """
-    data = request.get_json(force=True)
+    data      = request.get_json(force=True)
     email     = data.get('email', None)
     username  = data.get('username', None)
     password  = data.get('password', None)
@@ -95,10 +97,10 @@ def post_subscription():
 
 
 # Needs route security
-@bp.route('/subscriptions/<stripe_id>', methods=['GET'])
+@app.route(URL + '/<stripe_id>', methods=['GET'])
 def get_subscription(stripe_id):
     """
-    Get customer data from Stripe.
+    Get user data from Stripe.
     """
     customer = stripe.Customer.retrieve(stripe_id)
 
@@ -109,17 +111,17 @@ def get_subscription(stripe_id):
 
 
 # Needs route security
-@bp.route('/subscriptions/<stripe_id>', methods=['PUT'])
+@app.route(URL + '/<stripe_id>', methods=['PUT'])
 def put_subscription(stripe_id):
     """
-    Update customer billing information in Stripe.
+    Update user billing information in Stripe.
 
     PUT: {
         stripe_id : 'stripe customer id'
         token_id  : 'stripe card token id'
     }
     """
-    data = request.get_json(force=True)
+    data      = request.get_json(force=True)
     stripe_id = data.get('stripe_id', None)
     token_id  = data.get('token_id', None)
     criterion = [stripe_id, token_id, len(data) == 2]
@@ -165,6 +167,3 @@ def put_subscription(stripe_id):
     except Exception:
         print('ERROR 404: Error')
         return make_response('Error', 400)
-
-
-app.register_blueprint(bp)
