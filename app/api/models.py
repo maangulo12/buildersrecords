@@ -137,7 +137,7 @@ restless.create_api(Draw,
 # Subcontractors: /api/subcontractors
 restless.create_api(Subcontractor,
                        methods           = ['GET', 'POST', 'DELETE', 'PUT'],
-                       url_prefix        = url,
+                       url_prefix        = URL,
                        collection_name   = 'subcontractors',
                        results_per_page  = 0,
                        allow_delete_many = True,
