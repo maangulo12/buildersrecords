@@ -22,7 +22,7 @@ def post_subscription():
     """
     Creates a subscription for the user.
 
-    Example Request:
+    Request Example:
     POST
     {
         email    : 'email address'
@@ -116,7 +116,9 @@ def put_subscription(stripe_id):
     """
     Update user billing information in Stripe.
 
-    PUT: {
+    Request Example:
+    PUT
+    {
         stripe_id : 'stripe customer id'
         token_id  : 'stripe card token id'
     }
